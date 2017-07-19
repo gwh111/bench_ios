@@ -15,6 +15,9 @@
 		18B6BD0B1F1F09CA0019391D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18B6BD091F1F09CA0019391D /* LaunchScreen.storyboard */; };
 		18B6BD161F1F09CA0019391D /* bench_iosTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B6BD151F1F09CA0019391D /* bench_iosTests.m */; };
 		18B6BD211F1F09CA0019391D /* bench_iosUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B6BD201F1F09CA0019391D /* bench_iosUITests.m */; };
+		18B6BD351F1F143E0019391D /* CC_FormatDic.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B6BD301F1F143E0019391D /* CC_FormatDic.m */; };
+		18B6BD361F1F143E0019391D /* CC_GHttpSessionTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B6BD321F1F143E0019391D /* CC_GHttpSessionTask.m */; };
+		18B6BD371F1F143E0019391D /* CC_MD5Object.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B6BD341F1F143E0019391D /* CC_MD5Object.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +54,12 @@
 		18B6BD1C1F1F09CA0019391D /* bench_iosUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = bench_iosUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		18B6BD201F1F09CA0019391D /* bench_iosUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = bench_iosUITests.m; sourceTree = "<group>"; };
 		18B6BD221F1F09CA0019391D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		18B6BD2F1F1F143E0019391D /* CC_FormatDic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_FormatDic.h; sourceTree = "<group>"; };
+		18B6BD301F1F143E0019391D /* CC_FormatDic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC_FormatDic.m; sourceTree = "<group>"; };
+		18B6BD311F1F143E0019391D /* CC_GHttpSessionTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_GHttpSessionTask.h; sourceTree = "<group>"; };
+		18B6BD321F1F143E0019391D /* CC_GHttpSessionTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC_GHttpSessionTask.m; sourceTree = "<group>"; };
+		18B6BD331F1F143E0019391D /* CC_MD5Object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_MD5Object.h; sourceTree = "<group>"; };
+		18B6BD341F1F143E0019391D /* CC_MD5Object.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC_MD5Object.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +114,7 @@
 				18B6BCFF1F1F09CA0019391D /* AppDelegate.m */,
 				18B6BD011F1F09CA0019391D /* ViewController.h */,
 				18B6BD021F1F09CA0019391D /* ViewController.m */,
+				18B6BD2E1F1F143E0019391D /* bench */,
 				18B6BD041F1F09CA0019391D /* Main.storyboard */,
 				18B6BD071F1F09CA0019391D /* Assets.xcassets */,
 				18B6BD091F1F09CA0019391D /* LaunchScreen.storyboard */,
@@ -138,6 +148,19 @@
 				18B6BD221F1F09CA0019391D /* Info.plist */,
 			);
 			path = bench_iosUITests;
+			sourceTree = "<group>";
+		};
+		18B6BD2E1F1F143E0019391D /* bench */ = {
+			isa = PBXGroup;
+			children = (
+				18B6BD2F1F1F143E0019391D /* CC_FormatDic.h */,
+				18B6BD301F1F143E0019391D /* CC_FormatDic.m */,
+				18B6BD311F1F143E0019391D /* CC_GHttpSessionTask.h */,
+				18B6BD321F1F143E0019391D /* CC_GHttpSessionTask.m */,
+				18B6BD331F1F143E0019391D /* CC_MD5Object.h */,
+				18B6BD341F1F143E0019391D /* CC_MD5Object.m */,
+			);
+			path = bench;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -274,8 +297,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				18B6BD031F1F09CA0019391D /* ViewController.m in Sources */,
+				18B6BD361F1F143E0019391D /* CC_GHttpSessionTask.m in Sources */,
 				18B6BD001F1F09CA0019391D /* AppDelegate.m in Sources */,
 				18B6BCFD1F1F09CA0019391D /* main.m in Sources */,
+				18B6BD351F1F143E0019391D /* CC_FormatDic.m in Sources */,
+				18B6BD371F1F143E0019391D /* CC_MD5Object.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -507,6 +533,7 @@
 				18B6BD271F1F09CA0019391D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		18B6BD281F1F09CA0019391D /* Build configuration list for PBXNativeTarget "bench_iosTests" */ = {
 			isa = XCConfigurationList;
@@ -515,6 +542,7 @@
 				18B6BD2A1F1F09CA0019391D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		18B6BD2B1F1F09CA0019391D /* Build configuration list for PBXNativeTarget "bench_iosUITests" */ = {
 			isa = XCConfigurationList;
@@ -523,6 +551,7 @@
 				18B6BD2D1F1F09CA0019391D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

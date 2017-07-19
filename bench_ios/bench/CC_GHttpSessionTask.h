@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SBJson.h"
 
 @interface CC_GHttpSessionTask : NSObject<NSURLSessionDelegate>{
     NSMutableData *resultData; // 存放请求结果
