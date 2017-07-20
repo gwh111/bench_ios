@@ -90,7 +90,7 @@
                                                   error: nil];
                 NSString *service=[paramsDic objectForKey:@"service"];
                 NSLog(@"JSON_service=%@%@",service,JSON);
-#warning set
+
                 //对于sp的double类型精度丢失的问题 使用sbjson来解析
 //                if ([service isEqualToString:@""]) {
 //                    SBJsonParser *jsonParser = [[SBJsonParser alloc] init];
