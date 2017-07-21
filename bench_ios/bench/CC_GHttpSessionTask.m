@@ -8,19 +8,19 @@
 
 #import "CC_GHttpSessionTask.h"
 #import "CC_FormatDic.h"
+#import "CC_Share.h"
 
 @implementation CC_GHttpSessionTask
-@synthesize resultData,finishCallbackBlock;
+@synthesize finishCallbackBlock;
 
-+ (void)postSessionWithJsonUrl:(NSURL *)url ParamterStr:(NSMutableDictionary *)paramsDic Info:(id)info FinishCallbackBlock:(void (^)(NSDictionary *, NSString *))block{
++ (void)postSessionWithJsonUrl:(NSURL *)url ParamterStr:(NSMutableDictionary *)paramsDic Info:(id)info FinishCallbackBlock:(void (^)(NSDictionary *, NSString *, NSString *))block{
     CC_GHttpSessionTask *executorDelegate = [[CC_GHttpSessionTask alloc] init];
     executorDelegate.finishCallbackBlock = block; // 绑定执行完成时的block
     
 //    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
     NSURLSession  *session = [NSURLSession sessionWithConfiguration:sessionConfig delegate:executorDelegate delegateQueue:nil];
-#warning md5key set
-//    paraDic=paramsDic;
+
     NSError *error = nil;
     
     //时间转时间戳的方法:
@@ -34,11 +34,10 @@
     NSDictionary *diccc=[[NSDictionary alloc]initWithDictionary:paramsDic];
     NSData *data = [NSJSONSerialization dataWithJSONObject:diccc options:NSJSONWritingPrettyPrinted error:&error];
     
-//    NSString *signKey = [UserStateManager shareInstance].user_signKey?[UserStateManager shareInstance].user_signKey:nil;
-//    if (info) {
-//        signKey = info;
-//    }
     NSString *signKey = info;
+    if ([CC_Share shareInstance].user_signKey) {
+        signKey=[CC_Share shareInstance].user_signKey;
+    }
     NSString *paraString=[CC_FormatDic getSignFormatStringWithDic:paramsDic andMD5Key:signKey];
     
     NSLog(@"GhttpUrl=:%@?%@",paraString,paramsDic);
@@ -47,7 +46,7 @@
         dispatch_sync(dispatch_get_main_queue(), ^{
             
             if (error) {
-//                [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+                
                 if (executorDelegate.finishCallbackBlock) { // 如果设置了回调的block，直接调用
                     if (error) {
                         
@@ -59,7 +58,7 @@
                         //            }else{
                         //                errorString=[NSString stringWithFormat:@"网络有问题或服务器开小差了~稍后再试吧（%ld）",error.code];
                         //            }
-                        executorDelegate.finishCallbackBlock(nil,errorString);
+                        executorDelegate.finishCallbackBlock(nil,nil,errorString);
                         executorDelegate.finishCallbackBlock=nil;
                     }
                 }
@@ -67,7 +66,6 @@
             }
             
             //成功获取
-//            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
             //判断回调的数据是否为空
             //判断回调的数据格式是否正确
             //判断签名是否正确
@@ -98,41 +96,37 @@
 //                }
                 if (JSON) {
                     if ([[[JSON objectForKey:@"response"] objectForKey:@"success"]intValue]==1) {
-                        executorDelegate.finishCallbackBlock(JSON,nil);
+                        executorDelegate.finishCallbackBlock(JSON,resultString,nil);
                         executorDelegate.finishCallbackBlock=nil;
                     }else
                     {
                         if ([[[[JSON objectForKey:@"response"]objectForKey:@"error"]objectForKey:@"name"]isEqualToString:@"LOGIN_EXPIRED"]) {
-                            executorDelegate.finishCallbackBlock(nil,[error description]);
+                            executorDelegate.finishCallbackBlock(nil,resultString,[error description]);
                             executorDelegate.finishCallbackBlock=nil;
                             
-//                            [[CC_CodeLib getRootNav]popToRootViewControllerAnimated:YES];
-//                            [[LiveListViewController shareInstance]onMyForceOfflineWithText:nil];
-//                            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_PRESENT_LOGINVC object:nil];
+                            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_LOGIN_EXPIRED object:nil];
                             
                             
                         }else if ([[[[JSON objectForKey:@"response"]objectForKey:@"error"]objectForKey:@"name"] isEqualToString:@"USER_LOGIN_FORBID"]){
-                            executorDelegate.finishCallbackBlock(nil,nil);
+                            executorDelegate.finishCallbackBlock(nil,nil,nil);
                             executorDelegate.finishCallbackBlock=nil;
                             NSLog(@"禁止登录了");
-                            NSDictionary *resonseDic = [JSON objectForKey:@"response"];
-                            NSString* jumpLogin = [resonseDic objectForKey:@"jumpLogin"];
-                            NSDictionary *jumpLoginDic = [NSDictionary dictionaryWithObject:jumpLogin forKey:@"jumpLogin"];
-                            [[NSNotificationCenter defaultCenter] postNotificationName:@"ForbidLogin" object:jumpLoginDic];
+                            
+                            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_USER_LOGIN_FORBID object:JSON];
                         }else if ([[[JSON objectForKey:@"response"]objectForKey:@"jumpLogin"] boolValue]){
-                            executorDelegate.finishCallbackBlock(nil,nil);
+                            executorDelegate.finishCallbackBlock(nil,nil,nil);
                             executorDelegate.finishCallbackBlock=nil;
                             NSLog(@"弹出登录页（jumpLogin=1）");
-//                            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_PRESENT_LOGINVC object:nil];
+                            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_jumpLogin object:nil];
                         }
                         else{
                             if ([JSON objectForKey:@"response"]) {
-                                executorDelegate.finishCallbackBlock(JSON,[NSString stringWithFormat:@"%@",[[[JSON objectForKey:@"response"]objectForKey:@"error"]objectForKey:@"message"]]);
+                                executorDelegate.finishCallbackBlock(JSON,resultString,[NSString stringWithFormat:@"%@",[[[JSON objectForKey:@"response"]objectForKey:@"error"]objectForKey:@"message"]]);
                                 executorDelegate.finishCallbackBlock=nil;
                             }
                             else
                             {
-                                executorDelegate.finishCallbackBlock(JSON ,nil);
+                                executorDelegate.finishCallbackBlock(JSON,resultString,nil);
                                 executorDelegate.finishCallbackBlock=nil;
                             }
                         }
@@ -140,7 +134,7 @@
                     }
                     
                 }else{
-                    executorDelegate.finishCallbackBlock(nil,@"网络有问题或服务器开小差了~稍后再试吧");
+                    executorDelegate.finishCallbackBlock(nil,nil,@"网络有问题或服务器开小差了~稍后再试吧");
                     executorDelegate.finishCallbackBlock=nil;
                 }
             }
@@ -156,22 +150,10 @@
 //创建request
 + (NSURLRequest *)postRequestWithUrl:(NSURL *)url andParamters:(NSString *)paramsString data:(NSData *)data{
     
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-    
-    [request setHTTPMethod:@"POST"];
+    NSMutableURLRequest *request = [CC_Share shareInstance].httpRequest;
+    request.URL=url;
     request.HTTPBody = [paramsString dataUsingEncoding:NSUTF8StringEncoding];
-//    request.HTTPBody=data;
-    [request setTimeoutInterval:20];
-    NSLog(@"GhttpUrl=:%@?%@",url,paramsString);
-    //设置请求头
-#warning appName,appUserAgent
-    [request setValue:@"live-iphone" forHTTPHeaderField:@"appName"];
-    [request setValue:[NSString stringWithFormat:@"%@",[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]] forHTTPHeaderField:@"appVersion"];
-    
-//    [request setValue:[NSString stringWithFormat:@"IOS_VERSION%fSCREEN_HEIGHT%d",IOS_VERSION,(int)SCREEN_HEIGHT] forHTTPHeaderField:@"appUserAgent"];
-//    [request setValue:@"gzip,deflate" forHTTPHeaderField:@"Accept-Encoding"];
-    //[request setAllHTTPHeaderFields:nil];
-    //    NSLog(@"header=%@",[request allHTTPHeaderFields]);
+
     return request;
 }
 
