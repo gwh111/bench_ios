@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CC_GHttpSessionTask.h"
 
 #define NOTIFICATION_LOGIN_EXPIRED @"NOTIFICATION_LOGIN_EXPIRED"
 #define NOTIFICATION_USER_LOGIN_FORBID @"NOTIFICATION_USER_LOGIN_FORBID"
