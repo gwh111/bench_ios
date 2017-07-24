@@ -51,8 +51,8 @@
                     if (error) {
                         
                         NSString *errorString=[error description];
-                        NSLog(@"network error=%@ code=%ld",errorString,error.code);
-                        errorString=[NSString stringWithFormat:@"网络有问题或服务器开小差了~稍后再试吧（%ld）",error.code];
+                        NSLog(@"network error=%@ code=%d",errorString,(int)error.code);
+                        errorString=[NSString stringWithFormat:@"网络有问题或服务器开小差了~稍后再试吧（%d）",(int)error.code];
                         //            if (error.code==-1001) {
                         //                errorString=@"请求超时";
                         //            }else{
