@@ -22,6 +22,11 @@
 + (instancetype)shareInstance;
 
 /** 
+ * 设置 登陆后的 md5 key
+ */
+- (void)setUserSignKey:(NSString *)signKey;
+
+/** 
  * set HTTPHeaderField
  * 常规配置
  * appName app名称

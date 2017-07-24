@@ -20,8 +20,14 @@ static dispatch_once_t onceToken;
     return userManager;
 }
 
+- (void)setUserSignKey:(NSString *)signKey{
+    _user_signKey=signKey;
+}
+
 - (void)setHttpRequestWithAppName:(NSString *)appName andHTTPMethod:(NSString *)HTTPMethod andTimeoutInterval:(NSTimeInterval)timeOut{
-    
+    if (!_httpRequest) {
+        _httpRequest=[[NSMutableURLRequest alloc]init];
+    }
     [_httpRequest setHTTPMethod:HTTPMethod];
     [_httpRequest setTimeoutInterval:timeOut];
     //设置请求头
@@ -30,6 +36,9 @@ static dispatch_once_t onceToken;
 }
 
 - (void)setHttpRequest:(NSMutableURLRequest *)request{
+    if (!_httpRequest) {
+        _httpRequest=[[NSMutableURLRequest alloc]init];
+    }
     _httpRequest=request;
 }
 

@@ -17,10 +17,9 @@
     CC_GHttpSessionTask *executorDelegate = [[CC_GHttpSessionTask alloc] init];
     executorDelegate.finishCallbackBlock = block; // 绑定执行完成时的block
     
-//    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
     NSURLSession  *session = [NSURLSession sessionWithConfiguration:sessionConfig delegate:executorDelegate delegateQueue:nil];
-
+    
     NSError *error = nil;
     
     //时间转时间戳的方法:
@@ -43,6 +42,7 @@
     NSLog(@"GhttpUrl=:%@?%@",paraString,paramsDic);
     NSURLSessionDownloadTask *mytask=[session downloadTaskWithRequest:[self postRequestWithUrl:url andParamters:paraString data:data] completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         
+        [session finishTasksAndInvalidate];
         dispatch_sync(dispatch_get_main_queue(), ^{
             
             if (error) {
@@ -82,18 +82,21 @@
                 
                 NSData *data = [resultString dataUsingEncoding:NSUTF8StringEncoding];
                 
-                NSDictionary *JSON =
-                [NSJSONSerialization JSONObjectWithData: data
-                                                options: NSJSONReadingMutableLeaves
-                                                  error: nil];
-                NSString *service=[paramsDic objectForKey:@"service"];
-                NSLog(@"JSON_service=%@%@",service,JSON);
-
+                NSDictionary *JSON;
+                if (data) {
+                    JSON=
+                    [NSJSONSerialization JSONObjectWithData: data
+                                                    options: NSJSONReadingMutableLeaves
+                                                      error: nil];
+                    NSString *service=[paramsDic objectForKey:@"service"];
+                    NSLog(@"JSON_service=%@%@",service,JSON);
+                }
+                
                 //对于sp的double类型精度丢失的问题 使用sbjson来解析
-//                if ([service isEqualToString:@""]) {
-//                    SBJsonParser *jsonParser = [[SBJsonParser alloc] init];
-//                    JSON = [jsonParser objectWithString:resultString];
-//                }
+                //                if ([service isEqualToString:@""]) {
+                //                    SBJsonParser *jsonParser = [[SBJsonParser alloc] init];
+                //                    JSON = [jsonParser objectWithString:resultString];
+                //                }
                 if (JSON) {
                     if ([[[JSON objectForKey:@"response"] objectForKey:@"success"]intValue]==1) {
                         executorDelegate.finishCallbackBlock(JSON,resultString,nil);
@@ -153,7 +156,7 @@
     NSMutableURLRequest *request = [CC_Share shareInstance].httpRequest;
     request.URL=url;
     request.HTTPBody = [paramsString dataUsingEncoding:NSUTF8StringEncoding];
-
+    
     return request;
 }
 
