@@ -24,6 +24,7 @@
 		D8195F541F29CEEF00C7BADD /* CC_Valiation.m in Sources */ = {isa = PBXBuildFile; fileRef = D8195F531F29CEEF00C7BADD /* CC_Valiation.m */; };
 		D8195F5A1F29D00E00C7BADD /* CC_Image.m in Sources */ = {isa = PBXBuildFile; fileRef = D8195F591F29D00E00C7BADD /* CC_Image.m */; };
 		D8195F6D1F2B4BEA00C7BADD /* CC_Button.m in Sources */ = {isa = PBXBuildFile; fileRef = D8195F6C1F2B4BEA00C7BADD /* CC_Button.m */; };
+		D835075C1F30655400B7461C /* CC_Label.m in Sources */ = {isa = PBXBuildFile; fileRef = D835075B1F30655400B7461C /* CC_Label.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +77,8 @@
 		D8195F591F29D00E00C7BADD /* CC_Image.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC_Image.m; sourceTree = "<group>"; };
 		D8195F6B1F2B4BEA00C7BADD /* CC_Button.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_Button.h; sourceTree = "<group>"; };
 		D8195F6C1F2B4BEA00C7BADD /* CC_Button.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC_Button.m; sourceTree = "<group>"; };
+		D835075A1F30655400B7461C /* CC_Label.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_Label.h; sourceTree = "<group>"; };
+		D835075B1F30655400B7461C /* CC_Label.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC_Label.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -200,6 +203,8 @@
 				D8195F591F29D00E00C7BADD /* CC_Image.m */,
 				D8195F6B1F2B4BEA00C7BADD /* CC_Button.h */,
 				D8195F6C1F2B4BEA00C7BADD /* CC_Button.m */,
+				D835075A1F30655400B7461C /* CC_Label.h */,
+				D835075B1F30655400B7461C /* CC_Label.m */,
 			);
 			path = object;
 			sourceTree = "<group>";
@@ -349,6 +354,7 @@
 			files = (
 				D8195F541F29CEEF00C7BADD /* CC_Valiation.m in Sources */,
 				18B6BD031F1F09CA0019391D /* ViewController.m in Sources */,
+				D835075C1F30655400B7461C /* CC_Label.m in Sources */,
 				D8195F6D1F2B4BEA00C7BADD /* CC_Button.m in Sources */,
 				18B6BD001F1F09CA0019391D /* AppDelegate.m in Sources */,
 				18B6BCFD1F1F09CA0019391D /* main.m in Sources */,

@@ -20,9 +20,6 @@
     }
     
     kb*=1024;
-    
-    
-    
     CGFloat compression = 0.9f;
     CGFloat maxCompression = 0.1f;
     NSData *imageData = UIImageJPEGRepresentation(image, compression);

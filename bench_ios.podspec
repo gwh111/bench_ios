@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |spec|
   spec.name         = 'bench_ios'
-  spec.version      = '1.1.0'
+  spec.version      = '1.1.1'
   spec.license      = { :type => 'BSD' }
   spec.homepage     = 'https://github.com/gwh111/bench_ios'
   spec.authors      = { 'apple' => '173695508@qq.com' }

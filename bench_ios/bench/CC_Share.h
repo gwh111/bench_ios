@@ -11,6 +11,9 @@
 
 #import "CC_GHttpSessionTask.h"
 #import "CC_Valiation.h"
+#import "CC_Image.h"
+#import "CC_Button.h"
+#import "CC_Label.h"
 
 #define NOTIFICATION_LOGIN_EXPIRED @"NOTIFICATION_LOGIN_EXPIRED"
 #define NOTIFICATION_USER_LOGIN_FORBID @"NOTIFICATION_USER_LOGIN_FORBID"
