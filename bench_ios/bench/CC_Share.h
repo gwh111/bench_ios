@@ -8,12 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
-
 #import "CC_GHttpSessionTask.h"
 #import "CC_Valiation.h"
 #import "CC_Image.h"
 #import "CC_Button.h"
 #import "CC_Label.h"
+#import "CC_DESTool.h"
+#import "CC_UIViewExt.h"
 
 #define NOTIFICATION_LOGIN_EXPIRED @"NOTIFICATION_LOGIN_EXPIRED"
 #define NOTIFICATION_USER_LOGIN_FORBID @"NOTIFICATION_USER_LOGIN_FORBID"
@@ -27,6 +28,7 @@
 
 + (instancetype)shareInstance;
 
+#pragma mark http connection
 /** 
  * 设置 登陆后的 md5 key
  */

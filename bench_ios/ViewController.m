@@ -31,8 +31,18 @@
     CGColorRef colorref = CGColorCreate(colorSpace,(CGFloat[]){ 1, 0, 0, 1 });
     [button.layer setBorderColor:colorref];//边框颜色
     
+    //CC_UIVIEWExt
+    button.width=100;
+    
     //CC_Label
     id label=[CC_Label createWithFrame:CGRectMake(100, 200, 100, 100) andTitleString:@"123" andAttributedString:nil andTitleColor:[UIColor greenColor] andBackGroundColor:nil andFont:[UIFont systemFontOfSize:24] andTextAlignment:NSTextAlignmentRight atView:self.view];
+    
+    //CC_DESTool
+    NSString *newDes=[DESTool encryptUseDES:@"😄多少abc123h到底2344343242343243223423方法。" key:@"91caizhan"];
+    NSLog(@"%@",newDes);
+    
+    NSString *decode=[DESTool decryptUseDES:newDes key:@"91caizhan"];
+    NSLog(@"%@",decode);
     
     //CC_GHttpSessionTask
     [[CC_Share shareInstance] setUserSignKey:@"123"];
