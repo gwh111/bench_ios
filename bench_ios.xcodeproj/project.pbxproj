@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1882682A1F4BCEC500D72048 /* CC_GCoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 188268291F4BCEC500D72048 /* CC_GCoreDataManager.m */; };
 		18B6BCFD1F1F09CA0019391D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B6BCFC1F1F09CA0019391D /* main.m */; };
 		18B6BD001F1F09CA0019391D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B6BCFF1F1F09CA0019391D /* AppDelegate.m */; };
 		18B6BD031F1F09CA0019391D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B6BD021F1F09CA0019391D /* ViewController.m */; };
@@ -48,6 +49,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		188268281F4BCEC500D72048 /* CC_GCoreDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_GCoreDataManager.h; sourceTree = "<group>"; };
+		188268291F4BCEC500D72048 /* CC_GCoreDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC_GCoreDataManager.m; sourceTree = "<group>"; };
 		18B6BCF81F1F09CA0019391D /* bench_ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = bench_ios.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18B6BCFC1F1F09CA0019391D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		18B6BCFE1F1F09CA0019391D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -115,6 +118,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		188268271F4BCEC500D72048 /* storage */ = {
+			isa = PBXGroup;
+			children = (
+				188268281F4BCEC500D72048 /* CC_GCoreDataManager.h */,
+				188268291F4BCEC500D72048 /* CC_GCoreDataManager.m */,
+			);
+			path = storage;
+			sourceTree = "<group>";
+		};
 		18B6BCEF1F1F09CA0019391D = {
 			isa = PBXGroup;
 			children = (
@@ -185,6 +197,7 @@
 			children = (
 				18B6BD401F20C6660019391D /* CC_Share.h */,
 				18B6BD411F20C6660019391D /* CC_Share.m */,
+				188268271F4BCEC500D72048 /* storage */,
 				D83507731F31D81B00B7461C /* display */,
 				D8195F461F29CE6B00C7BADD /* network */,
 				D8195F4D1F29CE6B00C7BADD /* object */,
@@ -385,6 +398,7 @@
 				D835077A1F31E2CD00B7461C /* CC_CodeClass.m in Sources */,
 				D8195F511F29CE6B00C7BADD /* CC_MD5Object.m in Sources */,
 				D8195F4F1F29CE6B00C7BADD /* CC_FormatDic.m in Sources */,
+				1882682A1F4BCEC500D72048 /* CC_GCoreDataManager.m in Sources */,
 				18B6BD421F20C6660019391D /* CC_Share.m in Sources */,
 				18B6BD461F21A6080019391D /* README.md in Sources */,
 				D8195F501F29CE6B00C7BADD /* CC_GHttpSessionTask.m in Sources */,
