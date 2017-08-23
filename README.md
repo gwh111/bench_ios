@@ -1,6 +1,12 @@
 # bench_ios
 bench for ios
 
+# v1.1.3
+Overview
+========
+object;
+    CC_Array
+
 # v1.1.2
 Overview
 ========

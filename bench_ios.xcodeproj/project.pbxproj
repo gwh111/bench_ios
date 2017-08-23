@@ -28,6 +28,7 @@
 		D83507621F309D2700B7461C /* CC_DESTool.m in Sources */ = {isa = PBXBuildFile; fileRef = D83507611F309D2700B7461C /* CC_DESTool.m */; };
 		D83507761F31D81B00B7461C /* CC_UIViewExt.m in Sources */ = {isa = PBXBuildFile; fileRef = D83507751F31D81B00B7461C /* CC_UIViewExt.m */; };
 		D835077A1F31E2CD00B7461C /* CC_CodeClass.m in Sources */ = {isa = PBXBuildFile; fileRef = D83507791F31E2CD00B7461C /* CC_CodeClass.m */; };
+		D83507AE1F3466AD00B7461C /* CC_Array.m in Sources */ = {isa = PBXBuildFile; fileRef = D83507AD1F3466AD00B7461C /* CC_Array.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,6 +89,8 @@
 		D83507751F31D81B00B7461C /* CC_UIViewExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC_UIViewExt.m; sourceTree = "<group>"; };
 		D83507781F31E2CD00B7461C /* CC_CodeClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_CodeClass.h; sourceTree = "<group>"; };
 		D83507791F31E2CD00B7461C /* CC_CodeClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC_CodeClass.m; sourceTree = "<group>"; };
+		D83507AC1F3466AD00B7461C /* CC_Array.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_Array.h; sourceTree = "<group>"; };
+		D83507AD1F3466AD00B7461C /* CC_Array.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC_Array.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -215,6 +218,8 @@
 				D8195F6C1F2B4BEA00C7BADD /* CC_Button.m */,
 				D835075A1F30655400B7461C /* CC_Label.h */,
 				D835075B1F30655400B7461C /* CC_Label.m */,
+				D83507AC1F3466AD00B7461C /* CC_Array.h */,
+				D83507AD1F3466AD00B7461C /* CC_Array.m */,
 			);
 			path = object;
 			sourceTree = "<group>";
@@ -384,6 +389,7 @@
 				18B6BCFD1F1F09CA0019391D /* main.m in Sources */,
 				D835077A1F31E2CD00B7461C /* CC_CodeClass.m in Sources */,
 				D8195F511F29CE6B00C7BADD /* CC_MD5Object.m in Sources */,
+				D83507AE1F3466AD00B7461C /* CC_Array.m in Sources */,
 				D8195F4F1F29CE6B00C7BADD /* CC_FormatDic.m in Sources */,
 				18B6BD421F20C6660019391D /* CC_Share.m in Sources */,
 				18B6BD461F21A6080019391D /* README.md in Sources */,

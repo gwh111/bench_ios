@@ -6,6 +6,10 @@
 //  Copyright © 2017年 apple. All rights reserved.
 //
 
+#define COLOR_BLACK [UIColor colorWithRed:0/255.0f green:0/255.0f blue:0/255.0f alpha:1]
+#define COLOR_WHITE [UIColor colorWithRed:255.0f/255.0f green:255.0f/255.0f blue:255.0f/255.0f alpha:1]
+#define COLOR_CLEAR [UIColor colorWithRed:0/255.0f green:0/255.0f blue:0/255.0f alpha:0]
+
 #import <Foundation/Foundation.h>
 
 #import "CC_GHttpSessionTask.h"
@@ -15,6 +19,8 @@
 #import "CC_Label.h"
 #import "CC_DESTool.h"
 #import "CC_UIViewExt.h"
+#import "CC_CodeClass.h"
+#import "CC_Array.h"
 
 #define NOTIFICATION_LOGIN_EXPIRED @"NOTIFICATION_LOGIN_EXPIRED"
 #define NOTIFICATION_USER_LOGIN_FORBID @"NOTIFICATION_USER_LOGIN_FORBID"
