@@ -6,6 +6,8 @@ Overview
 ========
 object;
     CC_Array
+    CC_Notice
+    CC_GCoreDataManager
 
 # v1.1.2
 Overview
