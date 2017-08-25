@@ -53,6 +53,9 @@
     [CC_GHttpSessionTask postSessionWithJsonUrl:url ParamterStr:paraDic Info:nil FinishCallbackBlock:^(NSDictionary *resultDic, NSString *resultStr, NSString *error) {
         
     }];
+    
+    
+    
     // Do any additional setup after loading the view, typically from a nib.
 }
 

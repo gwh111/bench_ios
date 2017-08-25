@@ -21,6 +21,8 @@
 #import "CC_UIViewExt.h"
 #import "CC_CodeClass.h"
 #import "CC_Array.h"
+#import "CC_GCoreDataManager.h"
+#import "CC_GColor.h"
 
 #define NOTIFICATION_LOGIN_EXPIRED @"NOTIFICATION_LOGIN_EXPIRED"
 #define NOTIFICATION_USER_LOGIN_FORBID @"NOTIFICATION_USER_LOGIN_FORBID"
