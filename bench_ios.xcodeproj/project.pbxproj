@@ -26,6 +26,7 @@
 		D8195F5A1F29D00E00C7BADD /* CC_Image.m in Sources */ = {isa = PBXBuildFile; fileRef = D8195F591F29D00E00C7BADD /* CC_Image.m */; };
 		D8195F6D1F2B4BEA00C7BADD /* CC_Button.m in Sources */ = {isa = PBXBuildFile; fileRef = D8195F6C1F2B4BEA00C7BADD /* CC_Button.m */; };
 		D81B4BA71F4D7F8900D01F44 /* CC_Notice.m in Sources */ = {isa = PBXBuildFile; fileRef = D81B4BA61F4D7F8900D01F44 /* CC_Notice.m */; };
+		D823153C1F53AED3006055FB /* testColorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D823153B1F53AED3006055FB /* testColorViewController.m */; };
 		D835075C1F30655400B7461C /* CC_Label.m in Sources */ = {isa = PBXBuildFile; fileRef = D835075B1F30655400B7461C /* CC_Label.m */; };
 		D83507621F309D2700B7461C /* CC_DESTool.m in Sources */ = {isa = PBXBuildFile; fileRef = D83507611F309D2700B7461C /* CC_DESTool.m */; };
 		D83507761F31D81B00B7461C /* CC_UIViewExt.m in Sources */ = {isa = PBXBuildFile; fileRef = D83507751F31D81B00B7461C /* CC_UIViewExt.m */; };
@@ -89,6 +90,8 @@
 		D8195F6C1F2B4BEA00C7BADD /* CC_Button.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC_Button.m; sourceTree = "<group>"; };
 		D81B4BA51F4D7F8900D01F44 /* CC_Notice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_Notice.h; sourceTree = "<group>"; };
 		D81B4BA61F4D7F8900D01F44 /* CC_Notice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC_Notice.m; sourceTree = "<group>"; };
+		D823153A1F53AED3006055FB /* testColorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = testColorViewController.h; sourceTree = "<group>"; };
+		D823153B1F53AED3006055FB /* testColorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testColorViewController.m; sourceTree = "<group>"; };
 		D835075A1F30655400B7461C /* CC_Label.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_Label.h; sourceTree = "<group>"; };
 		D835075B1F30655400B7461C /* CC_Label.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC_Label.m; sourceTree = "<group>"; };
 		D83507601F309D2700B7461C /* CC_DESTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_DESTool.h; sourceTree = "<group>"; };
@@ -167,6 +170,7 @@
 				18B6BCFF1F1F09CA0019391D /* AppDelegate.m */,
 				18B6BD011F1F09CA0019391D /* ViewController.h */,
 				18B6BD021F1F09CA0019391D /* ViewController.m */,
+				D82315391F53AEC1006055FB /* testController */,
 				18B6BD2E1F1F143E0019391D /* bench */,
 				18B6BD041F1F09CA0019391D /* Main.storyboard */,
 				18B6BD071F1F09CA0019391D /* Assets.xcassets */,
@@ -261,6 +265,15 @@
 				D8B0E45B1F5016EA00425D06 /* CC_GColor.m */,
 			);
 			path = tool;
+			sourceTree = "<group>";
+		};
+		D82315391F53AEC1006055FB /* testController */ = {
+			isa = PBXGroup;
+			children = (
+				D823153A1F53AED3006055FB /* testColorViewController.h */,
+				D823153B1F53AED3006055FB /* testColorViewController.m */,
+			);
+			path = testController;
 			sourceTree = "<group>";
 		};
 		D83507731F31D81B00B7461C /* display */ = {
@@ -425,6 +438,7 @@
 				18B6BD001F1F09CA0019391D /* AppDelegate.m in Sources */,
 				18B6BCFD1F1F09CA0019391D /* main.m in Sources */,
 				D835077A1F31E2CD00B7461C /* CC_CodeClass.m in Sources */,
+				D823153C1F53AED3006055FB /* testColorViewController.m in Sources */,
 				D8195F511F29CE6B00C7BADD /* CC_MD5Object.m in Sources */,
 				D83507AE1F3466AD00B7461C /* CC_Array.m in Sources */,
 				D8195F4F1F29CE6B00C7BADD /* CC_FormatDic.m in Sources */,

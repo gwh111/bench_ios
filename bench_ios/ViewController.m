@@ -10,7 +10,10 @@
 
 #import "CC_Share.h"
 
-@interface ViewController ()
+@interface ViewController (){
+    NSArray *nameArr;
+    NSArray *controArr;
+}
 
 @end
 
@@ -56,9 +59,58 @@
     
     
     
+#pragma mark demo测试控制器
+    testColorViewController *testColor=[[testColorViewController alloc]init];
+    nameArr=@[@"testColor"];
+    controArr=@[testColor];
+    
+    UITableView *tab=[[UITableView alloc]initWithFrame:CGRectMake(0, self.view.height/2, self.view.width, self.view.height/2)];
+    [self.view addSubview:tab];
+    tab.delegate=self;
+    tab.dataSource=self;
+    tab.backgroundColor=[UIColor whiteColor];
+    
+    
     // Do any additional setup after loading the view, typically from a nib.
 }
 
+//tableView
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return [nameArr count];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 1;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 50;
+    
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    static NSString *CellIdentifier = @"Cell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc]
+                initWithStyle:UITableViewCellStyleDefault
+                reuseIdentifier: CellIdentifier];
+    }else{
+        while ([cell.contentView.subviews lastObject] != nil) {
+            [(UIView *)[cell.contentView.subviews lastObject] removeFromSuperview];
+        }
+    }
+    cell.textLabel.text=[nameArr objectAtIndex:indexPath.row];
+    cell.selectionStyle=UITableViewCellSelectionStyleNone;
+    return cell;
+    
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:YES];
+    id con=controArr[indexPath.section];
+    [self.navigationController pushViewController:con animated:YES];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

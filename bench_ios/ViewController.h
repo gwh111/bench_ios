@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+#import "testColorViewController.h"
+
 @interface ViewController : UIViewController
 
 
