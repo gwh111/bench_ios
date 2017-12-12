@@ -58,7 +58,7 @@ andAttributedString_stateNoraml:(NSAttributedString *)attributedString_stateNora
     [self addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
 }
 
-- (void)addTappedOnce:(float)time withBlock:(void (^)(UIButton *button))block{
+- (void)addTappedOnceDelay:(float)time withBlock:(void (^)(UIButton *button))block{
     self.tappedBlock=block;
     _delayTime=time;
     [self addTarget:self action:@selector(tappedDelayMethod:) forControlEvents:UIControlEventTouchUpInside];

@@ -20,6 +20,7 @@
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGColorRef colorref = CGColorCreate(colorSpace,(CGFloat[]){ r, g, b, alpha});
     [view.layer setBorderColor:colorref];//边框颜色
+    CGColorRelease(colorref);
 }
 
 @end
