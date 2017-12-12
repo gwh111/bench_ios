@@ -25,6 +25,9 @@
     //CC_Button
     //一行代码完成button的基本功能创建
     CC_Button *button=[CC_Button createWithFrame:CGRectMake(100, 100, 100, 100) andTitleString_stateNoraml:@"123" andAttributedString_stateNoraml:nil andTitleColor_stateNoraml:[UIColor blackColor] andTitleFont:[UIFont systemFontOfSize:16] andBackGroundColor:nil andImage:nil andBackGroundImage:nil inView:self.view];
+    [button addTappedOnce:2 withBlock:^(UIButton *button) {
+        NSLog(@"tap");
+    }];
     //附加属性自由添加
     [button setBackgroundColor:[UIColor grayColor]];
     [button.layer setMasksToBounds:YES];

@@ -58,6 +58,12 @@ andAttributedString_stateNoraml:(NSAttributedString *)attributedString_stateNora
     [self addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
 }
 
+- (void)addTappedOnce:(float)time withBlock:(void (^)(UIButton *button))block{
+    self.tappedBlock=block;
+    _delayTime=time;
+    [self addTarget:self action:@selector(tappedDelayMethod:) forControlEvents:UIControlEventTouchUpInside];
+}
+
 - (void)buttonTapped:(UIButton *)button{
     
     if (delayMark==0) {
@@ -71,8 +77,14 @@ andAttributedString_stateNoraml:(NSAttributedString *)attributedString_stateNora
     delayMark=0;
 }
 
+- (void)tappedDelayMethod:(UIButton *)button{
+    tappedBlock(self);
+    self.enabled=NO;
+    [self performSelector:@selector(buttonTappedWithDelay:) withObject:self afterDelay:_delayTime];
+}
+
 - (void)buttonTappedWithDelay:(float)delay{
-    
+    self.enabled=YES;
 }
 
 @end

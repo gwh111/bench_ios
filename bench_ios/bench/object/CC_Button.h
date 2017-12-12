@@ -13,6 +13,7 @@
 }
 
 @property(strong) void (^tappedBlock)(UIButton *button);
+@property(nonatomic,assign) float delayTime;
 
 /**
  * button的基本功能创建
@@ -31,5 +32,11 @@ andAttributedString_stateNoraml:(NSAttributedString *)attributedString_stateNora
  * 防止连续点击后重复调用tap方法
  */
 - (void)addTappedBlock:(void (^)(UIButton *button))block;
+
+/**
+ * 防止连续点击后重复调用tap方法
+ * time 防止重复 第二次点击可执行需要的时间
+ */
+- (void)addTappedOnce:(float)time withBlock:(void (^)(UIButton *button))block;
 
 @end
