@@ -37,6 +37,6 @@ andAttributedString_stateNoraml:(NSAttributedString *)attributedString_stateNora
  * 防止连续点击后重复调用tap方法
  * time 防止重复 第二次点击可执行需要的时间
  */
-- (void)addTappedOnce:(float)time withBlock:(void (^)(UIButton *button))block;
+- (void)addTappedOnceDelay:(float)time withBlock:(void (^)(UIButton *button))block;
 
 @end
