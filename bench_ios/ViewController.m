@@ -6,7 +6,6 @@
 //  Copyright © 2017年 apple. All rights reserved.
 //
 
-#import "PlatformConfig.h"
 #import "ViewController.h"
 
 #import "CC_Share.h"
