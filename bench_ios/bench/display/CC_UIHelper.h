@@ -42,7 +42,7 @@
 /*
  * 如果ui图和初始化的不一样 比如以前规定用iphone6尺寸 但是这张效果图是iphone7plus尺寸时
  */
-+ (float)getRelativeHeight:(float)height withTempUiDemoWidth:(float)width andHeight:(float)height;
+//+ (float)getRelativeHeight:(float)height withTempUIDemoWidth:(float)width andHeight:(float)height;
 
 /*
  * obj 要调整的控件
