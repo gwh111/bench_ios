@@ -6,6 +6,7 @@
 //  Copyright © 2017年 apple. All rights reserved.
 //
 
+#import "PlatformConfig.h"
 #import "ViewController.h"
 
 #import "CC_Share.h"
@@ -21,6 +22,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+#if (ZZ_TARGET_PLATFORM == ZZ_PLATFORM_IOS_IPHONE)
+    NSLog(@"new");
+#endif
     
     //CC_Button
     //一行代码完成button的基本功能创建

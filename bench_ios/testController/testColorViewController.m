@@ -7,7 +7,7 @@
 //
 
 #import "testColorViewController.h"
-#import "CC_GColor.h"
+#import "CC_Share.h"
 
 @interface testColorViewController ()
 

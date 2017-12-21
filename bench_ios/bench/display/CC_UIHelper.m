@@ -1,0 +1,143 @@
+//
+//  CC_UiHelper.m
+//  NewWord
+//
+//  Created by gwh on 2017/12/15.
+//  Copyright © 2017年 gwh. All rights reserved.
+//
+
+#import "CC_UIHelper.h"
+
+@interface CC_UIHelper(){
+    
+}
+@property (nonatomic,assign) float uiDemoWidth;
+@property (nonatomic,assign) float uiDemoHeight;
+
+@end
+@implementation CC_UIHelper
+
+static CC_UIHelper *instance = nil;
+static dispatch_once_t onceToken;
+
++ (instancetype)getInstance
+{
+    dispatch_once(&onceToken, ^{
+        instance = [[CC_UIHelper alloc] init];
+    });
+    return instance;
+}
+
+- (void)initUIDemoWidth:(float)width andHeight:(float)height{
+    _uiDemoWidth=width;
+    _uiDemoHeight=height;
+}
+
+- (float)getUIDemoWith{
+    if (_uiDemoWidth==0) {
+        NSLog(@"uninit uidemo");
+    }
+    return _uiDemoWidth;
+}
+
+- (float)getUIDemoHeight{
+    if (_uiDemoHeight==0) {
+        NSLog(@"uninit uidemo");
+    }
+    return _uiDemoHeight;
+}
+
+@end
+
+@implementation ccui
+
++ (UIFont *)getRelativeFont:(NSString *)fontName fontSize:(float)fontSize{
+    fontSize=10+(fontSize-10)*([self getW]/[[CC_UIHelper getInstance]getUIDemoWith]);
+    if (fontName) {
+        return [UIFont fontWithName:fontName size:fontSize];
+    }
+    return [UIFont systemFontOfSize:fontSize];
+}
++ (UIFont *)getRelativeFont:(NSString *)fontName fontSize:(float)fontSize baseFontSize:(float)baseFontSize{
+    fontSize=baseFontSize+(fontSize-baseFontSize)*([self getW]/[[CC_UIHelper getInstance]getUIDemoWith]);
+    if (fontName) {
+        return [UIFont fontWithName:fontName size:fontSize];
+    }
+    return [UIFont systemFontOfSize:fontSize];
+}
++ (CGRect)adjustRelativeRect:(UIView *)obj xPoint:(int)pt_x yPoint:(int)pt_y{
+    CGRect rect=obj.frame;
+    return rect;
+}
++ (CGRect)adjustRelativeRect:(UIView *)obj{
+    CGRect rect=obj.frame;
+    float x=[self getW]*rect.origin.x/[[CC_UIHelper getInstance] getUIDemoWith];
+    float y=[self getH]*rect.origin.y/[[CC_UIHelper getInstance] getUIDemoHeight];
+    float w=[self getW]*rect.size.width/[[CC_UIHelper getInstance] getUIDemoWith];
+    float h=w*rect.size.height/rect.size.width;;
+    CGRect new_rect=CGRectMake(x, y, w, h);
+    obj.frame=new_rect;
+    return new_rect;
+}
+
++ (float)getRH:(float)height{
+    return [self getRelativeHeight:height];
+}
+
++ (float)getRelativeHeight:(float)height{
+    return height*[self getW]/[[CC_UIHelper getInstance] getUIDemoWith];
+}
+
++ (CGRect)adjustRelativeRect:(UIView *)obj withFrameArr:(NSArray *)arr{
+    if (arr.count<4) {
+        NSLog(@"arr.count<4");
+        return CGRectNull;
+    }
+    if (arr.count>4) {
+        NSLog(@"arr.count>4");
+    }
+    float x=[self getW]*[arr[0]floatValue]/[[CC_UIHelper getInstance] getUIDemoWith];
+    float y=[self getH]*[arr[1]floatValue]/[[CC_UIHelper getInstance] getUIDemoHeight];
+    float w=[self getW]*[arr[2]floatValue]/[[CC_UIHelper getInstance] getUIDemoWith];
+    float h=w*[arr[3]floatValue]/[arr[2]floatValue];;
+    CGRect rect=CGRectMake(x, y, w, h);
+    obj.frame=rect;
+    return rect;
+}
+
+/**
+ * 获取设备X
+ */
++ (float)getX{
+    return 0;
+}
+
+/**
+ * 获取设备Y
+ */
++ (float)getY{
+    //    NSLog(@"h=%f",SCREEN_HEIGHT);
+    if (CC_SCREEN_HEIGHT==812) {
+        return 30;
+    }
+    return 0;
+}
+
+/**
+ * 获取设备Width
+ */
++ (float)getW{
+    return CC_SCREEN_WIDTH;
+}
+
+/**
+ * 获取设备Height
+ */
++ (float)getH{
+    if (CC_SCREEN_HEIGHT==812) {//iphone x
+        return CC_SCREEN_HEIGHT-30;
+    }
+    return CC_SCREEN_HEIGHT;
+}
+
+@end

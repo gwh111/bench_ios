@@ -1,6 +1,15 @@
 # bench_ios
 bench for ios
 
+# v1.1.7
+Overview
+========
+PlatformConfig.h
+object;
+    CC_AttributedStr
+display;
+    CC_UIHelper
+
 # v1.1.4 v1.1.5 v1.1.6
 Overview
 ========
@@ -48,7 +57,7 @@ tool;
 Overview
 ========
 
-# 初始化类
+# 初始化类[未完成 要修改]
 CC_Share
 启动时为user_signKey赋值 使用登陆后返回的md5 key
 # example code
