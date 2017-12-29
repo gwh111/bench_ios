@@ -25,3 +25,10 @@
 + (void)setLineColorR:(float)r andG:(float)g andB:(float)b andA:(float)alpha width:(float)width view:(UIView *)view;
 
 @end
+
+@interface convert : NSObject
+
++ (NSString*)convertToJSONData:(id)infoDict;
++ (NSDictionary *)dictionaryWithJsonString:(NSString *)jsonString;
+
+@end

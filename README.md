@@ -1,6 +1,15 @@
 # bench_ios
 bench for ios
 
+# v1.2.1
+Overview
+========
+network;
+    CC_CodeClass.h
+        convert 字典和string转换
+tool;
+    CC_Envirnment 代理检测 网络环境检测
+
 # v1.1.7 v1.1.8 v1.1.9 v1.2.0
 Overview
 ========

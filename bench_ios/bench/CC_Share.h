@@ -27,6 +27,7 @@
 #import "CC_Array.h"
 #import "CC_GCoreDataManager.h"
 #import "CC_GColor.h"
+#import "CC_Envirnment.h"
 #import "PlatformConfig.h"
 
 #define NOTIFICATION_LOGIN_EXPIRED @"NOTIFICATION_LOGIN_EXPIRED"
