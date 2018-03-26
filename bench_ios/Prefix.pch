@@ -1,0 +1,17 @@
+//
+//  Prefix.h
+//  bench_ios
+//
+//  Created by gwh on 2018/3/15.
+//  Copyright © 2018年 apple. All rights reserved.
+//
+
+#ifndef Prefix_h
+#define Prefix_h
+
+
+#endif /* Prefix_h */
+
+#import "CC_Share.h"
+
+#define RGBA(r,g,b,a) [UIColor colorWithRed:r/255.0f green:g/255.0f blue:b/255.0f alpha:a]

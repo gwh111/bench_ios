@@ -74,7 +74,7 @@
     [formatString deleteCharactersInRange:range];
     
     if (MD5KeyString) {
-        [urlFormatString appendString:[NSString stringWithFormat:@"&sign=%@",[CC_MD5Object signString:[NSString stringWithFormat:@"%@%@",MD5KeyString,formatString]]]];
+        [urlFormatString appendString:[NSString stringWithFormat:@"sign=%@",[CC_MD5Object signString:[NSString stringWithFormat:@"%@%@",MD5KeyString,formatString]]]];
     }
     
     return urlFormatString;

@@ -14,6 +14,9 @@
 
 @interface CC_UIHelper : NSObject
 
+@property (nonatomic,retain) UIView *toolV;
+@property (nonatomic,retain) UIView *lastV;
+
 + (instancetype)getInstance;
 /*
  * 初始化 必须放入ui图尺寸 整个app以后的效果图全部以这个为尺寸
@@ -22,6 +25,8 @@
 - (void)initUIDemoWidth:(float)width andHeight:(float)height;
 - (float)getUIDemoWith;
 - (float)getUIDemoHeight;
+
+- (void)initToolV;
 
 @end
 

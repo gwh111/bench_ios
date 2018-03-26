@@ -7,6 +7,7 @@
 //
 
 #import "CC_UIHelper.h"
+#import "CC_UIToolView.h"
 
 @interface CC_UIHelper(){
     
@@ -45,6 +46,12 @@ static dispatch_once_t onceToken;
         NSLog(@"uninit uidemo");
     }
     return _uiDemoHeight;
+}
+
+- (void)initToolV{
+    CC_UIToolView *tool=[[CC_UIToolView alloc]init];
+    UIWindow *window = [[[UIApplication sharedApplication] windows] lastObject];
+    [window addSubview:tool];
 }
 
 @end

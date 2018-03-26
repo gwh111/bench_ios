@@ -10,6 +10,8 @@
 
 #import "CC_Share.h"
 
+#import "LCdes.h"
+
 @interface ViewController (){
     NSArray *nameArr;
     NSArray *controArr;
@@ -22,6 +24,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [[CC_UIHelper getInstance]initUIDemoWidth:375 andHeight:750];
+    [[CC_UIHelper getInstance]initToolV];
 #if (ZZ_TARGET_PLATFORM == ZZ_PLATFORM_IOS_IPHONE)
     NSLog(@"new");
 #endif
@@ -34,12 +38,7 @@
     }];
     //附加属性自由添加
     [button setBackgroundColor:[UIColor grayColor]];
-    [button.layer setMasksToBounds:YES];
-    [button.layer setCornerRadius:10.0]; //设置矩形四个圆角半径
-    [button.layer setBorderWidth:1.0]; //边框宽度
-    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    CGColorRef colorref = CGColorCreate(colorSpace,(CGFloat[]){ 1, 0, 0, 1 });
-    [button.layer setBorderColor:colorref];//边框颜色
+    [CC_CodeClass setLineColorR:2 andG:32 andB:33 andA:1 width:2 view:button];
     
     //CC_UIVIEWExt
     button.width=100;
@@ -49,27 +48,48 @@
     
     //CC_DESTool
     NSString *newDes=[DESTool encryptUseDES:@"😄多少abc123h到底2344343242343243223423方法。" key:@"91caizhan"];
-    NSLog(@"%@",newDes);
+    newDes=[LCdes lcEncryUseDES:@"abc"];
+    NSLog(@"%@",[LCdes lcEncryUseDES:@""]);
     
-    NSString *decode=[DESTool decryptUseDES:newDes key:@"91caizhan"];
+    NSString *decode=[DESTool decryptUseDES:newDes key:@"apple"];
     NSLog(@"%@",decode);
     
+    //base64
+    NSString * str =@"str";
+    NSData *data =[str dataUsingEncoding:NSUTF8StringEncoding];
+    // 或 base64EncodedStringWithOptions
+    NSData *base64Data = [data base64EncodedDataWithOptions:0];
+    NSData *baseData = [[NSData alloc] initWithBase64EncodedData:base64Data options:0];
+    NSString * str2  =[[NSString alloc] initWithData:baseData encoding:NSUTF8StringEncoding];
+    
     //CC_GHttpSessionTask
-    [[CC_Share shareInstance] setUserSignKey:@"123"];
-    [[CC_Share shareInstance] setHttpRequestWithAppName:@"app" andHTTPMethod:@"POST" andTimeoutInterval:10];
-    NSURL *url=[NSURL URLWithString:@"http://api.jczj123.com/client/service.json"];
-    NSMutableDictionary *paraDic=[[NSMutableDictionary alloc]init];
-    [paraDic setObject:@"1" forKey:@"service"];
-    [CC_GHttpSessionTask postSessionWithJsonUrl:url ParamterStr:paraDic Info:nil FinishCallbackBlock:^(NSDictionary *resultDic, NSString *resultStr, NSString *error) {
+    //http头部信息
+    [[CC_HttpTask getInstance]setRequestHTTPHeaderFieldDic:
+  @{@"appName":@"ljzsmj_ios",
+    @"appVersion":@"1.0.3",
+    @"appUserAgent":@"e1",
+    }];
+    //签名的key 一般登录后获取
+    [[CC_HttpTask getInstance]setSignKeyStr:@"abc"];
+    //额外每个请求要传的参数
+    [[CC_HttpTask getInstance]setExtreDic:@{@"key":@"v"}];
+    NSURL *url=[NSURL URLWithString:@"http://mapi.17caiyou.com/service.json?"];
+    [[CC_HttpTask getInstance]post:url Params:@{@"service":@"PURCHASE_ORDRE_JOINED_SHOW_CONFIG_QUERY"} model:[[ResModel alloc]init] FinishCallbackBlock:^(NSString *error, ResModel *result) {
+        if (error) {
+            [CC_Note showAlert:error];
+            return ;
+        }
         
+        CCLOG(@"%@",result.resultDic);
     }];
     
     
     
 #pragma mark demo测试控制器
     testColorViewController *testColor=[[testColorViewController alloc]init];
-    nameArr=@[@"testColor"];
-    controArr=@[testColor];
+    testUIViewController *testUI=[[testUIViewController alloc]init];
+    nameArr=@[@"testColor",@"testUI"];
+    controArr=@[testColor,testUI];
     
     UITableView *tab=[[UITableView alloc]initWithFrame:CGRectMake(0, self.view.height/2, self.view.width, self.view.height/2)];
     [self.view addSubview:tab];
@@ -107,7 +127,7 @@
             [(UIView *)[cell.contentView.subviews lastObject] removeFromSuperview];
         }
     }
-    cell.textLabel.text=[nameArr objectAtIndex:indexPath.row];
+    cell.textLabel.text=[nameArr objectAtIndex:indexPath.section];
     cell.selectionStyle=UITableViewCellSelectionStyleNone;
     return cell;
     

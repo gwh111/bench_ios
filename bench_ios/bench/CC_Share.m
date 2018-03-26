@@ -20,26 +20,114 @@ static dispatch_once_t onceToken;
     return userManager;
 }
 
-- (void)setUserSignKey:(NSString *)signKey{
-    _user_signKey=signKey;
+@end
+
+@implementation s
+
++ (NSDictionary *)getPlistDic:(NSString *)name{
+    NSString *plistPath = [[NSBundle mainBundle] pathForResource:name ofType:@"plist"];
+    if (!plistPath) {
+        plistPath = [[NSBundle mainBundle] pathForResource:name ofType:@""];
+    }
+    NSMutableDictionary *data = [[NSMutableDictionary alloc] initWithContentsOfFile:plistPath];
+    if (data) {
+        return data;
+    }
+    CCLOG(@"读取plist失败");
+    return nil;
+}
++ (NSMutableDictionary *)getLocalPlistNamed:(NSString *)name{
+    if (!name) {
+        CCLOG(@"没有name");
+        return nil;
+    }
+    //读取本地沙盒中的数据
+    NSString *documentsDirectory = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
+    NSString *fileName = [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.plist",name]];
+    //判断路径是否存在
+    if ([[NSFileManager defaultManager] fileExistsAtPath:fileName]) {
+        NSMutableDictionary *setupDic = [NSMutableDictionary dictionaryWithContentsOfFile:fileName];
+        return setupDic;
+    }
+    CCLOG(@"读取失败%@",name);
+    return nil;
+}
+//保存到本地
++ (void)saveLocalPlistNamed:(NSString *)name{
+    if (!name) {
+        NSLog(@"没有name");
+        return;
+    }
+    NSMutableDictionary *setupDic=[self getLocalPlistNamed:name];
+    if (!setupDic) {
+        if ([self getPlistDic:name]) {
+            NSLog(@"初始化新的1");
+            setupDic=[[NSMutableDictionary alloc]initWithDictionary:[self getPlistDic:name]];
+        }else{
+            NSLog(@"初始化新的2");
+            setupDic=[[NSMutableDictionary alloc]init];
+        }
+    }
+    if (setupDic) {
+        NSString *documentsDirectory = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
+        NSString *fileName = [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.plist",name]];
+        [setupDic writeToFile:fileName atomically:YES];
+    }else{
+        NSLog(@"name 不存在");
+    }
+}
+//通过键值获取设置的具体属性
++ (id)getLocalKeyNamed:(NSString *)name andKey:(NSString *)key{
+    if (!name) {
+        NSLog(@"没有name");
+        return nil;
+    }
+    if (!key) {
+        NSLog(@"没有key");
+        return nil;
+    }
+    NSMutableDictionary *setupDic=[self getLocalPlistNamed:name];
+    if (setupDic[key]) {
+        return setupDic[key];
+    }
+    NSLog(@"获取失败");
+    return nil;
 }
 
-- (void)setHttpRequestWithAppName:(NSString *)appName andHTTPMethod:(NSString *)HTTPMethod andTimeoutInterval:(NSTimeInterval)timeOut{
-    if (!_httpRequest) {
-        _httpRequest=[[NSMutableURLRequest alloc]init];
+//设置字典数据
++ (void)saveLocalKeyNamed:(NSString *)name andKey:(NSString *)key andValue:(id)value{
+    if (!name) {
+        NSLog(@"没有name");
+        return;
     }
-    [_httpRequest setHTTPMethod:HTTPMethod];
-    [_httpRequest setTimeoutInterval:timeOut];
-    //设置请求头
-    [_httpRequest setValue:@"live-iphone" forHTTPHeaderField:appName];
-    [_httpRequest setValue:[NSString stringWithFormat:@"%@",[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]] forHTTPHeaderField:@"appVersion"];
-}
-
-- (void)setHttpRequest:(NSMutableURLRequest *)request{
-    if (!_httpRequest) {
-        _httpRequest=[[NSMutableURLRequest alloc]init];
+    if (!key) {
+        NSLog(@"没有key");
+        return;
     }
-    _httpRequest=request;
+    if (!value) {
+        NSLog(@"没有value");
+        return;
+    }
+    NSMutableDictionary *setupDic=[self getLocalPlistNamed:name];
+    if (!setupDic) {
+        if ([self getPlistDic:name]) {
+            NSLog(@"初始化新的1");
+            setupDic=[[NSMutableDictionary alloc]initWithDictionary:[self getPlistDic:name]];
+        }else{
+            NSLog(@"初始化新的2");
+            setupDic=[[NSMutableDictionary alloc]init];
+        }
+    }
+    //    如果字典存在并且数据有效
+    [setupDic removeObjectForKey:key];
+    [setupDic setObject:value forKey:key];
+    if (setupDic) {
+        NSString *documentsDirectory = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
+        NSString *fileName = [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.plist",name]];
+        [setupDic writeToFile:fileName atomically:YES];
+    }else{
+        NSLog(@"name 不存在");
+    }
 }
 
 @end

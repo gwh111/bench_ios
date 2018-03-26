@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 #import "testColorViewController.h"
+#import "testUIViewController.h"
 
 @interface ViewController : UIViewController
 

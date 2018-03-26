@@ -6,21 +6,28 @@
 //  Copyright © 2015年 apple. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+/*
+ 需求：
+ 1、配置http头
+    setHttpHeader
+ 2、
+ */
 
-@interface CC_GHttpSessionTask : NSObject<NSURLSessionDelegate>{
-    NSMutableData *resultData; // 存放请求结果
-    void (^finishCallbackBlock)(NSDictionary *resultDic,NSString *resultString,NSString *errorString); // 执行完成后回调的block
+#import <Foundation/Foundation.h>
+#import "CC_HttpResponseModel.h"
+
+@interface CC_HttpTask : NSObject<NSURLSessionDelegate>{
+    void (^finishCallbackBlock)(NSString *errorStr, ResModel *model); // 执行完成后回调的block
 }
 
-@property(strong) void (^finishCallbackBlock)(NSDictionary *,NSString *,NSString *);
++ (instancetype)getInstance;
 
-/** 对于json的请求*/
-//- (void)postSessionWithJsonUrl:(NSURL *)url ParamterStr:(NSString *)paramsString FinishCallbackBlock:(void (^)(NSDictionary *, NSString *))block;
+@property(nonatomic,retain) NSDictionary *requestHTTPHeaderFieldDic;
+@property(nonatomic,retain) NSString *signKeyStr;
+@property(nonatomic,retain) NSDictionary *extreDic;
 
-/** 直接使用字典*/
-//- (void)postSessionWithJsonUrl:(NSURL *)url ParamterStr:(NSMutableDictionary *)paramsDic FinishCallbackBlock:(void (^)(NSDictionary *, NSString *))block;
+@property(strong) void (^finishCallbackBlock)(NSString *error,ResModel *result);
 
-+ (void)postSessionWithJsonUrl:(NSURL *)url ParamterStr:(NSMutableDictionary *)paramsDic Info:(id)info FinishCallbackBlock:(void (^)(NSDictionary *,NSString *, NSString *))block;
+- (void)post:(NSURL *)url Params:(id)paramsDic model:(ResModel *)model FinishCallbackBlock:(void (^)(NSString *, ResModel *))block;
 
 @end

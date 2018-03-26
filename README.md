@@ -1,6 +1,20 @@
 # bench_ios
 bench for ios
 
+# v1.2.2
+Overview
+========
+display;
+    ui绘制 未完成
+network;
+    ResModel
+    CC_HttpTask
+    网络请求类
+tool;
+    CC_CodeClass.h
+    topViewController
+    获取当前最上面的controller
+
 # v1.2.1
 Overview
 ========

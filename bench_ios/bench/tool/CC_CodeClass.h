@@ -12,6 +12,8 @@
 @interface CC_CodeClass : NSObject
 
 #pragma mark code for view
+
++ (UIViewController *)topViewController;
 /**
  * 设置view圆角
  */
