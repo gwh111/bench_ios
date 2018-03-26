@@ -4,6 +4,26 @@ bench for ios
 # v1.2.2
 Overview
 ========
+//http头部信息
+[[CC_HttpTask getInstance]setRequestHTTPHeaderFieldDic:
+@{@"appName":@"ljzsmj_ios",
+@"appVersion":@"1.0.3",
+@"appUserAgent":@"e1",
+}];
+//签名的key 一般登录后获取
+[[CC_HttpTask getInstance]setSignKeyStr:@"abc"];
+//额外每个请求要传的参数
+[[CC_HttpTask getInstance]setExtreDic:@{@"key":@"v"}];
+NSURL *url=[NSURL URLWithString:@"http://xxx/service.json?"];
+[[CC_HttpTask getInstance]post:url Params:@{@"service":@"PURCHASE_ORDRE_JOINED_SHOW_CONFIG_QUERY"} model:[[ResModel alloc]init] FinishCallbackBlock:^(NSString *error, ResModel *result) {
+if (error) {
+[CC_Note showAlert:error];
+return ;
+}
+
+CCLOG(@"%@",result.resultDic);
+}];
+
 display;
     ui绘制 未完成
 network;
