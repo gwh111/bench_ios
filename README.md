@@ -4,6 +4,7 @@ bench for ios
 # v1.2.2
 Overview
 ========
+```objective-c
 //http头部信息
 [[CC_HttpTask getInstance]setRequestHTTPHeaderFieldDic:
 @{@"appName":@"ljzsmj_ios",
@@ -23,7 +24,7 @@ return ;
 
 CCLOG(@"%@",result.resultDic);
 }];
-
+```
 display;
     ui绘制 未完成
 network;
