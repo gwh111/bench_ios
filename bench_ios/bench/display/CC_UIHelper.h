@@ -60,6 +60,8 @@
  */
 + (CGRect)adjustRelativeRect:(UIView *)obj withFrameArr:(NSArray *)arr;
 
+
++ (UIFont *)getRFS:(float)fontSize;
 /*
  * fontName 字体名 默认字体传nil
  * fontSize 字体标注尺寸

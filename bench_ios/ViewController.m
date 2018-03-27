@@ -23,8 +23,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor=COLOR_WHITE;
     
+    //设置基准 效果图的尺寸即可
     [[CC_UIHelper getInstance]initUIDemoWidth:375 andHeight:750];
+    //UI调整工具初始化 完成后移除即可
     [[CC_UIHelper getInstance]initToolV];
 #if (ZZ_TARGET_PLATFORM == ZZ_PLATFORM_IOS_IPHONE)
     NSLog(@"new");
@@ -46,7 +49,16 @@
     //CC_Label
     id label=[CC_Label createWithFrame:CGRectMake(100, 200, 100, 100) andTitleString:@"123" andAttributedString:nil andTitleColor:[UIColor greenColor] andBackGroundColor:nil andFont:[UIFont systemFontOfSize:24] andTextAlignment:NSTextAlignmentRight atView:self.view];
     
-    //CC_DESTool
+    id l=[CC_Label cr:self.view l:100 t:200 w:100 h:30 ts:@"cclabel" ats:nil tc:ccRGBHexA(0xFF0000, 1) bgc:[UIColor yellowColor] f:[ccui getRFS:14] ta:0];
+    
+    id v=[CC_View cr:self.view l:50 t:250 w:30 h:30 bgc:ccRGBHexA(0xFFF000,1)];
+    
+    id tf=[CC_TextField cr:self.view l:0 t:100 w:100 h:30 tc:[UIColor blackColor] bgc:[UIColor whiteColor] f:[ccui getRFS:14] ta:0 ph:@"ccfield" uie:NO];
+    
+    id tv=[CC_TextView cr:self.view l:200 t:100 w:100 h:30 ts:@"cctextview" ats:nil tc:[UIColor blackColor] bgc:[UIColor whiteColor] f:[ccui getRFS:14] ta:0 sb:NO eb:NO uie:NO];
+    
+    id b=[CC_Button cr:self.view l:0 t:50 w:100 h:40 ts:@"ccbutton" ats:nil tc:[UIColor blackColor] bgc:nil img:nil bgimg:nil f:[ccui getRFS:16] ta:2 uie:NO];
+    
     NSString *newDes=[DESTool encryptUseDES:@"😄多少abc123h到底2344343242343243223423方法。" key:@"91caizhan"];
     newDes=[LCdes lcEncryUseDES:@"abc"];
     NSLog(@"%@",[LCdes lcEncryUseDES:@""]);

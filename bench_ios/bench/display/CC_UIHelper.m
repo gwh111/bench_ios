@@ -58,6 +58,10 @@ static dispatch_once_t onceToken;
 
 @implementation ccui
 
++ (UIFont *)getRFS:(float)fontSize{
+    fontSize=10+(fontSize-10)*([self getW]/[[CC_UIHelper getInstance]getUIDemoWith]);
+    return [UIFont systemFontOfSize:fontSize];
+}
 + (UIFont *)getRelativeFont:(NSString *)fontName fontSize:(float)fontSize{
     fontSize=10+(fontSize-10)*([self getW]/[[CC_UIHelper getInstance]getUIDemoWith]);
     if (fontName) {
@@ -92,6 +96,9 @@ static dispatch_once_t onceToken;
 }
 
 + (float)getRelativeHeight:(float)height{
+    if ([CC_UIHelper getInstance].uiDemoHeight!=CC_SCREEN_HEIGHT) {
+        CCLOG(@"不是有效相对height");
+    }
     return height*[self getW]/[[CC_UIHelper getInstance] getUIDemoWith];
 }
 

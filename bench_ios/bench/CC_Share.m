@@ -130,4 +130,14 @@ static dispatch_once_t onceToken;
     }
 }
 
+NSString *ccstr(NSString *format, ...){
+    va_list ap;
+    va_start (ap, format);
+    //函数名称，读取可变参数的过程其实就是在堆栈中，使用指针,遍历堆栈段中的参数列表,从低地址到高地址一个一个地把参数内容读出来的过程
+    NSString *body = [[NSString alloc] initWithFormat:format arguments:ap];
+    va_end (ap);
+    
+    return body;
+}
+
 @end

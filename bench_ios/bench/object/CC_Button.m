@@ -16,6 +16,41 @@
 @implementation CC_Button
 @synthesize tappedBlock;
 
++ (CC_Button *)cr:(UIView *)view l:(float)left t:(float)top w:(float)width h:(float)height ts:(NSString *)titleStr ats:(NSAttributedString *)attributedStr tc:(UIColor *)textColor bgc:(UIColor *)backgroundColor img:(UIImage *)image bgimg:(UIImage *)backgroundImage f:(UIFont *)font ta:(UIControlContentHorizontalAlignment)contentHorizontalAlignment uie:(BOOL)userInteractionEnabled{
+    CC_Button *newV=[[CC_Button alloc]init];
+    [view addSubview:newV];
+    newV.left=[ccui getRH:left];
+    newV.top=[ccui getRH:top];
+    newV.width=[ccui getRH:width];
+    newV.height=[ccui getRH:height];
+    if (titleStr) {
+        [newV setTitle:titleStr forState:UIControlStateNormal];
+    }
+    if (attributedStr) {
+        [newV setAttributedTitle:attributedStr forState:UIControlStateNormal];
+    }
+    if (textColor) {
+        [newV setTitleColor:textColor forState:UIControlStateNormal];
+    }
+    if (backgroundColor) {
+        [newV setBackgroundColor:backgroundColor];
+    }
+    if (image) {
+        [newV setImage:image forState:UIControlStateNormal];
+    }
+    if (backgroundImage) {
+        [newV setBackgroundImage:backgroundImage forState:UIControlStateNormal];
+    }
+    if (font) {
+        newV.titleLabel.font=font;
+    }
+    if (contentHorizontalAlignment) {
+        newV.contentHorizontalAlignment=contentHorizontalAlignment;
+    }
+    newV.userInteractionEnabled=userInteractionEnabled;
+    return newV;
+}
+
 + (CC_Button *)createWithFrame:(CGRect)frame
     andTitleString_stateNoraml:(NSString *)titleStr_stateNoraml
 andAttributedString_stateNoraml:(NSAttributedString *)attributedString_stateNoraml

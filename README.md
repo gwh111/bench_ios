@@ -1,6 +1,25 @@
 # bench_ios
 bench for ios
 
+#### Podfile
+
+To integrate bench_ios into your Xcode project using CocoaPods, specify it in your `Podfile`:
+
+```ruby
+source 'https://github.com/CocoaPods/Specs.git'
+platform :ios, '8.0'
+
+target 'TargetName' do
+pod 'bench_ios'
+end
+```
+
+Then, run the following command:
+
+```bash
+$ pod install
+```
+
 # v1.2.2
 Overview
 ========

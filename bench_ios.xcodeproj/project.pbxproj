@@ -19,6 +19,9 @@
 		18B6BD421F20C6660019391D /* CC_Share.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B6BD411F20C6660019391D /* CC_Share.m */; };
 		18B6BD461F21A6080019391D /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 18B6BD451F21A6080019391D /* README.md */; };
 		18B6BD481F21A8560019391D /* bench_ios.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 18B6BD471F21A8560019391D /* bench_ios.podspec */; };
+		D8064C53206A28AF0096F80D /* CC_TextField.m in Sources */ = {isa = PBXBuildFile; fileRef = D8064C52206A28AF0096F80D /* CC_TextField.m */; };
+		D8064C56206A3FFA0096F80D /* UIButton+CCUIHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D8064C55206A3FFA0096F80D /* UIButton+CCUIHelper.m */; };
+		D8064C59206A43F50096F80D /* CC_TextView.m in Sources */ = {isa = PBXBuildFile; fileRef = D8064C58206A43F50096F80D /* CC_TextView.m */; };
 		D8195F4F1F29CE6B00C7BADD /* CC_FormatDic.m in Sources */ = {isa = PBXBuildFile; fileRef = D8195F481F29CE6B00C7BADD /* CC_FormatDic.m */; };
 		D8195F501F29CE6B00C7BADD /* CC_GHttpSessionTask.m in Sources */ = {isa = PBXBuildFile; fileRef = D8195F4A1F29CE6B00C7BADD /* CC_GHttpSessionTask.m */; };
 		D8195F511F29CE6B00C7BADD /* CC_MD5Object.m in Sources */ = {isa = PBXBuildFile; fileRef = D8195F4C1F29CE6B00C7BADD /* CC_MD5Object.m */; };
@@ -30,6 +33,9 @@
 		D8365DE4205A54CE00357C0F /* testUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8365DE1205A54CD00357C0F /* testUIViewController.m */; };
 		D8365E23205A741D00357C0F /* CC_UIToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = D8365E22205A741D00357C0F /* CC_UIToolView.m */; };
 		D83B73342068A170000F81F8 /* CC_Note.m in Sources */ = {isa = PBXBuildFile; fileRef = D83B73332068A170000F81F8 /* CC_Note.m */; };
+		D83B74DB2068FCE1000F81F8 /* UIViewController+CCUIHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D83B74D82068FCE1000F81F8 /* UIViewController+CCUIHelper.m */; };
+		D83B74DC2068FCE1000F81F8 /* UIScrollView+CCUIHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D83B74D92068FCE1000F81F8 /* UIScrollView+CCUIHelper.m */; };
+		D83B74DF2068FD9F000F81F8 /* CC_View.m in Sources */ = {isa = PBXBuildFile; fileRef = D83B74DE2068FD9F000F81F8 /* CC_View.m */; };
 		D83EBC011FEB5BA700B94D6F /* CC_Array.m in Sources */ = {isa = PBXBuildFile; fileRef = D83EBBF61FEB5BA700B94D6F /* CC_Array.m */; };
 		D83EBC021FEB5BA700B94D6F /* CC_AttributedStr.m in Sources */ = {isa = PBXBuildFile; fileRef = D83EBBF81FEB5BA700B94D6F /* CC_AttributedStr.m */; };
 		D83EBC031FEB5BA700B94D6F /* CC_Button.m in Sources */ = {isa = PBXBuildFile; fileRef = D83EBBFA1FEB5BA700B94D6F /* CC_Button.m */; };
@@ -86,6 +92,12 @@
 		18B6BD411F20C6660019391D /* CC_Share.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC_Share.m; sourceTree = "<group>"; };
 		18B6BD451F21A6080019391D /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		18B6BD471F21A8560019391D /* bench_ios.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bench_ios.podspec; sourceTree = SOURCE_ROOT; };
+		D8064C51206A28AF0096F80D /* CC_TextField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_TextField.h; sourceTree = "<group>"; };
+		D8064C52206A28AF0096F80D /* CC_TextField.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC_TextField.m; sourceTree = "<group>"; };
+		D8064C54206A3FFA0096F80D /* UIButton+CCUIHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIButton+CCUIHelper.h"; sourceTree = "<group>"; };
+		D8064C55206A3FFA0096F80D /* UIButton+CCUIHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIButton+CCUIHelper.m"; sourceTree = "<group>"; };
+		D8064C57206A43F50096F80D /* CC_TextView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_TextView.h; sourceTree = "<group>"; };
+		D8064C58206A43F50096F80D /* CC_TextView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC_TextView.m; sourceTree = "<group>"; };
 		D8195F471F29CE6B00C7BADD /* CC_FormatDic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_FormatDic.h; sourceTree = "<group>"; };
 		D8195F481F29CE6B00C7BADD /* CC_FormatDic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC_FormatDic.m; sourceTree = "<group>"; };
 		D8195F491F29CE6B00C7BADD /* CC_GHttpSessionTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_GHttpSessionTask.h; sourceTree = "<group>"; };
@@ -109,6 +121,12 @@
 		D8365E22205A741D00357C0F /* CC_UIToolView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC_UIToolView.m; sourceTree = "<group>"; };
 		D83B73322068A170000F81F8 /* CC_Note.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_Note.h; sourceTree = "<group>"; };
 		D83B73332068A170000F81F8 /* CC_Note.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC_Note.m; sourceTree = "<group>"; };
+		D83B74D72068FCE1000F81F8 /* UIScrollView+CCUIHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+CCUIHelper.h"; sourceTree = "<group>"; };
+		D83B74D82068FCE1000F81F8 /* UIViewController+CCUIHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+CCUIHelper.m"; sourceTree = "<group>"; };
+		D83B74D92068FCE1000F81F8 /* UIScrollView+CCUIHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+CCUIHelper.m"; sourceTree = "<group>"; };
+		D83B74DA2068FCE1000F81F8 /* UIViewController+CCUIHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+CCUIHelper.h"; sourceTree = "<group>"; };
+		D83B74DD2068FD9F000F81F8 /* CC_View.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_View.h; sourceTree = "<group>"; };
+		D83B74DE2068FD9F000F81F8 /* CC_View.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC_View.m; sourceTree = "<group>"; };
 		D83EBBF51FEB5BA700B94D6F /* CC_Array.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_Array.h; sourceTree = "<group>"; };
 		D83EBBF61FEB5BA700B94D6F /* CC_Array.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC_Array.m; sourceTree = "<group>"; };
 		D83EBBF71FEB5BA700B94D6F /* CC_AttributedStr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_AttributedStr.h; sourceTree = "<group>"; };
@@ -305,6 +323,12 @@
 			children = (
 				D8365DE0205A54CD00357C0F /* testUIViewController.h */,
 				D8365DE1205A54CD00357C0F /* testUIViewController.m */,
+				D8064C54206A3FFA0096F80D /* UIButton+CCUIHelper.h */,
+				D8064C55206A3FFA0096F80D /* UIButton+CCUIHelper.m */,
+				D83B74D72068FCE1000F81F8 /* UIScrollView+CCUIHelper.h */,
+				D83B74D92068FCE1000F81F8 /* UIScrollView+CCUIHelper.m */,
+				D83B74DA2068FCE1000F81F8 /* UIViewController+CCUIHelper.h */,
+				D83B74D82068FCE1000F81F8 /* UIViewController+CCUIHelper.m */,
 			);
 			path = uihelper;
 			sourceTree = "<group>";
@@ -312,16 +336,22 @@
 		D83EBBF41FEB5BA700B94D6F /* object */ = {
 			isa = PBXGroup;
 			children = (
+				D83B74DD2068FD9F000F81F8 /* CC_View.h */,
+				D83B74DE2068FD9F000F81F8 /* CC_View.m */,
+				D83EBBFD1FEB5BA700B94D6F /* CC_Label.h */,
+				D83EBBFE1FEB5BA700B94D6F /* CC_Label.m */,
+				D8064C51206A28AF0096F80D /* CC_TextField.h */,
+				D8064C52206A28AF0096F80D /* CC_TextField.m */,
+				D8064C57206A43F50096F80D /* CC_TextView.h */,
+				D8064C58206A43F50096F80D /* CC_TextView.m */,
+				D83EBBF91FEB5BA700B94D6F /* CC_Button.h */,
+				D83EBBFA1FEB5BA700B94D6F /* CC_Button.m */,
 				D83EBBF51FEB5BA700B94D6F /* CC_Array.h */,
 				D83EBBF61FEB5BA700B94D6F /* CC_Array.m */,
 				D83EBBF71FEB5BA700B94D6F /* CC_AttributedStr.h */,
 				D83EBBF81FEB5BA700B94D6F /* CC_AttributedStr.m */,
-				D83EBBF91FEB5BA700B94D6F /* CC_Button.h */,
-				D83EBBFA1FEB5BA700B94D6F /* CC_Button.m */,
 				D83EBBFB1FEB5BA700B94D6F /* CC_Image.h */,
 				D83EBBFC1FEB5BA700B94D6F /* CC_Image.m */,
-				D83EBBFD1FEB5BA700B94D6F /* CC_Label.h */,
-				D83EBBFE1FEB5BA700B94D6F /* CC_Label.m */,
 				D83EBBFF1FEB5BA700B94D6F /* CC_Notice.h */,
 				D83EBC001FEB5BA700B94D6F /* CC_Notice.m */,
 			);
@@ -502,7 +532,9 @@
 				D8CC62551FF25610006E2ED6 /* CC_Envirnment.m in Sources */,
 				D83EBC041FEB5BA700B94D6F /* CC_Image.m in Sources */,
 				D8195F541F29CEEF00C7BADD /* CC_Valiation.m in Sources */,
+				D8064C53206A28AF0096F80D /* CC_TextField.m in Sources */,
 				D883EEFA200E37910062A6C6 /* LCdes.m in Sources */,
+				D83B74DF2068FD9F000F81F8 /* CC_View.m in Sources */,
 				D8365DE4205A54CE00357C0F /* testUIViewController.m in Sources */,
 				D8B0E45C1F5016EA00425D06 /* CC_GColor.m in Sources */,
 				18B6BD031F1F09CA0019391D /* ViewController.m in Sources */,
@@ -510,7 +542,9 @@
 				18B6BCFD1F1F09CA0019391D /* main.m in Sources */,
 				D83EBC061FEB5BA700B94D6F /* CC_Notice.m in Sources */,
 				D835077A1F31E2CD00B7461C /* CC_CodeClass.m in Sources */,
+				D8064C56206A3FFA0096F80D /* UIButton+CCUIHelper.m in Sources */,
 				D823153C1F53AED3006055FB /* testColorViewController.m in Sources */,
+				D83B74DB2068FCE1000F81F8 /* UIViewController+CCUIHelper.m in Sources */,
 				D8195F511F29CE6B00C7BADD /* CC_MD5Object.m in Sources */,
 				D83EBC0D1FEB5CBC00B94D6F /* CC_UIViewExt.m in Sources */,
 				D83EBC011FEB5BA700B94D6F /* CC_Array.m in Sources */,
@@ -518,8 +552,10 @@
 				D83EBC031FEB5BA700B94D6F /* CC_Button.m in Sources */,
 				D8195F4F1F29CE6B00C7BADD /* CC_FormatDic.m in Sources */,
 				D83EBC051FEB5BA700B94D6F /* CC_Label.m in Sources */,
+				D8064C59206A43F50096F80D /* CC_TextView.m in Sources */,
 				1882682A1F4BCEC500D72048 /* CC_GCoreDataManager.m in Sources */,
 				18B6BD421F20C6660019391D /* CC_Share.m in Sources */,
+				D83B74DC2068FCE1000F81F8 /* UIScrollView+CCUIHelper.m in Sources */,
 				D883EEF9200E37910062A6C6 /* GTMBase64.m in Sources */,
 				D8365E23205A741D00357C0F /* CC_UIToolView.m in Sources */,
 				18B6BD461F21A6080019391D /* README.md in Sources */,

@@ -10,6 +10,34 @@
 
 @implementation CC_Label
 
++ (CC_Label *)cr:(UIView *)view l:(float)left t:(float)top w:(float)width h:(float)height ts:(NSString *)titleStr ats:(NSAttributedString *)attributedStr tc:(UIColor *)textColor bgc:(UIColor *)backgroundColor f:(UIFont *)font ta:(NSTextAlignment)textAlignment{
+    CC_Label *newV=[[CC_Label alloc]init];
+    [view addSubview:newV];
+    newV.left=[ccui getRH:left];
+    newV.top=[ccui getRH:top];
+    newV.width=[ccui getRH:width];
+    newV.height=[ccui getRH:height];
+    if (titleStr) {
+        newV.text=titleStr;
+    }
+    if (attributedStr) {
+        newV.attributedText=attributedStr;
+    }
+    if (textColor) {
+        newV.textColor=textColor;
+    }
+    if (backgroundColor) {
+        newV.backgroundColor=backgroundColor;
+    }
+    if (font) {
+        newV.font=font;
+    }
+    if (textAlignment) {
+        newV.textAlignment=textAlignment;
+    }
+    return newV;
+}
+
 + (CC_Label *)createWithFrame:(CGRect)frame
                andTitleString:(NSString *)titleString
           andAttributedString:(NSAttributedString*)attributedString

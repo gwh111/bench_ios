@@ -42,7 +42,7 @@ static dispatch_once_t onceToken;
         [CC_Note getInstance].count=-3;
     }
     [[CC_CodeClass topViewController].view addSubview:alertView];
-    alertView.backgroundColor=RGBA(0, 0, 0, .8);
+    alertView.backgroundColor=ccRGBA(0, 0, 0, .8);
     
     UILabel *alertLabel=[[UILabel alloc]initWithFrame:CGRectMake(0, 0, showV.frame.size.width-20, 40)];
     alertLabel.textColor=[UIColor whiteColor];

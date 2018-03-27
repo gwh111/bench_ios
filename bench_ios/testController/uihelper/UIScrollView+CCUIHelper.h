@@ -1,15 +1,13 @@
 //
-//  Prefix.h
+//  UIScrollView+CCUIHelper.h
 //  bench_ios
 //
 //  Created by gwh on 2018/3/15.
 //  Copyright © 2018年 apple. All rights reserved.
 //
 
-#ifndef Prefix_h
-#define Prefix_h
+#import <UIKit/UIKit.h>
 
+@interface UIScrollView(CCUIHelper)
 
-#endif /* Prefix_h */
-
-#import "CC_Share.h"
+@end
