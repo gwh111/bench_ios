@@ -14,7 +14,7 @@
 {
     self = [super init];
     if (self) {
-        _debug=CC_DEBUG;
+        _debug=[CC_Share shareInstance].ccDebug;
     }
     return self;
 }

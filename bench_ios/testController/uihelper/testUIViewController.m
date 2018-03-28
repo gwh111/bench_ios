@@ -37,8 +37,6 @@
     scro.backgroundColor=[UIColor orangeColor];
     [v addSubview:scro];
     
-    
-    
 }
 
 

@@ -6,8 +6,6 @@
 //  Copyright © 2017年 apple. All rights reserved.
 //
 
-#define CC_DEBUG 1
-
 #ifdef DEBUG
 #   define CCLOG(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
 #else
@@ -57,9 +55,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
 
 @interface CC_Share : NSObject
 
-@property (nonatomic,retain) NSMutableURLRequest *httpRequest;///>http
-
-@property (nonatomic,retain) NSString *user_signKey;///>md5 key
+@property (nonatomic,assign) BOOL ccDebug;
 
 + (instancetype)shareInstance;
 
