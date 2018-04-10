@@ -7,6 +7,7 @@
 //
 
 #import "CC_Note.h"
+#import "CC_Share.h"
 
 @implementation CC_Note
 

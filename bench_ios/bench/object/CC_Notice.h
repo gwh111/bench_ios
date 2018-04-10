@@ -11,6 +11,10 @@
 @interface CC_Notice : UIView
 
 /**
+ * CC_Notice同一时间可以有多个 CC_Note会一个个往下移
+ */
+
+/**
  * 错误提示
  * noticeStr：提示信息
  */
