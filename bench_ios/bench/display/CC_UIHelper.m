@@ -8,6 +8,7 @@
 
 #import "CC_UIHelper.h"
 #import "CC_UIToolView.h"
+#import "CC_Share.h"
 
 @interface CC_UIHelper(){
     
