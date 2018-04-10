@@ -63,7 +63,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
 @end
 
 #pragma mark
-@interface s : NSObject
+@interface ccs : NSObject
 
 + (NSDictionary *)getPlistDic:(NSString *)name;
 + (NSMutableDictionary *)getLocalPlistNamed:(NSString *)name;

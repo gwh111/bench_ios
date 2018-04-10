@@ -23,8 +23,8 @@
 - (void)parsingError:(NSError *)error{
     
     if (_debug) {
-        if ([s getLocalKeyNamed:@"service" andKey:_serviceStr]) {
-            _resultStr=[s getLocalKeyNamed:@"service" andKey:_serviceStr];
+        if ([ccs getLocalKeyNamed:@"service" andKey:_serviceStr]) {
+            _resultStr=[ccs getLocalKeyNamed:@"service" andKey:_serviceStr];
             [self parsingResult:_resultStr];
             [CC_Note showAlert:@"_debug Data" atView:nil];
         }else{
@@ -48,8 +48,8 @@
             _errorStr=@"_resultDic=nil 无法解析data";
             [CC_Note showAlert:_errorStr];
             if (_debug) {
-                if ([s getLocalKeyNamed:@"service" andKey:_serviceStr]) {
-                    _resultStr=[s getLocalKeyNamed:@"service" andKey:_serviceStr];
+                if ([ccs getLocalKeyNamed:@"service" andKey:_serviceStr]) {
+                    _resultStr=[ccs getLocalKeyNamed:@"service" andKey:_serviceStr];
                     [self parsingResult:_resultStr];
                     [CC_Note showAlert:@"_debug Data" atView:nil];
                 }
@@ -70,8 +70,8 @@
     }else{
         
 //        CCLOG(@"path=%@",[NSString stringWithFormat:@"%@", NSHomeDirectory()]);
-        if (![s getLocalKeyNamed:@"service" andKey:_serviceStr]) {
-            [s saveLocalKeyNamed:@"service" andKey:_serviceStr andValue:_resultStr];
+        if (![ccs getLocalKeyNamed:@"service" andKey:_serviceStr]) {
+            [ccs saveLocalKeyNamed:@"service" andKey:_serviceStr andValue:_resultStr];
         }
     }
 }

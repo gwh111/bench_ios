@@ -22,7 +22,7 @@ static dispatch_once_t onceToken;
 
 @end
 
-@implementation s
+@implementation ccs
 
 + (NSDictionary *)getPlistDic:(NSString *)name{
     NSString *plistPath = [[NSBundle mainBundle] pathForResource:name ofType:@"plist"];

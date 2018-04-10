@@ -17,6 +17,9 @@
 @property (nonatomic,retain) UIView *toolV;
 @property (nonatomic,retain) UIView *lastV;
 
+@property (nonatomic,assign) float uiDemoWidth;
+@property (nonatomic,assign) float uiDemoHeight;
+
 + (instancetype)getInstance;
 /*
  * 初始化 必须放入ui图尺寸 整个app以后的效果图全部以这个为尺寸

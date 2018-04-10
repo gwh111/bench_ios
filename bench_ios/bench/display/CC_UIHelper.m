@@ -13,8 +13,6 @@
 @interface CC_UIHelper(){
     
 }
-@property (nonatomic,assign) float uiDemoWidth;
-@property (nonatomic,assign) float uiDemoHeight;
 
 @end
 @implementation CC_UIHelper
