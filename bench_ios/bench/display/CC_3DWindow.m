@@ -10,6 +10,7 @@
 
 #import <QuartzCore/QuartzCore.h>
 #import <CoreImage/CoreImage.h>
+#import "CC_Button.h"
 
 #if !__has_feature(objc_arc)
 #error add -fobjc-arc to compiler flags
