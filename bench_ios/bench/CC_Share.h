@@ -35,7 +35,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
 #import "CC_AttributedStr.h"
 #import "CC_DESTool.h"
 #import "CC_UIViewExt.h"
-#import "CC_UiHelper.h"
+#import "CC_UIHelper.h"
 #import "CC_CodeClass.h"
 #import "CC_Array.h"
 #import "CC_GCoreDataManager.h"
