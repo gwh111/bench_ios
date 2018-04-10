@@ -7,6 +7,7 @@
 //
 
 #import "CC_Button.h"
+#import "CC_Share.h"
 
 @interface CC_Button(){
     BOOL delayMark;

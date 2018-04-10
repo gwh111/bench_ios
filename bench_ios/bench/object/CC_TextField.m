@@ -7,6 +7,7 @@
 //
 
 #import "CC_TextField.h"
+#import "CC_Share.h"
 
 @implementation CC_TextField
 

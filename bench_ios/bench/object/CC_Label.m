@@ -7,6 +7,7 @@
 //
 
 #import "CC_Label.h"
+#import "CC_Share.h"
 
 @implementation CC_Label
 
