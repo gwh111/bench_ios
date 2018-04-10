@@ -25,6 +25,18 @@ static dispatch_once_t onceToken;
 }
 
 - (void)post:(NSURL *)url Params:(id)paramsDic model:(ResModel *)model FinishCallbackBlock:(void (^)(NSString *, ResModel *))block{
+    [self request:url Params:paramsDic model:model FinishCallbackBlock:^(NSString *error, ResModel *result) {
+        block(error,result);
+    } type:0];
+}
+
+- (void)get:(NSURL *)url Params:(id)paramsDic model:(ResModel *)model FinishCallbackBlock:(void (^)(NSString *, ResModel *))block{
+    [self request:url Params:paramsDic model:model FinishCallbackBlock:^(NSString *error, ResModel *result) {
+        block(error,result);
+    } type:1];
+}
+
+- (void)request:(NSURL *)url Params:(id)paramsDic model:(ResModel *)model FinishCallbackBlock:(void (^)(NSString *, ResModel *))block type:(int)type{
     
     model.serviceStr=paramsDic[@"service"];
     
@@ -54,7 +66,13 @@ static dispatch_once_t onceToken;
     }
     NSString *paraString=[CC_FormatDic getSignFormatStringWithDic:paramsDic andMD5Key:_signKeyStr];
     
-    NSURLSessionDownloadTask *mytask=[session downloadTaskWithRequest:[self postRequestWithUrl:url andParamters:paraString] completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+    NSURLRequest *urlReq;
+    if (type==0) {
+        urlReq=[self postRequestWithUrl:url andParamters:paraString];
+    }else{
+        urlReq=[self getRequestWithUrl:url andParamters:paraString];
+    }
+    NSURLSessionDownloadTask *mytask=[session downloadTaskWithRequest:urlReq completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         
         [session finishTasksAndInvalidate];
         
@@ -88,20 +106,29 @@ static dispatch_once_t onceToken;
     _extreDic=dic;
 }
 
-//创建request
 - (NSURLRequest *)postRequestWithUrl:(NSURL *)url andParamters:(NSString *)paramsString{
+    return [self requestWithUrl:url andParamters:paramsString andType:0];
+}
+
+- (NSURLRequest *)getRequestWithUrl:(NSURL *)url andParamters:(NSString *)paramsString{
+    return [self requestWithUrl:url andParamters:paramsString andType:1];
+}
+
+//创建request
+- (NSURLRequest *)requestWithUrl:(NSURL *)url andParamters:(NSString *)paramsString andType:(int)type{
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]init];
     request.URL=url;
     request.HTTPBody = [paramsString dataUsingEncoding:NSUTF8StringEncoding];
-    [request setHTTPMethod:@"POST"];
+    NSArray *types=@[@"POST",@"GET"];
+    [request setHTTPMethod:types[type]];
     [request setTimeoutInterval:10];
     
     if (!_requestHTTPHeaderFieldDic) {
         CCLOG(@"没有设置_requestHTTPHeaderFieldDic");
         return request;
     }
-    [request setValue:@"live-iphone" forHTTPHeaderField:@"appName"];
+    [request setValue:@"cc-iphone" forHTTPHeaderField:@"appName"];
     [request setValue:[NSString stringWithFormat:@"%@",[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]] forHTTPHeaderField:@"appVersion"];
     
     NSArray *keys=[_requestHTTPHeaderFieldDic allKeys];
