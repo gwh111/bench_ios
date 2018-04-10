@@ -32,6 +32,8 @@
 		D835077A1F31E2CD00B7461C /* CC_CodeClass.m in Sources */ = {isa = PBXBuildFile; fileRef = D83507791F31E2CD00B7461C /* CC_CodeClass.m */; };
 		D8365DE4205A54CE00357C0F /* testUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8365DE1205A54CD00357C0F /* testUIViewController.m */; };
 		D8365E23205A741D00357C0F /* CC_UIToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = D8365E22205A741D00357C0F /* CC_UIToolView.m */; };
+		D8389DF9206B74D50010A04A /* CC_3DWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = D8389DF8206B74D50010A04A /* CC_3DWindow.m */; };
+		D8389DFC206BA3680010A04A /* CC_LogicClass.m in Sources */ = {isa = PBXBuildFile; fileRef = D8389DFB206BA3680010A04A /* CC_LogicClass.m */; };
 		D83B73342068A170000F81F8 /* CC_Note.m in Sources */ = {isa = PBXBuildFile; fileRef = D83B73332068A170000F81F8 /* CC_Note.m */; };
 		D83B74DB2068FCE1000F81F8 /* UIViewController+CCUIHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D83B74D82068FCE1000F81F8 /* UIViewController+CCUIHelper.m */; };
 		D83B74DC2068FCE1000F81F8 /* UIScrollView+CCUIHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D83B74D92068FCE1000F81F8 /* UIScrollView+CCUIHelper.m */; };
@@ -119,6 +121,10 @@
 		D8365DE1205A54CD00357C0F /* testUIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testUIViewController.m; sourceTree = "<group>"; };
 		D8365E21205A741D00357C0F /* CC_UIToolView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_UIToolView.h; sourceTree = "<group>"; };
 		D8365E22205A741D00357C0F /* CC_UIToolView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC_UIToolView.m; sourceTree = "<group>"; };
+		D8389DF7206B74D50010A04A /* CC_3DWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_3DWindow.h; sourceTree = "<group>"; };
+		D8389DF8206B74D50010A04A /* CC_3DWindow.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC_3DWindow.m; sourceTree = "<group>"; };
+		D8389DFA206BA3680010A04A /* CC_LogicClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_LogicClass.h; sourceTree = "<group>"; };
+		D8389DFB206BA3680010A04A /* CC_LogicClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC_LogicClass.m; sourceTree = "<group>"; };
 		D83B73322068A170000F81F8 /* CC_Note.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_Note.h; sourceTree = "<group>"; };
 		D83B73332068A170000F81F8 /* CC_Note.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC_Note.m; sourceTree = "<group>"; };
 		D83B74D72068FCE1000F81F8 /* UIScrollView+CCUIHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+CCUIHelper.h"; sourceTree = "<group>"; };
@@ -304,6 +310,8 @@
 				D83507791F31E2CD00B7461C /* CC_CodeClass.m */,
 				D8B0E45A1F5016EA00425D06 /* CC_GColor.h */,
 				D8B0E45B1F5016EA00425D06 /* CC_GColor.m */,
+				D8389DFA206BA3680010A04A /* CC_LogicClass.h */,
+				D8389DFB206BA3680010A04A /* CC_LogicClass.m */,
 			);
 			path = tool;
 			sourceTree = "<group>";
@@ -369,6 +377,8 @@
 				D8365E22205A741D00357C0F /* CC_UIToolView.m */,
 				D83EBC0A1FEB5CBC00B94D6F /* CC_UIViewExt.h */,
 				D83EBC0B1FEB5CBC00B94D6F /* CC_UIViewExt.m */,
+				D8389DF7206B74D50010A04A /* CC_3DWindow.h */,
+				D8389DF8206B74D50010A04A /* CC_3DWindow.m */,
 			);
 			path = display;
 			sourceTree = "<group>";
@@ -536,6 +546,7 @@
 				D883EEFA200E37910062A6C6 /* LCdes.m in Sources */,
 				D83B74DF2068FD9F000F81F8 /* CC_View.m in Sources */,
 				D8365DE4205A54CE00357C0F /* testUIViewController.m in Sources */,
+				D8389DFC206BA3680010A04A /* CC_LogicClass.m in Sources */,
 				D8B0E45C1F5016EA00425D06 /* CC_GColor.m in Sources */,
 				18B6BD031F1F09CA0019391D /* ViewController.m in Sources */,
 				18B6BD001F1F09CA0019391D /* AppDelegate.m in Sources */,
@@ -556,6 +567,7 @@
 				1882682A1F4BCEC500D72048 /* CC_GCoreDataManager.m in Sources */,
 				18B6BD421F20C6660019391D /* CC_Share.m in Sources */,
 				D83B74DC2068FCE1000F81F8 /* UIScrollView+CCUIHelper.m in Sources */,
+				D8389DF9206B74D50010A04A /* CC_3DWindow.m in Sources */,
 				D883EEF9200E37910062A6C6 /* GTMBase64.m in Sources */,
 				D8365E23205A741D00357C0F /* CC_UIToolView.m in Sources */,
 				18B6BD461F21A6080019391D /* README.md in Sources */,
