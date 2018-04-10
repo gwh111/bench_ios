@@ -7,6 +7,7 @@
 //
 
 #import "CC_HttpResponseModel.h"
+#import "CC_Share.h"
 
 @implementation ResModel
 
