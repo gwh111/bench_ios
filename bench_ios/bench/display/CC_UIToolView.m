@@ -7,6 +7,7 @@
 //
 
 #import "CC_UIToolView.h"
+#import "CC_Share.h"
 
 static int textFieldBaseTag=100;
 
