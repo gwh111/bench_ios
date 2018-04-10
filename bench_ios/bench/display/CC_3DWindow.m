@@ -202,12 +202,13 @@
     trans = CATransform3DConcat(trans, t);
     
     isAnimatimg = YES;
+    __block CC_3DWindow *blockSelf = self;
     [UIView animateWithDuration:time animations:^() {
-        for (ViewImageHolder * holder in self.holders) {
+        for (ViewImageHolder * holder in blockSelf.holders) {
             holder.view.layer.transform = trans;
         }
     } completion:^(BOOL finished) {
-        isAnimatimg = NO;
+        blockSelf->isAnimatimg = NO;
     }];
 }
 
@@ -331,19 +332,21 @@
 
 - (void)startHide {
     isAnimatimg = YES;
+    
+    __block CC_3DWindow *blockSelf = self;
     [UIView animateWithDuration:0.3 animations:^() {
-        for (ViewImageHolder * holder in self.holders) {
+        for (ViewImageHolder * holder in blockSelf.holders) {
             holder.view.layer.transform = CATransform3DIdentity;
         }
     } completion:^(BOOL finished) {
         [UIView animateWithDuration:0.2 animations:^() {
-            self.hidden = YES;
+            blockSelf.hidden = YES;
         } completion:^(BOOL finished) {
-            for (ViewImageHolder * holder in self.holders) {
+            for (ViewImageHolder * holder in blockSelf.holders) {
                 [holder.view removeFromSuperview];
             }
-            self.holders = nil;
-            isAnimatimg = NO;
+            blockSelf.holders = nil;
+            blockSelf->isAnimatimg = NO;
         }];
     }];
 }
