@@ -7,6 +7,7 @@
 //
 
 #import "CC_LogicClass.h"
+#import "CC_Share.h"
 
 @implementation CC_LogicClass
 
