@@ -24,13 +24,13 @@ static dispatch_once_t onceToken;
     return instance;
 }
 
-- (void)post:(NSURL *)url Params:(id)paramsDic model:(ResModel *)model FinishCallbackBlock:(void (^)(NSString *, ResModel *))block{
+- (void)post:(NSURL *)url params:(id)paramsDic model:(ResModel *)model finishCallbackBlock:(void (^)(NSString *, ResModel *))block{
     [self request:url Params:paramsDic model:model FinishCallbackBlock:^(NSString *error, ResModel *result) {
         block(error,result);
     } type:0];
 }
 
-- (void)get:(NSURL *)url Params:(id)paramsDic model:(ResModel *)model FinishCallbackBlock:(void (^)(NSString *, ResModel *))block{
+- (void)get:(NSURL *)url params:(id)paramsDic model:(ResModel *)model finishCallbackBlock:(void (^)(NSString *, ResModel *))block{
     [self request:url Params:paramsDic model:model FinishCallbackBlock:^(NSString *error, ResModel *result) {
         block(error,result);
     } type:1];

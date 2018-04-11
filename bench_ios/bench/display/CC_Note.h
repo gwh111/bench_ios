@@ -14,7 +14,7 @@
  * CC_Notice同一时间可以有多个 CC_Note会一个个往下移
  */
 
-@property (nonatomic, assign) int count;
+@property (nonatomic, assign) int ccnote_count;
 + (instancetype)getInstance;
 
 + (void)showAlert:(NSString *)str;
