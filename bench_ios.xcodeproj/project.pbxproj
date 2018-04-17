@@ -331,12 +331,6 @@
 			children = (
 				D8365DE0205A54CD00357C0F /* testUIViewController.h */,
 				D8365DE1205A54CD00357C0F /* testUIViewController.m */,
-				D8064C54206A3FFA0096F80D /* UIButton+CCUIHelper.h */,
-				D8064C55206A3FFA0096F80D /* UIButton+CCUIHelper.m */,
-				D83B74D72068FCE1000F81F8 /* UIScrollView+CCUIHelper.h */,
-				D83B74D92068FCE1000F81F8 /* UIScrollView+CCUIHelper.m */,
-				D83B74DA2068FCE1000F81F8 /* UIViewController+CCUIHelper.h */,
-				D83B74D82068FCE1000F81F8 /* UIViewController+CCUIHelper.m */,
 			);
 			path = uihelper;
 			sourceTree = "<group>";
@@ -373,6 +367,12 @@
 				D83B73332068A170000F81F8 /* CC_Note.m */,
 				D83EBC081FEB5CBC00B94D6F /* CC_UIHelper.h */,
 				D83EBC091FEB5CBC00B94D6F /* CC_UIHelper.m */,
+				D8064C54206A3FFA0096F80D /* UIButton+CCUIHelper.h */,
+				D8064C55206A3FFA0096F80D /* UIButton+CCUIHelper.m */,
+				D83B74D72068FCE1000F81F8 /* UIScrollView+CCUIHelper.h */,
+				D83B74D92068FCE1000F81F8 /* UIScrollView+CCUIHelper.m */,
+				D83B74DA2068FCE1000F81F8 /* UIViewController+CCUIHelper.h */,
+				D83B74D82068FCE1000F81F8 /* UIViewController+CCUIHelper.m */,
 				D8365E21205A741D00357C0F /* CC_UIToolView.h */,
 				D8365E22205A741D00357C0F /* CC_UIToolView.m */,
 				D83EBC0A1FEB5CBC00B94D6F /* CC_UIViewExt.h */,

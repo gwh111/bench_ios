@@ -70,6 +70,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
 + (void)saveLocalPlistNamed:(NSString *)name;
 + (id)getLocalKeyNamed:(NSString *)name andKey:(NSString *)key;
 + (void)saveLocalKeyNamed:(NSString *)name andKey:(NSString *)key andValue:(id)value;
++ (id)getDefault:(NSString *)key;
++ (void)saveDefaultKey:(NSString *)key andV:(id)v;
 
 NSString *ccstr(NSString *format, ...);
 

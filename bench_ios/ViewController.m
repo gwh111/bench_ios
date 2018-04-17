@@ -11,7 +11,7 @@
 #import "CC_Share.h"
 
 #import "LCdes.h"
-//#import "CC_3DWindow.h"
+#import "CC_3DWindow.h"
 
 @interface ViewController (){
     NSArray *nameArr;
@@ -33,7 +33,7 @@
     [[CC_UIHelper getInstance]initToolV];
     
     //3D
-//    [CC_3DWindow show];
+    [CC_3DWindow show];
 #if (ZZ_TARGET_PLATFORM == ZZ_PLATFORM_IOS_IPHONE)
     NSLog(@"new");
 #endif
@@ -89,9 +89,9 @@
     //签名的key 一般登录后获取
     [[CC_HttpTask getInstance]setSignKeyStr:@"abc"];
     //额外每个请求要传的参数
-    [[CC_HttpTask getInstance]setExtreDic:@{@"key":@"v"}];
+//    [[CC_HttpTask getInstance]setExtreDic:@{@"key":@"v"}];
     NSURL *url=[NSURL URLWithString:@"http://mapi.17caiyou.com/service.json?"];
-    [[CC_HttpTask getInstance]post:url Params:@{@"service":@"PURCHASE_ORDRE_JOINED_SHOW_CONFIG_QUERY"} model:[[ResModel alloc]init] FinishCallbackBlock:^(NSString *error, ResModel *result) {
+    [[CC_HttpTask getInstance]post:url params:@{@"service":@"PURCHASE_ORDRE_JOINED_SHOW_CONFIG_QUERY"} model:[[ResModel alloc]init] finishCallbackBlock:^(NSString *error, ResModel *result) {
         if (error) {
             [CC_Note showAlert:error];
             return ;
@@ -100,8 +100,14 @@
         CCLOG(@"%@",result.resultDic);
     }];
     
-    
-    
+    [[CC_HttpTask getInstance]get:[NSURL URLWithString:@"https://api.leancloud.cn/1/date"] params:@{} model:[[ResModel alloc]init] finishCallbackBlock:^(NSString *error, ResModel *result) {
+        if (error) {
+            [CC_Note showAlert:error];
+            return ;
+        }
+        CCLOG(@"%@",result.resultDic);
+        ccstr(@"a%@b=2",@"=1");
+    }];
 #pragma mark demo测试控制器
     testColorViewController *testColor=[[testColorViewController alloc]init];
     testUIViewController *testUI=[[testUIViewController alloc]init];

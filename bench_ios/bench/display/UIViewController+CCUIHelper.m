@@ -22,6 +22,9 @@
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    if ([CC_Share shareInstance].ccDebug==0) {
+        return;
+    }
     UITouch *touch = [[event allTouches] anyObject];
     UIView *v=touch.view;
     [v setUserInteractionEnabled:YES];

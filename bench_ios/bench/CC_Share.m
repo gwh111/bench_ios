@@ -130,6 +130,22 @@ static dispatch_once_t onceToken;
     }
 }
 
++ (id)getDefault:(NSString *)key{
+    return [[NSUserDefaults standardUserDefaults]objectForKey:key];
+}
++ (void)saveDefaultKey:(NSString *)key andV:(id)v{
+    if (!key) {
+        CCLOG(@"error:key=nil");
+        return;
+    }
+    if (!v) {
+        CCLOG(@"error:v=nil");
+        [[NSUserDefaults standardUserDefaults]removeObjectForKey:key];
+        return;
+    }
+    [[NSUserDefaults standardUserDefaults]setObject:v forKey:key];
+}
+
 NSString *ccstr(NSString *format, ...){
     va_list ap;
     va_start (ap, format);

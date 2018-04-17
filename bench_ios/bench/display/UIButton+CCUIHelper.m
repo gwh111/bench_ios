@@ -11,7 +11,9 @@
 @implementation UIButton(UIButton)
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    [super touchesBegan:touches withEvent:event];
+    if ([CC_Share shareInstance].ccDebug) {
+        [super touchesBegan:touches withEvent:event];
+    }
 }
 
 @end

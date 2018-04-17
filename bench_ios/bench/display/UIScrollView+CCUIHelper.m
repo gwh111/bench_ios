@@ -11,9 +11,11 @@
 @implementation UIScrollView(CCUIHelper)
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    // 选其一即可
-    [super touchesBegan:touches withEvent:event];
-    //  [[self nextResponder] touchesBegan:touches withEvent:event];
+    if ([CC_Share shareInstance].ccDebug) {
+        // 选其一即可
+        [super touchesBegan:touches withEvent:event];
+        //  [[self nextResponder] touchesBegan:touches withEvent:event];
+    }
 }
 
 @end
