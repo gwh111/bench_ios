@@ -5,6 +5,8 @@
 //  Created by gwh on 2017/12/19.
 //
 
+#import "CC_Share.h"
+
 #define ZZ_PLATFORM_UNKNOWN            0
 #define ZZ_PLATFORM_ANDROID            1
 #define ZZ_PLATFORM_WIN32              2
