@@ -7,6 +7,7 @@
 //
 
 #import "UIViewController+CCUIHelper.h"
+#import "CC_Share.h"
 
 @implementation UIViewController(CCUIHelper)
 

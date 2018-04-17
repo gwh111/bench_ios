@@ -7,6 +7,7 @@
 //
 
 #import "UIScrollView+CCUIHelper.h"
+#import "CC_Share.h"
 
 @implementation UIScrollView(CCUIHelper)
 

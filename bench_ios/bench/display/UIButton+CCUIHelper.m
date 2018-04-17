@@ -7,6 +7,7 @@
 //
 
 #import "UIButton+CCUIHelper.h"
+#import "CC_Share.h"
 
 @implementation UIButton(UIButton)
 
