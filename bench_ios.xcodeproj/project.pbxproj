@@ -20,7 +20,6 @@
 		18B6BD461F21A6080019391D /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 18B6BD451F21A6080019391D /* README.md */; };
 		18B6BD481F21A8560019391D /* bench_ios.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 18B6BD471F21A8560019391D /* bench_ios.podspec */; };
 		D8064C53206A28AF0096F80D /* CC_TextField.m in Sources */ = {isa = PBXBuildFile; fileRef = D8064C52206A28AF0096F80D /* CC_TextField.m */; };
-		D8064C56206A3FFA0096F80D /* UIButton+CCUIHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D8064C55206A3FFA0096F80D /* UIButton+CCUIHelper.m */; };
 		D8064C59206A43F50096F80D /* CC_TextView.m in Sources */ = {isa = PBXBuildFile; fileRef = D8064C58206A43F50096F80D /* CC_TextView.m */; };
 		D8195F4F1F29CE6B00C7BADD /* CC_FormatDic.m in Sources */ = {isa = PBXBuildFile; fileRef = D8195F481F29CE6B00C7BADD /* CC_FormatDic.m */; };
 		D8195F501F29CE6B00C7BADD /* CC_GHttpSessionTask.m in Sources */ = {isa = PBXBuildFile; fileRef = D8195F4A1F29CE6B00C7BADD /* CC_GHttpSessionTask.m */; };
@@ -97,8 +96,6 @@
 		18B6BD471F21A8560019391D /* bench_ios.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bench_ios.podspec; sourceTree = SOURCE_ROOT; };
 		D8064C51206A28AF0096F80D /* CC_TextField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_TextField.h; sourceTree = "<group>"; };
 		D8064C52206A28AF0096F80D /* CC_TextField.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC_TextField.m; sourceTree = "<group>"; };
-		D8064C54206A3FFA0096F80D /* UIButton+CCUIHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIButton+CCUIHelper.h"; sourceTree = "<group>"; };
-		D8064C55206A3FFA0096F80D /* UIButton+CCUIHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIButton+CCUIHelper.m"; sourceTree = "<group>"; };
 		D8064C57206A43F50096F80D /* CC_TextView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_TextView.h; sourceTree = "<group>"; };
 		D8064C58206A43F50096F80D /* CC_TextView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC_TextView.m; sourceTree = "<group>"; };
 		D8195F471F29CE6B00C7BADD /* CC_FormatDic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_FormatDic.h; sourceTree = "<group>"; };
@@ -372,8 +369,6 @@
 				D83B73332068A170000F81F8 /* CC_Note.m */,
 				D83EBC081FEB5CBC00B94D6F /* CC_UIHelper.h */,
 				D83EBC091FEB5CBC00B94D6F /* CC_UIHelper.m */,
-				D8064C54206A3FFA0096F80D /* UIButton+CCUIHelper.h */,
-				D8064C55206A3FFA0096F80D /* UIButton+CCUIHelper.m */,
 				D83B74D72068FCE1000F81F8 /* UIScrollView+CCUIHelper.h */,
 				D83B74D92068FCE1000F81F8 /* UIScrollView+CCUIHelper.m */,
 				D83B74DA2068FCE1000F81F8 /* UIViewController+CCUIHelper.h */,
@@ -558,7 +553,6 @@
 				18B6BCFD1F1F09CA0019391D /* main.m in Sources */,
 				D83EBC061FEB5BA700B94D6F /* CC_Notice.m in Sources */,
 				D835077A1F31E2CD00B7461C /* CC_CodeClass.m in Sources */,
-				D8064C56206A3FFA0096F80D /* UIButton+CCUIHelper.m in Sources */,
 				D823153C1F53AED3006055FB /* testColorViewController.m in Sources */,
 				D83B74DB2068FCE1000F81F8 /* UIViewController+CCUIHelper.m in Sources */,
 				D8195F511F29CE6B00C7BADD /* CC_MD5Object.m in Sources */,

@@ -11,17 +11,6 @@
 
 @implementation UIViewController(CCUIHelper)
 
-- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(nullable UIEvent *)event{
-//    UITouch *touch = [[event allTouches] anyObject];
-//    UIView *v=touch.view;
-//    for (id object in [v subviews]) {
-//        if ([object isKindOfClass:[UIView class]]) {
-//            UIView *obj = (UIView *)object;
-//            [CC_CodeClass setLineColorR:0 andG:0 andB:0 andA:1 width:1 view:obj];
-//        }
-//    }
-}
-
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     if ([CC_Share shareInstance].ccDebug==0) {
         return;
