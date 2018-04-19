@@ -108,6 +108,14 @@
         CCLOG(@"%@",result.resultDic);
         ccstr(@"a%@b=2",@"=1");
     }];
+    
+    [[CC_HttpTask getInstance]get:[NSURL URLWithString:@"https://www.baidu.com"] params:@{@"getDate":@""} model:[[ResModel alloc]init] finishCallbackBlock:^(NSString *error, ResModel *result) {
+        NSString *dateStr=[CC_Date ccgetDateStr:result.responseDate formatter:result.responseDateFormatStr];
+        NSString *dateStr2=[CC_Date ccgetDateStr:result.responseDate formatter:@"dd MM yyyy HH:mm:ss"];
+        CCLOG(@"dateStr2=%@",dateStr2);
+        CCLOG(@"min=%f",[CC_Date compareDate:[NSDate date] cut:result.responseDate]/60);
+        
+    }];
 #pragma mark demo测试控制器
     testColorViewController *testColor=[[testColorViewController alloc]init];
     testUIViewController *testUI=[[testUIViewController alloc]init];

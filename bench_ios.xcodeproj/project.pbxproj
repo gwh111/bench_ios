@@ -46,6 +46,7 @@
 		D83EBC061FEB5BA700B94D6F /* CC_Notice.m in Sources */ = {isa = PBXBuildFile; fileRef = D83EBC001FEB5BA700B94D6F /* CC_Notice.m */; };
 		D83EBC0C1FEB5CBC00B94D6F /* CC_UIHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D83EBC091FEB5CBC00B94D6F /* CC_UIHelper.m */; };
 		D83EBC0D1FEB5CBC00B94D6F /* CC_UIViewExt.m in Sources */ = {isa = PBXBuildFile; fileRef = D83EBC0B1FEB5CBC00B94D6F /* CC_UIViewExt.m */; };
+		D86F4C9D20883841000DF173 /* CC_Date.m in Sources */ = {isa = PBXBuildFile; fileRef = D86F4C9C20883841000DF173 /* CC_Date.m */; };
 		D876FE871FB0514B0094C274 /* panda.plist in Resources */ = {isa = PBXBuildFile; fileRef = D876FE861FB0514B0094C274 /* panda.plist */; };
 		D883EEF9200E37910062A6C6 /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = D883EEF4200E37910062A6C6 /* GTMBase64.m */; };
 		D883EEFA200E37910062A6C6 /* LCdes.m in Sources */ = {isa = PBXBuildFile; fileRef = D883EEF7200E37910062A6C6 /* LCdes.m */; };
@@ -150,6 +151,8 @@
 		D83EBC0A1FEB5CBC00B94D6F /* CC_UIViewExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_UIViewExt.h; sourceTree = "<group>"; };
 		D83EBC0B1FEB5CBC00B94D6F /* CC_UIViewExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC_UIViewExt.m; sourceTree = "<group>"; };
 		D83EBC0E1FEB646100B94D6F /* PlatformConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlatformConfig.h; sourceTree = "<group>"; };
+		D86F4C9B20883841000DF173 /* CC_Date.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_Date.h; sourceTree = "<group>"; };
+		D86F4C9C20883841000DF173 /* CC_Date.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC_Date.m; sourceTree = "<group>"; };
 		D876FE861FB0514B0094C274 /* panda.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = panda.plist; sourceTree = "<group>"; };
 		D883EEF4200E37910062A6C6 /* GTMBase64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMBase64.m; sourceTree = "<group>"; };
 		D883EEF5200E37910062A6C6 /* GTMBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMBase64.h; sourceTree = "<group>"; };
@@ -302,6 +305,8 @@
 		D8195F4E1F29CE6B00C7BADD /* tool */ = {
 			isa = PBXGroup;
 			children = (
+				D86F4C9B20883841000DF173 /* CC_Date.h */,
+				D86F4C9C20883841000DF173 /* CC_Date.m */,
 				D83507601F309D2700B7461C /* CC_DESTool.h */,
 				D83507611F309D2700B7461C /* CC_DESTool.m */,
 				D8195F521F29CEEF00C7BADD /* CC_Valiation.h */,
@@ -572,6 +577,7 @@
 				D8365E23205A741D00357C0F /* CC_UIToolView.m in Sources */,
 				18B6BD461F21A6080019391D /* README.md in Sources */,
 				D83EBC0C1FEB5CBC00B94D6F /* CC_UIHelper.m in Sources */,
+				D86F4C9D20883841000DF173 /* CC_Date.m in Sources */,
 				D8195F501F29CE6B00C7BADD /* CC_GHttpSessionTask.m in Sources */,
 				D83B73342068A170000F81F8 /* CC_Note.m in Sources */,
 				D8335338205F93F90030AB62 /* CC_HttpResponseModel.m in Sources */,

@@ -16,6 +16,7 @@
     self = [super init];
     if (self) {
         _debug=[CC_Share shareInstance].ccDebug;
+        _responseDateFormatStr=@"dd MMM yyyy HH:mm:ss";
     }
     return self;
 }

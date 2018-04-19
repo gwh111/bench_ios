@@ -17,6 +17,9 @@
 @property(nonatomic,retain) NSDictionary *resultDic;
 
 @property(nonatomic,retain) NSString *errorStr;
+//Thu, 19 Apr 2018 02:18:39 GMT
+@property(nonatomic,retain) NSString *responseDateFormatStr;
+@property(nonatomic,retain) NSDate *responseDate;
 
 - (void)parsingError:(NSError *)error;
 - (void)parsingResult:(NSString *)resultStr;

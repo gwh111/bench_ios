@@ -76,6 +76,11 @@ static dispatch_once_t onceToken;
         
         [session finishTasksAndInvalidate];
         
+        if (paramsDic[@"getDate"]) {
+            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+            [self loadResponseDate:model response:httpResponse];
+        }
+        
         if (error) {
             [model parsingError:error];
         }else{
@@ -130,13 +135,27 @@ static dispatch_once_t onceToken;
     }
     [request setValue:@"cc-iphone" forHTTPHeaderField:@"appName"];
     [request setValue:[NSString stringWithFormat:@"%@",[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]] forHTTPHeaderField:@"appVersion"];
-    
+//    CCLOG(@"%@",request.allHTTPHeaderFields);
     NSArray *keys=[_requestHTTPHeaderFieldDic allKeys];
     for (int i=0; i<keys.count; i++) {
         [request setValue:_requestHTTPHeaderFieldDic[keys[i]] forHTTPHeaderField:keys[i]];
     }
     
     return request;
+}
+
+- (void)loadResponseDate:(ResModel *)model response:(NSHTTPURLResponse *)httpResponse{
+    //转换时间
+    NSString *date = [[httpResponse allHeaderFields] objectForKey:@"Date"];
+    date = [date substringFromIndex:5];
+    date = [date substringToIndex:[date length]-4];
+    NSDateFormatter *dMatter = [[NSDateFormatter alloc] init]; dMatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+    [dMatter setDateFormat:model.responseDateFormatStr];
+    NSDate *netDate = [[dMatter dateFromString:date] dateByAddingTimeInterval:60*60*8];
+    NSTimeZone *zone = [NSTimeZone systemTimeZone];
+    NSInteger interval = [zone secondsFromGMTForDate: netDate];
+    NSDate *localeDate = [netDate dateByAddingTimeInterval: interval];
+    model.responseDate=localeDate;
 }
 
 @end

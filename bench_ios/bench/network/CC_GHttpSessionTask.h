@@ -22,12 +22,17 @@
 
 + (instancetype)getInstance;
 
+@property(nonatomic,assign) BOOL needResponseDate;
 @property(nonatomic,retain) NSDictionary *requestHTTPHeaderFieldDic;
 @property(nonatomic,retain) NSString *signKeyStr;
 @property(nonatomic,retain) NSDictionary *extreDic;
 
 @property(strong) void (^finishCallbackBlock)(NSString *error,ResModel *result);
 
+/**
+ * paramsDic的关键字
+ * getDate 可以获取时间
+ */
 - (void)post:(NSURL *)url params:(id)paramsDic model:(ResModel *)model finishCallbackBlock:(void (^)(NSString *, ResModel *))block;
 - (void)get:(NSURL *)url params:(id)paramsDic model:(ResModel *)model finishCallbackBlock:(void (^)(NSString *, ResModel *))block;
 
