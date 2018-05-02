@@ -49,6 +49,7 @@
 		D876FE871FB0514B0094C274 /* panda.plist in Resources */ = {isa = PBXBuildFile; fileRef = D876FE861FB0514B0094C274 /* panda.plist */; };
 		D883EEF9200E37910062A6C6 /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = D883EEF4200E37910062A6C6 /* GTMBase64.m */; };
 		D883EEFA200E37910062A6C6 /* LCdes.m in Sources */ = {isa = PBXBuildFile; fileRef = D883EEF7200E37910062A6C6 /* LCdes.m */; };
+		D89AA87020947265001DE9B8 /* CC_Parser.m in Sources */ = {isa = PBXBuildFile; fileRef = D89AA86F20947265001DE9B8 /* CC_Parser.m */; };
 		D8B0E45C1F5016EA00425D06 /* CC_GColor.m in Sources */ = {isa = PBXBuildFile; fileRef = D8B0E45B1F5016EA00425D06 /* CC_GColor.m */; };
 		D8B0E4611F501EE400425D06 /* nyyh.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D8B0E4601F501EE400425D06 /* nyyh.jpg */; };
 		D8CC62551FF25610006E2ED6 /* CC_Envirnment.m in Sources */ = {isa = PBXBuildFile; fileRef = D8CC62541FF25610006E2ED6 /* CC_Envirnment.m */; };
@@ -156,6 +157,8 @@
 		D883EEF6200E37910062A6C6 /* LCdes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCdes.h; sourceTree = "<group>"; };
 		D883EEF7200E37910062A6C6 /* LCdes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCdes.m; sourceTree = "<group>"; };
 		D883EEF8200E37910062A6C6 /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
+		D89AA86E20947265001DE9B8 /* CC_Parser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_Parser.h; sourceTree = "<group>"; };
+		D89AA86F20947265001DE9B8 /* CC_Parser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC_Parser.m; sourceTree = "<group>"; };
 		D8B0E45A1F5016EA00425D06 /* CC_GColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_GColor.h; sourceTree = "<group>"; };
 		D8B0E45B1F5016EA00425D06 /* CC_GColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC_GColor.m; sourceTree = "<group>"; };
 		D8B0E4601F501EE400425D06 /* nyyh.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = nyyh.jpg; sourceTree = "<group>"; };
@@ -314,6 +317,8 @@
 				D8B0E45B1F5016EA00425D06 /* CC_GColor.m */,
 				D8389DFA206BA3680010A04A /* CC_LogicClass.h */,
 				D8389DFB206BA3680010A04A /* CC_LogicClass.m */,
+				D89AA86E20947265001DE9B8 /* CC_Parser.h */,
+				D89AA86F20947265001DE9B8 /* CC_Parser.m */,
 			);
 			path = tool;
 			sourceTree = "<group>";
@@ -541,6 +546,7 @@
 			files = (
 				D8CC62551FF25610006E2ED6 /* CC_Envirnment.m in Sources */,
 				D83EBC041FEB5BA700B94D6F /* CC_Image.m in Sources */,
+				D89AA87020947265001DE9B8 /* CC_Parser.m in Sources */,
 				D8195F541F29CEEF00C7BADD /* CC_Valiation.m in Sources */,
 				D8064C53206A28AF0096F80D /* CC_TextField.m in Sources */,
 				D883EEFA200E37910062A6C6 /* LCdes.m in Sources */,
