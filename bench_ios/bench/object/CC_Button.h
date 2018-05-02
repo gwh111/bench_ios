@@ -17,6 +17,8 @@
 
 + (CC_Button *)cr:(UIView *)view l:(float)left t:(float)top w:(float)width h:(float)height ts:(NSString *)titleStr ats:(NSAttributedString *)attributedStr tc:(UIColor *)textColor bgc:(UIColor *)backgroundColor img:(UIImage *)image bgimg:(UIImage *)backgroundImage f:(UIFont *)font ta:(UIControlContentHorizontalAlignment)contentHorizontalAlignment uie:(BOOL)userInteractionEnabled;
 
++ (CC_Button *)ccr:(UIView *)view l:(float)left t:(float)top w:(float)width h:(float)height ts:(NSString *)titleStr ats:(NSAttributedString *)attributedStr tc:(UIColor *)textColor bgc:(UIColor *)backgroundColor img:(UIImage *)image bgimg:(UIImage *)backgroundImage f:(UIFont *)font ta:(UIControlContentHorizontalAlignment)contentHorizontalAlignment uie:(BOOL)userInteractionEnabled;
+
 /**
  * button的基本功能创建
  */

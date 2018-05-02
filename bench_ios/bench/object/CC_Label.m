@@ -12,12 +12,28 @@
 @implementation CC_Label
 
 + (CC_Label *)cr:(UIView *)view l:(float)left t:(float)top w:(float)width h:(float)height ts:(NSString *)titleStr ats:(NSAttributedString *)attributedStr tc:(UIColor *)textColor bgc:(UIColor *)backgroundColor f:(UIFont *)font ta:(NSTextAlignment)textAlignment{
+    return [self cr:view l:left t:top w:width h:height ts:titleStr ats:attributedStr tc:textColor bgc:backgroundColor f:font ta:textAlignment relative:YES];
+}
+
++ (CC_Label *)ccr:(UIView *)view l:(float)left t:(float)top w:(float)width h:(float)height ts:(NSString *)titleStr ats:(NSAttributedString *)attributedStr tc:(UIColor *)textColor bgc:(UIColor *)backgroundColor f:(UIFont *)font ta:(NSTextAlignment)textAlignment{
+    return [self cr:view l:left t:top w:width h:height ts:titleStr ats:attributedStr tc:textColor bgc:backgroundColor f:font ta:textAlignment relative:NO];
+}
+
++ (CC_Label *)cr:(UIView *)view l:(float)left t:(float)top w:(float)width h:(float)height ts:(NSString *)titleStr ats:(NSAttributedString *)attributedStr tc:(UIColor *)textColor bgc:(UIColor *)backgroundColor f:(UIFont *)font ta:(NSTextAlignment)textAlignment relative:(BOOL)relative{
     CC_Label *newV=[[CC_Label alloc]init];
     [view addSubview:newV];
-    newV.left=[ccui getRH:left];
-    newV.top=[ccui getRH:top];
-    newV.width=[ccui getRH:width];
-    newV.height=[ccui getRH:height];
+    if (relative) {
+        newV.left=[ccui getRH:left];
+        newV.top=[ccui getRH:top];
+        newV.width=[ccui getRH:width];
+        newV.height=[ccui getRH:height];
+    }else{
+        newV.left=left;
+        newV.top=top;
+        newV.width=width;
+        newV.height=height;
+    }
+    
     if (titleStr) {
         newV.text=titleStr;
     }

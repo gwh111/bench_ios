@@ -12,12 +12,28 @@
 @implementation CC_TextView
 
 + (CC_TextView *)cr:(UIView *)view l:(float)left t:(float)top w:(float)width h:(float)height ts:(NSString *)titleStr ats:(NSAttributedString *)attributedStr tc:(UIColor *)textColor bgc:(UIColor *)backgroundColor f:(UIFont *)font ta:(NSTextAlignment)textAlignment sb:(BOOL)selectable eb:(BOOL)editable uie:(BOOL)userInteractionEnabled{
+    return [self cr:view l:left t:top w:width h:height ts:titleStr ats:attributedStr tc:textColor bgc:backgroundColor f:font ta:textAlignment sb:selectable eb:editable uie:userInteractionEnabled relative:YES];
+}
+
++ (CC_TextView *)ccr:(UIView *)view l:(float)left t:(float)top w:(float)width h:(float)height ts:(NSString *)titleStr ats:(NSAttributedString *)attributedStr tc:(UIColor *)textColor bgc:(UIColor *)backgroundColor f:(UIFont *)font ta:(NSTextAlignment)textAlignment sb:(BOOL)selectable eb:(BOOL)editable uie:(BOOL)userInteractionEnabled{
+    return [self cr:view l:left t:top w:width h:height ts:titleStr ats:attributedStr tc:textColor bgc:backgroundColor f:font ta:textAlignment sb:selectable eb:editable uie:userInteractionEnabled relative:NO];
+}
+
++ (CC_TextView *)cr:(UIView *)view l:(float)left t:(float)top w:(float)width h:(float)height ts:(NSString *)titleStr ats:(NSAttributedString *)attributedStr tc:(UIColor *)textColor bgc:(UIColor *)backgroundColor f:(UIFont *)font ta:(NSTextAlignment)textAlignment sb:(BOOL)selectable eb:(BOOL)editable uie:(BOOL)userInteractionEnabled relative:(BOOL)relative{
     CC_TextView *newV=[[CC_TextView alloc]init];
     [view addSubview:newV];
-    newV.left=[ccui getRH:left];
-    newV.top=[ccui getRH:top];
-    newV.width=[ccui getRH:width];
-    newV.height=[ccui getRH:height];
+    if (relative) {
+        newV.left=[ccui getRH:left];
+        newV.top=[ccui getRH:top];
+        newV.width=[ccui getRH:width];
+        newV.height=[ccui getRH:height];
+    }else{
+        newV.left=left;
+        newV.top=top;
+        newV.width=width;
+        newV.height=height;
+    }
+    
     if (titleStr) {
         newV.text=titleStr;
     }

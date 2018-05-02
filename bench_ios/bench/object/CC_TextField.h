@@ -12,4 +12,6 @@
 
 + (CC_TextField *)cr:(UIView *)view l:(float)left t:(float)top w:(float)width h:(float)height tc:(UIColor *)textColor bgc:(UIColor *)backgroundColor f:(UIFont *)font ta:(NSTextAlignment)textAlignment ph:(NSString *)placeholder uie:(BOOL)userInteractionEnabled;
 
++ (CC_TextField *)ccr:(UIView *)view l:(float)left t:(float)top w:(float)width h:(float)height tc:(UIColor *)textColor bgc:(UIColor *)backgroundColor f:(UIFont *)font ta:(NSTextAlignment)textAlignment ph:(NSString *)placeholder uie:(BOOL)userInteractionEnabled;
+
 @end

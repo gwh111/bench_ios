@@ -36,12 +36,27 @@
     return newV;
 }
 
++ (CC_View *)ccr:(UIView *)view l:(float)left t:(float)top w:(float)width h:(float)height bgc:(UIColor *)backgroundColor{
+    return [self cr:view l:left t:top w:width h:height bgc:backgroundColor relative:NO];
+}
+
 + (CC_View *)cr:(UIView *)view l:(float)left t:(float)top w:(float)width h:(float)height bgc:(UIColor *)backgroundColor{
+    return [self cr:view l:left t:top w:width h:height bgc:backgroundColor relative:YES];
+}
+
++ (CC_View *)cr:(UIView *)view l:(float)left t:(float)top w:(float)width h:(float)height bgc:(UIColor *)backgroundColor relative:(BOOL)relative{
     CC_View *newV=[self createOnView:view backgroundColor:backgroundColor];
-    newV.left=[ccui getRH:left];
-    newV.top=[ccui getRH:top];
-    newV.width=[ccui getRH:width];
-    newV.height=[ccui getRH:height];
+    if (relative) {
+        newV.left=[ccui getRH:left];
+        newV.top=[ccui getRH:top];
+        newV.width=[ccui getRH:width];
+        newV.height=[ccui getRH:height];
+    }else{
+        newV.left=left;
+        newV.top=top;
+        newV.width=width;
+        newV.height=height;
+    }
     return newV;
 }
 

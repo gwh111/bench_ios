@@ -12,4 +12,6 @@
 
 + (CC_TextView *)cr:(UIView *)view l:(float)left t:(float)top w:(float)width h:(float)height ts:(NSString *)titleStr ats:(NSAttributedString *)attributedStr tc:(UIColor *)textColor bgc:(UIColor *)backgroundColor f:(UIFont *)font ta:(NSTextAlignment)textAlignment sb:(BOOL)selectable eb:(BOOL)editable uie:(BOOL)userInteractionEnabled;
 
++ (CC_TextView *)ccr:(UIView *)view l:(float)left t:(float)top w:(float)width h:(float)height ts:(NSString *)titleStr ats:(NSAttributedString *)attributedStr tc:(UIColor *)textColor bgc:(UIColor *)backgroundColor f:(UIFont *)font ta:(NSTextAlignment)textAlignment sb:(BOOL)selectable eb:(BOOL)editable uie:(BOOL)userInteractionEnabled;
+
 @end

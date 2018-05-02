@@ -12,12 +12,28 @@
 @implementation CC_TextField
 
 + (CC_TextField *)cr:(UIView *)view l:(float)left t:(float)top w:(float)width h:(float)height tc:(UIColor *)textColor bgc:(UIColor *)backgroundColor f:(UIFont *)font ta:(NSTextAlignment)textAlignment ph:(NSString *)placeholder uie:(BOOL)userInteractionEnabled{
+    return [self cr:view l:left t:top w:width h:height tc:textColor bgc:backgroundColor f:font ta:textAlignment ph:placeholder uie:userInteractionEnabled relative:YES];
+}
+
++ (CC_TextField *)ccr:(UIView *)view l:(float)left t:(float)top w:(float)width h:(float)height tc:(UIColor *)textColor bgc:(UIColor *)backgroundColor f:(UIFont *)font ta:(NSTextAlignment)textAlignment ph:(NSString *)placeholder uie:(BOOL)userInteractionEnabled{
+    return [self cr:view l:left t:top w:width h:height tc:textColor bgc:backgroundColor f:font ta:textAlignment ph:placeholder uie:userInteractionEnabled relative:NO];
+}
+
++ (CC_TextField *)cr:(UIView *)view l:(float)left t:(float)top w:(float)width h:(float)height tc:(UIColor *)textColor bgc:(UIColor *)backgroundColor f:(UIFont *)font ta:(NSTextAlignment)textAlignment ph:(NSString *)placeholder uie:(BOOL)userInteractionEnabled relative:(BOOL)relative{
     CC_TextField *newV=[[CC_TextField alloc]init];
     [view addSubview:newV];
-    newV.left=[ccui getRH:left];
-    newV.top=[ccui getRH:top];
-    newV.width=[ccui getRH:width];
-    newV.height=[ccui getRH:height];
+    if (relative) {
+        newV.left=[ccui getRH:left];
+        newV.top=[ccui getRH:top];
+        newV.width=[ccui getRH:width];
+        newV.height=[ccui getRH:height];
+    }else{
+        newV.left=left;
+        newV.top=top;
+        newV.width=width;
+        newV.height=height;
+    }
+    
     if (textColor) {
         newV.textColor=textColor;
     }

@@ -10,6 +10,8 @@
 
 @interface CC_View : UIView
 
++ (CC_View *)ccr:(UIView *)view l:(float)left t:(float)top w:(float)width h:(float)height bgc:(UIColor *)backgroundColor;
+
 + (CC_View *)cr:(UIView *)view l:(float)left t:(float)top w:(float)width h:(float)height bgc:(UIColor *)backgroundColor;
 
 + (CC_View *)cr:(UIView *)view r:(float)right b:(float)bottom w:(float)width h:(float)height bgc:(UIColor *)backgroundColor;
