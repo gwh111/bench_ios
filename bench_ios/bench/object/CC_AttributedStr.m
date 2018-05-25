@@ -57,11 +57,11 @@
     return ceil([text boundingRectWithSize:textSize options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil].size.width);
 }
 
-- (float)heightForStr:(UITextView *)textView andWidth:(float)width{
++ (float)heightForStr:(UITextView *)textView andWidth:(float)width{
     CGSize sizeToFit = [textView sizeThatFits:CGSizeMake(width, MAXFLOAT)];
     return sizeToFit.height;
 }
-- (float)widthForStr:(UITextView *)textView andHeight:(float)height{
++ (float)widthForStr:(UITextView *)textView andHeight:(float)height{
     CGSize sizeToFit = [textView sizeThatFits:CGSizeMake(MAXFLOAT, height)];
     return sizeToFit.width;
 }

@@ -27,6 +27,9 @@ static dispatch_once_t onceToken;
 }
 
 - (void)playEffect:(NSString *)name type:(NSString *)type{
+    if (_forbiddenEffect) {
+        return;
+    }
     SystemSoundID soundID;
     NSString *strSoundFile = [[NSBundle mainBundle] pathForResource:name ofType:type];
     AudioServicesCreateSystemSoundID((__bridge CFURLRef)[NSURL fileURLWithPath:strSoundFile],&soundID);
@@ -34,6 +37,9 @@ static dispatch_once_t onceToken;
 }
 
 - (void)playMusic:(NSString *)name type:(NSString *)type{
+    if (_forbiddenMusic) {
+        return;
+    }
     if (_audioPlayer) {
         fadeTimeCount=0;
         [self soundFadeOut:name type:type];

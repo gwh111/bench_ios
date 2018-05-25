@@ -22,9 +22,9 @@
 + (CGFloat)lengthForLableWithStr:(NSString *)text lableHeight:(CGFloat)lableHeight font:(UIFont *)font;
 
 /** 计算textview的高度*/
-- (float)heightForStr:(UITextView *)textView andWidth:(float)width;
++ (float)heightForStr:(UITextView *)textView andWidth:(float)width;
 /** 计算textview的宽度*/
-- (float)widthForStr:(UITextView *)textView andHeight:(float)height;
++ (float)widthForStr:(UITextView *)textView andHeight:(float)height;
 
 /** 替换html标签
     原字符

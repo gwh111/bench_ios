@@ -15,6 +15,9 @@
 
 + (instancetype)getInstance;
 
+@property(nonatomic,assign) BOOL forbiddenMusic;
+@property(nonatomic,assign) BOOL forbiddenEffect;
+
 @property(nonatomic,retain) AVAudioPlayer *audioPlayer;
 /**
  * 淡入淡出
