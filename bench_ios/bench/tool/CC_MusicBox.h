@@ -26,6 +26,7 @@
 @property(nonatomic,assign) BOOL fade;
 @property(nonatomic,assign) int replayTimes;
 
+- (void)stopMusic;
 - (void)playMusic:(NSString *)name type:(NSString *)type;
 - (void)playEffect:(NSString *)name type:(NSString *)type;
 

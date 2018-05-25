@@ -36,6 +36,10 @@ static dispatch_once_t onceToken;
     AudioServicesPlaySystemSound(soundID);
 }
 
+- (void)stopMusic{
+    [_audioPlayer stop];
+}
+
 - (void)playMusic:(NSString *)name type:(NSString *)type{
     if (_forbiddenMusic) {
         return;
