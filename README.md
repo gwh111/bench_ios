@@ -19,6 +19,14 @@ Then, run the following command:
 ```bash
 $ pod install
 ```
+# v1.2.14
+Overview
+========
+tool;
+CC_Animation 按钮闪烁动画 点击放大动画
+CC_MusicBox 背景音乐淡入淡出播放 音效播放
+network;
+ResModel 提示只在debug出现 正式环境自由控制
 
 # v1.2.2
 Overview

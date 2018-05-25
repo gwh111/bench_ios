@@ -47,8 +47,8 @@
                                           error: nil];
         if (_resultDic==nil) {
             _errorStr=@"_resultDic=nil 无法解析data";
-            [CC_Note showAlert:_errorStr];
             if (_debug) {
+                [CC_Note showAlert:_errorStr];
                 if ([ccs getLocalKeyNamed:@"service" andKey:_serviceStr]) {
                     _resultStr=[ccs getLocalKeyNamed:@"service" andKey:_serviceStr];
                     [self parsingResult:_resultStr];
@@ -62,7 +62,9 @@
         }
     }else{//解析错误
         _errorStr=@"data=nil 可能是GBK";
-        [CC_Note showAlert:_errorStr];
+        if (_debug) {
+            [CC_Note showAlert:_errorStr];
+        }
         return;
     }
     

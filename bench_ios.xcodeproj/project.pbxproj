@@ -53,6 +53,8 @@
 		D8B0E45C1F5016EA00425D06 /* CC_GColor.m in Sources */ = {isa = PBXBuildFile; fileRef = D8B0E45B1F5016EA00425D06 /* CC_GColor.m */; };
 		D8B0E4611F501EE400425D06 /* nyyh.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D8B0E4601F501EE400425D06 /* nyyh.jpg */; };
 		D8CC62551FF25610006E2ED6 /* CC_Envirnment.m in Sources */ = {isa = PBXBuildFile; fileRef = D8CC62541FF25610006E2ED6 /* CC_Envirnment.m */; };
+		D8DD97EB20B6A6F2000A890D /* CC_Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = D8DD97EA20B6A6F2000A890D /* CC_Animation.m */; };
+		D8DD97EE20B7BC02000A890D /* CC_MusicBox.m in Sources */ = {isa = PBXBuildFile; fileRef = D8DD97ED20B7BC02000A890D /* CC_MusicBox.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -164,6 +166,10 @@
 		D8B0E4601F501EE400425D06 /* nyyh.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = nyyh.jpg; sourceTree = "<group>"; };
 		D8CC62531FF25610006E2ED6 /* CC_Envirnment.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_Envirnment.h; sourceTree = "<group>"; };
 		D8CC62541FF25610006E2ED6 /* CC_Envirnment.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC_Envirnment.m; sourceTree = "<group>"; };
+		D8DD97E920B6A6F2000A890D /* CC_Animation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_Animation.h; sourceTree = "<group>"; };
+		D8DD97EA20B6A6F2000A890D /* CC_Animation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC_Animation.m; sourceTree = "<group>"; };
+		D8DD97EC20B7BC02000A890D /* CC_MusicBox.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_MusicBox.h; sourceTree = "<group>"; };
+		D8DD97ED20B7BC02000A890D /* CC_MusicBox.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC_MusicBox.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -319,6 +325,10 @@
 				D8389DFB206BA3680010A04A /* CC_LogicClass.m */,
 				D89AA86E20947265001DE9B8 /* CC_Parser.h */,
 				D89AA86F20947265001DE9B8 /* CC_Parser.m */,
+				D8DD97E920B6A6F2000A890D /* CC_Animation.h */,
+				D8DD97EA20B6A6F2000A890D /* CC_Animation.m */,
+				D8DD97EC20B7BC02000A890D /* CC_MusicBox.h */,
+				D8DD97ED20B7BC02000A890D /* CC_MusicBox.m */,
 			);
 			path = tool;
 			sourceTree = "<group>";
@@ -561,6 +571,7 @@
 				D835077A1F31E2CD00B7461C /* CC_CodeClass.m in Sources */,
 				D823153C1F53AED3006055FB /* testColorViewController.m in Sources */,
 				D83B74DB2068FCE1000F81F8 /* UIViewController+CCUIHelper.m in Sources */,
+				D8DD97EB20B6A6F2000A890D /* CC_Animation.m in Sources */,
 				D8195F511F29CE6B00C7BADD /* CC_MD5Object.m in Sources */,
 				D83EBC0D1FEB5CBC00B94D6F /* CC_UIViewExt.m in Sources */,
 				D83EBC011FEB5BA700B94D6F /* CC_Array.m in Sources */,
@@ -582,6 +593,7 @@
 				D83B73342068A170000F81F8 /* CC_Note.m in Sources */,
 				D8335338205F93F90030AB62 /* CC_HttpResponseModel.m in Sources */,
 				D83507621F309D2700B7461C /* CC_DESTool.m in Sources */,
+				D8DD97EE20B7BC02000A890D /* CC_MusicBox.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

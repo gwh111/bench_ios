@@ -118,9 +118,18 @@
     }];
     
 #pragma mark map arr parser
-    NSDictionary *result=@{@"response":@{@"purchaseOrders":@[@{@"name":@"111",@"order":@"1111",@"prize":@"aaa"},@{@"name":@"222",@"order":@"2222",@"prize":@"bbb"}],
-                                       @"paidFeeMap":@{@"1111":@"100yuan",@"2222":@"120yuan"},
-                                         @"prizeFeeMap":@{@"aaa":@{@"name":@"a",@"time":@"ac"},@"bbb":@{@"name":@"b",@"time":@"bc"}}
+    NSDictionary *result=@{@"response":
+  @{@"purchaseOrders":
+  @[
+  @{@"name":@"111",@"order":@"1111",@"prize":@"aaa"},
+  @{@"name":@"222",@"order":@"2222",@"prize":@"bbb"}],
+    
+    @"paidFeeMap":
+  @{@"1111":@"100yuan",@"2222":@"120yuan"},
+    
+    @"prizeFeeMap":
+  @{@"aaa":@{@"name":@"a",@"time":@"ac"},
+    @"bbb":@{@"name":@"b",@"time":@"bc"}}
                                        }};
     NSMutableArray *parr=[CC_Parser getMapParser:result[@"response"][@"purchaseOrders"] idKey:@"order" keepKey:YES pathMap:result[@"response"][@"paidFeeMap"]];
     parr=[CC_Parser addMapParser:parr idKey:@"prize" keepKey:NO map:result[@"response"][@"prizeFeeMap"]];
