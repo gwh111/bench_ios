@@ -12,6 +12,7 @@
 
 @property(nonatomic,assign) BOOL debug;
 @property(nonatomic,retain) NSString *serviceStr;
+@property(nonatomic,retain) NSString *requestStr;
 
 @property(nonatomic,retain) NSString *resultStr;
 @property(nonatomic,retain) NSDictionary *resultDic;

@@ -53,6 +53,7 @@
 		D8B0E45C1F5016EA00425D06 /* CC_GColor.m in Sources */ = {isa = PBXBuildFile; fileRef = D8B0E45B1F5016EA00425D06 /* CC_GColor.m */; };
 		D8B0E4611F501EE400425D06 /* nyyh.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D8B0E4601F501EE400425D06 /* nyyh.jpg */; };
 		D8CC62551FF25610006E2ED6 /* CC_Envirnment.m in Sources */ = {isa = PBXBuildFile; fileRef = D8CC62541FF25610006E2ED6 /* CC_Envirnment.m */; };
+		D8CE47B720D28A3E00587337 /* CC_RequestRecordTool.m in Sources */ = {isa = PBXBuildFile; fileRef = D8CE47B620D28A3D00587337 /* CC_RequestRecordTool.m */; };
 		D8DD97EB20B6A6F2000A890D /* CC_Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = D8DD97EA20B6A6F2000A890D /* CC_Animation.m */; };
 		D8DD97EE20B7BC02000A890D /* CC_MusicBox.m in Sources */ = {isa = PBXBuildFile; fileRef = D8DD97ED20B7BC02000A890D /* CC_MusicBox.m */; };
 /* End PBXBuildFile section */
@@ -166,6 +167,8 @@
 		D8B0E4601F501EE400425D06 /* nyyh.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = nyyh.jpg; sourceTree = "<group>"; };
 		D8CC62531FF25610006E2ED6 /* CC_Envirnment.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_Envirnment.h; sourceTree = "<group>"; };
 		D8CC62541FF25610006E2ED6 /* CC_Envirnment.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC_Envirnment.m; sourceTree = "<group>"; };
+		D8CE47B520D28A3D00587337 /* CC_RequestRecordTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_RequestRecordTool.h; sourceTree = "<group>"; };
+		D8CE47B620D28A3D00587337 /* CC_RequestRecordTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC_RequestRecordTool.m; sourceTree = "<group>"; };
 		D8DD97E920B6A6F2000A890D /* CC_Animation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_Animation.h; sourceTree = "<group>"; };
 		D8DD97EA20B6A6F2000A890D /* CC_Animation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC_Animation.m; sourceTree = "<group>"; };
 		D8DD97EC20B7BC02000A890D /* CC_MusicBox.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_MusicBox.h; sourceTree = "<group>"; };
@@ -304,6 +307,8 @@
 				D8195F4C1F29CE6B00C7BADD /* CC_MD5Object.m */,
 				D8CC62531FF25610006E2ED6 /* CC_Envirnment.h */,
 				D8CC62541FF25610006E2ED6 /* CC_Envirnment.m */,
+				D8CE47B520D28A3D00587337 /* CC_RequestRecordTool.h */,
+				D8CE47B620D28A3D00587337 /* CC_RequestRecordTool.m */,
 			);
 			path = network;
 			sourceTree = "<group>";
@@ -567,6 +572,7 @@
 				18B6BD031F1F09CA0019391D /* ViewController.m in Sources */,
 				18B6BD001F1F09CA0019391D /* AppDelegate.m in Sources */,
 				18B6BCFD1F1F09CA0019391D /* main.m in Sources */,
+				D8CE47B720D28A3E00587337 /* CC_RequestRecordTool.m in Sources */,
 				D83EBC061FEB5BA700B94D6F /* CC_Notice.m in Sources */,
 				D835077A1F31E2CD00B7461C /* CC_CodeClass.m in Sources */,
 				D823153C1F53AED3006055FB /* testColorViewController.m in Sources */,

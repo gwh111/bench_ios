@@ -26,7 +26,9 @@
     [super viewDidLoad];
     self.view.backgroundColor=COLOR_WHITE;
     
-    [CC_Share shareInstance].ccDebug=1;
+    CCLOG(@"path=%@\n%@",NSHomeDirectory(),[[CCReqRecord getInstance]getTotalStr]);
+    
+//    [CC_Share getInstance].ccDebug=1;
     //设置基准 效果图的尺寸即可
     [[CC_UIHelper getInstance]initUIDemoWidth:375 andHeight:750];
     //UI调整工具初始化 完成后移除即可

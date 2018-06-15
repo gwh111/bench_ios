@@ -12,7 +12,7 @@
 @implementation UIViewController(CCUIHelper)
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    if ([CC_Share shareInstance].ccDebug==0) {
+    if ([CC_Share getInstance].ccDebug==0) {
         return;
     }
     UITouch *touch = [[event allTouches] anyObject];

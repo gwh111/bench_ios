@@ -96,7 +96,9 @@ static dispatch_once_t onceToken;
 
 + (float)getRelativeHeight:(float)height{
     if ([CC_UIHelper getInstance].uiDemoHeight!=CC_SCREEN_HEIGHT) {
-        CCLOG(@"不是有效相对height");
+        if ([CC_Share getInstance].ccDebug) {
+            CCLOG(@"不是有效相对height");
+        }
     }
     return height*[self getW]/[[CC_UIHelper getInstance] getUIDemoWith];
 }

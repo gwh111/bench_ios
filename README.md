@@ -19,6 +19,14 @@ Then, run the following command:
 ```bash
 $ pod install
 ```
+
+# v1.2.17
+Overview
+========
+network;
+CC_RequestRecordTool
+ResModel 增加requestUrl
+
 # v1.2.14
 Overview
 ========
@@ -132,8 +140,8 @@ Overview
 CC_Share
 启动时为user_signKey赋值 使用登陆后返回的md5 key
 # example code
-[[CC_Share shareInstance] setUserSignKey:@"123"];
-[[CC_Share shareInstance] setHttpRequestWithAppName:@"app" andHTTPMethod:@"POST" andTimeoutInterval:10];
+[[CC_Share getInstance] setUserSignKey:@"123"];
+[[CC_Share getInstance] setHttpRequestWithAppName:@"app" andHTTPMethod:@"POST" andTimeoutInterval:10];
 
 # 网络请求类
 CC_GHttpSessionTask

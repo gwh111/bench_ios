@@ -9,6 +9,7 @@
 #import "CC_GHttpSessionTask.h"
 #import "CC_FormatDic.h"
 #import "CC_Share.h"
+#import "CC_RequestRecordTool.h"
 
 @implementation CC_HttpTask
 @synthesize finishCallbackBlock;
@@ -62,7 +63,9 @@ static dispatch_once_t onceToken;
     }
     
     if (!_signKeyStr) {
-        CCLOG(@"_signKeyStr为空");
+        if (model.debug) {
+            CCLOG(@"_signKeyStr为空");
+        }
     }
     NSString *paraString=[CC_FormatDic getSignFormatStringWithDic:paramsDic andMD5Key:_signKeyStr];
     
@@ -72,6 +75,7 @@ static dispatch_once_t onceToken;
     }else{
         urlReq=[self getRequestWithUrl:url andParamters:paraString];
     }
+    model.requestStr=urlReq.URL.absoluteString;
     NSURLSessionDownloadTask *mytask=[session downloadTaskWithRequest:urlReq completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         
         [session finishTasksAndInvalidate];
@@ -85,11 +89,18 @@ static dispatch_once_t onceToken;
             [model parsingError:error];
         }else{
             NSString *resultStr= [NSString stringWithContentsOfURL:location encoding:NSUTF8StringEncoding error:&error];
+            if (!resultStr) {
+                NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
+                resultStr= [NSString stringWithContentsOfURL:location encoding:enc error:&error];
+                if (model.debug&&resultStr) {
+                    CCLOG(@"返回头是GBK编码");
+                }
+            }
             [model parsingResult:resultStr];
         }
         dispatch_sync(dispatch_get_main_queue(), ^{
             if (model.debug) {
-                CCLOG(@"\nURL:%@%@\nRes:%@",url,paraString,model.resultDic);
+                [[CCReqRecord getInstance]insertRequestDataWithHHSService:paramsDic[@"service"] requestUrl:url.absoluteString parameters:paraString];
             }
             executorDelegate.finishCallbackBlock(model.errorStr, model);
         });

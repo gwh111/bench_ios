@@ -53,6 +53,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
 #import "CC_Parser.h"
 #import "CC_Animation.h"
 #import "CC_MusicBox.h"
+#import "CC_RequestRecordTool.h"
 
 #define NOTIFICATION_LOGIN_EXPIRED @"NOTIFICATION_LOGIN_EXPIRED"
 #define NOTIFICATION_USER_LOGIN_FORBID @"NOTIFICATION_USER_LOGIN_FORBID"
@@ -62,7 +63,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
 
 @property (nonatomic,assign) BOOL ccDebug;
 
-+ (instancetype)shareInstance;
++ (instancetype)getInstance;
 
 @end
 

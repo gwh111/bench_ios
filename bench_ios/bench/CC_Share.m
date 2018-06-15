@@ -13,7 +13,7 @@
 static CC_Share *userManager=nil;
 static dispatch_once_t onceToken;
 
-+ (instancetype)shareInstance{
++ (instancetype)getInstance{
     dispatch_once(&onceToken, ^{
         userManager=[[CC_Share alloc]init];
     });
