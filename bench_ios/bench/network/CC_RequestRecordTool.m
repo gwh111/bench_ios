@@ -41,7 +41,7 @@
 -(NSString *)pathForPlist{
     BOOL isDir = NO;
     // temp路径
-    NSString * docsdir = NSTemporaryDirectory();
+    NSString * docsdir = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
     NSString *dataFilePath = [docsdir stringByAppendingPathComponent:@"requestRecod"];
     
     NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -59,6 +59,9 @@
 -(NSString *)totalParameters{
     NSString *plistPath = [self pathForPlist];
     NSMutableDictionary *usersDic = [[NSMutableDictionary alloc] initWithContentsOfFile:plistPath];
+    if (!usersDic) {
+        return nil;
+    }
     NSString * paraStr = @"";
     for (NSDictionary * dic in usersDic.allValues) {
         paraStr = [paraStr stringByAppendingString:[NSString stringWithFormat:@";%@", dic[@"parameters"]]];
@@ -69,6 +72,9 @@
 -(NSString *)totalRequestUrls{
     NSString *plistPath = [self pathForPlist];
     NSMutableDictionary *usersDic = [[NSMutableDictionary alloc] initWithContentsOfFile:plistPath];
+    if (!usersDic) {
+        return nil;
+    }
     NSString * paraStr = @"";
     for (NSDictionary * dic in usersDic.allValues) {
         paraStr = [paraStr stringByAppendingString:[NSString stringWithFormat:@";%@", dic[@"requestUrl"]]];
@@ -79,6 +85,9 @@
 -(NSString *)getTotalStr{
     NSString *plistPath = [self pathForPlist];
     NSMutableDictionary *usersDic = [[NSMutableDictionary alloc] initWithContentsOfFile:plistPath];
+    if (!usersDic) {
+        return nil;
+    }
     NSString * paraStr = @"";
     for (NSDictionary * dic in usersDic.allValues) {
         NSString *urlS=dic[@"requestUrl"];

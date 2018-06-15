@@ -20,7 +20,7 @@ Then, run the following command:
 $ pod install
 ```
 
-# v1.2.17
+# v1.2.18
 Overview
 ========
 network;
