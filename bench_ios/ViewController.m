@@ -92,8 +92,8 @@
     [[CC_HttpTask getInstance]setSignKeyStr:@"abc"];
     //额外每个请求要传的参数
 //    [[CC_HttpTask getInstance]setExtreDic:@{@"key":@"v"}];
-    NSURL *url=[NSURL URLWithString:@"http://mapi.17caiyou.com/service.json?"];
-    [[CC_HttpTask getInstance]post:url params:@{@"service":@"PURCHASE_ORDRE_JOINED_SHOW_CONFIG_QUERY"} model:[[ResModel alloc]init] finishCallbackBlock:^(NSString *error, ResModel *result) {
+    NSURL *url=[NSURL URLWithString:@"http://mapi1.93leju.net/service.json?"];
+    [[CC_HttpTask getInstance]post:url params:@{@"service":@"ROOM_USER_SETTLE_QUERY_BY_ROOM"} model:[[ResModel alloc]init] finishCallbackBlock:^(NSString *error, ResModel *result) {
         if (error) {
             [CC_Note showAlert:error];
             return ;

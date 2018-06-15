@@ -75,7 +75,8 @@ static dispatch_once_t onceToken;
     }else{
         urlReq=[self getRequestWithUrl:url andParamters:paraString];
     }
-    model.requestStr=urlReq.URL.absoluteString;
+   
+    model.requestUrlStr=urlReq.URL.absoluteString; model.requestStr=ccstr(@"%@%@",urlReq.URL.absoluteString,paraString);
     NSURLSessionDownloadTask *mytask=[session downloadTaskWithRequest:urlReq completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         
         [session finishTasksAndInvalidate];
