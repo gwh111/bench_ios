@@ -40,16 +40,18 @@
  */
 @property(nonatomic,retain) NSDictionary *extreDic;
 /**
- *  额外的 每个接口都要发送的数据
+ *  超时时间
  */
+@property(nonatomic,assign) NSTimeInterval httpTimeoutInterval;
 
 @property(strong) void (^finishCallbackBlock)(NSString *error,ResModel *result);
 
 /**
+ * url NSString 或者 NSURL
  * paramsDic的关键字
  * getDate 可以获取时间
  */
-- (void)post:(NSURL *)url params:(id)paramsDic model:(ResModel *)model finishCallbackBlock:(void (^)(NSString *, ResModel *))block;
-- (void)get:(NSURL *)url params:(id)paramsDic model:(ResModel *)model finishCallbackBlock:(void (^)(NSString *, ResModel *))block;
+- (void)post:(id)url params:(id)paramsDic model:(ResModel *)model finishCallbackBlock:(void (^)(NSString *, ResModel *))block;
+- (void)get:(id)url params:(id)paramsDic model:(ResModel *)model finishCallbackBlock:(void (^)(NSString *, ResModel *))block;
 
 @end

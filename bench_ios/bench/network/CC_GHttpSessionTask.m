@@ -21,8 +21,13 @@ static dispatch_once_t onceToken;
 {
     dispatch_once(&onceToken, ^{
         instance = [[CC_HttpTask alloc] init];
+        [instance initBase];
     });
     return instance;
+}
+
+- (void)initBase{
+    _httpTimeoutInterval=10;
 }
 
 - (void)post:(NSURL *)url params:(id)paramsDic model:(ResModel *)model finishCallbackBlock:(void (^)(NSString *, ResModel *))block{
@@ -81,7 +86,7 @@ static dispatch_once_t onceToken;
         
         [session finishTasksAndInvalidate];
         
-        if (paramsDic[@"getDate"]) {
+        if (paramsDic[@"getDate"]||_needResponseDate) {
             NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
             [self loadResponseDate:model response:httpResponse];
         }
@@ -132,14 +137,21 @@ static dispatch_once_t onceToken;
 }
 
 //创建request
-- (NSURLRequest *)requestWithUrl:(NSURL *)url andParamters:(NSString *)paramsString andType:(int)type{
+- (NSURLRequest *)requestWithUrl:(id)url andParamters:(NSString *)paramsString andType:(int)type{
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]init];
-    request.URL=url;
+    if ([url isKindOfClass:[NSURL class]]) {
+        request.URL=url;
+    }else if ([url isKindOfClass:[NSString class]]) {
+        request.URL=[NSURL URLWithString:url];
+    }else{
+        CCLOG(@"url 不合法");
+    }
+    
     request.HTTPBody = [paramsString dataUsingEncoding:NSUTF8StringEncoding];
     NSArray *types=@[@"POST",@"GET"];
     [request setHTTPMethod:types[type]];
-    [request setTimeoutInterval:10];
+    [request setTimeoutInterval:_httpTimeoutInterval];
     
     if (!_requestHTTPHeaderFieldDic) {
         CCLOG(@"没有设置_requestHTTPHeaderFieldDic");
