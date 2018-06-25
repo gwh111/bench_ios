@@ -82,6 +82,9 @@
     NSString * str2  =[[NSString alloc] initWithData:baseData encoding:NSUTF8StringEncoding];
     
     //CC_GHttpSessionTask
+    //    [request setValue:@"cc-iphone" forHTTPHeaderField:@"appName"];
+    //    [request setValue:[NSString stringWithFormat:@"%@",[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]] forHTTPHeaderField:@"appVersion"];
+    //    CCLOG(@"%@",request.allHTTPHeaderFields);
     //http头部信息
     [[CC_HttpTask getInstance]setRequestHTTPHeaderFieldDic:
   @{@"appName":@"ljzsmj_ios",

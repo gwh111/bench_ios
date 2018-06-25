@@ -37,18 +37,6 @@
     
     NSMutableDictionary *newDic=[[NSMutableDictionary alloc]initWithDictionary:dic];
     
-    if (!dic[@"loginKey"]) {
-        if ([[NSUserDefaults standardUserDefaults] objectForKey:@"USER_user_loginKey"]) {
-            [newDic setObject:[[NSUserDefaults standardUserDefaults] objectForKey:@"USER_user_loginKey"] forKey:@"loginKey"];
-        }
-    }
-    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"USER_authedUserId"]) {
-        if ([NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"USER_authedUserId"]].length>1) {
-            [newDic setObject:[[NSUserDefaults standardUserDefaults] objectForKey:@"USER_authedUserId"] forKey:@"authedUserId"];
-        }
-        
-    }
-    
     NSArray *keysArray = [newDic allKeys];
     NSArray *resultArray = [keysArray sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
         

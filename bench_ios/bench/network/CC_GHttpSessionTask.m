@@ -145,9 +145,7 @@ static dispatch_once_t onceToken;
         CCLOG(@"没有设置_requestHTTPHeaderFieldDic");
         return request;
     }
-    [request setValue:@"cc-iphone" forHTTPHeaderField:@"appName"];
-    [request setValue:[NSString stringWithFormat:@"%@",[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]] forHTTPHeaderField:@"appVersion"];
-//    CCLOG(@"%@",request.allHTTPHeaderFields);
+
     NSArray *keys=[_requestHTTPHeaderFieldDic allKeys];
     for (int i=0; i<keys.count; i++) {
         [request setValue:_requestHTTPHeaderFieldDic[keys[i]] forHTTPHeaderField:keys[i]];
