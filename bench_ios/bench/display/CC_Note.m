@@ -18,6 +18,7 @@ static dispatch_once_t onceToken;
 {
     dispatch_once(&onceToken, ^{
         instance = [[CC_Note alloc] init];
+        instance.delayTime=3;
     });
     return instance;
 }
@@ -58,7 +59,7 @@ static dispatch_once_t onceToken;
         alertView.alpha=1;
     } completion:^(BOOL finished) {
         
-        double delayInSeconds = 2;
+        double delayInSeconds = [CC_Note getInstance].delayTime;
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds *   NSEC_PER_SEC));
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
             [UIView animateWithDuration:.5f animations:^{

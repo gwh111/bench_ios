@@ -90,7 +90,7 @@ static dispatch_once_t onceToken;
     if (setupDic[key]) {
         return setupDic[key];
     }
-    NSLog(@"获取失败");
+    CCLOG(@"获取失败");
     return nil;
 }
 

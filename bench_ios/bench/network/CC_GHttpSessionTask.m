@@ -108,7 +108,7 @@ static dispatch_once_t onceToken;
             if (model.debug) {
                 [[CCReqRecord getInstance]insertRequestDataWithHHSService:paramsDic[@"service"] requestUrl:url.absoluteString parameters:paraString];
             }
-            executorDelegate.finishCallbackBlock(model.errorStr, model);
+            executorDelegate.finishCallbackBlock(model.errorMsgStr, model);
         });
         
     }];

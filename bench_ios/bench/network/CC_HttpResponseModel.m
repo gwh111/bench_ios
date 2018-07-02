@@ -29,10 +29,12 @@
             [self parsingResult:_resultStr];
             [CC_Note showAlert:@"_debug Data" atView:nil];
         }else{
-            _errorStr=error.description;
+            _errorNameStr=error.description;
+            _errorMsgStr=_errorNameStr;
         }
     }else{
-        _errorStr=error.description;
+        _errorNameStr=error.description;
+        _errorMsgStr=_errorNameStr;
     }
 }
 
@@ -46,9 +48,10 @@
                                         options: NSJSONReadingMutableLeaves
                                           error: nil];
         if (_resultDic==nil) {
-            _errorStr=@"_resultDic=nil 无法解析data";
+            _errorNameStr=@"_resultDic=nil 无法解析data";
+            _errorMsgStr=_errorNameStr;
             if (_debug) {
-                [CC_Note showAlert:_errorStr];
+                [CC_Note showAlert:_errorMsgStr];
                 if ([ccs getLocalKeyNamed:@"service" andKey:_serviceStr]) {
                     _resultStr=[ccs getLocalKeyNamed:@"service" andKey:_serviceStr];
                     [self parsingResult:_resultStr];
@@ -57,24 +60,32 @@
             }
             return;
         }
-        if (_resultDic[@"response"][@"error"]) {//服务端的错误
-            _errorStr=_resultDic[@"response"][@"error"][@"name"];
+        //服务端返回的错误
+        if (_resultDic[@"response"][@"detailMessage"]) {
+            _errorNameStr=_resultDic[@"response"][@"detailMessage"];
+            _errorMsgStr=_errorNameStr;
+        }else if (_resultDic[@"response"][@"error"]) {
+            _errorNameStr=_resultDic[@"response"][@"error"][@"name"];
+            _errorMsgStr=_resultDic[@"response"][@"error"][@"message"];
         }
+        
     }else{//解析错误
-        _errorStr=@"data=nil 可能是GBK";
+        _errorNameStr=@"data=nil";
+        _errorMsgStr=_errorNameStr;
         if (_debug) {
-            [CC_Note showAlert:_errorStr];
+            [CC_Note showAlert:_errorMsgStr];
         }
         return;
     }
     
-    if (_errorStr) {
+    if (_errorNameStr) {
         
     }else{
         
-//        CCLOG(@"path=%@",[NSString stringWithFormat:@"%@", NSHomeDirectory()]);
-        if (![ccs getLocalKeyNamed:@"service" andKey:_serviceStr]) {
-            [ccs saveLocalKeyNamed:@"service" andKey:_serviceStr andValue:_resultStr];
+        if (_debug) {
+            if (![ccs getLocalKeyNamed:@"service" andKey:_serviceStr]) {
+                [ccs saveLocalKeyNamed:@"service" andKey:_serviceStr andValue:_resultStr];
+            }
         }
     }
 }

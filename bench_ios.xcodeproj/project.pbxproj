@@ -376,8 +376,6 @@
 				D83EBBF81FEB5BA700B94D6F /* CC_AttributedStr.m */,
 				D83EBBFB1FEB5BA700B94D6F /* CC_Image.h */,
 				D83EBBFC1FEB5BA700B94D6F /* CC_Image.m */,
-				D83EBBFF1FEB5BA700B94D6F /* CC_Notice.h */,
-				D83EBC001FEB5BA700B94D6F /* CC_Notice.m */,
 			);
 			path = object;
 			sourceTree = "<group>";
@@ -387,6 +385,8 @@
 			children = (
 				D83B73322068A170000F81F8 /* CC_Note.h */,
 				D83B73332068A170000F81F8 /* CC_Note.m */,
+				D83EBBFF1FEB5BA700B94D6F /* CC_Notice.h */,
+				D83EBC001FEB5BA700B94D6F /* CC_Notice.m */,
 				D83EBC081FEB5CBC00B94D6F /* CC_UIHelper.h */,
 				D83EBC091FEB5CBC00B94D6F /* CC_UIHelper.m */,
 				D83B74D72068FCE1000F81F8 /* UIScrollView+CCUIHelper.h */,
