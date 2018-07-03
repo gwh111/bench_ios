@@ -87,7 +87,7 @@ static dispatch_once_t onceToken;
         
         [session finishTasksAndInvalidate];
         
-        if (paramsDic[@"getDate"]||_needResponseDate) {
+        if (paramsDic[@"getDate"]||blockSelf.needResponseDate) {
             NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
             [blockSelf loadResponseDate:model response:httpResponse];
         }
