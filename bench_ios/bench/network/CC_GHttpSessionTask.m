@@ -82,13 +82,14 @@ static dispatch_once_t onceToken;
     }
    
     model.requestUrlStr=urlReq.URL.absoluteString; model.requestStr=ccstr(@"%@%@",urlReq.URL.absoluteString,paraString);
+    __block CC_HttpTask *blockSelf=self;
     NSURLSessionDownloadTask *mytask=[session downloadTaskWithRequest:urlReq completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         
         [session finishTasksAndInvalidate];
         
         if (paramsDic[@"getDate"]||_needResponseDate) {
             NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-            [self loadResponseDate:model response:httpResponse];
+            [blockSelf loadResponseDate:model response:httpResponse];
         }
         
         if (error) {

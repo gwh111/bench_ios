@@ -32,7 +32,7 @@
     //设置基准 效果图的尺寸即可
     [[CC_UIHelper getInstance]initUIDemoWidth:375 andHeight:750];
     //UI调整工具初始化 完成后移除即可
-    [[CC_UIHelper getInstance]initToolV];
+//    [[CC_UIHelper getInstance]initToolV];
     
     //3D
     [CC_3DWindow show];
