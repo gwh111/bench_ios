@@ -25,8 +25,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor=COLOR_WHITE;
+    NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
+    {//emoj->str
+        NSData *data11 = [@"😂" dataUsingEncoding:NSUTF8StringEncoding];
+        NSString *stringBase64 = [data11 base64Encoding]; // base64格式的字符串
+        NSString *decodeStr = [[NSString alloc] initWithData:data11 encoding:NSUTF8StringEncoding];
+    }
+    {//str->emoji
+        NSData *data11 = [@"8J+Ygg==" dataUsingEncoding:NSUTF8StringEncoding];
+        NSData *baseData=[[NSData alloc] initWithBase64EncodedData:data11 options:0];
+    }
     
-    CCLOG(@"path=%@\n%@",NSHomeDirectory(),[[CCReqRecord getInstance]getTotalStr]);
+//    CCLOG(@"path=%@\n%@",NSHomeDirectory(),[[CCReqRecord getInstance]getTotalStr]);
     
     [CC_Share getInstance].ccDebug=1;
     //设置基准 效果图的尺寸即可
@@ -105,13 +115,15 @@
         CCLOG(@"%@",result.resultDic);
     }];
     
-    [[CC_HttpTask getInstance]get:[NSURL URLWithString:@"https://api.leancloud.cn/1/date"] params:@{} model:[[ResModel alloc]init] finishCallbackBlock:^(NSString *error, ResModel *result) {
+    //https://api.leancloud.cn/1/date
+    //http://mapi1.93leju.net/service.json?service=APP_INITIAL_CONFIG_LOAD&loginKey=&timestamp=1526266427&authedUserId=&sign=03971cacca9b2c1dc90065edea390cb5
+    [[CC_HttpTask getInstance]get:[NSURL URLWithString:@"http://mapi1.93leju.net/service.json?service=APP_INITIAL_CONFIG_LOAD&loginKey=&timestamp=1526266427&authedUserId=&sign=03971cacca9b2c1dc90065edea390cb5"] params:@{} model:[[ResModel alloc]init] finishCallbackBlock:^(NSString *error, ResModel *result) {
         if (error) {
             [CC_Note showAlert:error];
             return ;
         }
-        CCLOG(@"%@",result.resultDic);
-        ccstr(@"a%@b=2",@"=1");
+//        CCLOG(@"%@",result.resultDic);
+//        ccstr(@"a%@b=2",@"=1");
     }];
     
     [[CC_HttpTask getInstance]get:[NSURL URLWithString:@"https://www.baidu.com"] params:@{@"getDate":@""} model:[[ResModel alloc]init] finishCallbackBlock:^(NSString *error, ResModel *result) {

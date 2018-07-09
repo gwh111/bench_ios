@@ -30,19 +30,28 @@ static dispatch_once_t onceToken;
     _httpTimeoutInterval=10;
 }
 
-- (void)post:(NSURL *)url params:(id)paramsDic model:(ResModel *)model finishCallbackBlock:(void (^)(NSString *, ResModel *))block{
+- (void)post:(id)url params:(id)paramsDic model:(ResModel *)model finishCallbackBlock:(void (^)(NSString *, ResModel *))block{
     [self request:url Params:paramsDic model:model FinishCallbackBlock:^(NSString *error, ResModel *result) {
         block(error,result);
     } type:0];
 }
 
-- (void)get:(NSURL *)url params:(id)paramsDic model:(ResModel *)model finishCallbackBlock:(void (^)(NSString *, ResModel *))block{
+- (void)get:(id)url params:(id)paramsDic model:(ResModel *)model finishCallbackBlock:(void (^)(NSString *, ResModel *))block{
     [self request:url Params:paramsDic model:model FinishCallbackBlock:^(NSString *error, ResModel *result) {
         block(error,result);
     } type:1];
 }
 
-- (void)request:(NSURL *)url Params:(id)paramsDic model:(ResModel *)model FinishCallbackBlock:(void (^)(NSString *, ResModel *))block type:(int)type{
+- (void)request:(id)url Params:(id)paramsDic model:(ResModel *)model FinishCallbackBlock:(void (^)(NSString *, ResModel *))block type:(int)type{
+    
+    NSURL *tempUrl;
+    if ([url isKindOfClass:[NSURL class]]) {
+        tempUrl=url;
+    }else if ([url isKindOfClass:[NSString class]]) {
+        tempUrl=[NSURL URLWithString:url];
+    }else{
+        CCLOG(@"url 不合法");
+    }
     
     model.serviceStr=paramsDic[@"service"];
     
@@ -76,12 +85,13 @@ static dispatch_once_t onceToken;
     
     NSURLRequest *urlReq;
     if (type==0) {
-        urlReq=[self postRequestWithUrl:url andParamters:paraString];
+        urlReq=[self postRequestWithUrl:tempUrl andParamters:paraString];
     }else{
-        urlReq=[self getRequestWithUrl:url andParamters:paraString];
+        urlReq=[self getRequestWithUrl:tempUrl andParamters:paraString];
     }
    
     model.requestUrlStr=urlReq.URL.absoluteString; model.requestStr=ccstr(@"%@%@",urlReq.URL.absoluteString,paraString);
+    
     __block CC_HttpTask *blockSelf=self;
     NSURLSessionDownloadTask *mytask=[session downloadTaskWithRequest:urlReq completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         
@@ -107,8 +117,9 @@ static dispatch_once_t onceToken;
         }
         dispatch_sync(dispatch_get_main_queue(), ^{
             if (model.debug) {
-                [[CCReqRecord getInstance]insertRequestDataWithHHSService:paramsDic[@"service"] requestUrl:url.absoluteString parameters:paraString];
+                [[CCReqRecord getInstance]insertRequestDataWithHHSService:paramsDic[@"service"] requestUrl:tempUrl.absoluteString parameters:paraString];
             }
+            CCLOG(@"%@\n%@",model.requestStr,model.resultDic?model.resultDic:model.resultStr);
             executorDelegate.finishCallbackBlock(model.errorMsgStr, model);
         });
         
@@ -138,16 +149,10 @@ static dispatch_once_t onceToken;
 }
 
 //创建request
-- (NSURLRequest *)requestWithUrl:(id)url andParamters:(NSString *)paramsString andType:(int)type{
+- (NSURLRequest *)requestWithUrl:(NSURL *)url andParamters:(NSString *)paramsString andType:(int)type{
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]init];
-    if ([url isKindOfClass:[NSURL class]]) {
-        request.URL=url;
-    }else if ([url isKindOfClass:[NSString class]]) {
-        request.URL=[NSURL URLWithString:url];
-    }else{
-        CCLOG(@"url 不合法");
-    }
+    request.URL=url;
     
     request.HTTPBody = [paramsString dataUsingEncoding:NSUTF8StringEncoding];
     NSArray *types=@[@"POST",@"GET"];
