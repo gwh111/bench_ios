@@ -139,4 +139,25 @@ andAttributedString_stateNoraml:(NSAttributedString *)attributedString_stateNora
     self.enabled=YES;
 }
 
+- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent*)event
+
+{
+    
+    CGRect bounds = self.bounds;
+    if (self.width>=44&&self.height>=44) {
+        return [super pointInside:point withEvent:event];
+    }else if (self.width>=44&&self.height<44)
+    {
+        bounds =CGRectInset(bounds, 0, -(44-self.height)/2.0);
+    }else if (self.width<44&&self.height>=44)
+    {
+        bounds =CGRectInset(bounds,-(44-self.width)/2.0,0);
+    }else if (self.width<44&&self.height<44)
+    {
+        bounds =CGRectInset(bounds,-(44-self.width)/2.0,-(44-self.height)/2.0);
+    }
+    return CGRectContainsPoint(bounds, point);
+    
+}
+
 @end
