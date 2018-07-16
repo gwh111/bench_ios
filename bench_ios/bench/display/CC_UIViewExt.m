@@ -149,6 +149,31 @@ CGRect CGRectMoveToCenter(CGRect rect, CGPoint center)
 	self.frame = newframe;
 }
 
+-(CGFloat)centerX
+{
+    return self.center.x;
+}
+
+-(void)setCenterX:(CGFloat)centerX
+{
+    CGPoint newCenter = self.center;
+    newCenter.x = centerX;
+    self.center = newCenter;
+}
+
+-(CGFloat)centerY
+{
+    return self.center.y;
+}
+
+-(void)setCenterY:(CGFloat)centerY
+{
+    CGPoint newCenter = self.center;
+    newCenter.y = centerY;
+    self.center = newCenter;
+}
+
+
 // Move via offset
 - (void) moveBy: (CGPoint) delta
 {
@@ -197,5 +222,18 @@ CGRect CGRectMoveToCenter(CGRect rect, CGPoint center)
         }
     }
     return nil;
+}
+-(UIWindow *)lastWindow
+{
+    NSArray *windows = [UIApplication sharedApplication].windows;
+    for(UIWindow *window in [windows reverseObjectEnumerator]) {
+        
+        if ([window isKindOfClass:[UIWindow class]] &&
+            CGRectEqualToRect(window.bounds, [UIScreen mainScreen].bounds))
+            window.hidden = NO;
+            return window;
+    }
+    
+    return [UIApplication sharedApplication].keyWindow;
 }
 @end

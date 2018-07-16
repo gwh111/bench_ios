@@ -19,6 +19,7 @@
 		18B6BD421F20C6660019391D /* CC_Share.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B6BD411F20C6660019391D /* CC_Share.m */; };
 		18B6BD461F21A6080019391D /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 18B6BD451F21A6080019391D /* README.md */; };
 		18B6BD481F21A8560019391D /* bench_ios.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 18B6BD471F21A8560019391D /* bench_ios.podspec */; };
+		3081D9C020FC364F00FF5B3D /* CC_UIViewExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 3081D9BF20FC364F00FF5B3D /* CC_UIViewExt.m */; };
 		D8064C53206A28AF0096F80D /* CC_TextField.m in Sources */ = {isa = PBXBuildFile; fileRef = D8064C52206A28AF0096F80D /* CC_TextField.m */; };
 		D8064C59206A43F50096F80D /* CC_TextView.m in Sources */ = {isa = PBXBuildFile; fileRef = D8064C58206A43F50096F80D /* CC_TextView.m */; };
 		D8195F4F1F29CE6B00C7BADD /* CC_FormatDic.m in Sources */ = {isa = PBXBuildFile; fileRef = D8195F481F29CE6B00C7BADD /* CC_FormatDic.m */; };
@@ -42,7 +43,6 @@
 		D83EBC051FEB5BA700B94D6F /* CC_Label.m in Sources */ = {isa = PBXBuildFile; fileRef = D83EBBFE1FEB5BA700B94D6F /* CC_Label.m */; };
 		D83EBC061FEB5BA700B94D6F /* CC_Notice.m in Sources */ = {isa = PBXBuildFile; fileRef = D83EBC001FEB5BA700B94D6F /* CC_Notice.m */; };
 		D83EBC0C1FEB5CBC00B94D6F /* CC_UIHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D83EBC091FEB5CBC00B94D6F /* CC_UIHelper.m */; };
-		D83EBC0D1FEB5CBC00B94D6F /* CC_UIViewExt.m in Sources */ = {isa = PBXBuildFile; fileRef = D83EBC0B1FEB5CBC00B94D6F /* CC_UIViewExt.m */; };
 		D86F4C9D20883841000DF173 /* CC_Date.m in Sources */ = {isa = PBXBuildFile; fileRef = D86F4C9C20883841000DF173 /* CC_Date.m */; };
 		D876FE871FB0514B0094C274 /* panda.plist in Resources */ = {isa = PBXBuildFile; fileRef = D876FE861FB0514B0094C274 /* panda.plist */; };
 		D883EEF9200E37910062A6C6 /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = D883EEF4200E37910062A6C6 /* GTMBase64.m */; };
@@ -97,6 +97,8 @@
 		18B6BD411F20C6660019391D /* CC_Share.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC_Share.m; sourceTree = "<group>"; };
 		18B6BD451F21A6080019391D /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		18B6BD471F21A8560019391D /* bench_ios.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bench_ios.podspec; sourceTree = SOURCE_ROOT; };
+		3081D9BE20FC364F00FF5B3D /* CC_UIViewExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_UIViewExt.h; sourceTree = "<group>"; };
+		3081D9BF20FC364F00FF5B3D /* CC_UIViewExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC_UIViewExt.m; sourceTree = "<group>"; };
 		D8064C51206A28AF0096F80D /* CC_TextField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_TextField.h; sourceTree = "<group>"; };
 		D8064C52206A28AF0096F80D /* CC_TextField.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC_TextField.m; sourceTree = "<group>"; };
 		D8064C57206A43F50096F80D /* CC_TextView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_TextView.h; sourceTree = "<group>"; };
@@ -144,8 +146,6 @@
 		D83EBC001FEB5BA700B94D6F /* CC_Notice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC_Notice.m; sourceTree = "<group>"; };
 		D83EBC081FEB5CBC00B94D6F /* CC_UIHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_UIHelper.h; sourceTree = "<group>"; };
 		D83EBC091FEB5CBC00B94D6F /* CC_UIHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC_UIHelper.m; sourceTree = "<group>"; };
-		D83EBC0A1FEB5CBC00B94D6F /* CC_UIViewExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_UIViewExt.h; sourceTree = "<group>"; };
-		D83EBC0B1FEB5CBC00B94D6F /* CC_UIViewExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC_UIViewExt.m; sourceTree = "<group>"; };
 		D83EBC0E1FEB646100B94D6F /* PlatformConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlatformConfig.h; sourceTree = "<group>"; };
 		D86F4C9B20883841000DF173 /* CC_Date.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_Date.h; sourceTree = "<group>"; };
 		D86F4C9C20883841000DF173 /* CC_Date.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC_Date.m; sourceTree = "<group>"; };
@@ -382,6 +382,8 @@
 		D83EBC071FEB5CBC00B94D6F /* display */ = {
 			isa = PBXGroup;
 			children = (
+				3081D9BE20FC364F00FF5B3D /* CC_UIViewExt.h */,
+				3081D9BF20FC364F00FF5B3D /* CC_UIViewExt.m */,
 				D83B73322068A170000F81F8 /* CC_Note.h */,
 				D83B73332068A170000F81F8 /* CC_Note.m */,
 				D83EBBFF1FEB5BA700B94D6F /* CC_Notice.h */,
@@ -390,8 +392,6 @@
 				D83EBC091FEB5CBC00B94D6F /* CC_UIHelper.m */,
 				D8365E21205A741D00357C0F /* CC_UIToolView.h */,
 				D8365E22205A741D00357C0F /* CC_UIToolView.m */,
-				D83EBC0A1FEB5CBC00B94D6F /* CC_UIViewExt.h */,
-				D83EBC0B1FEB5CBC00B94D6F /* CC_UIViewExt.m */,
 				D8389DF7206B74D50010A04A /* CC_3DWindow.h */,
 				D8389DF8206B74D50010A04A /* CC_3DWindow.m */,
 			);
@@ -569,12 +569,12 @@
 				18B6BD001F1F09CA0019391D /* AppDelegate.m in Sources */,
 				18B6BCFD1F1F09CA0019391D /* main.m in Sources */,
 				D8CE47B720D28A3E00587337 /* CC_RequestRecordTool.m in Sources */,
+				3081D9C020FC364F00FF5B3D /* CC_UIViewExt.m in Sources */,
 				D83EBC061FEB5BA700B94D6F /* CC_Notice.m in Sources */,
 				D835077A1F31E2CD00B7461C /* CC_CodeClass.m in Sources */,
 				D823153C1F53AED3006055FB /* testColorViewController.m in Sources */,
 				D8DD97EB20B6A6F2000A890D /* CC_Animation.m in Sources */,
 				D8195F511F29CE6B00C7BADD /* CC_MD5Object.m in Sources */,
-				D83EBC0D1FEB5CBC00B94D6F /* CC_UIViewExt.m in Sources */,
 				D83EBC011FEB5BA700B94D6F /* CC_Array.m in Sources */,
 				D83EBC021FEB5BA700B94D6F /* CC_AttributedStr.m in Sources */,
 				D83EBC031FEB5BA700B94D6F /* CC_Button.m in Sources */,
