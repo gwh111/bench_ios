@@ -19,8 +19,22 @@ Then, run the following command:
 ```bash
 $ pod install
 ```
+# v1.2.28
+========
+CC_HttpTask;
+设置通用响应结果特殊处理回调逻辑
+```
+//添加逻辑
+[[CC_HttpTask getInstance] addResponseLogic:@"PARAMETER_ERROR" logicStr:@"response,error,name=PARAMETER_ERROR" stop:YES popOnce:YES logicBlock:^(NSDictionary *resultDic) {
+//在这里添加处理代码
+}];
+//重置去重
+[[CC_HttpTask getInstance]resetResponseLogicPopOnce:@"PARAMETER_ERROR"];
+```
+CC_CodeClass    colorwithHexString:
+服务端颜色的16进制NSString转成UIColor
 
-# v1.2.19 23
+# v1.2.23
 Overview
 ========
 network;

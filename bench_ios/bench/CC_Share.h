@@ -6,6 +6,22 @@
 //  Copyright © 2017年 apple. All rights reserved.
 //
 
+/*
+ platform :ios, '8.0'
+ #use_frameworks!个别需要用到它，比如reactiveCocoa
+ inhibit_all_warnings!
+ 
+ target 'xxx' do
+     pod 'bench_ios'
+ end
+ */
+
+#ifdef TARGET_IPHONE_SIMULATOR
+//XXXXX  模拟器时会编译的代码
+#else
+//XXXXX  不是模拟器才会编译的代码
+#endif
+
 #ifdef DEBUG
 #   define CCLOG(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
 #else

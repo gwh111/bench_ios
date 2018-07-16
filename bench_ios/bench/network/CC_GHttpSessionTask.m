@@ -10,6 +10,15 @@
 #import "CC_FormatDic.h"
 #import "CC_Share.h"
 #import "CC_RequestRecordTool.h"
+#import "CC_ResponseLogicModel.h"
+
+@interface CC_HttpTask()
+/**
+ *  统一处理回调合集
+ */
+@property(nonatomic,retain) NSMutableArray *logicMutArr;
+
+@end
 
 @implementation CC_HttpTask
 @synthesize finishCallbackBlock;
@@ -106,6 +115,7 @@ static dispatch_once_t onceToken;
             [model parsingError:error];
         }else{
             NSString *resultStr= [NSString stringWithContentsOfURL:location encoding:NSUTF8StringEncoding error:&error];
+//            NSCAssert(!resultStr, @"没有解析成数据");
             if (!resultStr) {
                 NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
                 resultStr= [NSString stringWithContentsOfURL:location encoding:enc error:&error];
@@ -120,6 +130,22 @@ static dispatch_once_t onceToken;
                 [[CCReqRecord getInstance]insertRequestDataWithHHSService:paramsDic[@"service"] requestUrl:tempUrl.absoluteString parameters:paraString];
             }
             CCLOG(@"%@\n%@",model.requestStr,model.resultDic?model.resultDic:model.resultStr);
+            NSArray *keyNames=[blockSelf.logicBlockMutDic allKeys];
+            for (NSString *name in keyNames) {
+                CC_ResLModel *logicModel=blockSelf.logicBlockMutDic[name];
+                if (logicModel.logicPathArr.count>0) {
+                    [blockSelf reponseLogicPassed:logicModel result:model.resultDic index:0];
+                   //使用更新后的数据
+                    CC_ResLModel *newModel=blockSelf.logicBlockMutDic[logicModel.logicNameStr];
+                    if (newModel.logicPassed) {
+                        newModel.logicBlock(model.resultDic);
+                        if (newModel.logicPassStop) {
+                            return ;
+                        }
+                    }
+                }
+            }
+            
             executorDelegate.finishCallbackBlock(model.errorMsgStr, model);
         });
         
@@ -184,6 +210,61 @@ static dispatch_once_t onceToken;
     NSInteger interval = [zone secondsFromGMTForDate: netDate];
     NSDate *localeDate = [netDate dateByAddingTimeInterval: interval];
     model.responseDate=localeDate;
+}
+
+- (void)resetResponseLogicPopOnce:(NSString *)logicName{
+    CC_ResLModel *model=_logicBlockMutDic[logicName];
+    model.logicPopOnce=0;
+    [_logicBlockMutDic setObject:model forKey:logicName];
+}
+
+- (void)addResponseLogic:(NSString *)logicName logicStr:(NSString *)logicStr stop:(BOOL)stop popOnce:(BOOL)popOnce logicBlock:(void (^)(NSDictionary *errorDic))block{
+    CC_ResLModel *model=[[CC_ResLModel alloc]init];
+    model.logicNameStr=logicName;
+    model.logicBlock=block;
+    model.logicPopOnce=popOnce;
+    if ([logicStr containsString:@"="]) {
+        NSArray *equal=[logicStr componentsSeparatedByString:@"="];
+        model.logicEqualStr=equal[1];
+        NSString *pathStr=equal[0];
+        model.logicPathArr=[pathStr componentsSeparatedByString:@","];
+    }else{
+        model.logicPathArr=[logicStr componentsSeparatedByString:@","];
+    }
+    
+    if (!_logicBlockMutDic) {
+        _logicBlockMutDic=[[NSMutableDictionary alloc]init];
+    }
+    [_logicBlockMutDic setObject:model forKey:logicName];
+}
+
+- (void)reponseLogicPassed:(CC_ResLModel *)model result:(id)result index:(int)index{
+    if (!result) {
+        return;
+    }
+    model.logicPassed=0;
+    if ([result isKindOfClass:[NSString class]]||
+        [result isKindOfClass:[NSNumber class]]) {
+        if ([result isKindOfClass:[NSNumber class]]) {
+            result=ccstr(@"%@",result);
+        }
+        if (model.logicEqualStr) {
+            if ([result isEqualToString:model.logicEqualStr]) {//字段相等 通过
+                model.logicPassed=1;
+            }else{
+                model.logicPassed=0;
+            }
+        }else{//有这个字段 通过
+            model.logicPassed=1;
+        }
+        [_logicBlockMutDic setObject:model forKey:model.logicNameStr];
+        return;
+    }
+    if (index>=model.logicPathArr.count) {
+        NSCAssert(index<model.logicPathArr.count, @"该路径下不是一个字段");
+        return;
+    }
+    [self reponseLogicPassed:model result:result[model.logicPathArr[index]] index:index+1];
 }
 
 @end

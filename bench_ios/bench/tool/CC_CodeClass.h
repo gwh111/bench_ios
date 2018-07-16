@@ -32,5 +32,9 @@
 
 + (NSString*)convertToJSONData:(id)infoDict;
 + (NSDictionary *)dictionaryWithJsonString:(NSString *)jsonString;
+/**
+ *  服务端颜色的16进制NSString转成UIColor
+ */
++ (UIColor *)colorwithHexString:(NSString *)color;
 
 @end

@@ -91,6 +91,14 @@
     NSData *baseData = [[NSData alloc] initWithBase64EncodedData:base64Data options:0];
     NSString * str2  =[[NSString alloc] initWithData:baseData encoding:NSUTF8StringEncoding];
     
+    [[CC_HttpTask getInstance] addResponseLogic:@"PARAMETER_ERROR" logicStr:@"response,error,name=PARAMETER_ERROR" stop:YES popOnce:NO logicBlock:^(NSDictionary *resultDic) {
+        CCLOG(@"%@",@"PARAMETER_ERROR");
+        
+        [[CC_HttpTask getInstance]resetResponseLogicPopOnce:@"PARAMETER_ERROR"];
+    }];
+//    [[CC_HttpTask getInstance] addResponseLogic:@"jumpLogin" logicStr:@"response,jumpLogin=0" stop:YES popOnce:YES logicBlock:^(NSDictionary *errorDic) {
+//        CCLOG(@"%@",@"jumpLogin");
+//    }];
     //CC_GHttpSessionTask
     //    [request setValue:@"cc-iphone" forHTTPHeaderField:@"appName"];
     //    [request setValue:[NSString stringWithFormat:@"%@",[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]] forHTTPHeaderField:@"appVersion"];
@@ -111,7 +119,13 @@
             [CC_Note showAlert:error];
             return ;
         }
-        
+        CCLOG(@"%@",result.resultDic);
+    }];
+    [[CC_HttpTask getInstance]post:url params:@{@"service":@"ROOM_USER_SETTLE_QUERY_BY_ROOM"} model:[[ResModel alloc]init] finishCallbackBlock:^(NSString *error, ResModel *result) {
+        if (error) {
+            [CC_Note showAlert:error];
+            return ;
+        }
         CCLOG(@"%@",result.resultDic);
     }];
     
@@ -133,7 +147,6 @@
         CCLOG(@"min=%f",[CC_Date compareDate:[NSDate date] cut:result.responseDate]/60);
         
     }];
-    
 #pragma mark map arr parser
     NSDictionary *result=@{@"response":
   @{@"purchaseOrders":
@@ -203,6 +216,13 @@
     [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:YES];
     id con=controArr[indexPath.section];
     [self.navigationController pushViewController:con animated:YES];
+    
+    NSSetUncaughtExceptionHandler(&UncaughtExceptionHandler);
+    
+    NSArray *arr = @[@(0), @(1)];
+    CCLOG(@"%@", arr[2]); //模拟越界异常
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -210,5 +230,26 @@
     // Dispose of any resources that can be recreated.
 }
 
+void UncaughtExceptionHandler(NSException *exception) {
+    NSArray *arr = [exception callStackSymbols];
+    NSString *reason = [exception reason];
+    NSString *name = [exception name];
+    CCLOG(@"%@\n%@\n%@",arr, reason, name);
+    
+    BOOL isContiune = TRUE; // 是否要保活
+    CFRunLoopRef runLoop = CFRunLoopGetCurrent();
+    CFArrayRef allModes = CFRunLoopCopyAllModes(runLoop);
+    
+    while (isContiune) {
+        for (NSString *mode in (__bridge NSArray *)allModes) {
+            CFRunLoopRunInMode((CFStringRef)mode, 0.001, true);
+        }
+    }
+    CFRelease(allModes);
+    
+}
+void UncaughtExceptio(NSException *exception) {
+
+}
 
 @end

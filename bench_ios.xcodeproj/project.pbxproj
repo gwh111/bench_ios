@@ -50,6 +50,7 @@
 		D89AA87020947265001DE9B8 /* CC_Parser.m in Sources */ = {isa = PBXBuildFile; fileRef = D89AA86F20947265001DE9B8 /* CC_Parser.m */; };
 		D8B0E45C1F5016EA00425D06 /* CC_GColor.m in Sources */ = {isa = PBXBuildFile; fileRef = D8B0E45B1F5016EA00425D06 /* CC_GColor.m */; };
 		D8B0E4611F501EE400425D06 /* nyyh.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D8B0E4601F501EE400425D06 /* nyyh.jpg */; };
+		D8BDAF6820FC4F49006BF14C /* CC_ResponseLogicModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D8BDAF6720FC4F49006BF14C /* CC_ResponseLogicModel.m */; };
 		D8CC62551FF25610006E2ED6 /* CC_Envirnment.m in Sources */ = {isa = PBXBuildFile; fileRef = D8CC62541FF25610006E2ED6 /* CC_Envirnment.m */; };
 		D8CE47B720D28A3E00587337 /* CC_RequestRecordTool.m in Sources */ = {isa = PBXBuildFile; fileRef = D8CE47B620D28A3D00587337 /* CC_RequestRecordTool.m */; };
 		D8DD97EB20B6A6F2000A890D /* CC_Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = D8DD97EA20B6A6F2000A890D /* CC_Animation.m */; };
@@ -159,6 +160,8 @@
 		D8B0E45A1F5016EA00425D06 /* CC_GColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_GColor.h; sourceTree = "<group>"; };
 		D8B0E45B1F5016EA00425D06 /* CC_GColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC_GColor.m; sourceTree = "<group>"; };
 		D8B0E4601F501EE400425D06 /* nyyh.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = nyyh.jpg; sourceTree = "<group>"; };
+		D8BDAF6620FC4F49006BF14C /* CC_ResponseLogicModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_ResponseLogicModel.h; sourceTree = "<group>"; };
+		D8BDAF6720FC4F49006BF14C /* CC_ResponseLogicModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC_ResponseLogicModel.m; sourceTree = "<group>"; };
 		D8CC62531FF25610006E2ED6 /* CC_Envirnment.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_Envirnment.h; sourceTree = "<group>"; };
 		D8CC62541FF25610006E2ED6 /* CC_Envirnment.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC_Envirnment.m; sourceTree = "<group>"; };
 		D8CE47B520D28A3D00587337 /* CC_RequestRecordTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_RequestRecordTool.h; sourceTree = "<group>"; };
@@ -297,6 +300,8 @@
 				D8335337205F93F90030AB62 /* CC_HttpResponseModel.m */,
 				D8195F491F29CE6B00C7BADD /* CC_GHttpSessionTask.h */,
 				D8195F4A1F29CE6B00C7BADD /* CC_GHttpSessionTask.m */,
+				D8BDAF6620FC4F49006BF14C /* CC_ResponseLogicModel.h */,
+				D8BDAF6720FC4F49006BF14C /* CC_ResponseLogicModel.m */,
 				D8195F4B1F29CE6B00C7BADD /* CC_MD5Object.h */,
 				D8195F4C1F29CE6B00C7BADD /* CC_MD5Object.m */,
 				D8CC62531FF25610006E2ED6 /* CC_Envirnment.h */,
@@ -554,6 +559,7 @@
 				D89AA87020947265001DE9B8 /* CC_Parser.m in Sources */,
 				D8195F541F29CEEF00C7BADD /* CC_Valiation.m in Sources */,
 				D8064C53206A28AF0096F80D /* CC_TextField.m in Sources */,
+				D8BDAF6820FC4F49006BF14C /* CC_ResponseLogicModel.m in Sources */,
 				D883EEFA200E37910062A6C6 /* LCdes.m in Sources */,
 				D83B74DF2068FD9F000F81F8 /* CC_View.m in Sources */,
 				D8365DE4205A54CE00357C0F /* testUIViewController.m in Sources */,
