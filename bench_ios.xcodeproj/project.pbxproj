@@ -34,6 +34,44 @@
 		D8365E23205A741D00357C0F /* CC_UIToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = D8365E22205A741D00357C0F /* CC_UIToolView.m */; };
 		D8389DF9206B74D50010A04A /* CC_3DWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = D8389DF8206B74D50010A04A /* CC_3DWindow.m */; };
 		D8389DFC206BA3680010A04A /* CC_LogicClass.m in Sources */ = {isa = PBXBuildFile; fileRef = D8389DFB206BA3680010A04A /* CC_LogicClass.m */; };
+		D839260020FDDBE70034D10F /* casGif.gif in Resources */ = {isa = PBXBuildFile; fileRef = D83925FF20FDDBE70034D10F /* casGif.gif */; };
+		D839260320FEDC6F0034D10F /* testCasVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D839260220FEDC6F0034D10F /* testCasVC.m */; };
+		D839260B20FEDFA40034D10F /* UIView+ClassyExtend.m in Sources */ = {isa = PBXBuildFile; fileRef = D839260520FEDFA40034D10F /* UIView+ClassyExtend.m */; };
+		D839260C20FEDFA40034D10F /* CC_UIAtom.m in Sources */ = {isa = PBXBuildFile; fileRef = D839260620FEDFA40034D10F /* CC_UIAtom.m */; };
+		D839260D20FEDFA40034D10F /* CC_ClassyExtend.m in Sources */ = {isa = PBXBuildFile; fileRef = D839260920FEDFA40034D10F /* CC_ClassyExtend.m */; };
+		D839265820FEDFC60034D10F /* UINavigationBar+CASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D839261420FEDFC60034D10F /* UINavigationBar+CASAdditions.m */; };
+		D839265920FEDFC60034D10F /* UITabBar+CASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D839261820FEDFC60034D10F /* UITabBar+CASAdditions.m */; };
+		D839265A20FEDFC60034D10F /* NSObject+CASSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = D839261B20FEDFC60034D10F /* NSObject+CASSwizzle.m */; };
+		D839265B20FEDFC60034D10F /* NSRegularExpression+CASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D839261C20FEDFC60034D10F /* NSRegularExpression+CASAdditions.m */; };
+		D839265C20FEDFC60034D10F /* UIBarItem+CASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D839261F20FEDFC60034D10F /* UIBarItem+CASAdditions.m */; };
+		D839265D20FEDFC60034D10F /* UIView+CASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D839262020FEDFC60034D10F /* UIView+CASAdditions.m */; };
+		D839265E20FEDFC60034D10F /* UISlider+CASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D839262120FEDFC60034D10F /* UISlider+CASAdditions.m */; };
+		D839265F20FEDFC60034D10F /* UIViewController+CASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D839262320FEDFC60034D10F /* UIViewController+CASAdditions.m */; };
+		D839266020FEDFC60034D10F /* UIToolbar+CASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D839262520FEDFC60034D10F /* UIToolbar+CASAdditions.m */; };
+		D839266120FEDFC60034D10F /* UITextField+CASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D839262620FEDFC60034D10F /* UITextField+CASAdditions.m */; };
+		D839266220FEDFC60034D10F /* UIColor+CASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D839262720FEDFC60034D10F /* UIColor+CASAdditions.m */; };
+		D839266320FEDFC60034D10F /* NSString+CASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D839262920FEDFC60034D10F /* NSString+CASAdditions.m */; };
+		D839266420FEDFC60034D10F /* CASInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = D839262E20FEDFC60034D10F /* CASInvocation.m */; };
+		D839266520FEDFC60034D10F /* CASExpressionSolver.m in Sources */ = {isa = PBXBuildFile; fileRef = D839262F20FEDFC60034D10F /* CASExpressionSolver.m */; };
+		D839266620FEDFC60034D10F /* CASToken.m in Sources */ = {isa = PBXBuildFile; fileRef = D839263020FEDFC60034D10F /* CASToken.m */; };
+		D839266720FEDFC60034D10F /* CASLexer.m in Sources */ = {isa = PBXBuildFile; fileRef = D839263120FEDFC60034D10F /* CASLexer.m */; };
+		D839266820FEDFC60034D10F /* CASDeviceSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = D839263220FEDFC60034D10F /* CASDeviceSelector.m */; };
+		D839266920FEDFC60034D10F /* CASDeviceTypeItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D839263620FEDFC60034D10F /* CASDeviceTypeItem.m */; };
+		D839266A20FEDFC60034D10F /* CASUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = D839263720FEDFC60034D10F /* CASUtilities.m */; };
+		D839266B20FEDFC60034D10F /* CASStyleSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = D839263820FEDFC60034D10F /* CASStyleSelector.m */; };
+		D839266C20FEDFC60034D10F /* CASParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D839263920FEDFC60034D10F /* CASParser.m */; };
+		D839266D20FEDFC60034D10F /* CASDeviceOSVersionItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D839263A20FEDFC60034D10F /* CASDeviceOSVersionItem.m */; };
+		D839266E20FEDFC60034D10F /* CASStyleProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = D839264120FEDFC60034D10F /* CASStyleProperty.m */; };
+		D839266F20FEDFC60034D10F /* CASStyler.m in Sources */ = {isa = PBXBuildFile; fileRef = D839264220FEDFC60034D10F /* CASStyler.m */; };
+		D839267020FEDFC60034D10F /* CASStyleNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D839264320FEDFC60034D10F /* CASStyleNode.m */; };
+		D839267120FEDFC60034D10F /* CASUnitToken.m in Sources */ = {isa = PBXBuildFile; fileRef = D839264420FEDFC60034D10F /* CASUnitToken.m */; };
+		D839267220FEDFC60034D10F /* CASTextAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = D839264A20FEDFC60034D10F /* CASTextAttributes.m */; };
+		D839267320FEDFC60034D10F /* CASPropertyDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = D839264E20FEDFC60034D10F /* CASPropertyDescriptor.m */; };
+		D839267420FEDFC60034D10F /* CASObjectClassDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = D839265120FEDFC60034D10F /* CASObjectClassDescriptor.m */; };
+		D839267520FEDFC60034D10F /* CASRuntimeExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = D839265220FEDFC60034D10F /* CASRuntimeExtensions.m */; };
+		D839267620FEDFC60034D10F /* CASArgumentDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = D839265420FEDFC60034D10F /* CASArgumentDescriptor.m */; };
+		D839267A20FEE07B0034D10F /* gwh.cas in Resources */ = {isa = PBXBuildFile; fileRef = D839267920FEE07B0034D10F /* gwh.cas */; };
+		D839267C20FEE07F0034D10F /* stylesheet.cas in Resources */ = {isa = PBXBuildFile; fileRef = D839267B20FEE07F0034D10F /* stylesheet.cas */; };
 		D83B73342068A170000F81F8 /* CC_Note.m in Sources */ = {isa = PBXBuildFile; fileRef = D83B73332068A170000F81F8 /* CC_Note.m */; };
 		D83B74DF2068FD9F000F81F8 /* CC_View.m in Sources */ = {isa = PBXBuildFile; fileRef = D83B74DE2068FD9F000F81F8 /* CC_View.m */; };
 		D83EBC011FEB5BA700B94D6F /* CC_Array.m in Sources */ = {isa = PBXBuildFile; fileRef = D83EBBF61FEB5BA700B94D6F /* CC_Array.m */; };
@@ -128,6 +166,82 @@
 		D8389DF8206B74D50010A04A /* CC_3DWindow.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC_3DWindow.m; sourceTree = "<group>"; };
 		D8389DFA206BA3680010A04A /* CC_LogicClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_LogicClass.h; sourceTree = "<group>"; };
 		D8389DFB206BA3680010A04A /* CC_LogicClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC_LogicClass.m; sourceTree = "<group>"; };
+		D83925FF20FDDBE70034D10F /* casGif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = casGif.gif; sourceTree = SOURCE_ROOT; };
+		D839260120FEDC6F0034D10F /* testCasVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = testCasVC.h; sourceTree = "<group>"; };
+		D839260220FEDC6F0034D10F /* testCasVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = testCasVC.m; sourceTree = "<group>"; };
+		D839260520FEDFA40034D10F /* UIView+ClassyExtend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+ClassyExtend.m"; sourceTree = "<group>"; };
+		D839260620FEDFA40034D10F /* CC_UIAtom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC_UIAtom.m; sourceTree = "<group>"; };
+		D839260720FEDFA40034D10F /* CC_UIAtom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_UIAtom.h; sourceTree = "<group>"; };
+		D839260820FEDFA40034D10F /* CC_ClassyExtend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_ClassyExtend.h; sourceTree = "<group>"; };
+		D839260920FEDFA40034D10F /* CC_ClassyExtend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC_ClassyExtend.m; sourceTree = "<group>"; };
+		D839260A20FEDFA40034D10F /* UIView+ClassyExtend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+ClassyExtend.h"; sourceTree = "<group>"; };
+		D839261320FEDFC60034D10F /* UIViewController+CASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+CASAdditions.h"; sourceTree = "<group>"; };
+		D839261420FEDFC60034D10F /* UINavigationBar+CASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationBar+CASAdditions.m"; sourceTree = "<group>"; };
+		D839261520FEDFC60034D10F /* UISlider+CASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UISlider+CASAdditions.h"; sourceTree = "<group>"; };
+		D839261620FEDFC60034D10F /* UIView+CASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+CASAdditions.h"; sourceTree = "<group>"; };
+		D839261720FEDFC60034D10F /* UITextField+CASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+CASAdditions.h"; sourceTree = "<group>"; };
+		D839261820FEDFC60034D10F /* UITabBar+CASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITabBar+CASAdditions.m"; sourceTree = "<group>"; };
+		D839261920FEDFC60034D10F /* UIToolbar+CASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIToolbar+CASAdditions.h"; sourceTree = "<group>"; };
+		D839261A20FEDFC60034D10F /* UIColor+CASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+CASAdditions.h"; sourceTree = "<group>"; };
+		D839261B20FEDFC60034D10F /* NSObject+CASSwizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+CASSwizzle.m"; sourceTree = "<group>"; };
+		D839261C20FEDFC60034D10F /* NSRegularExpression+CASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSRegularExpression+CASAdditions.m"; sourceTree = "<group>"; };
+		D839261D20FEDFC60034D10F /* CASStyleableItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASStyleableItem.h; sourceTree = "<group>"; };
+		D839261E20FEDFC60034D10F /* NSString+CASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+CASAdditions.h"; sourceTree = "<group>"; };
+		D839261F20FEDFC60034D10F /* UIBarItem+CASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarItem+CASAdditions.m"; sourceTree = "<group>"; };
+		D839262020FEDFC60034D10F /* UIView+CASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+CASAdditions.m"; sourceTree = "<group>"; };
+		D839262120FEDFC60034D10F /* UISlider+CASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UISlider+CASAdditions.m"; sourceTree = "<group>"; };
+		D839262220FEDFC60034D10F /* UINavigationBar+CASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationBar+CASAdditions.h"; sourceTree = "<group>"; };
+		D839262320FEDFC60034D10F /* UIViewController+CASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+CASAdditions.m"; sourceTree = "<group>"; };
+		D839262420FEDFC60034D10F /* UITabBar+CASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITabBar+CASAdditions.h"; sourceTree = "<group>"; };
+		D839262520FEDFC60034D10F /* UIToolbar+CASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIToolbar+CASAdditions.m"; sourceTree = "<group>"; };
+		D839262620FEDFC60034D10F /* UITextField+CASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+CASAdditions.m"; sourceTree = "<group>"; };
+		D839262720FEDFC60034D10F /* UIColor+CASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+CASAdditions.m"; sourceTree = "<group>"; };
+		D839262820FEDFC60034D10F /* UIBarItem+CASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarItem+CASAdditions.h"; sourceTree = "<group>"; };
+		D839262920FEDFC60034D10F /* NSString+CASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+CASAdditions.m"; sourceTree = "<group>"; };
+		D839262A20FEDFC60034D10F /* NSRegularExpression+CASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSRegularExpression+CASAdditions.h"; sourceTree = "<group>"; };
+		D839262B20FEDFC60034D10F /* NSObject+CASSwizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+CASSwizzle.h"; sourceTree = "<group>"; };
+		D839262D20FEDFC60034D10F /* CASStyleProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASStyleProperty.h; sourceTree = "<group>"; };
+		D839262E20FEDFC60034D10F /* CASInvocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASInvocation.m; sourceTree = "<group>"; };
+		D839262F20FEDFC60034D10F /* CASExpressionSolver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASExpressionSolver.m; sourceTree = "<group>"; };
+		D839263020FEDFC60034D10F /* CASToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASToken.m; sourceTree = "<group>"; };
+		D839263120FEDFC60034D10F /* CASLexer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASLexer.m; sourceTree = "<group>"; };
+		D839263220FEDFC60034D10F /* CASDeviceSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASDeviceSelector.m; sourceTree = "<group>"; };
+		D839263320FEDFC60034D10F /* CASUnitToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASUnitToken.h; sourceTree = "<group>"; };
+		D839263420FEDFC60034D10F /* CASStyleNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASStyleNode.h; sourceTree = "<group>"; };
+		D839263520FEDFC60034D10F /* CASStyler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASStyler.h; sourceTree = "<group>"; };
+		D839263620FEDFC60034D10F /* CASDeviceTypeItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASDeviceTypeItem.m; sourceTree = "<group>"; };
+		D839263720FEDFC60034D10F /* CASUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASUtilities.m; sourceTree = "<group>"; };
+		D839263820FEDFC60034D10F /* CASStyleSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASStyleSelector.m; sourceTree = "<group>"; };
+		D839263920FEDFC60034D10F /* CASParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASParser.m; sourceTree = "<group>"; };
+		D839263A20FEDFC60034D10F /* CASDeviceOSVersionItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASDeviceOSVersionItem.m; sourceTree = "<group>"; };
+		D839263B20FEDFC60034D10F /* CASTextAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASTextAttributes.h; sourceTree = "<group>"; };
+		D839263C20FEDFC60034D10F /* CASLexer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASLexer.h; sourceTree = "<group>"; };
+		D839263D20FEDFC60034D10F /* CASToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASToken.h; sourceTree = "<group>"; };
+		D839263E20FEDFC60034D10F /* CASDeviceSelectorItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASDeviceSelectorItem.h; sourceTree = "<group>"; };
+		D839263F20FEDFC60034D10F /* CASExpressionSolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASExpressionSolver.h; sourceTree = "<group>"; };
+		D839264020FEDFC60034D10F /* CASInvocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASInvocation.h; sourceTree = "<group>"; };
+		D839264120FEDFC60034D10F /* CASStyleProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASStyleProperty.m; sourceTree = "<group>"; };
+		D839264220FEDFC60034D10F /* CASStyler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASStyler.m; sourceTree = "<group>"; };
+		D839264320FEDFC60034D10F /* CASStyleNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASStyleNode.m; sourceTree = "<group>"; };
+		D839264420FEDFC60034D10F /* CASUnitToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASUnitToken.m; sourceTree = "<group>"; };
+		D839264520FEDFC60034D10F /* CASDeviceSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASDeviceSelector.h; sourceTree = "<group>"; };
+		D839264620FEDFC60034D10F /* CASParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASParser.h; sourceTree = "<group>"; };
+		D839264720FEDFC60034D10F /* CASStyleSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASStyleSelector.h; sourceTree = "<group>"; };
+		D839264820FEDFC60034D10F /* CASUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASUtilities.h; sourceTree = "<group>"; };
+		D839264920FEDFC60034D10F /* CASDeviceTypeItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASDeviceTypeItem.h; sourceTree = "<group>"; };
+		D839264A20FEDFC60034D10F /* CASTextAttributes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASTextAttributes.m; sourceTree = "<group>"; };
+		D839264B20FEDFC60034D10F /* CASDeviceOSVersionItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASDeviceOSVersionItem.h; sourceTree = "<group>"; };
+		D839264C20FEDFC60034D10F /* Classy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Classy.h; sourceTree = "<group>"; };
+		D839264E20FEDFC60034D10F /* CASPropertyDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASPropertyDescriptor.m; sourceTree = "<group>"; };
+		D839264F20FEDFC60034D10F /* CASRuntimeExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASRuntimeExtensions.h; sourceTree = "<group>"; };
+		D839265020FEDFC60034D10F /* CASArgumentDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASArgumentDescriptor.h; sourceTree = "<group>"; };
+		D839265120FEDFC60034D10F /* CASObjectClassDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASObjectClassDescriptor.m; sourceTree = "<group>"; };
+		D839265220FEDFC60034D10F /* CASRuntimeExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASRuntimeExtensions.m; sourceTree = "<group>"; };
+		D839265320FEDFC60034D10F /* CASPropertyDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASPropertyDescriptor.h; sourceTree = "<group>"; };
+		D839265420FEDFC60034D10F /* CASArgumentDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASArgumentDescriptor.m; sourceTree = "<group>"; };
+		D839265520FEDFC60034D10F /* CASObjectClassDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASObjectClassDescriptor.h; sourceTree = "<group>"; };
+		D839267920FEE07B0034D10F /* gwh.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = gwh.cas; sourceTree = "<group>"; };
+		D839267B20FEE07F0034D10F /* stylesheet.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = stylesheet.cas; sourceTree = "<group>"; };
 		D83B73322068A170000F81F8 /* CC_Note.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_Note.h; sourceTree = "<group>"; };
 		D83B73332068A170000F81F8 /* CC_Note.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC_Note.m; sourceTree = "<group>"; };
 		D83B74DD2068FD9F000F81F8 /* CC_View.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_View.h; sourceTree = "<group>"; };
@@ -229,12 +343,14 @@
 		18B6BCFA1F1F09CA0019391D /* bench_ios */ = {
 			isa = PBXGroup;
 			children = (
+				D83925FF20FDDBE70034D10F /* casGif.gif */,
 				18B6BD471F21A8560019391D /* bench_ios.podspec */,
 				18B6BD451F21A6080019391D /* README.md */,
 				18B6BCFE1F1F09CA0019391D /* AppDelegate.h */,
 				18B6BCFF1F1F09CA0019391D /* AppDelegate.m */,
 				18B6BD011F1F09CA0019391D /* ViewController.h */,
 				18B6BD021F1F09CA0019391D /* ViewController.m */,
+				D839267B20FEE07F0034D10F /* stylesheet.cas */,
 				D883EEE0200E34790062A6C6 /* test */,
 				D82315391F53AEC1006055FB /* testController */,
 				18B6BD2E1F1F143E0019391D /* bench */,
@@ -282,6 +398,7 @@
 				D83EBC0E1FEB646100B94D6F /* PlatformConfig.h */,
 				18B6BD401F20C6660019391D /* CC_Share.h */,
 				18B6BD411F20C6660019391D /* CC_Share.m */,
+				D839260E20FEDFB20034D10F /* thd */,
 				D83EBC071FEB5CBC00B94D6F /* display */,
 				D83EBBF41FEB5BA700B94D6F /* object */,
 				188268271F4BCEC500D72048 /* storage */,
@@ -340,9 +457,12 @@
 		D82315391F53AEC1006055FB /* testController */ = {
 			isa = PBXGroup;
 			children = (
+				D839267820FEE0730034D10F /* cas */,
 				D823153A1F53AED3006055FB /* testColorViewController.h */,
 				D823153B1F53AED3006055FB /* testColorViewController.m */,
 				D8365DDF205A54CD00357C0F /* uihelper */,
+				D839260120FEDC6F0034D10F /* testCasVC.h */,
+				D839260220FEDC6F0034D10F /* testCasVC.m */,
 			);
 			path = testController;
 			sourceTree = "<group>";
@@ -354,6 +474,139 @@
 				D8365DE1205A54CD00357C0F /* testUIViewController.m */,
 			);
 			path = uihelper;
+			sourceTree = "<group>";
+		};
+		D839260420FEDF9D0034D10F /* cas */ = {
+			isa = PBXGroup;
+			children = (
+				D839260820FEDFA40034D10F /* CC_ClassyExtend.h */,
+				D839260920FEDFA40034D10F /* CC_ClassyExtend.m */,
+				D839260720FEDFA40034D10F /* CC_UIAtom.h */,
+				D839260620FEDFA40034D10F /* CC_UIAtom.m */,
+				D839260A20FEDFA40034D10F /* UIView+ClassyExtend.h */,
+				D839260520FEDFA40034D10F /* UIView+ClassyExtend.m */,
+			);
+			path = cas;
+			sourceTree = "<group>";
+		};
+		D839260E20FEDFB20034D10F /* thd */ = {
+			isa = PBXGroup;
+			children = (
+				D839260F20FEDFC60034D10F /* Classy */,
+			);
+			path = thd;
+			sourceTree = "<group>";
+		};
+		D839260F20FEDFC60034D10F /* Classy */ = {
+			isa = PBXGroup;
+			children = (
+				D839261120FEDFC60034D10F /* Classy */,
+			);
+			path = Classy;
+			sourceTree = "<group>";
+		};
+		D839261120FEDFC60034D10F /* Classy */ = {
+			isa = PBXGroup;
+			children = (
+				D839261220FEDFC60034D10F /* Additions */,
+				D839262C20FEDFC60034D10F /* Parser */,
+				D839264C20FEDFC60034D10F /* Classy.h */,
+				D839264D20FEDFC60034D10F /* Reflection */,
+			);
+			path = Classy;
+			sourceTree = "<group>";
+		};
+		D839261220FEDFC60034D10F /* Additions */ = {
+			isa = PBXGroup;
+			children = (
+				D839261320FEDFC60034D10F /* UIViewController+CASAdditions.h */,
+				D839261420FEDFC60034D10F /* UINavigationBar+CASAdditions.m */,
+				D839261520FEDFC60034D10F /* UISlider+CASAdditions.h */,
+				D839261620FEDFC60034D10F /* UIView+CASAdditions.h */,
+				D839261720FEDFC60034D10F /* UITextField+CASAdditions.h */,
+				D839261820FEDFC60034D10F /* UITabBar+CASAdditions.m */,
+				D839261920FEDFC60034D10F /* UIToolbar+CASAdditions.h */,
+				D839261A20FEDFC60034D10F /* UIColor+CASAdditions.h */,
+				D839261B20FEDFC60034D10F /* NSObject+CASSwizzle.m */,
+				D839261C20FEDFC60034D10F /* NSRegularExpression+CASAdditions.m */,
+				D839261D20FEDFC60034D10F /* CASStyleableItem.h */,
+				D839261E20FEDFC60034D10F /* NSString+CASAdditions.h */,
+				D839261F20FEDFC60034D10F /* UIBarItem+CASAdditions.m */,
+				D839262020FEDFC60034D10F /* UIView+CASAdditions.m */,
+				D839262120FEDFC60034D10F /* UISlider+CASAdditions.m */,
+				D839262220FEDFC60034D10F /* UINavigationBar+CASAdditions.h */,
+				D839262320FEDFC60034D10F /* UIViewController+CASAdditions.m */,
+				D839262420FEDFC60034D10F /* UITabBar+CASAdditions.h */,
+				D839262520FEDFC60034D10F /* UIToolbar+CASAdditions.m */,
+				D839262620FEDFC60034D10F /* UITextField+CASAdditions.m */,
+				D839262720FEDFC60034D10F /* UIColor+CASAdditions.m */,
+				D839262820FEDFC60034D10F /* UIBarItem+CASAdditions.h */,
+				D839262920FEDFC60034D10F /* NSString+CASAdditions.m */,
+				D839262A20FEDFC60034D10F /* NSRegularExpression+CASAdditions.h */,
+				D839262B20FEDFC60034D10F /* NSObject+CASSwizzle.h */,
+			);
+			path = Additions;
+			sourceTree = "<group>";
+		};
+		D839262C20FEDFC60034D10F /* Parser */ = {
+			isa = PBXGroup;
+			children = (
+				D839262D20FEDFC60034D10F /* CASStyleProperty.h */,
+				D839262E20FEDFC60034D10F /* CASInvocation.m */,
+				D839262F20FEDFC60034D10F /* CASExpressionSolver.m */,
+				D839263020FEDFC60034D10F /* CASToken.m */,
+				D839263120FEDFC60034D10F /* CASLexer.m */,
+				D839263220FEDFC60034D10F /* CASDeviceSelector.m */,
+				D839263320FEDFC60034D10F /* CASUnitToken.h */,
+				D839263420FEDFC60034D10F /* CASStyleNode.h */,
+				D839263520FEDFC60034D10F /* CASStyler.h */,
+				D839263620FEDFC60034D10F /* CASDeviceTypeItem.m */,
+				D839263720FEDFC60034D10F /* CASUtilities.m */,
+				D839263820FEDFC60034D10F /* CASStyleSelector.m */,
+				D839263920FEDFC60034D10F /* CASParser.m */,
+				D839263A20FEDFC60034D10F /* CASDeviceOSVersionItem.m */,
+				D839263B20FEDFC60034D10F /* CASTextAttributes.h */,
+				D839263C20FEDFC60034D10F /* CASLexer.h */,
+				D839263D20FEDFC60034D10F /* CASToken.h */,
+				D839263E20FEDFC60034D10F /* CASDeviceSelectorItem.h */,
+				D839263F20FEDFC60034D10F /* CASExpressionSolver.h */,
+				D839264020FEDFC60034D10F /* CASInvocation.h */,
+				D839264120FEDFC60034D10F /* CASStyleProperty.m */,
+				D839264220FEDFC60034D10F /* CASStyler.m */,
+				D839264320FEDFC60034D10F /* CASStyleNode.m */,
+				D839264420FEDFC60034D10F /* CASUnitToken.m */,
+				D839264520FEDFC60034D10F /* CASDeviceSelector.h */,
+				D839264620FEDFC60034D10F /* CASParser.h */,
+				D839264720FEDFC60034D10F /* CASStyleSelector.h */,
+				D839264820FEDFC60034D10F /* CASUtilities.h */,
+				D839264920FEDFC60034D10F /* CASDeviceTypeItem.h */,
+				D839264A20FEDFC60034D10F /* CASTextAttributes.m */,
+				D839264B20FEDFC60034D10F /* CASDeviceOSVersionItem.h */,
+			);
+			path = Parser;
+			sourceTree = "<group>";
+		};
+		D839264D20FEDFC60034D10F /* Reflection */ = {
+			isa = PBXGroup;
+			children = (
+				D839264E20FEDFC60034D10F /* CASPropertyDescriptor.m */,
+				D839264F20FEDFC60034D10F /* CASRuntimeExtensions.h */,
+				D839265020FEDFC60034D10F /* CASArgumentDescriptor.h */,
+				D839265120FEDFC60034D10F /* CASObjectClassDescriptor.m */,
+				D839265220FEDFC60034D10F /* CASRuntimeExtensions.m */,
+				D839265320FEDFC60034D10F /* CASPropertyDescriptor.h */,
+				D839265420FEDFC60034D10F /* CASArgumentDescriptor.m */,
+				D839265520FEDFC60034D10F /* CASObjectClassDescriptor.h */,
+			);
+			path = Reflection;
+			sourceTree = "<group>";
+		};
+		D839267820FEE0730034D10F /* cas */ = {
+			isa = PBXGroup;
+			children = (
+				D839267920FEE07B0034D10F /* gwh.cas */,
+			);
+			path = cas;
 			sourceTree = "<group>";
 		};
 		D83EBBF41FEB5BA700B94D6F /* object */ = {
@@ -382,6 +635,7 @@
 		D83EBC071FEB5CBC00B94D6F /* display */ = {
 			isa = PBXGroup;
 			children = (
+				D839260420FEDF9D0034D10F /* cas */,
 				3081D9BE20FC364F00FF5B3D /* CC_UIViewExt.h */,
 				3081D9BF20FC364F00FF5B3D /* CC_UIViewExt.m */,
 				D83B73322068A170000F81F8 /* CC_Note.h */,
@@ -524,11 +778,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D839260020FDDBE70034D10F /* casGif.gif in Resources */,
 				18B6BD0B1F1F09CA0019391D /* LaunchScreen.storyboard in Resources */,
 				D8B0E4611F501EE400425D06 /* nyyh.jpg in Resources */,
 				18B6BD081F1F09CA0019391D /* Assets.xcassets in Resources */,
 				D876FE871FB0514B0094C274 /* panda.plist in Resources */,
 				18B6BD061F1F09CA0019391D /* Main.storyboard in Resources */,
+				D839267A20FEE07B0034D10F /* gwh.cas in Resources */,
+				D839267C20FEE07F0034D10F /* stylesheet.cas in Resources */,
 				18B6BD481F21A8560019391D /* bench_ios.podspec in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -554,43 +811,78 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D839260D20FEDFA40034D10F /* CC_ClassyExtend.m in Sources */,
 				D8CC62551FF25610006E2ED6 /* CC_Envirnment.m in Sources */,
 				D83EBC041FEB5BA700B94D6F /* CC_Image.m in Sources */,
 				D89AA87020947265001DE9B8 /* CC_Parser.m in Sources */,
+				D839267520FEDFC60034D10F /* CASRuntimeExtensions.m in Sources */,
 				D8195F541F29CEEF00C7BADD /* CC_Valiation.m in Sources */,
+				D839265820FEDFC60034D10F /* UINavigationBar+CASAdditions.m in Sources */,
 				D8064C53206A28AF0096F80D /* CC_TextField.m in Sources */,
+				D839260B20FEDFA40034D10F /* UIView+ClassyExtend.m in Sources */,
+				D839266620FEDFC60034D10F /* CASToken.m in Sources */,
+				D839265F20FEDFC60034D10F /* UIViewController+CASAdditions.m in Sources */,
 				D8BDAF6820FC4F49006BF14C /* CC_ResponseLogicModel.m in Sources */,
 				D883EEFA200E37910062A6C6 /* LCdes.m in Sources */,
+				D839266120FEDFC60034D10F /* UITextField+CASAdditions.m in Sources */,
 				D83B74DF2068FD9F000F81F8 /* CC_View.m in Sources */,
+				D839266A20FEDFC60034D10F /* CASUtilities.m in Sources */,
+				D839266820FEDFC60034D10F /* CASDeviceSelector.m in Sources */,
 				D8365DE4205A54CE00357C0F /* testUIViewController.m in Sources */,
+				D839266420FEDFC60034D10F /* CASInvocation.m in Sources */,
 				D8389DFC206BA3680010A04A /* CC_LogicClass.m in Sources */,
 				D8B0E45C1F5016EA00425D06 /* CC_GColor.m in Sources */,
+				D839266220FEDFC60034D10F /* UIColor+CASAdditions.m in Sources */,
 				18B6BD031F1F09CA0019391D /* ViewController.m in Sources */,
+				D839266B20FEDFC60034D10F /* CASStyleSelector.m in Sources */,
 				18B6BD001F1F09CA0019391D /* AppDelegate.m in Sources */,
+				D839266320FEDFC60034D10F /* NSString+CASAdditions.m in Sources */,
+				D839260C20FEDFA40034D10F /* CC_UIAtom.m in Sources */,
 				18B6BCFD1F1F09CA0019391D /* main.m in Sources */,
+				D839266D20FEDFC60034D10F /* CASDeviceOSVersionItem.m in Sources */,
 				D8CE47B720D28A3E00587337 /* CC_RequestRecordTool.m in Sources */,
 				3081D9C020FC364F00FF5B3D /* CC_UIViewExt.m in Sources */,
 				D83EBC061FEB5BA700B94D6F /* CC_Notice.m in Sources */,
+				D839266C20FEDFC60034D10F /* CASParser.m in Sources */,
+				D839267220FEDFC60034D10F /* CASTextAttributes.m in Sources */,
+				D839265B20FEDFC60034D10F /* NSRegularExpression+CASAdditions.m in Sources */,
 				D835077A1F31E2CD00B7461C /* CC_CodeClass.m in Sources */,
 				D823153C1F53AED3006055FB /* testColorViewController.m in Sources */,
+				D839265D20FEDFC60034D10F /* UIView+CASAdditions.m in Sources */,
 				D8DD97EB20B6A6F2000A890D /* CC_Animation.m in Sources */,
+				D839266E20FEDFC60034D10F /* CASStyleProperty.m in Sources */,
+				D839266720FEDFC60034D10F /* CASLexer.m in Sources */,
+				D839267420FEDFC60034D10F /* CASObjectClassDescriptor.m in Sources */,
+				D839265E20FEDFC60034D10F /* UISlider+CASAdditions.m in Sources */,
 				D8195F511F29CE6B00C7BADD /* CC_MD5Object.m in Sources */,
+				D839267120FEDFC60034D10F /* CASUnitToken.m in Sources */,
 				D83EBC011FEB5BA700B94D6F /* CC_Array.m in Sources */,
+				D839266520FEDFC60034D10F /* CASExpressionSolver.m in Sources */,
+				D839267320FEDFC60034D10F /* CASPropertyDescriptor.m in Sources */,
+				D839265A20FEDFC60034D10F /* NSObject+CASSwizzle.m in Sources */,
+				D839260320FEDC6F0034D10F /* testCasVC.m in Sources */,
+				D839266020FEDFC60034D10F /* UIToolbar+CASAdditions.m in Sources */,
+				D839267620FEDFC60034D10F /* CASArgumentDescriptor.m in Sources */,
 				D83EBC021FEB5BA700B94D6F /* CC_AttributedStr.m in Sources */,
 				D83EBC031FEB5BA700B94D6F /* CC_Button.m in Sources */,
 				D8195F4F1F29CE6B00C7BADD /* CC_FormatDic.m in Sources */,
 				D83EBC051FEB5BA700B94D6F /* CC_Label.m in Sources */,
+				D839265920FEDFC60034D10F /* UITabBar+CASAdditions.m in Sources */,
 				D8064C59206A43F50096F80D /* CC_TextView.m in Sources */,
 				1882682A1F4BCEC500D72048 /* CC_GCoreDataManager.m in Sources */,
 				18B6BD421F20C6660019391D /* CC_Share.m in Sources */,
 				D8389DF9206B74D50010A04A /* CC_3DWindow.m in Sources */,
 				D883EEF9200E37910062A6C6 /* GTMBase64.m in Sources */,
 				D8365E23205A741D00357C0F /* CC_UIToolView.m in Sources */,
+				D839265C20FEDFC60034D10F /* UIBarItem+CASAdditions.m in Sources */,
 				18B6BD461F21A6080019391D /* README.md in Sources */,
 				D83EBC0C1FEB5CBC00B94D6F /* CC_UIHelper.m in Sources */,
+				D839266F20FEDFC60034D10F /* CASStyler.m in Sources */,
 				D86F4C9D20883841000DF173 /* CC_Date.m in Sources */,
 				D8195F501F29CE6B00C7BADD /* CC_GHttpSessionTask.m in Sources */,
 				D83B73342068A170000F81F8 /* CC_Note.m in Sources */,
+				D839267020FEDFC60034D10F /* CASStyleNode.m in Sources */,
+				D839266920FEDFC60034D10F /* CASDeviceTypeItem.m in Sources */,
 				D8335338205F93F90030AB62 /* CC_HttpResponseModel.m in Sources */,
 				D83507621F309D2700B7461C /* CC_DESTool.m in Sources */,
 				D8DD97EE20B7BC02000A890D /* CC_MusicBox.m in Sources */,

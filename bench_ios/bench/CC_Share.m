@@ -24,6 +24,18 @@ static dispatch_once_t onceToken;
 
 @implementation ccs
 
++ (NSString *)getPlistStr:(NSString *)name{
+    NSString *plistPath = [[NSBundle mainBundle] pathForResource:name ofType:@"plist"];
+    if (!plistPath) {
+        plistPath = [[NSBundle mainBundle] pathForResource:name ofType:@""];
+    }
+    NSString *str=[[NSString alloc]initWithContentsOfFile:plistPath encoding:NSUTF8StringEncoding error:nil];
+    if (str) {
+        return str;
+    }
+    CCLOG(@"读取plist失败");
+    return nil;
+}
 + (NSDictionary *)getPlistDic:(NSString *)name{
     NSString *plistPath = [[NSBundle mainBundle] pathForResource:name ofType:@"plist"];
     if (!plistPath) {

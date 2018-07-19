@@ -10,6 +10,7 @@
 
 #import "testColorViewController.h"
 #import "testUIViewController.h"
+#import "testCasVC.h"
 
 @interface ViewController : UIViewController
 

@@ -70,10 +70,10 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
 #import "CC_Animation.h"
 #import "CC_MusicBox.h"
 #import "CC_RequestRecordTool.h"
-
-#define NOTIFICATION_LOGIN_EXPIRED @"NOTIFICATION_LOGIN_EXPIRED"
-#define NOTIFICATION_USER_LOGIN_FORBID @"NOTIFICATION_USER_LOGIN_FORBID"
-#define NOTIFICATION_jumpLogin @"NOTIFICATION_jumpLogin"
+#import "CC_UIAtom.h"
+#import "Classy.h"
+#import "CC_ClassyExtend.h"
+#import "UIView+ClassyExtend.h"
 
 @interface CC_Share : NSObject
 
@@ -86,6 +86,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
 #pragma mark
 @interface ccs : NSObject
 
++ (NSString *)getPlistStr:(NSString *)name;
 + (NSDictionary *)getPlistDic:(NSString *)name;
 + (NSMutableDictionary *)getLocalPlistNamed:(NSString *)name;
 + (void)saveLocalPlistNamed:(NSString *)name;

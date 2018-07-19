@@ -25,6 +25,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor=COLOR_WHITE;
+    
+#pragma mark init
+    [CC_Share getInstance].ccDebug=1;
+    //设置基准 效果图的尺寸即可
+    [[CC_UIHelper getInstance]initUIDemoWidth:375 andHeight:750];
+    NSString *absoluteFilePath=CASAbsoluteFilePath(@"stylesheet.cas");
+    [CC_ClassyExtend initSheet:absoluteFilePath];
+    [CC_ClassyExtend parseCas];
+    
+    //3D
+    [CC_3DWindow show];
+#if (ZZ_TARGET_PLATFORM == ZZ_PLATFORM_IOS_IPHONE)
+    NSLog(@"new");
+#endif
+    
     NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
     {//emoj->str
         NSData *data11 = [@"😂" dataUsingEncoding:NSUTF8StringEncoding];
@@ -35,20 +50,7 @@
         NSData *data11 = [@"8J+Ygg==" dataUsingEncoding:NSUTF8StringEncoding];
         NSData *baseData=[[NSData alloc] initWithBase64EncodedData:data11 options:0];
     }
-    
-//    CCLOG(@"path=%@\n%@",NSHomeDirectory(),[[CCReqRecord getInstance]getTotalStr]);
-    
-    [CC_Share getInstance].ccDebug=1;
-    //设置基准 效果图的尺寸即可
-    [[CC_UIHelper getInstance]initUIDemoWidth:375 andHeight:750];
-    //UI调整工具初始化 完成后移除即可
-//    [[CC_UIHelper getInstance]initToolV];
-    
-    //3D
-    [CC_3DWindow show];
-#if (ZZ_TARGET_PLATFORM == ZZ_PLATFORM_IOS_IPHONE)
-    NSLog(@"new");
-#endif
+    //    CCLOG(@"path=%@\n%@",NSHomeDirectory(),[[CCReqRecord getInstance]getTotalStr]);
     
     //CC_Button
     //一行代码完成button的基本功能创建
@@ -166,9 +168,9 @@
     
 #pragma mark demo测试控制器
     testColorViewController *testColor=[[testColorViewController alloc]init];
-    testUIViewController *testUI=[[testUIViewController alloc]init];
-    nameArr=@[@"testColor",@"testUI"];
-    controArr=@[testColor,testUI];
+    testCasVC *testCas=[[testCasVC alloc]init];
+    nameArr=@[@"颜色匹配",@"动态布局",@"模拟阻止闪退"];
+    controArr=@[testColor,testCas];
     
     UITableView *tab=[[UITableView alloc]initWithFrame:CGRectMake(0, self.view.height/2, self.view.width, self.view.height/2)];
     [self.view addSubview:tab];
@@ -219,9 +221,10 @@
     
     NSSetUncaughtExceptionHandler(&UncaughtExceptionHandler);
     
-    NSArray *arr = @[@(0), @(1)];
-    CCLOG(@"%@", arr[2]); //模拟越界异常
-    
+    if (indexPath.section==2) {
+        NSArray *arr = @[@(0), @(1)];
+        CCLOG(@"%@", arr[2]); //模拟越界异常
+    }
     
 }
 
