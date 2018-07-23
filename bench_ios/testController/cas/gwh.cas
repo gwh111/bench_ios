@@ -1,47 +1,50 @@
 CC_View.MainVC_v_figure1{
-top 99
-left 32
-width 133
+marginTop 119
+marginLeft 32
+width 143
 height 13
-bgc "8B0A50"
+backgroundColor "8B0A50"
 }
 
 CC_Button.MainVC_b_box1{
-top 123
-left 32
+marginTop 150
+marginLeft 32
 width 132
-height 60
+height 30
 text "我bu是CC_Button"
-tc "dce1fc"
-font 12
+textColor "dce1fc"
+fontSize 12
+backgroundImage "casGif.gif"
 }
 
 CC_Label.MainVC_l_box2{
-top 223
-left 42
-width 221
-height 120
-bgc "EE82EE"
+below MainVC_b_box1
+toRightOf MainVC_b_box1
+marginLeft 10
+marginTop 50
+widthSameAs MainVC_v_figure1
+heightSameAs MainVC_v_figure1
+backgroundColor "EE82EE"
 text "我是CC_Label"
-tc "6E6E6E"
+textColor "6E6E6E"
 }
 
 CC_TextView.MainVC_tv_box1{
-top 353
-left 32
+marginTop 353
+marginLeft 32
 width 221
 height 50
-bgc "030303"
+backgroundColor "030303"
 text "我是CC_TextView"
-tc "32CD32"
-font 20
+textColor "32CD32"
+fontSize 20
 }
 
 CC_TextField.MainVC_tf_box1{
-top 453
-left 32
+below MainVC_tv_box1
+marginLeft 32
 width 231
 height 50
 text "我是CC_TextField!"
-tc "EE4000"
+textColor "EE4000"
 }

@@ -106,7 +106,7 @@ static dispatch_once_t onceToken;
                         k=va;
                     }
                 }
-                [keyDic setObject:v forKey:k];
+                [keyDic setObject:ccstr(@"%@",v) forKey:k];
             }
             [posMutDic setObject:keyDic forKey:headName];
         }
@@ -114,7 +114,7 @@ static dispatch_once_t onceToken;
     }
     
     [ccs saveLocalKeyNamed:@"ccCas" andKey:@"all" andValue:posMutDic];
-    CCLOG(@"posMutDic c=%lu",(unsigned long)[posMutDic allKeys].count);
+    CCLOG(@"posMutDic c=%lu %@",(unsigned long)[posMutDic allKeys].count,posMutDic);
     [CC_ClassyExtend getInstance].ccCasDic=[ccs getLocalKeyNamed:@"ccCas" andKey:@"all"];
     
 }

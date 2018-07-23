@@ -1,0 +1,62 @@
+'*':
+  'backgroundColor':
+      'prefix': 'ccbgc'
+      'body': 'backgroundColor'
+  'textColor':
+      'prefix': 'cctc'
+      'body': 'textColor'
+  'fontSize':
+      'prefix': 'ccfs'
+      'body': 'fontSize'
+
+  'marginTop':
+      'prefix': 'ccmt'
+      'body': 'marginTop'
+  'marginBottom':
+      'prefix': 'ccmb'
+      'body': 'marginBottom'
+  'marginLeft':
+      'prefix': 'ccml'
+      'body': 'marginLeft'
+  'marginRight':
+      'prefix': 'ccmr'
+      'body': 'marginRight'
+
+  'alignTop':
+      'prefix': 'ccat'
+      'body': 'alignTop'
+  'alignBottom':
+      'prefix': 'ccab'
+      'body': 'alignBottom'
+  'alignLeft':
+      'prefix': 'ccal'
+      'body': 'alignLeft'
+  'alignRight':
+      'prefix': 'ccar'
+      'body': 'alignRight'
+
+  'alignParentTop':
+      'prefix': 'ccapt'
+      'body': 'alignParentTop'
+  'alignParentBottom':
+      'prefix': 'ccapb'
+      'body': 'alignParentBottom'
+  'alignParentLeft':
+      'prefix': 'ccapl'
+      'body': 'alignParentLeft'
+  'alignParentRight':
+      'prefix': 'ccapr'
+      'body': 'alignParentRight'
+
+  'above':
+      'prefix': 'ccab'
+      'body': 'above'
+  'below':
+      'prefix': 'ccbe'
+      'body': 'below'
+  'toLeftOf':
+      'prefix': 'cctl'
+      'body': 'toLeftOf'
+  'toRightOf':
+      'prefix': 'cctr'
+      'body': 'toRightOf'

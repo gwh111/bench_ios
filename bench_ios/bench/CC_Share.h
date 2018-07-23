@@ -74,6 +74,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
 #import "Classy.h"
 #import "CC_ClassyExtend.h"
 #import "UIView+ClassyExtend.h"
+#import "UIView+CCLayout.h"
 
 @interface CC_Share : NSObject
 

@@ -56,12 +56,12 @@
             break;
     }
     
-    [view addSubview:varView.atom];
-    
     objc_setAssociatedObject(varView.atom, (__bridge const void * _Nonnull)(name), block, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     
+    [view addSubview:varView.atom];
+    
 #if !TARGET_IPHONE_SIMULATOR
-    [varView.atom updateLayout_must];
+    [varView.atom updateLayout_device];
 #else
 #endif
     

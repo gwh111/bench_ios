@@ -27,6 +27,7 @@
 		D8195F511F29CE6B00C7BADD /* CC_MD5Object.m in Sources */ = {isa = PBXBuildFile; fileRef = D8195F4C1F29CE6B00C7BADD /* CC_MD5Object.m */; };
 		D8195F541F29CEEF00C7BADD /* CC_Valiation.m in Sources */ = {isa = PBXBuildFile; fileRef = D8195F531F29CEEF00C7BADD /* CC_Valiation.m */; };
 		D823153C1F53AED3006055FB /* testColorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D823153B1F53AED3006055FB /* testColorViewController.m */; };
+		D82A74842105B43D00E610C2 /* snippets.cson in Resources */ = {isa = PBXBuildFile; fileRef = D82A74832105B43D00E610C2 /* snippets.cson */; };
 		D8335338205F93F90030AB62 /* CC_HttpResponseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D8335337205F93F90030AB62 /* CC_HttpResponseModel.m */; };
 		D83507621F309D2700B7461C /* CC_DESTool.m in Sources */ = {isa = PBXBuildFile; fileRef = D83507611F309D2700B7461C /* CC_DESTool.m */; };
 		D835077A1F31E2CD00B7461C /* CC_CodeClass.m in Sources */ = {isa = PBXBuildFile; fileRef = D83507791F31E2CD00B7461C /* CC_CodeClass.m */; };
@@ -72,6 +73,7 @@
 		D839267620FEDFC60034D10F /* CASArgumentDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = D839265420FEDFC60034D10F /* CASArgumentDescriptor.m */; };
 		D839267A20FEE07B0034D10F /* gwh.cas in Resources */ = {isa = PBXBuildFile; fileRef = D839267920FEE07B0034D10F /* gwh.cas */; };
 		D839267C20FEE07F0034D10F /* stylesheet.cas in Resources */ = {isa = PBXBuildFile; fileRef = D839267B20FEE07F0034D10F /* stylesheet.cas */; };
+		D83926C321017CDA0034D10F /* UIView+CCLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D83926C221017CDA0034D10F /* UIView+CCLayout.m */; };
 		D83B73342068A170000F81F8 /* CC_Note.m in Sources */ = {isa = PBXBuildFile; fileRef = D83B73332068A170000F81F8 /* CC_Note.m */; };
 		D83B74DF2068FD9F000F81F8 /* CC_View.m in Sources */ = {isa = PBXBuildFile; fileRef = D83B74DE2068FD9F000F81F8 /* CC_View.m */; };
 		D83EBC011FEB5BA700B94D6F /* CC_Array.m in Sources */ = {isa = PBXBuildFile; fileRef = D83EBBF61FEB5BA700B94D6F /* CC_Array.m */; };
@@ -151,6 +153,7 @@
 		D8195F531F29CEEF00C7BADD /* CC_Valiation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC_Valiation.m; sourceTree = "<group>"; };
 		D823153A1F53AED3006055FB /* testColorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = testColorViewController.h; sourceTree = "<group>"; };
 		D823153B1F53AED3006055FB /* testColorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testColorViewController.m; sourceTree = "<group>"; };
+		D82A74832105B43D00E610C2 /* snippets.cson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = snippets.cson; sourceTree = "<group>"; };
 		D8335336205F93F90030AB62 /* CC_HttpResponseModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_HttpResponseModel.h; sourceTree = "<group>"; };
 		D8335337205F93F90030AB62 /* CC_HttpResponseModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC_HttpResponseModel.m; sourceTree = "<group>"; };
 		D83507601F309D2700B7461C /* CC_DESTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_DESTool.h; sourceTree = "<group>"; };
@@ -242,6 +245,8 @@
 		D839265520FEDFC60034D10F /* CASObjectClassDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASObjectClassDescriptor.h; sourceTree = "<group>"; };
 		D839267920FEE07B0034D10F /* gwh.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = gwh.cas; sourceTree = "<group>"; };
 		D839267B20FEE07F0034D10F /* stylesheet.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = stylesheet.cas; sourceTree = "<group>"; };
+		D83926C121017CDA0034D10F /* UIView+CCLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+CCLayout.h"; sourceTree = "<group>"; };
+		D83926C221017CDA0034D10F /* UIView+CCLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+CCLayout.m"; sourceTree = "<group>"; };
 		D83B73322068A170000F81F8 /* CC_Note.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_Note.h; sourceTree = "<group>"; };
 		D83B73332068A170000F81F8 /* CC_Note.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC_Note.m; sourceTree = "<group>"; };
 		D83B74DD2068FD9F000F81F8 /* CC_View.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_View.h; sourceTree = "<group>"; };
@@ -351,6 +356,7 @@
 				18B6BD011F1F09CA0019391D /* ViewController.h */,
 				18B6BD021F1F09CA0019391D /* ViewController.m */,
 				D839267B20FEE07F0034D10F /* stylesheet.cas */,
+				D82A74832105B43D00E610C2 /* snippets.cson */,
 				D883EEE0200E34790062A6C6 /* test */,
 				D82315391F53AEC1006055FB /* testController */,
 				18B6BD2E1F1F143E0019391D /* bench */,
@@ -485,6 +491,8 @@
 				D839260620FEDFA40034D10F /* CC_UIAtom.m */,
 				D839260A20FEDFA40034D10F /* UIView+ClassyExtend.h */,
 				D839260520FEDFA40034D10F /* UIView+ClassyExtend.m */,
+				D83926C121017CDA0034D10F /* UIView+CCLayout.h */,
+				D83926C221017CDA0034D10F /* UIView+CCLayout.m */,
 			);
 			path = cas;
 			sourceTree = "<group>";
@@ -498,14 +506,6 @@
 			sourceTree = "<group>";
 		};
 		D839260F20FEDFC60034D10F /* Classy */ = {
-			isa = PBXGroup;
-			children = (
-				D839261120FEDFC60034D10F /* Classy */,
-			);
-			path = Classy;
-			sourceTree = "<group>";
-		};
-		D839261120FEDFC60034D10F /* Classy */ = {
 			isa = PBXGroup;
 			children = (
 				D839261220FEDFC60034D10F /* Additions */,
@@ -531,7 +531,6 @@
 				D839261C20FEDFC60034D10F /* NSRegularExpression+CASAdditions.m */,
 				D839261D20FEDFC60034D10F /* CASStyleableItem.h */,
 				D839261E20FEDFC60034D10F /* NSString+CASAdditions.h */,
-				D839261F20FEDFC60034D10F /* UIBarItem+CASAdditions.m */,
 				D839262020FEDFC60034D10F /* UIView+CASAdditions.m */,
 				D839262120FEDFC60034D10F /* UISlider+CASAdditions.m */,
 				D839262220FEDFC60034D10F /* UINavigationBar+CASAdditions.h */,
@@ -541,6 +540,7 @@
 				D839262620FEDFC60034D10F /* UITextField+CASAdditions.m */,
 				D839262720FEDFC60034D10F /* UIColor+CASAdditions.m */,
 				D839262820FEDFC60034D10F /* UIBarItem+CASAdditions.h */,
+				D839261F20FEDFC60034D10F /* UIBarItem+CASAdditions.m */,
 				D839262920FEDFC60034D10F /* NSString+CASAdditions.m */,
 				D839262A20FEDFC60034D10F /* NSRegularExpression+CASAdditions.h */,
 				D839262B20FEDFC60034D10F /* NSObject+CASSwizzle.h */,
@@ -739,6 +739,7 @@
 				TargetAttributes = {
 					18B6BCF71F1F09CA0019391D = {
 						CreatedOnToolsVersion = 8.3.1;
+						DevelopmentTeam = V988GE98EW;
 						ProvisioningStyle = Automatic;
 					};
 					18B6BD101F1F09CA0019391D = {
@@ -780,6 +781,7 @@
 			files = (
 				D839260020FDDBE70034D10F /* casGif.gif in Resources */,
 				18B6BD0B1F1F09CA0019391D /* LaunchScreen.storyboard in Resources */,
+				D82A74842105B43D00E610C2 /* snippets.cson in Resources */,
 				D8B0E4611F501EE400425D06 /* nyyh.jpg in Resources */,
 				18B6BD081F1F09CA0019391D /* Assets.xcassets in Resources */,
 				D876FE871FB0514B0094C274 /* panda.plist in Resources */,
@@ -843,6 +845,7 @@
 				D8CE47B720D28A3E00587337 /* CC_RequestRecordTool.m in Sources */,
 				3081D9C020FC364F00FF5B3D /* CC_UIViewExt.m in Sources */,
 				D83EBC061FEB5BA700B94D6F /* CC_Notice.m in Sources */,
+				D83926C321017CDA0034D10F /* UIView+CCLayout.m in Sources */,
 				D839266C20FEDFC60034D10F /* CASParser.m in Sources */,
 				D839267220FEDFC60034D10F /* CASTextAttributes.m in Sources */,
 				D839265B20FEDFC60034D10F /* NSRegularExpression+CASAdditions.m in Sources */,
@@ -1034,6 +1037,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = V988GE98EW;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/bench_ios/Prefix.pch";
 				INFOPLIST_FILE = bench_ios/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8;
@@ -1047,6 +1051,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = V988GE98EW;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/bench_ios/Prefix.pch";
 				INFOPLIST_FILE = bench_ios/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8;

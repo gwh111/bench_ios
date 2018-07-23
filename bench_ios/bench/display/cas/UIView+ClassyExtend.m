@@ -9,6 +9,7 @@
 #import "UIView+ClassyExtend.h"
 #import <objc/runtime.h>
 #import "CC_UIAtom.h"
+#import "UIView+CCLayout.h"
 
 @implementation UIView (ClassyExtend)
 
@@ -19,15 +20,50 @@
     objectClassDescriptor.propertyKeyAliases =@{
     @"width"    : @cas_propertykey(UIView, cas_width),
     @"height"   : @cas_propertykey(UIView, cas_height),
-    @"top"      : @cas_propertykey(UIView, cas_top),
-    @"left"     : @cas_propertykey(UIView, cas_left),
-    @"bottom"   : @cas_propertykey(UIView, cas_bottom),
-    @"right"    : @cas_propertykey(UIView, cas_right),
-    @"bgc"      : @cas_propertykey(UIView, cas_backgroundColor),
+    @"widthSameAs"    : @cas_propertykey(UIView, cas_widthSameAs),
+    @"heightSameAs"   : @cas_propertykey(UIView, cas_heightSameAs),
+    @"widthSameAsParent"    : @cas_propertykey(UIView, cas_widthSameAsParent),
+    @"heightSameAsParent"   : @cas_propertykey(UIView, cas_heightSameAsParent),
+    
+    @"marginTop"      : @cas_propertykey(UIView, cas_marginTop),
+    @"marginLeft"     : @cas_propertykey(UIView, cas_marginLeft),
+    @"marginBottom"   : @cas_propertykey(UIView, cas_marginBottom),
+    @"marginRight"    : @cas_propertykey(UIView, cas_marginRight),
+    
+    @"backgroundColor"      : @cas_propertykey(UIView, cas_backgroundColor),
+    @"backgroundImage"      : @cas_propertykey(UIView, cas_backgroundImage),
     @"text"     : @cas_propertykey(UIView, cas_text),
-    @"tc"       : @cas_propertykey(UIView, cas_textColor),
-    @"font"     : @cas_propertykey(UIView, cas_font),
+    @"textColor"       : @cas_propertykey(UIView, cas_textColor),
+    @"fontSize"     : @cas_propertykey(UIView, cas_font),
+    
+    @"above"     : @cas_propertykey(UIView, cas_above),
+    @"below"     : @cas_propertykey(UIView, cas_below),
+    @"toRightOf"     : @cas_propertykey(UIView, cas_toRightOf),
+    @"toLeftOf"     : @cas_propertykey(UIView, cas_toLeftOf),
+    
+    @"alignTop"     : @cas_propertykey(UIView, cas_alignTop),
+    @"alignBottom"     : @cas_propertykey(UIView, cas_alignBottom),
+    @"alignLeft"     : @cas_propertykey(UIView, cas_alignLeft),
+    @"alignRight"     : @cas_propertykey(UIView, cas_alignRight),
+    
+    @"alignParentTop"     : @cas_propertykey(UIView, cas_alignParentTop),
+    @"alignParentBottom"     : @cas_propertykey(UIView, cas_alignParentBottom),
+    @"alignParentLeft"     : @cas_propertykey(UIView, cas_alignParentLeft),
+    @"alignParentRight"     : @cas_propertykey(UIView, cas_alignParentRight),
+    
+    
     };
+}
+
+- (int)getStopCas{
+    return [self stopCas];
+}
+- (int)stopCas{
+    return [objc_getAssociatedObject(self, @selector(stopCas)) intValue];
+}
+
+- (void)setStopCas:(int)stopCas{
+    objc_setAssociatedObject(self, @selector(stopCas), ccstr(@"%d",stopCas), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (UIEdgeInsets)cas_margin{
@@ -53,11 +89,7 @@
 }
 
 - (CGFloat)cas_width{
-    #ifdef TARGET_IPHONE_SIMULATOR
     return self.cas_size.width;
-    #else
-    return [[CC_ClassyExtend getInstance].ccCasDic[self.cas_styleClass][@"width"]floatValue];
-    #endif
 }
 
 - (void)setCas_width:(CGFloat)cas_width{
@@ -80,11 +112,47 @@
     [self updateLayout];
 }
 
-- (CGFloat)cas_top{
+- (NSString *)cas_widthSameAs{
+    return objc_getAssociatedObject(self, @selector(cas_widthSameAs));
+}
+
+- (void)setCas_widthSameAs:(NSString *)cas_widthSameAs{
+    objc_setAssociatedObject(self, @selector(cas_widthSameAs), cas_widthSameAs, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    [self updateLayout];
+}
+
+- (NSString *)cas_heightSameAs{
+    return objc_getAssociatedObject(self, @selector(cas_heightSameAs));
+}
+
+- (void)setCas_heightSameAs:(NSString *)cas_heightSameAs{
+    objc_setAssociatedObject(self, @selector(cas_heightSameAs), cas_heightSameAs, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    [self updateLayout];
+}
+
+- (NSString *)cas_widthSameAsParent{
+    return objc_getAssociatedObject(self, @selector(cas_widthSameAsParent));
+}
+
+- (void)setCas_widthSameAsParent:(NSString *)cas_widthSameAsParent{
+    objc_setAssociatedObject(self, @selector(cas_widthSameAsParent), cas_widthSameAsParent, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    [self updateLayout];
+}
+
+- (NSString *)cas_heightSameAsParent{
+    return objc_getAssociatedObject(self, @selector(cas_heightSameAsParent));
+}
+
+- (void)setCas_heightSameAsParent:(NSString *)cas_heightSameAsParent{
+    objc_setAssociatedObject(self, @selector(cas_heightSameAsParent), cas_heightSameAsParent, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    [self updateLayout];
+}
+
+- (CGFloat)cas_marginTop{
     return self.cas_margin.top;
 }
 
-- (void)setCas_top:(CGFloat)cas_top{
+- (void)setCas_marginTop:(CGFloat)cas_top{
     UIEdgeInsets currentMargin = self.cas_margin;
     currentMargin.top = [ccui getRH:cas_top];
     self.cas_margin = currentMargin;
@@ -93,11 +161,11 @@
     [self updateLayout];
 }
 
-- (CGFloat)cas_left{
+- (CGFloat)cas_marginLeft{
     return self.cas_margin.left;
 }
 
-- (void)setCas_left:(CGFloat)cas_left{
+- (void)setCas_marginLeft:(CGFloat)cas_left{
     UIEdgeInsets currentMargin = self.cas_margin;
     currentMargin.left = [ccui getRH:cas_left];
     self.cas_margin = currentMargin;
@@ -106,11 +174,11 @@
     [self updateLayout];
 }
 
-- (CGFloat)cas_bottom{
+- (CGFloat)cas_marginBottom{
     return self.cas_margin.bottom;
 }
 
-- (void)setCas_bottom:(CGFloat)cas_bottom{
+- (void)setCas_marginBottom:(CGFloat)cas_bottom{
     UIEdgeInsets currentMargin = self.cas_margin;
     currentMargin.bottom = [ccui getRH:cas_bottom];
     self.cas_margin = currentMargin;
@@ -119,11 +187,11 @@
     [self updateLayout];
 }
 
-- (CGFloat)cas_right{
+- (CGFloat)cas_marginRight{
     return self.cas_margin.right;
 }
 
-- (void)setCas_right:(CGFloat)cas_right{
+- (void)setCas_marginRight:(CGFloat)cas_right{
     UIEdgeInsets currentMargin = self.cas_margin;
     currentMargin.right = [ccui getRH:cas_right];
     self.cas_margin = currentMargin;
@@ -138,6 +206,21 @@
 
 - (void)setCas_backgroundColor:(NSString *)cas_backgroundColor{
     self.backgroundColor=[convert colorwithHexString:cas_backgroundColor];
+    [self updateLayout];
+}
+
+- (NSString *)cas_backgroundImage{
+    return self.cas_backgroundImage;
+}
+
+- (void)setCas_backgroundImage:(NSString *)cas_backgroundImage{
+    if ([self isKindOfClass:[UIButton class]]) {
+        UIButton *atom=(UIButton *)self;
+        [atom setBackgroundImage:[UIImage imageNamed:cas_backgroundImage] forState:UIControlStateNormal];
+    }else if ([self isKindOfClass:[UIImageView class]]) {
+        UIImageView *atom=(UIImageView *)self;
+        atom.image=[UIImage imageNamed:cas_backgroundImage];
+    }
     [self updateLayout];
 }
 
@@ -205,108 +288,128 @@
     [self updateLayout];
 }
 
-- (void)updateLayout_must{
-    
-#if TARGET_IPHONE_SIMULATOR
-    [self simulatorCas];
-#else
-    [self deviceCas];
-#endif
-    
-    typedef void (^successBlock)(id atom);
-    successBlock block = objc_getAssociatedObject(self, (__bridge const void * _Nonnull)(self.cas_styleClass));
-    block(self);
+#pragma mark 在控件哪一边
+- (NSString *)cas_above{
+    return objc_getAssociatedObject(self, @selector(cas_above));
+}
+- (void)setCas_above:(NSString *)cas_above{
+    objc_setAssociatedObject(self, @selector(cas_above), cas_above, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    [self resetCasValue:self.cas_below];
+    [self resetCasValue:self.cas_alignTop];
+    [self resetCasValue:self.cas_alignParentTop];
+    [self updateLayout];
+}
+- (NSString *)cas_below{
+    return objc_getAssociatedObject(self, @selector(cas_below));
+}
+- (void)setCas_below:(NSString *)cas_below{
+    objc_setAssociatedObject(self, @selector(cas_below), cas_below, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    [self resetCasValue:self.cas_alignTop];
+    [self resetCasValue:self.cas_alignParentTop];
+    [self updateLayout];
+}
+- (NSString *)cas_toLeftOf{
+    return objc_getAssociatedObject(self, @selector(cas_toLeftOf));
+}
+- (void)setCas_toLeftOf:(NSString *)cas_toLeftOf{
+    objc_setAssociatedObject(self, @selector(cas_toLeftOf), cas_toLeftOf, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    [self resetCasValue:self.cas_toRightOf];
+    [self resetCasValue:self.cas_alignRight];
+    [self resetCasValue:self.cas_alignParentRight];
+    [self updateLayout];
+}
+- (NSString *)cas_toRightOf{
+    return objc_getAssociatedObject(self, @selector(cas_toRightOf));
+}
+- (void)setCas_toRightOf:(NSString *)cas_toRightOf{
+    objc_setAssociatedObject(self, @selector(cas_toRightOf), cas_toRightOf, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    [self resetCasValue:self.cas_alignRight];
+    [self resetCasValue:self.cas_alignParentRight];
+    [self updateLayout];
 }
 
-- (void)updateLayout{
-    
-#if TARGET_IPHONE_SIMULATOR
-    [self updateLayout_must];
-#else
-#endif
-    
+#pragma mark 和控件哪边对齐
+- (NSString *)cas_alignTop{
+    return objc_getAssociatedObject(self, @selector(cas_alignTop));
+}
+- (void)setCas_alignTop:(NSString *)cas_alignTop{
+    objc_setAssociatedObject(self, @selector(cas_alignTop), cas_alignTop, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    [self resetCasValue:self.cas_alignBottom];
+    [self resetCasValue:self.cas_alignParentTop];
+    [self updateLayout];
+}
+- (NSString *)cas_alignBottom{
+    return objc_getAssociatedObject(self, @selector(cas_alignBottom));
+}
+- (void)setCas_alignBottom:(NSString *)cas_alignBottom{
+    objc_setAssociatedObject(self, @selector(cas_alignBottom), cas_alignBottom, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    [self resetCasValue:self.cas_alignParentTop];
+    [self updateLayout];
+}
+- (NSString *)cas_alignLeft{
+    return objc_getAssociatedObject(self, @selector(cas_alignLeft));
+}
+- (void)setCas_alignLeft:(NSString *)cas_alignLeft{
+    objc_setAssociatedObject(self, @selector(cas_alignLeft), cas_alignLeft, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    [self resetCasValue:self.cas_alignRight];
+    [self resetCasValue:self.cas_alignParentLeft];
+    [self updateLayout];
+}
+- (NSString *)cas_alignRight{
+    return objc_getAssociatedObject(self, @selector(cas_alignRight));
+}
+- (void)setCas_alignRight:(NSString *)cas_alignRight{
+    objc_setAssociatedObject(self, @selector(cas_alignRight), cas_alignRight, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    [self resetCasValue:self.cas_alignParentLeft];
+    [self updateLayout];
 }
 
-- (void)deviceCas{
-    float width=[[CC_ClassyExtend getInstance].ccCasDic[self.cas_styleClass][@"width"]floatValue];
-    float height=[[CC_ClassyExtend getInstance].ccCasDic[self.cas_styleClass][@"height"]floatValue];
-    float top=[[CC_ClassyExtend getInstance].ccCasDic[self.cas_styleClass][@"top"]floatValue];
-    float left=[[CC_ClassyExtend getInstance].ccCasDic[self.cas_styleClass][@"left"]floatValue];
-    float right=[[CC_ClassyExtend getInstance].ccCasDic[self.cas_styleClass][@"right"]floatValue];
-    float bottom=[[CC_ClassyExtend getInstance].ccCasDic[self.cas_styleClass][@"bottom"]floatValue];
-    if (width>0) {
-        self.width=width;
+#pragma mark 和父控件哪边对齐
+- (NSString *)cas_alignParentTop{
+    return objc_getAssociatedObject(self, @selector(cas_alignParentTop));
+}
+- (void)setCas_alignParentTop:(NSString *)cas_alignParentTop{
+    objc_setAssociatedObject(self, @selector(cas_alignParentTop), cas_alignParentTop, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    [self resetCasValue:self.cas_alignParentBottom];
+    [self updateLayout];
+}
+- (NSString *)cas_alignParentBottom{
+    return objc_getAssociatedObject(self, @selector(cas_alignParentBottom));
+}
+- (void)setCas_alignParentBottom:(NSString *)cas_alignParentBottom{
+    objc_setAssociatedObject(self, @selector(cas_alignParentBottom), cas_alignParentBottom, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    [self updateLayout];
+}
+- (NSString *)cas_alignParentLeft{
+    return objc_getAssociatedObject(self, @selector(cas_alignParentLeft));
+}
+- (void)setCas_alignParentLeft:(NSString *)cas_alignParentLeft{
+    objc_setAssociatedObject(self, @selector(cas_alignParentLeft), cas_alignParentLeft, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    [self resetCasValue:self.cas_alignParentRight];
+    [self updateLayout];
+}
+- (NSString *)cas_alignParentRight{
+    return objc_getAssociatedObject(self, @selector(cas_alignParentRight));
+}
+- (void)setCas_alignParentRight:(NSString *)cas_alignParentRight{
+    objc_setAssociatedObject(self, @selector(cas_alignParentRight), cas_alignParentRight, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    [self updateLayout];
+}
+
+- (void)stopUpdateCas{
+    [self setStopCas:1];
+    [self updateLayout_device];
+}
+
+- (void)resetCasValue:(id)value{
+    if ([value isKindOfClass:[NSString class]]) {
+        value=nil;
     }else{
-        self.width=self.superview.width-left-right;
-    }
-    if (height>0) {
-        self.height=height;
-    }else{
-        self.height=self.superview.height-top-bottom;
-    }
-    if (left>0) {
-        self.left=left;
-    }
-    if (top>0) {
-        self.top=top;
-    }
-    if (right>0) {
-        self.right=self.superview.width-right;
-    }
-    if (bottom>0) {
-        self.bottom=self.superview.height-bottom;
-    }
-    
-    NSArray *names_str=@[@"bgc",@"text",@"tc"];
-    for (NSString *name in names_str) {
-        NSString *value=[CC_ClassyExtend getInstance].ccCasDic[self.cas_styleClass][name];
-        if (value.length<=0) {
-            continue;
-        }
-        if ([name isEqualToString:@"bgc"]) {
-            [self setCas_backgroundColor:value];
-        }else if ([name isEqualToString:@"text"]){
-            [self setCas_text:value];
-        }else if ([name isEqualToString:@"tc"]){
-            [self setCas_textColor:value];
-        }
-    }
-    NSArray *names_int=@[@"font"];
-    for (NSString *name in names_int) {
-        int value=[[CC_ClassyExtend getInstance].ccCasDic[self.cas_styleClass][name]intValue];
-        if (value<=0) {
-            continue;
-        }
-        if ([name isEqualToString:@"font"]){
-            [self setCas_font:value];
-        }
+        value=0;
     }
 }
 
-- (void)simulatorCas{
-    if (self.cas_size.width>0) {
-        self.width=self.cas_size.width;
-    }else{
-        self.width=self.superview.width-self.cas_margin.left-self.cas_margin.right;
-    }
-    if (self.cas_size.height>0) {
-        self.height=self.cas_size.height;
-    }else{
-        self.height=self.superview.height-self.cas_margin.top-self.cas_margin.bottom;
-    }
-    if (self.cas_margin.left>0) {
-        self.left=self.cas_margin.left;
-    }
-    if (self.cas_margin.top>0) {
-        self.top=self.cas_margin.top;
-    }
-    if (self.cas_margin.right>0) {
-        self.right=self.superview.width-self.cas_margin.right;
-    }
-    if (self.cas_margin.bottom>0) {
-        self.bottom=self.superview.height-self.cas_margin.bottom;
-    }
-}
+
 
 @end
 
