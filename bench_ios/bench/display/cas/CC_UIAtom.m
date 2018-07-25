@@ -10,6 +10,28 @@
 
 @implementation CC_UIAtom
 
++ (id)initAt:(UIView *)view name:(NSString *)name class:(id)class finishBlock:(void (^)(id atom))block{
+    
+    CC_UIAtom *varView=[[CC_UIAtom alloc]init];
+    varView.atomName=name;
+    
+    Class kclass =[class class];
+    UIView *atom=[[kclass alloc]init];
+    atom.cas_styleClass = name;
+    varView.atom=atom;
+    
+    objc_setAssociatedObject(varView.atom, (__bridge const void * _Nonnull)(name), block, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    
+    [view addSubview:varView.atom];
+    
+#if !TARGET_IPHONE_SIMULATOR
+    [varView.atom updateLayout_device];
+#else
+#endif
+    
+    return varView.atom;
+}
+
 + (id)initAt:(UIView *)view name:(NSString *)name type:(CCAtomType)type finishBlock:(void (^)(id atom))block{
     
     CC_UIAtom *varView=[[CC_UIAtom alloc]init];
@@ -47,6 +69,13 @@
         case CCTextField:
         {
             CC_TextField *atom=[[CC_TextField alloc]init];
+            atom.cas_styleClass = name;
+            varView.atom=atom;
+            break;
+        }
+        case CCImageView:
+        {
+            UIImageView *atom=[[UIImageView alloc]init];
             atom.cas_styleClass = name;
             varView.atom=atom;
             break;

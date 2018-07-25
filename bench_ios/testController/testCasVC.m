@@ -24,10 +24,14 @@
     [self.view addSubview:l];
     l.stopCas=3;
     
-    [CC_UIAtom initAt:self.view name:@"MainVC_v_figure1" type:CCView finishBlock:^(CC_View *atom) {
+    
+    [CC_UIAtom initAt:self.view name:@"MainVC_i_figure1" class:[UIImageView class] finishBlock:^(UIImageView *atom) {
     }];
     
-    [CC_UIAtom initAt:self.view name:@"MainVC_b_box1" type:CCButton finishBlock:^(CC_Button *atom) {
+//    [CC_UIAtom initAt:self.view name:@"MainVC_v_figure1" type:CCView finishBlock:^(CC_View *atom) {
+//    }];
+    
+    [CC_UIAtom initAt:self.view name:@"MainVC_b_box1" class:[CC_Button class] finishBlock:^(CC_Button *atom) {
         [atom setBackgroundColor:[UIColor brownColor]];
         [atom addTappedOnceDelay:.1 withBlock:^(UIButton *button) {
             CCLOG(@"tapped");

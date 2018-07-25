@@ -62,6 +62,9 @@ static dispatch_once_t onceToken;
         CCLOG(@"url 不合法");
     }
     
+    if (!model) {
+        model=[[ResModel alloc]init];
+    }
     model.serviceStr=paramsDic[@"service"];
     
     CC_HttpTask *executorDelegate = [[CC_HttpTask alloc] init];

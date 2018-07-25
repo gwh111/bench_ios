@@ -350,12 +350,12 @@
 			children = (
 				D83925FF20FDDBE70034D10F /* casGif.gif */,
 				18B6BD471F21A8560019391D /* bench_ios.podspec */,
+				D839267B20FEE07F0034D10F /* stylesheet.cas */,
 				18B6BD451F21A6080019391D /* README.md */,
 				18B6BCFE1F1F09CA0019391D /* AppDelegate.h */,
 				18B6BCFF1F1F09CA0019391D /* AppDelegate.m */,
 				18B6BD011F1F09CA0019391D /* ViewController.h */,
 				18B6BD021F1F09CA0019391D /* ViewController.m */,
-				D839267B20FEE07F0034D10F /* stylesheet.cas */,
 				D82A74832105B43D00E610C2 /* snippets.cson */,
 				D883EEE0200E34790062A6C6 /* test */,
 				D82315391F53AEC1006055FB /* testController */,

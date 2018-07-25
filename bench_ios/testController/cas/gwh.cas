@@ -1,3 +1,11 @@
+UIImageView.MainVC_i_figure1{
+marginTop 529
+marginLeft 32
+width 143
+height 13
+backgroundImage "casGif.gif"
+}
+
 CC_View.MainVC_v_figure1{
 marginTop 119
 marginLeft 32
