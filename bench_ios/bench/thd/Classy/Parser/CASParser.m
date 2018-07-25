@@ -56,7 +56,7 @@ NSInteger const CASParseErrorFileContents = 2;
         return nil;
     }
 
-    CASLog(@"Start parsing file \n%@", filePath);
+//    CASLog(@"Start parsing file \n%@", filePath);
     NSError *parseError = nil;
     CASParser *parser = CASParser.new;
     parser.filePath = filePath;

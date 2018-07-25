@@ -88,7 +88,7 @@
     NSError *error = nil;
     [self setFilePath:filePath error:&error];
     if (error) {
-        CASLog(@"Error: %@", error);
+//        CASLog(@"Error: %@", error);
     }
 }
 
