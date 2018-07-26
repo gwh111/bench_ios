@@ -87,6 +87,7 @@ typedef enum : NSUInteger {
      }
     }
  */
++ (id)initAt:(UIView *)view name:(NSString *)name type:(CCAtomType)type;
 + (id)initAt:(UIView *)view name:(NSString *)name type:(CCAtomType)type finishBlock:(void (^)(id atom))block;
 
 /**
@@ -94,6 +95,7 @@ typedef enum : NSUInteger {
  *  class 第三方类名创建的类
  *  其他用法和使用type时相同
  */
-+ (id)initAt:(UIView *)view name:(NSString *)name class:(id)class finishBlock:(void (^)(id atom))block;
++ (id)initAt:(UIView *)view name:(NSString *)name class:(id)atomClass;
++ (id)initAt:(UIView *)view name:(NSString *)name class:(id)atomClass finishBlock:(void (^)(id atom))block;
 
 @end

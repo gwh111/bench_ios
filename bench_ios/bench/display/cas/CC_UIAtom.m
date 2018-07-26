@@ -10,12 +10,17 @@
 
 @implementation CC_UIAtom
 
-+ (id)initAt:(UIView *)view name:(NSString *)name class:(id)class finishBlock:(void (^)(id atom))block{
++ (id)initAt:(UIView *)view name:(NSString *)name class:(id)atomClass{
+    return [self initAt:view name:name class:atomClass finishBlock:^(id atom) {
+        
+    }];
+}
++ (id)initAt:(UIView *)view name:(NSString *)name class:(id)atomClass finishBlock:(void (^)(id atom))block{
     
     CC_UIAtom *varView=[[CC_UIAtom alloc]init];
     varView.atomName=name;
     
-    Class kclass =[class class];
+    Class kclass =[atomClass class];
     UIView *atom=[[kclass alloc]init];
     atom.cas_styleClass = name;
     varView.atom=atom;
@@ -31,7 +36,11 @@
     
     return varView.atom;
 }
-
++ (id)initAt:(UIView *)view name:(NSString *)name type:(CCAtomType)type{
+    return [self initAt:view name:name type:type finishBlock:^(id atom) {
+        
+    }];
+}
 + (id)initAt:(UIView *)view name:(NSString *)name type:(CCAtomType)type finishBlock:(void (^)(id atom))block{
     
     CC_UIAtom *varView=[[CC_UIAtom alloc]init];
