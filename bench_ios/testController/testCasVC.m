@@ -24,7 +24,6 @@
     [self.view addSubview:l];
     l.stopCas=3;
     
-    
     [CC_UIAtom initAt:self.view name:@"MainVC_i_figure1" class:[UIImageView class] finishBlock:^(UIImageView *atom) {
     }];
     

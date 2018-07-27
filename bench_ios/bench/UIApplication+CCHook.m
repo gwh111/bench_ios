@@ -7,6 +7,7 @@
 //
 
 #import "UIApplication+CCHook.h"
+#import <objc/runtime.h>
 
 @implementation UIApplication(CCHook)
 
