@@ -57,7 +57,7 @@ static dispatch_once_t onceToken;
         NSString *fileName;
         fileName=[self scanCasName:listArr[i]];
         
-        NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"gwh" ofType:@"cas"];
+        NSString *plistPath = [[NSBundle mainBundle] pathForResource:fileName ofType:@"cas"];
         NSString *str=[[NSString alloc]initWithContentsOfFile:plistPath encoding:NSUTF8StringEncoding error:nil];
         
         NSScanner *theScanner;

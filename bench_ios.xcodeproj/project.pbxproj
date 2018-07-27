@@ -87,6 +87,9 @@
 		D883EEF9200E37910062A6C6 /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = D883EEF4200E37910062A6C6 /* GTMBase64.m */; };
 		D883EEFA200E37910062A6C6 /* LCdes.m in Sources */ = {isa = PBXBuildFile; fileRef = D883EEF7200E37910062A6C6 /* LCdes.m */; };
 		D89AA87020947265001DE9B8 /* CC_Parser.m in Sources */ = {isa = PBXBuildFile; fileRef = D89AA86F20947265001DE9B8 /* CC_Parser.m */; };
+		D8A799682109CAFB00D40B4B /* UIApplication+CCHook.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A799672109CAFB00D40B4B /* UIApplication+CCHook.m */; };
+		D8A7996E2109CC0300D40B4B /* UIViewController+CCHook.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A7996D2109CC0300D40B4B /* UIViewController+CCHook.m */; };
+		D8A799712109CC4F00D40B4B /* UINavigationController+CCHook.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A799702109CC4F00D40B4B /* UINavigationController+CCHook.m */; };
 		D8B0E45C1F5016EA00425D06 /* CC_GColor.m in Sources */ = {isa = PBXBuildFile; fileRef = D8B0E45B1F5016EA00425D06 /* CC_GColor.m */; };
 		D8B0E4611F501EE400425D06 /* nyyh.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D8B0E4601F501EE400425D06 /* nyyh.jpg */; };
 		D8BDAF6820FC4F49006BF14C /* CC_ResponseLogicModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D8BDAF6720FC4F49006BF14C /* CC_ResponseLogicModel.m */; };
@@ -275,6 +278,12 @@
 		D883EEF8200E37910062A6C6 /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
 		D89AA86E20947265001DE9B8 /* CC_Parser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_Parser.h; sourceTree = "<group>"; };
 		D89AA86F20947265001DE9B8 /* CC_Parser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC_Parser.m; sourceTree = "<group>"; };
+		D8A799662109CAFB00D40B4B /* UIApplication+CCHook.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIApplication+CCHook.h"; sourceTree = "<group>"; };
+		D8A799672109CAFB00D40B4B /* UIApplication+CCHook.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIApplication+CCHook.m"; sourceTree = "<group>"; };
+		D8A7996C2109CC0300D40B4B /* UIViewController+CCHook.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+CCHook.h"; sourceTree = "<group>"; };
+		D8A7996D2109CC0300D40B4B /* UIViewController+CCHook.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+CCHook.m"; sourceTree = "<group>"; };
+		D8A7996F2109CC4F00D40B4B /* UINavigationController+CCHook.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+CCHook.h"; sourceTree = "<group>"; };
+		D8A799702109CC4F00D40B4B /* UINavigationController+CCHook.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+CCHook.m"; sourceTree = "<group>"; };
 		D8B0E45A1F5016EA00425D06 /* CC_GColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_GColor.h; sourceTree = "<group>"; };
 		D8B0E45B1F5016EA00425D06 /* CC_GColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC_GColor.m; sourceTree = "<group>"; };
 		D8B0E4601F501EE400425D06 /* nyyh.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = nyyh.jpg; sourceTree = "<group>"; };
@@ -404,6 +413,12 @@
 				D83EBC0E1FEB646100B94D6F /* PlatformConfig.h */,
 				18B6BD401F20C6660019391D /* CC_Share.h */,
 				18B6BD411F20C6660019391D /* CC_Share.m */,
+				D8A799662109CAFB00D40B4B /* UIApplication+CCHook.h */,
+				D8A799672109CAFB00D40B4B /* UIApplication+CCHook.m */,
+				D8A7996C2109CC0300D40B4B /* UIViewController+CCHook.h */,
+				D8A7996D2109CC0300D40B4B /* UIViewController+CCHook.m */,
+				D8A7996F2109CC4F00D40B4B /* UINavigationController+CCHook.h */,
+				D8A799702109CC4F00D40B4B /* UINavigationController+CCHook.m */,
 				D839260E20FEDFB20034D10F /* thd */,
 				D83EBC071FEB5CBC00B94D6F /* display */,
 				D83EBBF41FEB5BA700B94D6F /* object */,
@@ -830,6 +845,7 @@
 				D83B74DF2068FD9F000F81F8 /* CC_View.m in Sources */,
 				D839266A20FEDFC60034D10F /* CASUtilities.m in Sources */,
 				D839266820FEDFC60034D10F /* CASDeviceSelector.m in Sources */,
+				D8A7996E2109CC0300D40B4B /* UIViewController+CCHook.m in Sources */,
 				D8365DE4205A54CE00357C0F /* testUIViewController.m in Sources */,
 				D839266420FEDFC60034D10F /* CASInvocation.m in Sources */,
 				D8389DFC206BA3680010A04A /* CC_LogicClass.m in Sources */,
@@ -858,6 +874,7 @@
 				D839267420FEDFC60034D10F /* CASObjectClassDescriptor.m in Sources */,
 				D839265E20FEDFC60034D10F /* UISlider+CASAdditions.m in Sources */,
 				D8195F511F29CE6B00C7BADD /* CC_MD5Object.m in Sources */,
+				D8A799712109CC4F00D40B4B /* UINavigationController+CCHook.m in Sources */,
 				D839267120FEDFC60034D10F /* CASUnitToken.m in Sources */,
 				D83EBC011FEB5BA700B94D6F /* CC_Array.m in Sources */,
 				D839266520FEDFC60034D10F /* CASExpressionSolver.m in Sources */,
@@ -885,6 +902,7 @@
 				D8195F501F29CE6B00C7BADD /* CC_GHttpSessionTask.m in Sources */,
 				D83B73342068A170000F81F8 /* CC_Note.m in Sources */,
 				D839267020FEDFC60034D10F /* CASStyleNode.m in Sources */,
+				D8A799682109CAFB00D40B4B /* UIApplication+CCHook.m in Sources */,
 				D839266920FEDFC60034D10F /* CASDeviceTypeItem.m in Sources */,
 				D8335338205F93F90030AB62 /* CC_HttpResponseModel.m in Sources */,
 				D83507621F309D2700B7461C /* CC_DESTool.m in Sources */,

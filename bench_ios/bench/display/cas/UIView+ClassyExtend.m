@@ -18,41 +18,43 @@
     
     CASObjectClassDescriptor *objectClassDescriptor = [[CASStyler defaultStyler] objectClassDescriptorForClass:UIView.class];
     objectClassDescriptor.propertyKeyAliases =@{
-    @"width"    : @cas_propertykey(UIView, cas_width),
-    @"height"   : @cas_propertykey(UIView, cas_height),
-    @"widthSameAs"    : @cas_propertykey(UIView, cas_widthSameAs),
-    @"heightSameAs"   : @cas_propertykey(UIView, cas_heightSameAs),
-    @"widthSameAsParent"    : @cas_propertykey(UIView, cas_widthSameAsParent),
-    @"heightSameAsParent"   : @cas_propertykey(UIView, cas_heightSameAsParent),
-    
-    @"marginTop"      : @cas_propertykey(UIView, cas_marginTop),
-    @"marginLeft"     : @cas_propertykey(UIView, cas_marginLeft),
-    @"marginBottom"   : @cas_propertykey(UIView, cas_marginBottom),
-    @"marginRight"    : @cas_propertykey(UIView, cas_marginRight),
-    
-    @"backgroundColor"      : @cas_propertykey(UIView, cas_backgroundColor),
-    @"backgroundImage"      : @cas_propertykey(UIView, cas_backgroundImage),
-    @"text"     : @cas_propertykey(UIView, cas_text),
-    @"textColor"       : @cas_propertykey(UIView, cas_textColor),
-    @"fontSize"     : @cas_propertykey(UIView, cas_font),
-    
-    @"above"     : @cas_propertykey(UIView, cas_above),
-    @"below"     : @cas_propertykey(UIView, cas_below),
-    @"toRightOf"     : @cas_propertykey(UIView, cas_toRightOf),
-    @"toLeftOf"     : @cas_propertykey(UIView, cas_toLeftOf),
-    
-    @"alignTop"     : @cas_propertykey(UIView, cas_alignTop),
-    @"alignBottom"     : @cas_propertykey(UIView, cas_alignBottom),
-    @"alignLeft"     : @cas_propertykey(UIView, cas_alignLeft),
-    @"alignRight"     : @cas_propertykey(UIView, cas_alignRight),
-    
-    @"alignParentTop"     : @cas_propertykey(UIView, cas_alignParentTop),
-    @"alignParentBottom"     : @cas_propertykey(UIView, cas_alignParentBottom),
-    @"alignParentLeft"     : @cas_propertykey(UIView, cas_alignParentLeft),
-    @"alignParentRight"     : @cas_propertykey(UIView, cas_alignParentRight),
-    
-    
-    };
+                                                @"width"    : @cas_propertykey(UIView, cas_width),
+                                                @"height"   : @cas_propertykey(UIView, cas_height),
+                                                @"widthSameAs"    : @cas_propertykey(UIView, cas_widthSameAs),
+                                                @"heightSameAs"   : @cas_propertykey(UIView, cas_heightSameAs),
+                                                @"widthSameAsParent"    : @cas_propertykey(UIView, cas_widthSameAsParent),
+                                                @"heightSameAsParent"   : @cas_propertykey(UIView, cas_heightSameAsParent),
+                                                @"widthSameAsScreen"    : @cas_propertykey(UIView, cas_widthSameAsScreen),
+                                                @"heightSameAsScreen"   : @cas_propertykey(UIView, cas_heightSameAsScreen),
+                                                
+                                                @"marginTop"      : @cas_propertykey(UIView, cas_marginTop),
+                                                @"marginLeft"     : @cas_propertykey(UIView, cas_marginLeft),
+                                                @"marginBottom"   : @cas_propertykey(UIView, cas_marginBottom),
+                                                @"marginRight"    : @cas_propertykey(UIView, cas_marginRight),
+                                                
+                                                @"backgroundColor"      : @cas_propertykey(UIView, cas_backgroundColor),
+                                                @"backgroundImage"      : @cas_propertykey(UIView, cas_backgroundImage),
+                                                @"text"     : @cas_propertykey(UIView, cas_text),
+                                                @"textColor"       : @cas_propertykey(UIView, cas_textColor),
+                                                @"fontSize"     : @cas_propertykey(UIView, cas_font),
+                                                
+                                                @"above"     : @cas_propertykey(UIView, cas_above),
+                                                @"below"     : @cas_propertykey(UIView, cas_below),
+                                                @"toRightOf"     : @cas_propertykey(UIView, cas_toRightOf),
+                                                @"toLeftOf"     : @cas_propertykey(UIView, cas_toLeftOf),
+                                                
+                                                @"alignTop"     : @cas_propertykey(UIView, cas_alignTop),
+                                                @"alignBottom"     : @cas_propertykey(UIView, cas_alignBottom),
+                                                @"alignLeft"     : @cas_propertykey(UIView, cas_alignLeft),
+                                                @"alignRight"     : @cas_propertykey(UIView, cas_alignRight),
+                                                
+                                                @"alignParentTop"     : @cas_propertykey(UIView, cas_alignParentTop),
+                                                @"alignParentBottom"     : @cas_propertykey(UIView, cas_alignParentBottom),
+                                                @"alignParentLeft"     : @cas_propertykey(UIView, cas_alignParentLeft),
+                                                @"alignParentRight"     : @cas_propertykey(UIView, cas_alignParentRight),
+                                                
+                                                
+                                                };
 }
 
 - (int)getStopCas{
@@ -148,6 +150,24 @@
     [self updateLayout];
 }
 
+- (NSString *)cas_widthSameAsScreen{
+    return objc_getAssociatedObject(self, @selector(cas_widthSameAsScreen));
+}
+
+- (void)setCas_widthSameAsScreen:(NSString *)cas_widthSameAsScreen{
+    objc_setAssociatedObject(self, @selector(cas_widthSameAsScreen), cas_widthSameAsScreen, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    [self updateLayout];
+}
+
+- (NSString *)cas_heightSameAsScreen{
+    return objc_getAssociatedObject(self, @selector(cas_heightSameAsScreen));
+}
+
+- (void)setCas_heightSameAsScreen:(NSString *)cas_heightSameAsScreen{
+    objc_setAssociatedObject(self, @selector(cas_heightSameAsScreen), cas_heightSameAsScreen, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    [self updateLayout];
+}
+
 - (CGFloat)cas_marginTop{
     return self.cas_margin.top;
 }
@@ -206,7 +226,9 @@
 
 - (void)setCas_backgroundColor:(NSString *)cas_backgroundColor{
     self.backgroundColor=[convert colorwithHexString:cas_backgroundColor];
+#if TARGET_IPHONE_SIMULATOR
     [self updateLayout];
+#endif
 }
 
 - (NSString *)cas_backgroundImage{
@@ -221,7 +243,9 @@
         UIImageView *atom=(UIImageView *)self;
         atom.image=[UIImage imageNamed:cas_backgroundImage];
     }
+#if TARGET_IPHONE_SIMULATOR
     [self updateLayout];
+#endif
 }
 
 - (NSString *)cas_text{
@@ -242,7 +266,9 @@
         UITextField *atom=(UITextField *)self;
         [atom setText:cas_text];
     }
+#if TARGET_IPHONE_SIMULATOR
     [self updateLayout];
+#endif
 }
 
 - (NSString *)cas_textColor{
@@ -264,7 +290,9 @@
         UITextField *atom=(UITextField *)self;
         [atom setTextColor:newC];
     }
+#if TARGET_IPHONE_SIMULATOR
     [self updateLayout];
+#endif
 }
 
 - (int)cas_font{
@@ -285,7 +313,9 @@
         UITextField *atom=(UITextField *)self;
         atom.font=[ccui getRFS:cas_font];
     }
+#if TARGET_IPHONE_SIMULATOR
     [self updateLayout];
+#endif
 }
 
 #pragma mark 在控件哪一边

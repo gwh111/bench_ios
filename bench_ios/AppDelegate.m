@@ -20,6 +20,11 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+    [UIApplication hookUIApplication];
+    [UIViewController hookUIViewController];
+    [UINavigationController hookUINavigationController_push];
+    [UINavigationController hookUINavigationController_pop];
+    
     ViewController *appStartController=[[ViewController alloc]init];
     UINavigationController *navController =[[UINavigationController alloc] initWithRootViewController:appStartController];
 //    navController.navigationBarHidden=YES;

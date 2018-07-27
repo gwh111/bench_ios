@@ -42,6 +42,8 @@
     NSString *heightSameAs;
     NSString *widthSameAsParent;
     NSString *heightSameAsParent;
+    NSString *widthSameAsScreen;
+    NSString *heightSameAsScreen;
     
     float marginTop;
     float marginBottom;
@@ -70,6 +72,8 @@
         heightSameAs=self.cas_heightSameAs;
         widthSameAsParent=self.cas_widthSameAsParent;
         heightSameAsParent=self.cas_heightSameAsParent;
+        widthSameAsScreen=self.cas_widthSameAsScreen;
+        heightSameAsScreen=self.cas_heightSameAsScreen;
         
         marginTop=self.cas_margin.top;
         marginBottom=self.cas_margin.bottom;
@@ -97,6 +101,10 @@
         height=[casDic[@"height"]floatValue];
         widthSameAs=casDic[@"widthSameAs"];
         heightSameAs=casDic[@"heightSameAs"];
+        widthSameAsParent=casDic[@"widthSameAsParent"];
+        heightSameAsParent=casDic[@"heightSameAsParent"];
+        widthSameAsScreen=casDic[@"widthSameAsScreen"];
+        heightSameAsScreen=casDic[@"heightSameAsScreen"];
         
         marginTop=[casDic[@"marginTop"]floatValue];
         marginBottom=[casDic[@"marginBottom"]floatValue];
@@ -118,7 +126,7 @@
         alignParentLeft=casDic[@"alignParentLeft"];
         alignParentRight=casDic[@"alignParentRight"];
         
-        NSArray *names_str=@[@"backgroundColor",@"text",@"textColor"];
+        NSArray *names_str=@[@"backgroundColor",@"backgroundImage",@"text",@"textColor"];
         for (NSString *name in names_str) {
             NSString *value=[CC_ClassyExtend getInstance].ccCasDic[self.cas_styleClass][name];
             if (value.length<=0) {
@@ -126,6 +134,8 @@
             }
             if ([name isEqualToString:@"backgroundColor"]) {
                 [self setCas_backgroundColor:value];
+            }else if ([name isEqualToString:@"backgroundImage"]){
+                [self setCas_backgroundImage:value];
             }else if ([name isEqualToString:@"text"]){
                 [self setCas_text:value];
             }else if ([name isEqualToString:@"textColor"]){
@@ -148,26 +158,36 @@
         if (width>0) {
             self.width=width;
         }else{
-            self.width=self.superview.width-marginLeft-marginRight;
+            if (self.width==0) {
+                self.width=self.superview.width-marginLeft-marginRight;
+            }
         }
         if (widthSameAs.length>0) {
             UIView *cas_v=[self findViewNamed:widthSameAs];
             self.width=cas_v.width;
         }
         if (widthSameAsParent.length>0) {
-            self.width=self.superview.width;
+            self.width=self.superview.width+[widthSameAsParent intValue];
+        }
+        if (widthSameAsScreen.length>0) {
+            self.width=[ccui getW]+[widthSameAsScreen intValue];
         }
         if (height>0) {
             self.height=height;
         }else{
-            self.height=self.superview.height-marginTop-marginBottom;
+            if (self.height==0) {
+                self.height=self.superview.height-marginTop-marginBottom;
+            }
         }
         if (heightSameAs.length>0) {
             UIView *cas_v=[self findViewNamed:heightSameAs];
             self.height=cas_v.height;
         }
         if (heightSameAsParent.length>0) {
-            self.height=self.superview.height;
+            self.height=self.superview.height+[heightSameAsParent intValue];
+        }
+        if (heightSameAsScreen.length>0) {
+            self.height=[ccui getH]+[heightSameAsScreen intValue];
         }
     }
     
@@ -247,6 +267,9 @@
         }
     }
     
+#ifdef TARGET_IPHONE_SIMULATOR
+    [[self viewController]updateViewConstraints];
+#endif
 }
 
 - (UIView *)findViewNamed:(NSString *)cas_styleClass{

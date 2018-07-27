@@ -13,6 +13,8 @@
 #import "LCdes.h"
 #import "CC_3DWindow.h"
 
+#import <objc/runtime.h>
+
 @interface ViewController (){
     NSArray *nameArr;
     NSArray *controArr;
@@ -57,6 +59,7 @@
     CC_Button *button=[CC_Button createWithFrame:CGRectMake(100, 100, 100, 100) andTitleString_stateNoraml:@"123" andAttributedString_stateNoraml:nil andTitleColor_stateNoraml:[UIColor blackColor] andTitleFont:[UIFont systemFontOfSize:16] andBackGroundColor:nil andImage:nil andBackGroundImage:nil inView:self.view];
     [button addTappedOnceDelay:2.1 withBlock:^(UIButton *button) {
         NSLog(@"tap");
+        [self requestxxx];
     }];
     //附加属性自由添加
     [button setBackgroundColor:[UIColor grayColor]];
@@ -66,7 +69,7 @@
     button.width=100;
     
     //CC_Label
-    id label=[CC_Label createWithFrame:CGRectMake(100, 200, 100, 100) andTitleString:@"123" andAttributedString:nil andTitleColor:[UIColor greenColor] andBackGroundColor:nil andFont:[UIFont systemFontOfSize:24] andTextAlignment:NSTextAlignmentRight atView:self.view];
+    id label323=[CC_Label createWithFrame:CGRectMake(100, 200, 100, 100) andTitleString:@"123" andAttributedString:nil andTitleColor:[UIColor greenColor] andBackGroundColor:nil andFont:[UIFont systemFontOfSize:24] andTextAlignment:NSTextAlignmentRight atView:self.view];
     
     id l=[CC_Label cr:self.view l:100 t:200 w:100 h:30 ts:@"cclabel" ats:nil tc:ccRGBHexA(0xFF0000, 1) bgc:[UIColor yellowColor] f:[ccui getRFS:14] ta:0];
     
@@ -180,6 +183,10 @@
     
     
     // Do any additional setup after loading the view, typically from a nib.
+}
+
+- (void)requestxxx{
+    
 }
 
 //tableView

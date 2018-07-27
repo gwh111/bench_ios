@@ -35,6 +35,7 @@
         [atom setBackgroundColor:[UIColor brownColor]];
         [atom addTappedOnceDelay:.1 withBlock:^(UIButton *button) {
             CCLOG(@"tapped");
+            [self requestxxx];
         }];
     }];
     
@@ -57,8 +58,8 @@
         CCLOG(@"%d",l.stopCas);
         CC_TextView *atom=[CC_UIAtom initAt:self.view name:@"MainVC_tv_box1" type:CCTextView finishBlock:^(CC_TextView *atom) {
         }];
-        [textField stopUpdateCas];
         [textField updateLayout];
+        textField.height=100;
         double delayInSeconds = 3;
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds *   NSEC_PER_SEC));
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
@@ -66,6 +67,10 @@
             textField.width=10;
         });
     });
+}
+
+- (void)requestxxx{
+    
 }
 
 @end

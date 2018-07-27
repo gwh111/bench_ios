@@ -52,9 +52,11 @@
                                                                                                     (CFStringRef)@"!*'();:@&=+$,/?%#[]<>&\\",kCFStringEncodingUTF8)) ;
         
         
-        [urlFormatString appendString:[NSString stringWithFormat:@"%@=%@&",categoryId,tempString]];
-        
-        [formatString appendString:[NSString stringWithFormat:@"%@=%@&",categoryId,[newDic objectForKey:categoryId]]];
+        if (tempString.length>0) {//参数为空不放入
+            [urlFormatString appendString:[NSString stringWithFormat:@"%@=%@&",categoryId,tempString]];
+            
+            [formatString appendString:[NSString stringWithFormat:@"%@=%@&",categoryId,[newDic objectForKey:categoryId]]];
+        }
         
     }
     

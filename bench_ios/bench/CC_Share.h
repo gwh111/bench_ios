@@ -42,6 +42,9 @@ colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \
 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 \
 blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
 
+#define ccVarStr(var) [NSString stringWithFormat:@"%s",#var]
+#define ccVarStr1(var) @#var
+
 #import <Foundation/Foundation.h>
 
 #import "CC_Valiation.h"
@@ -75,6 +78,9 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
 #import "CC_ClassyExtend.h"
 #import "UIView+ClassyExtend.h"
 #import "UIView+CCLayout.h"
+#import "UIApplication+CCHook.h"
+#import "UIViewController+CCHook.h"
+#import "UINavigationController+CCHook.h"
 
 @interface CC_Share : NSObject
 

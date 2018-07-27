@@ -29,8 +29,10 @@ typedef enum : NSUInteger {
  *  控件高
  *  控件宽和指定控件id的宽相等
  *  控件高和指定控件id的高相等
- *  控件宽和父视图宽相等
+ *  控件宽和父视图宽相等 如比父视图少5 填“-5” 大10 填“10” 相等 填“0”
  *  控件高和父视图高相等
+ *  控件宽和屏幕宽相等 如比父视图少5 填“-5” 大10 填“10” 相等 填“0”
+ *  控件高和屏幕高相等
  */
 @property(nonatomic, assign) CGFloat cas_width;
 @property(nonatomic, assign) CGFloat cas_height;
@@ -38,6 +40,8 @@ typedef enum : NSUInteger {
 @property(nonatomic, retain) NSString *cas_heightSameAs;
 @property(nonatomic, retain) NSString *cas_widthSameAsParent;
 @property(nonatomic, retain) NSString *cas_heightSameAsParent;
+@property(nonatomic, retain) NSString *cas_widthSameAsScreen;
+@property(nonatomic, retain) NSString *cas_heightSameAsScreen;
 
 /**
  *  上偏移的值
