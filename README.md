@@ -20,6 +20,13 @@ Then, run the following command:
 $ pod install
 ```
 
+# v1.3.7
+========
+CC_Array;
+增加中文排序
+CC_HttpTask;
+增加额外参数addExtreDic:
+
 # v1.3.0
 ========
 ![img](https://github.com/gwh111/bench_ios/blob/master/casGif.gif)

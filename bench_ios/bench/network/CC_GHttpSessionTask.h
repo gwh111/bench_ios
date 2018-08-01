@@ -52,6 +52,11 @@
 @property(nonatomic,retain) NSMutableDictionary *logicBlockMutDic;
 
 /**
+ *  添加额外参数
+ */
+- (void)addExtreDic:(NSDictionary *)dic;
+
+/**
  * url NSString 或者 NSURL
  * paramsDic的关键字
  * getDate 可以获取时间

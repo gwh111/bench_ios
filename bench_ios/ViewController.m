@@ -169,6 +169,10 @@
     NSMutableArray *parr=[CC_Parser getMapParser:result[@"response"][@"purchaseOrders"] idKey:@"order" keepKey:YES pathMap:result[@"response"][@"paidFeeMap"]];
     parr=[CC_Parser addMapParser:parr idKey:@"prize" keepKey:NO map:result[@"response"][@"prizeFeeMap"]];
     
+#pragma mark 测试排序
+    NSMutableArray *arr=[[NSMutableArray alloc]initWithArray:@[@{@"name":@"张三",@"id":@"xxx"},@{@"name":@"李四",@"id":@"xxx"}]];
+    arr=[CC_Array sortChineseArr:arr depthArr:@[@"name"]];
+    
 #pragma mark demo测试控制器
     testColorViewController *testColor=[[testColorViewController alloc]init];
     testCasVC *testCas=[[testCasVC alloc]init];

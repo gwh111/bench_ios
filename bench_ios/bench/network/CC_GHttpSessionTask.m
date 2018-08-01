@@ -165,6 +165,14 @@ static dispatch_once_t onceToken;
     _signKeyStr=str;
 }
 
+- (void)addExtreDic:(NSDictionary *)dic{
+    NSMutableDictionary *mutDic=[[NSMutableDictionary alloc]initWithDictionary:dic];
+    if (_extreDic) {
+        [mutDic addEntriesFromDictionary:_extreDic];
+    }
+    _extreDic=[[NSDictionary alloc]initWithDictionary:mutDic];
+}
+
 - (void)setExtreDic:(NSDictionary *)dic{
     _extreDic=dic;
 }
