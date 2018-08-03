@@ -20,8 +20,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    [UIApplication hookUIApplication];
-    [UIViewController hookUIViewController];
+//    [UIApplication hookUIApplication];
+//    [UIViewController hookUIViewController];
     [UINavigationController hookUINavigationController_push];
     [UINavigationController hookUINavigationController_pop];
     

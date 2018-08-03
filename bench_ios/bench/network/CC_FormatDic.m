@@ -60,8 +60,10 @@
         
     }
     
-    NSRange range = NSMakeRange (formatString.length-1, 1);
-    [formatString deleteCharactersInRange:range];
+    if (formatString.length>0) {
+        NSRange range = NSMakeRange (formatString.length-1, 1);
+        [formatString deleteCharactersInRange:range];
+    }
     
     if (MD5KeyString) {
         [urlFormatString appendString:[NSString stringWithFormat:@"sign=%@",[CC_MD5Object signString:[NSString stringWithFormat:@"%@%@",MD5KeyString,formatString]]]];

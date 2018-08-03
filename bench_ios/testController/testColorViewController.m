@@ -14,11 +14,20 @@
 @end
 
 @implementation testColorViewController
-
+- (void)bbb{
+    
+    [self.navigationController popViewControllerAnimated:YES];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor=[UIColor blackColor];
+    
+    CC_Button *button=[[CC_Button alloc]init];
+    button.frame=CGRectMake(100, 100, 100, 100);
+    button.backgroundColor=[UIColor brownColor];
+    [self.view addSubview:button];
+    [button addTarget:self action:@selector(bbb) forControlEvents:UIControlEventTouchUpInside];
     
     UIImage *zsImg=[UIImage imageNamed:@"nyyh.jpg"];
     

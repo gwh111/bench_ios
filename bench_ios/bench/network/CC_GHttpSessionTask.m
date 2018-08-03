@@ -11,6 +11,7 @@
 #import "CC_Share.h"
 #import "CC_RequestRecordTool.h"
 #import "CC_ResponseLogicModel.h"
+#import "CC_HookTrack.h"
 
 @interface CC_HttpTask()
 /**
@@ -61,6 +62,7 @@ static dispatch_once_t onceToken;
     }else{
         CCLOG(@"url 不合法");
     }
+    [CC_HookTrack catchTrack];
     
     if (!model) {
         model=[[ResModel alloc]init];
@@ -86,6 +88,28 @@ static dispatch_once_t onceToken;
         for (int i=0; i<keys.count; i++) {
             [paramsDic setObject:_extreDic[keys[i]] forKey:keys[i]];
         }
+    }
+    
+    //添加埋点追踪
+    NSString *pushPop=[CC_HookTrack getInstance].pushPopActionStr;
+    if (pushPop) {
+        [paramsDic setObject:pushPop forKey:@"pushPopAction"];
+        [CC_HookTrack getInstance].pushPopActionStr=nil;
+    }
+    NSString *trigger=[CC_HookTrack getInstance].triggerActionStr;
+    if (trigger) {
+        [paramsDic setObject:trigger forKey:@"triggerAction"];
+        [CC_HookTrack getInstance].triggerActionStr=nil;
+    }
+    NSString *prePush=[CC_HookTrack getInstance].prePushActionStr;
+    if (prePush) {
+        [paramsDic setObject:prePush forKey:@"prePushAction"];
+        [CC_HookTrack getInstance].prePushActionStr=nil;
+    }
+    NSString *prePop=[CC_HookTrack getInstance].prePopActionStr;
+    if (prePop) {
+        [paramsDic setObject:prePop forKey:@"prePopAction"];
+        [CC_HookTrack getInstance].prePopActionStr=nil;
     }
     
     if (!_signKeyStr) {
@@ -132,7 +156,14 @@ static dispatch_once_t onceToken;
             if (model.debug) {
                 [[CCReqRecord getInstance]insertRequestDataWithHHSService:paramsDic[@"service"] requestUrl:tempUrl.absoluteString parameters:paraString];
             }
-            CCLOG(@"%@\n%@",model.requestStr,model.resultDic?model.resultDic:model.resultStr);
+            if (model.resultDic) {
+                NSData *data = [NSJSONSerialization dataWithJSONObject:model.resultDic options:NSJSONWritingPrettyPrinted error:nil];
+                NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                CCLOG(@"%@\n%@",model.requestStr,str);
+            }else{
+                CCLOG(@"%@\n%@",model.requestStr,model.resultStr);
+            }
+            
             NSArray *keyNames=[blockSelf.logicBlockMutDic allKeys];
             for (NSString *name in keyNames) {
                 CC_ResLModel *logicModel=blockSelf.logicBlockMutDic[name];

@@ -10,16 +10,14 @@
 
 @implementation UIViewController(CCHook)
 
-+ (void)hookUIViewController
-{
++ (void)hookUIViewController{
     Method appearMethod = class_getInstanceMethod([self class], @selector(viewDidAppear:));
     Method hookMethod = class_getInstanceMethod([self class], @selector(hook_ViewDidAppear:));
     method_exchangeImplementations(appearMethod, hookMethod);
 }
 
 
-- (void)hook_ViewDidAppear:(BOOL)animated
-{
+- (void)hook_ViewDidAppear:(BOOL)animated{
 //    NSString *appearDetailInfo = [NSString stringWithFormat:@" %@ - %@", NSStringFromClass([self class]), @"didAppear"];
 //    NSLog(@"%@", appearDetailInfo);
     [self hook_ViewDidAppear:animated];

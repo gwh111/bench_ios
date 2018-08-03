@@ -93,6 +93,7 @@
 		D8B0E45C1F5016EA00425D06 /* CC_GColor.m in Sources */ = {isa = PBXBuildFile; fileRef = D8B0E45B1F5016EA00425D06 /* CC_GColor.m */; };
 		D8B0E4611F501EE400425D06 /* nyyh.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D8B0E4601F501EE400425D06 /* nyyh.jpg */; };
 		D8BDAF6820FC4F49006BF14C /* CC_ResponseLogicModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D8BDAF6720FC4F49006BF14C /* CC_ResponseLogicModel.m */; };
+		D8C5110A2112F40C00944CB0 /* CC_HookTrack.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C511082112F40C00944CB0 /* CC_HookTrack.m */; };
 		D8CC62551FF25610006E2ED6 /* CC_Envirnment.m in Sources */ = {isa = PBXBuildFile; fileRef = D8CC62541FF25610006E2ED6 /* CC_Envirnment.m */; };
 		D8CE47B720D28A3E00587337 /* CC_RequestRecordTool.m in Sources */ = {isa = PBXBuildFile; fileRef = D8CE47B620D28A3D00587337 /* CC_RequestRecordTool.m */; };
 		D8DD97EB20B6A6F2000A890D /* CC_Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = D8DD97EA20B6A6F2000A890D /* CC_Animation.m */; };
@@ -289,6 +290,8 @@
 		D8B0E4601F501EE400425D06 /* nyyh.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = nyyh.jpg; sourceTree = "<group>"; };
 		D8BDAF6620FC4F49006BF14C /* CC_ResponseLogicModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_ResponseLogicModel.h; sourceTree = "<group>"; };
 		D8BDAF6720FC4F49006BF14C /* CC_ResponseLogicModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC_ResponseLogicModel.m; sourceTree = "<group>"; };
+		D8C511082112F40C00944CB0 /* CC_HookTrack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC_HookTrack.m; sourceTree = "<group>"; };
+		D8C511092112F40C00944CB0 /* CC_HookTrack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_HookTrack.h; sourceTree = "<group>"; };
 		D8CC62531FF25610006E2ED6 /* CC_Envirnment.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_Envirnment.h; sourceTree = "<group>"; };
 		D8CC62541FF25610006E2ED6 /* CC_Envirnment.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC_Envirnment.m; sourceTree = "<group>"; };
 		D8CE47B520D28A3D00587337 /* CC_RequestRecordTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_RequestRecordTool.h; sourceTree = "<group>"; };
@@ -413,6 +416,8 @@
 				D83EBC0E1FEB646100B94D6F /* PlatformConfig.h */,
 				18B6BD401F20C6660019391D /* CC_Share.h */,
 				18B6BD411F20C6660019391D /* CC_Share.m */,
+				D8C511092112F40C00944CB0 /* CC_HookTrack.h */,
+				D8C511082112F40C00944CB0 /* CC_HookTrack.m */,
 				D8A799662109CAFB00D40B4B /* UIApplication+CCHook.h */,
 				D8A799672109CAFB00D40B4B /* UIApplication+CCHook.m */,
 				D8A7996C2109CC0300D40B4B /* UIViewController+CCHook.h */,
@@ -864,6 +869,7 @@
 				D83926C321017CDA0034D10F /* UIView+CCLayout.m in Sources */,
 				D839266C20FEDFC60034D10F /* CASParser.m in Sources */,
 				D839267220FEDFC60034D10F /* CASTextAttributes.m in Sources */,
+				D8C5110A2112F40C00944CB0 /* CC_HookTrack.m in Sources */,
 				D839265B20FEDFC60034D10F /* NSRegularExpression+CASAdditions.m in Sources */,
 				D835077A1F31E2CD00B7461C /* CC_CodeClass.m in Sources */,
 				D823153C1F53AED3006055FB /* testColorViewController.m in Sources */,

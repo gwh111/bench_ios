@@ -36,5 +36,6 @@
  *  服务端颜色的16进制NSString转成UIColor
  */
 + (UIColor *)colorwithHexString:(NSString *)color;
++ (NSString*)parseLabel:(NSString*)str start:(NSString *)startStr end:(NSString *)endStr includeStartEnd:(BOOL)includeStartEnd;
 
 @end

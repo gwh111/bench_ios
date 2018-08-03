@@ -135,4 +135,22 @@
     return [UIColor colorWithRed:((float) r / 255.0f) green:((float) g / 255.0f) blue:((float) b / 255.0f) alpha:1.0f];
 }
 
++ (NSString*)parseLabel:(NSString*)str start:(NSString *)startStr end:(NSString *)endStr includeStartEnd:(BOOL)includeStartEnd{
+    NSScanner *theScanner;
+    NSString *head = nil;
+    NSString *text = nil;
+    theScanner = [NSScanner scannerWithString:str];
+    while ([theScanner isAtEnd] == NO) {
+        [theScanner scanUpToString:startStr intoString:&head] ;
+        // find end of tag
+        [theScanner scanUpToString:endStr intoString:&text] ;
+    }
+    if (includeStartEnd) {
+        text=[text stringByAppendingString:endStr];
+    }else{
+        text=[text stringByReplacingOccurrencesOfString:startStr withString:@""];
+    }
+    return text;
+}
+
 @end

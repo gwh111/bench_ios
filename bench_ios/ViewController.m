@@ -15,6 +15,7 @@
 
 #import <objc/runtime.h>
 
+
 @interface ViewController (){
     NSArray *nameArr;
     NSArray *controArr;
@@ -27,6 +28,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor=COLOR_WHITE;
+    
     
 #pragma mark init
     [CC_Share getInstance].ccDebug=0;
@@ -52,7 +54,7 @@
         NSData *data11 = [@"8J+Ygg==" dataUsingEncoding:NSUTF8StringEncoding];
         NSData *baseData=[[NSData alloc] initWithBase64EncodedData:data11 options:0];
     }
-    //    CCLOG(@"path=%@\n%@",NSHomeDirectory(),[[CCReqRecord getInstance]getTotalStr]);
+        CCLOG(@"path=%@\n%@",NSHomeDirectory(),[[CCReqRecord getInstance]getTotalStr]);
     
     //CC_Button
     //一行代码完成button的基本功能创建
@@ -118,21 +120,8 @@
     [[CC_HttpTask getInstance]setSignKeyStr:@"abc"];
     //额外每个请求要传的参数
 //    [[CC_HttpTask getInstance]setExtreDic:@{@"key":@"v"}];
-    NSURL *url=[NSURL URLWithString:@"http://mapi1.93leju.net/service.json?"];
-    [[CC_HttpTask getInstance]post:url params:@{@"service":@"ROOM_USER_SETTLE_QUERY_BY_ROOM"} model:[[ResModel alloc]init] finishCallbackBlock:^(NSString *error, ResModel *result) {
-        if (error) {
-            [CC_Note showAlert:error];
-            return ;
-        }
-        CCLOG(@"%@",result.resultDic);
-    }];
-    [[CC_HttpTask getInstance]post:url params:@{@"service":@"ROOM_USER_SETTLE_QUERY_BY_ROOM"} model:[[ResModel alloc]init] finishCallbackBlock:^(NSString *error, ResModel *result) {
-        if (error) {
-            [CC_Note showAlert:error];
-            return ;
-        }
-        CCLOG(@"%@",result.resultDic);
-    }];
+    [self requestxxx];
+    
     
     //https://api.leancloud.cn/1/date
     //http://mapi1.93leju.net/service.json?service=APP_INITIAL_CONFIG_LOAD&loginKey=&timestamp=1526266427&authedUserId=&sign=03971cacca9b2c1dc90065edea390cb5
@@ -190,7 +179,27 @@
 }
 
 - (void)requestxxx{
+    NSURL *url=[NSURL URLWithString:@"http://mapi1.93leju.net/service.json?"];
     
+    [[CC_HttpTask getInstance]post:url params:@{@"service":@"ROOM_USER_SETTLE_QUERY_BY_ROOM"} model:[[ResModel alloc]init] finishCallbackBlock:^(NSString *error, ResModel *result) {
+        if (error) {
+            [CC_Note showAlert:error];
+            return ;
+        }
+        CCLOG(@"%@",result.resultDic);
+    }];
+    
+    {
+        
+        NSURL *url=[NSURL URLWithString:@"http://mapi.93lejudev.net/service.json?service=APP_INITIAL_CONFIG_LOAD&appVersion=1.0.4&appName=ljzsmj_ios"];
+        [[CC_HttpTask getInstance]get:url params:nil model:[[ResModel alloc]init] finishCallbackBlock:^(NSString *error, ResModel *result) {
+            if (error) {
+                [CC_Note showAlert:error];
+                return ;
+            }
+            CCLOG(@"%@",result.resultDic);
+        }];
+    }
 }
 
 //tableView

@@ -20,6 +20,14 @@ Then, run the following command:
 $ pod install
 ```
 
+# v1.3.8
+========
+CC_HttpTask;
+打印结果的中文正常显示
+CC_HookTrack;追踪操作路径
+预先willPopOfIndex:       willPushTo:;
+来源catchTrack;
+
 # v1.3.7
 ========
 CC_Array;

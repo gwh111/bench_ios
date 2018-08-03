@@ -81,6 +81,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
 #import "UIApplication+CCHook.h"
 #import "UIViewController+CCHook.h"
 #import "UINavigationController+CCHook.h"
+#import "CC_HookTrack.h"
 
 @interface CC_Share : NSObject
 
