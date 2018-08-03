@@ -157,9 +157,7 @@ static dispatch_once_t onceToken;
                 [[CCReqRecord getInstance]insertRequestDataWithHHSService:paramsDic[@"service"] requestUrl:tempUrl.absoluteString parameters:paraString];
             }
             if (model.resultDic) {
-                NSData *data = [NSJSONSerialization dataWithJSONObject:model.resultDic options:NSJSONWritingPrettyPrinted error:nil];
-                NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                CCLOG(@"%@\n%@",model.requestStr,str);
+                CCLOG(@"%@\n%@",model.requestStr,[[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:model.resultDic options:NSJSONWritingPrettyPrinted error:nil] encoding:NSUTF8StringEncoding]);
             }else{
                 CCLOG(@"%@\n%@",model.requestStr,model.resultStr);
             }

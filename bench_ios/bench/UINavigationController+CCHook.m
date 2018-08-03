@@ -8,6 +8,7 @@
 
 #import "UINavigationController+CCHook.h"
 #import "CC_HookTrack.h"
+#import "CC_Share.h"
 
 @implementation UINavigationController(CCHook)
 

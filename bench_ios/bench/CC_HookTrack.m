@@ -8,6 +8,7 @@
 
 #import "CC_HookTrack.h"
 #import "CC_CodeClass.h"
+#import "CC_Share.h"
 
 @implementation CC_HookTrack
 
