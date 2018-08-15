@@ -78,10 +78,12 @@ static dispatch_once_t onceToken;
     if ([paramsDic isKindOfClass:[NSDictionary class]]) {
         paramsDic=[[NSMutableDictionary alloc]initWithDictionary:paramsDic];
     }
-    if (!paramsDic[@"timestamp"]) {
-        NSDate *datenow = [NSDate date];
-        NSString *timeSp = [NSString stringWithFormat:@"%.0f", [datenow timeIntervalSince1970]*1000];
-        [paramsDic setObject:timeSp forKey:@"timestamp"];
+    if (_forbiddenTimestamp==0) {
+        if (!paramsDic[@"timestamp"]) {
+            NSDate *datenow = [NSDate date];
+            NSString *timeSp = [NSString stringWithFormat:@"%.0f", [datenow timeIntervalSince1970]*1000];
+            [paramsDic setObject:timeSp forKey:@"timestamp"];
+        }
     }
     if (_extreDic) {
         NSArray *keys=[_extreDic allKeys];
@@ -90,26 +92,28 @@ static dispatch_once_t onceToken;
         }
     }
     
-    //添加埋点追踪
-    NSString *pushPop=[CC_HookTrack getInstance].pushPopActionStr;
-    if (pushPop) {
-        [paramsDic setObject:pushPop forKey:@"pushPopAction"];
-        [CC_HookTrack getInstance].pushPopActionStr=nil;
-    }
-    NSString *trigger=[CC_HookTrack getInstance].triggerActionStr;
-    if (trigger) {
-        [paramsDic setObject:trigger forKey:@"triggerAction"];
-        [CC_HookTrack getInstance].triggerActionStr=nil;
-    }
-    NSString *prePush=[CC_HookTrack getInstance].prePushActionStr;
-    if (prePush) {
-        [paramsDic setObject:prePush forKey:@"prePushAction"];
-        [CC_HookTrack getInstance].prePushActionStr=nil;
-    }
-    NSString *prePop=[CC_HookTrack getInstance].prePopActionStr;
-    if (prePop) {
-        [paramsDic setObject:prePop forKey:@"prePopAction"];
-        [CC_HookTrack getInstance].prePopActionStr=nil;
+    if (_forbiddenSendHookTrack==0) {
+        //添加埋点追踪
+        NSString *pushPop=[CC_HookTrack getInstance].pushPopActionStr;
+        if (pushPop) {
+            [paramsDic setObject:pushPop forKey:@"pushPopAction"];
+            [CC_HookTrack getInstance].pushPopActionStr=nil;
+        }
+        NSString *trigger=[CC_HookTrack getInstance].triggerActionStr;
+        if (trigger) {
+            [paramsDic setObject:trigger forKey:@"triggerAction"];
+            [CC_HookTrack getInstance].triggerActionStr=nil;
+        }
+        NSString *prePush=[CC_HookTrack getInstance].prePushActionStr;
+        if (prePush) {
+            [paramsDic setObject:prePush forKey:@"prePushAction"];
+            [CC_HookTrack getInstance].prePushActionStr=nil;
+        }
+        NSString *prePop=[CC_HookTrack getInstance].prePopActionStr;
+        if (prePop) {
+            [paramsDic setObject:prePop forKey:@"prePopAction"];
+            [CC_HookTrack getInstance].prePopActionStr=nil;
+        }
     }
     
     if (!_signKeyStr) {

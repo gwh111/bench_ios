@@ -82,6 +82,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
 #import "UIViewController+CCHook.h"
 #import "UINavigationController+CCHook.h"
 #import "CC_HookTrack.h"
+#import "CC_Dictionary.h"
+#import "UIButton+CCExtention.h"
 
 @interface CC_Share : NSObject
 
@@ -104,6 +106,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
 + (void)saveDefaultKey:(NSString *)key andV:(id)v;
 
 NSString *ccstr(NSString *format, ...);
+
++ (id)copyThis:(id)bt;//快速复制
 
 @end
 

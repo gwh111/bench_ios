@@ -114,7 +114,7 @@ static dispatch_once_t onceToken;
     }
     
     [ccs saveLocalKeyNamed:@"ccCas" andKey:@"all" andValue:posMutDic];
-    CCLOG(@"posMutDic c=%lu %@",(unsigned long)[posMutDic allKeys].count,posMutDic);
+//    CCLOG(@"posMutDic c=%lu %@",(unsigned long)[posMutDic allKeys].count,posMutDic);
     [CC_ClassyExtend getInstance].ccCasDic=[ccs getLocalKeyNamed:@"ccCas" andKey:@"all"];
     
 }

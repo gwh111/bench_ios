@@ -168,4 +168,9 @@ NSString *ccstr(NSString *format, ...){
     return body;
 }
 
++ (id)copyThis:(id)bt{
+    NSData *tempArchive = [NSKeyedArchiver archivedDataWithRootObject:bt];
+    return [NSKeyedUnarchiver unarchiveObjectWithData:tempArchive];
+}
+
 @end

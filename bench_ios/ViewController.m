@@ -117,7 +117,7 @@
     @"appUserAgent":@"e1",
     }];
     //签名的key 一般登录后获取
-    [[CC_HttpTask getInstance]setSignKeyStr:@"abc"];
+//    [[CC_HttpTask getInstance]setSignKeyStr:@"abc"];
     //额外每个请求要传的参数
 //    [[CC_HttpTask getInstance]setExtreDic:@{@"key":@"v"}];
     [self requestxxx];
@@ -125,7 +125,7 @@
     
     //https://api.leancloud.cn/1/date
     //http://mapi1.93leju.net/service.json?service=APP_INITIAL_CONFIG_LOAD&loginKey=&timestamp=1526266427&authedUserId=&sign=03971cacca9b2c1dc90065edea390cb5
-    [[CC_HttpTask getInstance]get:[NSURL URLWithString:@"http://mapi1.93leju.net/service.json?service=APP_INITIAL_CONFIG_LOAD&loginKey=&timestamp=1526266427&authedUserId=&sign=03971cacca9b2c1dc90065edea390cb5"] params:@{} model:[[ResModel alloc]init] finishCallbackBlock:^(NSString *error, ResModel *result) {
+    [[CC_HttpTask getInstance]post:[NSURL URLWithString:@"https://www.baidu.com/baidu?wd=%E4%BD%A0%E4%BB%8E%E5%93%AA%E9%87%8C%E6%9D%A5"] params:@{} model:[[ResModel alloc]init] finishCallbackBlock:^(NSString *error, ResModel *result) {
         if (error) {
             [CC_Note showAlert:error];
             return ;
@@ -165,8 +165,9 @@
 #pragma mark demo测试控制器
     testColorViewController *testColor=[[testColorViewController alloc]init];
     testCasVC *testCas=[[testCasVC alloc]init];
-    nameArr=@[@"颜色匹配",@"动态布局",@"模拟阻止闪退"];
-    controArr=@[testColor,testCas];
+    testAutoLabelGroupVC *labelGroup=[[testAutoLabelGroupVC alloc]init];
+    nameArr=@[@"颜色匹配",@"动态布局",@"自动标签",@"模拟阻止闪退"];
+    controArr=@[testColor,testCas,labelGroup];
     
     UITableView *tab=[[UITableView alloc]initWithFrame:CGRectMake(0, self.view.height/2, self.view.width, self.view.height/2)];
     [self.view addSubview:tab];
@@ -241,7 +242,7 @@
     
     NSSetUncaughtExceptionHandler(&UncaughtExceptionHandler);
     
-    if (indexPath.section==2) {
+    if (indexPath.section==3) {
         NSArray *arr = @[@(0), @(1)];
         CCLOG(@"%@", arr[2]); //模拟越界异常
     }
