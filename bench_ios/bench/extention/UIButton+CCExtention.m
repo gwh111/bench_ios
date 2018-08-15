@@ -34,7 +34,6 @@ static NSString *cs_stringForUIControlStateSelected = @"cs_stringForUIControlSta
         self.cs_dictBackgroundColor = [[NSMutableDictionary alloc] init];
     }
     [self.cs_dictBackgroundColor setObject:backgroundColor forKey:[self cs_stringForUIControlState:state]];
-    NSLog(@"%@",self.cs_dictBackgroundColor);
 }
 - (NSString *)cs_stringForUIControlState:(UIControlState)state {
     NSString *cs_string;
