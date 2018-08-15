@@ -99,7 +99,6 @@
 		D8CE47B720D28A3E00587337 /* CC_RequestRecordTool.m in Sources */ = {isa = PBXBuildFile; fileRef = D8CE47B620D28A3D00587337 /* CC_RequestRecordTool.m */; };
 		D8DD97EB20B6A6F2000A890D /* CC_Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = D8DD97EA20B6A6F2000A890D /* CC_Animation.m */; };
 		D8DD97EE20B7BC02000A890D /* CC_MusicBox.m in Sources */ = {isa = PBXBuildFile; fileRef = D8DD97ED20B7BC02000A890D /* CC_MusicBox.m */; };
-		D8DF6DAB2108867200C70818 /* snippets.cson in Resources */ = {isa = PBXBuildFile; fileRef = D8DF6DAA2108867200C70818 /* snippets.cson */; };
 		D8EC6FC921240303006ECFE3 /* CC_Dictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = D8EC6FC821240303006ECFE3 /* CC_Dictionary.m */; };
 		D8EC6FCD212410E8006ECFE3 /* CC_AutoLabelGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = D8EC6FCC212410E8006ECFE3 /* CC_AutoLabelGroup.m */; };
 		D8EC6FD02124154A006ECFE3 /* testAutoLabelGroupVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D8EC6FCF2124154A006ECFE3 /* testAutoLabelGroupVC.m */; };
@@ -307,7 +306,6 @@
 		D8DD97EA20B6A6F2000A890D /* CC_Animation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC_Animation.m; sourceTree = "<group>"; };
 		D8DD97EC20B7BC02000A890D /* CC_MusicBox.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_MusicBox.h; sourceTree = "<group>"; };
 		D8DD97ED20B7BC02000A890D /* CC_MusicBox.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC_MusicBox.m; sourceTree = "<group>"; };
-		D8DF6DAA2108867200C70818 /* snippets.cson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = snippets.cson; path = ../../../../.atom/snippets.cson; sourceTree = "<group>"; };
 		D8EC6FC721240303006ECFE3 /* CC_Dictionary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_Dictionary.h; sourceTree = "<group>"; };
 		D8EC6FC821240303006ECFE3 /* CC_Dictionary.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC_Dictionary.m; sourceTree = "<group>"; };
 		D8EC6FCB212410E8006ECFE3 /* CC_AutoLabelGroup.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_AutoLabelGroup.h; sourceTree = "<group>"; };
@@ -383,7 +381,6 @@
 				18B6BCFF1F1F09CA0019391D /* AppDelegate.m */,
 				18B6BD011F1F09CA0019391D /* ViewController.h */,
 				18B6BD021F1F09CA0019391D /* ViewController.m */,
-				D8DF6DAA2108867200C70818 /* snippets.cson */,
 				D883EEE0200E34790062A6C6 /* test */,
 				D82315391F53AEC1006055FB /* testController */,
 				18B6BD2E1F1F143E0019391D /* bench */,
@@ -845,7 +842,6 @@
 				D8B0E4611F501EE400425D06 /* nyyh.jpg in Resources */,
 				18B6BD081F1F09CA0019391D /* Assets.xcassets in Resources */,
 				D876FE871FB0514B0094C274 /* panda.plist in Resources */,
-				D8DF6DAB2108867200C70818 /* snippets.cson in Resources */,
 				18B6BD061F1F09CA0019391D /* Main.storyboard in Resources */,
 				D839267A20FEE07B0034D10F /* gwh.cas in Resources */,
 				D839267C20FEE07F0034D10F /* stylesheet.cas in Resources */,
