@@ -61,11 +61,15 @@
     CC_Button *button=[CC_Button createWithFrame:CGRectMake(100, 100, 100, 100) andTitleString_stateNoraml:@"123" andAttributedString_stateNoraml:nil andTitleColor_stateNoraml:[UIColor blackColor] andTitleFont:[UIFont systemFontOfSize:16] andBackGroundColor:nil andImage:nil andBackGroundImage:nil inView:self.view];
     [button addTappedOnceDelay:2.1 withBlock:^(UIButton *button) {
         NSLog(@"tap");
+        button.selected=!button.selected;
         [self requestxxx];
     }];
+    [button setTitle:@"asda" forState:UIControlStateSelected];
     //附加属性自由添加
     [button setBackgroundColor:[UIColor grayColor]];
     [CC_CodeClass setLineColorR:2 andG:32 andB:33 andA:1 width:2 view:button];
+    button.selected=YES;
+    
     
     //CC_UIVIEWExt
     button.width=100;

@@ -56,6 +56,7 @@ static NSString *cs_stringForUIControlStateSelected = @"cs_stringForUIControlSta
 }
 #pragma mark - selected
 - (void)setSelected:(BOOL)selected{
+    [super setSelected:selected];
     if (selected) {
         self.backgroundColor = (UIColor *)[self.cs_dictBackgroundColor objectForKey:cs_stringForUIControlStateSelected];
     } else { self.backgroundColor = (UIColor *)[self.cs_dictBackgroundColor objectForKey:cs_stringForUIControlStateNormal];

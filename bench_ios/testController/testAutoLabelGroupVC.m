@@ -33,6 +33,7 @@
     [sampleBt setBackgroundColor:[UIColor brownColor] forState:UIControlStateNormal];
     [sampleBt setBackgroundColor:[UIColor grayColor] forState:UIControlStateSelected];
     sampleBt.titleLabel.font=[ccui getRFS:16];
+    sampleBt.selected=YES;
     group.sampleBt=sampleBt;
     
     [group updateLabels:@[@"s大萨达",@"该数据库",@"请问骨灰盒",@"而我则是",@"功夫鸡排行"] selected:@[@(1),@(0),@(1),@(0),@(0)]];
