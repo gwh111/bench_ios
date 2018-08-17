@@ -34,12 +34,16 @@
     [sampleBt setBackgroundColor:[UIColor grayColor] forState:UIControlStateSelected];
     sampleBt.titleLabel.font=[ccui getRFS:16];
     sampleBt.selected=YES;
-    [CC_CodeClass setBoundsWithRadius:4 view:sampleBt];
     group.sampleBt=sampleBt;
     
     [group updateLabels:@[@"s大萨达",@"该数据库",@"请问骨灰盒",@"而我则是",@"功夫鸡排行"] selected:@[@(1),@(0),@(1),@(0),@(0)]];
     [self.view addSubview:group];
     
+}
+
+- (void)buttonInitFinish:(UIButton *)button{
+    [CC_Code setRadius:4 view:button];
+    [CC_Code setLineColor:COLOR_WHITE andA:1 width:1 view:button];
 }
 
 - (void)buttonTappedwithIndex:(int)index button:(UIButton *)button{

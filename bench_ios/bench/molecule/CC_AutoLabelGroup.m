@@ -93,6 +93,7 @@ static int baseTag=100;
         [leftBt addTappedOnceDelay:.1 withBlock:^(UIButton *button) {
             [self.delegate buttonTappedwithIndex:i button:button];
         }];
+        [self.delegate buttonInitFinish:leftBt];
     }
     
     if (altype==Center) {

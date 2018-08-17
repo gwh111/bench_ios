@@ -53,6 +53,7 @@
 }
 
 + (void)setLineColor:(UIColor *)color andA:(float)alpha width:(float)width view:(UIView *)view{
+    [view.layer setBorderWidth:width];
     view.layer.borderColor = [color CGColor];
 }
 

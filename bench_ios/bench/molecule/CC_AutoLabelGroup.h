@@ -10,6 +10,7 @@
 #import "CC_Share.h"
 
 @protocol CC_AutoLabelGroupDelegate <NSObject>
+- (void)buttonInitFinish:(UIButton *)button;
 - (void)buttonTappedwithIndex:(int)index button:(UIButton *)button;
 @end
 
