@@ -14,6 +14,7 @@
     float sX;
     float sY;
     float iH;
+    float mg;
     CCAutoLabelAlignmentType altype;
 }
 @end
@@ -31,13 +32,14 @@ static int baseTag=100;
     return self;
 }
 
-- (void)updateType:(CCAutoLabelAlignmentType)type width:(float)width stepWidth:(float)stepWidth sideX:(float)sideX sideY:(float)sideY itemHeight:(float)itemHeight{
+- (void)updateType:(CCAutoLabelAlignmentType)type width:(float)width stepWidth:(float)stepWidth sideX:(float)sideX sideY:(float)sideY itemHeight:(float)itemHeight margin:(float)margin{
     self.width=width;
     maxW=width;
     stepW=stepWidth;
     sX=sideX;
     sY=sideY;
     iH=itemHeight;
+    mg=margin;
     altype=type;
 }
 
@@ -62,7 +64,7 @@ static int baseTag=100;
         }
         [leftBt setTitle:tempArr[i] forState:UIControlStateNormal];
         [leftBt.titleLabel sizeToFit];
-        float w=leftBt.titleLabel.width;
+        float w=leftBt.titleLabel.width+mg;
         if (x+stepW+w>maxW) {
             x=sX;
             y=y+iH+sY;
@@ -91,7 +93,7 @@ static int baseTag=100;
         leftBt.width=w;
         x=x+w;
         [leftBt addTappedOnceDelay:.1 withBlock:^(UIButton *button) {
-            [self.delegate buttonTappedwithIndex:i button:button];
+            [self.delegate buttonTappedIndex:i button:button];
         }];
         [self.delegate buttonInitFinish:leftBt];
     }

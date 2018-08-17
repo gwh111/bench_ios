@@ -23,7 +23,7 @@
     
     group=[[CC_AutoLabelGroup alloc]initWithFrame:CGRectMake(0, 100, 100, 100)];
     group.delegate=self;
-    [group updateType:Center width:[ccui getW] stepWidth:[ccui getRH:10] sideX:[ccui getRH:10] sideY:[ccui getRH:10] itemHeight:[ccui getRH:30]];
+    [group updateType:Center width:[ccui getW] stepWidth:[ccui getRH:10] sideX:[ccui getRH:10] sideY:[ccui getRH:10] itemHeight:[ccui getRH:30] margin:[ccui getRH:5]];
     
     //单元样本创建
     CC_Button *sampleBt=[[CC_Button alloc]init];
@@ -46,7 +46,7 @@
     [CC_Code setLineColor:COLOR_WHITE andA:1 width:1 view:button];
 }
 
-- (void)buttonTappedwithIndex:(int)index button:(UIButton *)button{
+- (void)buttonTappedIndex:(int)index button:(UIButton *)button{
     if (index==0) {
         [group updateLabels:@[@"s大萨达d",@"该数据库",@"请问是的骨的灰盒",@"而我则是",@"功夫鸡排行sfew",@"功夫鸡排第三方行"] selected:@[@(1),@(1),@(0),@(0),@(0),@(1)]];
     }else if (index==1){

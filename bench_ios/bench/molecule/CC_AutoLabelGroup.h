@@ -11,7 +11,7 @@
 
 @protocol CC_AutoLabelGroupDelegate <NSObject>
 - (void)buttonInitFinish:(UIButton *)button;
-- (void)buttonTappedwithIndex:(int)index button:(UIButton *)button;
+- (void)buttonTappedIndex:(int)index button:(UIButton *)button;
 @end
 
 /**
@@ -39,8 +39,9 @@ typedef enum : NSUInteger {
  *  sideX 每行第一个单元x的额外距离
  *  sideY 两行之间间隔
  *  itemHeight 每行的高度
+ *  margin 文字距离边框
  */
-- (void)updateType:(CCAutoLabelAlignmentType)type width:(float)width stepWidth:(float)stepWidth sideX:(float)sideX sideY:(float)sideY itemHeight:(float)itemHeight;
+- (void)updateType:(CCAutoLabelAlignmentType)type width:(float)width stepWidth:(float)stepWidth sideX:(float)sideX sideY:(float)sideY itemHeight:(float)itemHeight margin:(float)margin;
 
 /**
  *  更新文本和选中状态
