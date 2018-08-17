@@ -28,6 +28,14 @@
 
 @end
 
+@interface CC_Code : NSObject
+
++ (void)setRadius:(float)radius view:(UIView *)view;
+
++ (void)setLineColor:(UIColor *)color andA:(float)alpha width:(float)width view:(UIView *)view;
+
+@end
+
 @interface convert : NSObject
 
 + (NSString*)convertToJSONData:(id)infoDict;

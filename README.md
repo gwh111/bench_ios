@@ -20,6 +20,13 @@ Then, run the following command:
 $ pod install
 ```
 
+# v1.3.10
+========
+CC_AutoLabelGroup;
+按照字数自动适应的标签合集模块
+CC_CodeClass;
+新增CC_Code
+
 # v1.3.8
 ========
 CC_HttpTask;

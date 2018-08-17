@@ -45,6 +45,19 @@
 
 @end
 
+@implementation CC_Code
+
++ (void)setRadius:(float)radius view:(UIView *)view{
+    [view.layer setMasksToBounds:YES];
+    [view.layer setCornerRadius:radius];
+}
+
++ (void)setLineColor:(UIColor *)color andA:(float)alpha width:(float)width view:(UIView *)view{
+    view.layer.borderColor = [color CGColor];
+}
+
+@end
+
 @implementation convert
 
 + (NSString*)convertToJSONData:(id)infoDict

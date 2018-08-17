@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CC_Share.h"
 
 @protocol CC_AutoLabelGroupDelegate <NSObject>
 - (void)buttonTappedwithIndex:(int)index button:(UIButton *)button;

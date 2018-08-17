@@ -57,7 +57,9 @@ static int baseTag=100;
         leftBt.height=iH;
         [self addSubview:leftBt];
         leftBt.tag=baseTag+i;
-        leftBt.selected=[selected[i] intValue];
+        if (selected) {
+            leftBt.selected=[selected[i] intValue];
+        }
         [leftBt setTitle:tempArr[i] forState:UIControlStateNormal];
         [leftBt.titleLabel sizeToFit];
         float w=leftBt.titleLabel.width;
@@ -88,7 +90,6 @@ static int baseTag=100;
         leftBt.top=y;
         leftBt.width=w;
         x=x+w;
-        [CC_CodeClass setBoundsWithRadius:4 view:leftBt];
         [leftBt addTappedOnceDelay:.1 withBlock:^(UIButton *button) {
             [self.delegate buttonTappedwithIndex:i button:button];
         }];

@@ -35,6 +35,7 @@
 
 @interface ccui : NSObject
 
++ (float)getStatusH;
 + (float)getX;
 + (float)getY;
 + (float)getW;

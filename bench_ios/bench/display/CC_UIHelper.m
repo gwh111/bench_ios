@@ -57,6 +57,12 @@ static dispatch_once_t onceToken;
 
 @implementation ccui
 
++ (float)getStatusH{
+    //获取状态栏的rect
+    CGRect statusRect = [[UIApplication sharedApplication] statusBarFrame];
+    return statusRect.size.height;
+}
+
 + (UIFont *)getRFS:(float)fontSize{
     fontSize=10+(fontSize-10)*([self getW]/[[CC_UIHelper getInstance]getUIDemoWith]);
     return [UIFont systemFontOfSize:fontSize];
