@@ -46,20 +46,13 @@ static NSString *cs_stringForUIControlStateSelected = @"cs_stringForUIControlSta
     }
     return cs_string;
 }
-#pragma mark - highlighted
-- (void)setHighlighted:(BOOL)highlighted{
-//    NSLog(@"%@",self.cs_dictBackgroundColor);
-//    if (highlighted) {
-//        self.backgroundColor = (UIColor *)[self.cs_dictBackgroundColor objectForKey:cs_stringForUIControlStateHighlighted];
-//    } else { self.backgroundColor = (UIColor *)[self.cs_dictBackgroundColor objectForKey:cs_stringForUIControlStateNormal];
-//    }
-}
-#pragma mark - selected
-- (void)setSelected:(BOOL)selected{
-    [super setSelected:selected];
+
+#pragma mark - ccselected
+- (void)setccSelected:(BOOL)selected{
     if (selected) {
         self.backgroundColor = (UIColor *)[self.cs_dictBackgroundColor objectForKey:cs_stringForUIControlStateSelected];
-    } else { self.backgroundColor = (UIColor *)[self.cs_dictBackgroundColor objectForKey:cs_stringForUIControlStateNormal];
+    } else {
+        self.backgroundColor = (UIColor *)[self.cs_dictBackgroundColor objectForKey:cs_stringForUIControlStateNormal];
     }
 }
 

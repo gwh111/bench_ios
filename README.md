@@ -19,6 +19,16 @@ Then, run the following command:
 ```bash
 $ pod install
 ```
+# v1.3.15
+========
+UIButton
+- (void)setccSelected:(BOOL)selected;
+- (void)setBackgroundColor:(UIColor *)backgroundColor forState:(UIControlState)state;
+CC_Logic
+CC_Code
+CC_Share新增安全的存储 使用AES加密
++ (id)getSafeDefault:(NSString *)key;
++ (void)saveSafeDefaultKey:(NSString *)key andV:(id)v;
 
 # v1.3.10
 ========

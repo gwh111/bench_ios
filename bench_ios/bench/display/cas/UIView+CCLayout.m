@@ -167,10 +167,10 @@
             self.width=cas_v.width;
         }
         if (widthSameAsParent.length>0) {
-            self.width=self.superview.width+[widthSameAsParent intValue];
+            self.width=self.superview.width+[ccui getRH:[widthSameAsParent intValue]];
         }
         if (widthSameAsScreen.length>0) {
-            self.width=[ccui getW]+[widthSameAsScreen intValue];
+            self.width=[ccui getW]+[ccui getRH:[widthSameAsScreen intValue]];
         }
         if (height>0) {
             self.height=height;
@@ -184,10 +184,10 @@
             self.height=cas_v.height;
         }
         if (heightSameAsParent.length>0) {
-            self.height=self.superview.height+[heightSameAsParent intValue];
+            self.height=self.superview.height+[ccui getRH:[heightSameAsParent intValue]];
         }
         if (heightSameAsScreen.length>0) {
-            self.height=[ccui getH]+[heightSameAsScreen intValue];
+            self.height=[ccui getH]+[ccui getRH:[heightSameAsScreen intValue]];
         }
     }
     

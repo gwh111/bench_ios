@@ -84,10 +84,12 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
 #import "CC_HookTrack.h"
 #import "CC_Dictionary.h"
 #import "UIButton+CCExtention.h"
+#import "CC_AESEncrypt.h"
 
 @interface CC_Share : NSObject
 
 @property (nonatomic,assign) BOOL ccDebug;
+@property (nonatomic,retain) NSString *aesKey;
 
 + (instancetype)getInstance;
 
@@ -96,18 +98,42 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
 #pragma mark
 @interface ccs : NSObject
 
+/**
+ *  直接获取工程中的plist
+ */
 + (NSString *)getPlistStr:(NSString *)name;
 + (NSDictionary *)getPlistDic:(NSString *)name;
+
+/**
+ *  获取和保存沙盒中的plist
+ *  保存时先查找沙盒中是否有该plist，如果有读取并更新，如果没有，找工程中有无plist，如果有则复制一份并更新保存到沙盒，如果无则初始化一个并更新保存到沙盒
+ */
 + (NSMutableDictionary *)getLocalPlistNamed:(NSString *)name;
 + (void)saveLocalPlistNamed:(NSString *)name;
 + (id)getLocalKeyNamed:(NSString *)name andKey:(NSString *)key;
 + (void)saveLocalKeyNamed:(NSString *)name andKey:(NSString *)key andValue:(id)value;
+
+/**
+ *  获取NSUserDefaults
+ */
 + (id)getDefault:(NSString *)key;
 + (void)saveDefaultKey:(NSString *)key andV:(id)v;
 
+/**
+ *  安全的保存 需要设置aesKey
+ */
++ (id)getSafeDefault:(NSString *)key;
++ (void)saveSafeDefaultKey:(NSString *)key andV:(id)v;
+
+/**
+ *  快速打印
+ */
 NSString *ccstr(NSString *format, ...);
 
-+ (id)copyThis:(id)bt;//快速复制
+/**
+ *  快速复制
+ */
++ (id)copyThis:(id)bt;
 
 @end
 

@@ -32,7 +32,11 @@
 
 + (void)setRadius:(float)radius view:(UIView *)view;
 
++ (void)setShadow:(UIColor *)color view:(UIView *)view;
+
 + (void)setLineColor:(UIColor *)color andA:(float)alpha width:(float)width view:(UIView *)view;
+
++ (void)setFade:(UIView *)view;
 
 @end
 

@@ -8,9 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-@interface CC_LogicClass : NSObject
+@interface CC_Logic : NSObject
 
 /**
+ *  版本号对比 如1.3.1 比 1.4.2版本低 返回-1
  *  1 v1>v2
  *  0 v1=v2
  * -1 v1<v2

@@ -61,6 +61,7 @@ static int baseTag=100;
         leftBt.tag=baseTag+i;
         if (selected) {
             leftBt.selected=[selected[i] intValue];
+            [leftBt setccSelected:[selected[i] intValue]];
         }
         [leftBt setTitle:tempArr[i] forState:UIControlStateNormal];
         [leftBt.titleLabel sizeToFit];

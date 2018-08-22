@@ -158,6 +158,31 @@ static dispatch_once_t onceToken;
     [[NSUserDefaults standardUserDefaults]setObject:v forKey:key];
 }
 
++ (id)getSafeDefault:(NSString *)key{
+    NSString *aesk=[CC_Share getInstance].aesKey;
+    if (!aesk) {
+        CCLOG(@"没有设置加密key 不能使用");
+        return nil;
+    }
+    NSData *oriData=[self getDefault:key];
+    NSData *aeskey = [aesk dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *decodeData = [CC_AESEncrypt decryptData:oriData key:aeskey];
+    NSString *decodeString = [[NSString alloc] initWithData:decodeData encoding:NSUTF8StringEncoding];
+    return decodeString;
+}
+
++ (void)saveSafeDefaultKey:(NSString *)key andV:(id)v{
+    NSString *aesk=[CC_Share getInstance].aesKey;
+    if (!aesk) {
+        CCLOG(@"没有设置加密key 不能使用");
+        return;
+    }
+    NSData *data =[v dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *aeskey = [aesk dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *encodeData3 = [CC_AESEncrypt encryptData:data key:aeskey];
+    [self saveDefaultKey:key andV:encodeData3];
+}
+
 NSString *ccstr(NSString *format, ...){
     va_list ap;
     va_start (ap, format);

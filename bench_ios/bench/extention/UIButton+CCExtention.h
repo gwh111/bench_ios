@@ -13,5 +13,6 @@
 @property (nonatomic, strong) NSMutableDictionary *cs_dictBackgroundColor;
 
 - (void)setBackgroundColor:(UIColor *)backgroundColor forState:(UIControlState)state;
+- (void)setccSelected:(BOOL)selected;
 
 @end

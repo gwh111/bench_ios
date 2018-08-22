@@ -9,7 +9,7 @@
 #import "CC_LogicClass.h"
 #import "CC_Share.h"
 
-@implementation CC_LogicClass
+@implementation CC_Logic
 
 - (int)compareV1:(NSString *)v1 cutV2:(NSString *)v2{
     if (!v1||!v2) {

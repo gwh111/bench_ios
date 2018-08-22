@@ -48,13 +48,37 @@
 @implementation CC_Code
 
 + (void)setRadius:(float)radius view:(UIView *)view{
-    [view.layer setMasksToBounds:YES];
     [view.layer setCornerRadius:radius];
+}
+
++ (void)setShadow:(UIColor *)color view:(UIView *)view{
+    view.layer.shadowColor = color.CGColor;
+    view.layer.shadowOffset = CGSizeMake(2, 5);
+    view.layer.shadowOpacity = 0.5;
 }
 
 + (void)setLineColor:(UIColor *)color andA:(float)alpha width:(float)width view:(UIView *)view{
     [view.layer setBorderWidth:width];
     view.layer.borderColor = [color CGColor];
+}
+
++ (void)setFade:(UIView *)view{
+    CAGradientLayer *_gradLayer = [CAGradientLayer layer];
+    NSArray *colors = [NSArray arrayWithObjects:
+                       (id)[[UIColor colorWithWhite:0 alpha:0] CGColor],
+                       (id)[[UIColor colorWithWhite:0 alpha:1] CGColor],
+                       (id)[[UIColor colorWithWhite:0 alpha:1] CGColor],
+                       (id)[[UIColor colorWithWhite:0 alpha:1] CGColor],
+                       (id)[[UIColor colorWithWhite:0 alpha:1] CGColor],
+                       (id)[[UIColor colorWithWhite:0 alpha:1] CGColor],
+                       nil];
+    [_gradLayer setColors:colors];
+    //渐变起止点，point表示向量
+    [_gradLayer setStartPoint:CGPointMake(0.0f, 1.0f)];
+    [_gradLayer setEndPoint:CGPointMake(0.0f, 0.0f)];
+    
+    [_gradLayer setFrame:CGRectMake(0, 0, view.frame.size.width, view.frame.size.height)];
+    [view.layer setMask:_gradLayer];
 }
 
 @end

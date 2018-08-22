@@ -86,6 +86,8 @@
 		D876FE871FB0514B0094C274 /* panda.plist in Resources */ = {isa = PBXBuildFile; fileRef = D876FE861FB0514B0094C274 /* panda.plist */; };
 		D883EEF9200E37910062A6C6 /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = D883EEF4200E37910062A6C6 /* GTMBase64.m */; };
 		D883EEFA200E37910062A6C6 /* LCdes.m in Sources */ = {isa = PBXBuildFile; fileRef = D883EEF7200E37910062A6C6 /* LCdes.m */; };
+		D88C293F212CFCC600828AA6 /* test1.png in Resources */ = {isa = PBXBuildFile; fileRef = D88C293E212CFCC500828AA6 /* test1.png */; };
+		D88C2941212CFCD000828AA6 /* test2.png in Resources */ = {isa = PBXBuildFile; fileRef = D88C2940212CFCD000828AA6 /* test2.png */; };
 		D89AA87020947265001DE9B8 /* CC_Parser.m in Sources */ = {isa = PBXBuildFile; fileRef = D89AA86F20947265001DE9B8 /* CC_Parser.m */; };
 		D8A799682109CAFB00D40B4B /* UIApplication+CCHook.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A799672109CAFB00D40B4B /* UIApplication+CCHook.m */; };
 		D8A7996E2109CC0300D40B4B /* UIViewController+CCHook.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A7996D2109CC0300D40B4B /* UIViewController+CCHook.m */; };
@@ -97,6 +99,7 @@
 		D8C511D0211AE3D100944CB0 /* NSString+CCExtention.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C511CF211AE3D100944CB0 /* NSString+CCExtention.m */; };
 		D8CC62551FF25610006E2ED6 /* CC_Envirnment.m in Sources */ = {isa = PBXBuildFile; fileRef = D8CC62541FF25610006E2ED6 /* CC_Envirnment.m */; };
 		D8CE47B720D28A3E00587337 /* CC_RequestRecordTool.m in Sources */ = {isa = PBXBuildFile; fileRef = D8CE47B620D28A3D00587337 /* CC_RequestRecordTool.m */; };
+		D8DAFCD4212BE6D2009E0FEC /* CC_AESEncrypt.m in Sources */ = {isa = PBXBuildFile; fileRef = D8DAFCD3212BE6D2009E0FEC /* CC_AESEncrypt.m */; };
 		D8DD97EB20B6A6F2000A890D /* CC_Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = D8DD97EA20B6A6F2000A890D /* CC_Animation.m */; };
 		D8DD97EE20B7BC02000A890D /* CC_MusicBox.m in Sources */ = {isa = PBXBuildFile; fileRef = D8DD97ED20B7BC02000A890D /* CC_MusicBox.m */; };
 		D8EC6FC921240303006ECFE3 /* CC_Dictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = D8EC6FC821240303006ECFE3 /* CC_Dictionary.m */; };
@@ -281,6 +284,8 @@
 		D883EEF6200E37910062A6C6 /* LCdes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCdes.h; sourceTree = "<group>"; };
 		D883EEF7200E37910062A6C6 /* LCdes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCdes.m; sourceTree = "<group>"; };
 		D883EEF8200E37910062A6C6 /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
+		D88C293E212CFCC500828AA6 /* test1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test1.png; sourceTree = "<group>"; };
+		D88C2940212CFCD000828AA6 /* test2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test2.png; sourceTree = "<group>"; };
 		D89AA86E20947265001DE9B8 /* CC_Parser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_Parser.h; sourceTree = "<group>"; };
 		D89AA86F20947265001DE9B8 /* CC_Parser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC_Parser.m; sourceTree = "<group>"; };
 		D8A799662109CAFB00D40B4B /* UIApplication+CCHook.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIApplication+CCHook.h"; sourceTree = "<group>"; };
@@ -302,6 +307,8 @@
 		D8CC62541FF25610006E2ED6 /* CC_Envirnment.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC_Envirnment.m; sourceTree = "<group>"; };
 		D8CE47B520D28A3D00587337 /* CC_RequestRecordTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_RequestRecordTool.h; sourceTree = "<group>"; };
 		D8CE47B620D28A3D00587337 /* CC_RequestRecordTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC_RequestRecordTool.m; sourceTree = "<group>"; };
+		D8DAFCD2212BE6D2009E0FEC /* CC_AESEncrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_AESEncrypt.h; sourceTree = "<group>"; };
+		D8DAFCD3212BE6D2009E0FEC /* CC_AESEncrypt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC_AESEncrypt.m; sourceTree = "<group>"; };
 		D8DD97E920B6A6F2000A890D /* CC_Animation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_Animation.h; sourceTree = "<group>"; };
 		D8DD97EA20B6A6F2000A890D /* CC_Animation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC_Animation.m; sourceTree = "<group>"; };
 		D8DD97EC20B7BC02000A890D /* CC_MusicBox.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_MusicBox.h; sourceTree = "<group>"; };
@@ -377,6 +384,8 @@
 				18B6BD471F21A8560019391D /* bench_ios.podspec */,
 				D839267B20FEE07F0034D10F /* stylesheet.cas */,
 				18B6BD451F21A6080019391D /* README.md */,
+				D88C2940212CFCD000828AA6 /* test2.png */,
+				D88C293E212CFCC500828AA6 /* test1.png */,
 				18B6BCFE1F1F09CA0019391D /* AppDelegate.h */,
 				18B6BCFF1F1F09CA0019391D /* AppDelegate.m */,
 				18B6BD011F1F09CA0019391D /* ViewController.h */,
@@ -468,6 +477,8 @@
 			children = (
 				D86F4C9B20883841000DF173 /* CC_Date.h */,
 				D86F4C9C20883841000DF173 /* CC_Date.m */,
+				D8DAFCD2212BE6D2009E0FEC /* CC_AESEncrypt.h */,
+				D8DAFCD3212BE6D2009E0FEC /* CC_AESEncrypt.m */,
 				D83507601F309D2700B7461C /* CC_DESTool.h */,
 				D83507611F309D2700B7461C /* CC_DESTool.m */,
 				D8195F521F29CEEF00C7BADD /* CC_Valiation.h */,
@@ -842,8 +853,10 @@
 				D8B0E4611F501EE400425D06 /* nyyh.jpg in Resources */,
 				18B6BD081F1F09CA0019391D /* Assets.xcassets in Resources */,
 				D876FE871FB0514B0094C274 /* panda.plist in Resources */,
+				D88C2941212CFCD000828AA6 /* test2.png in Resources */,
 				18B6BD061F1F09CA0019391D /* Main.storyboard in Resources */,
 				D839267A20FEE07B0034D10F /* gwh.cas in Resources */,
+				D88C293F212CFCC600828AA6 /* test1.png in Resources */,
 				D839267C20FEE07F0034D10F /* stylesheet.cas in Resources */,
 				18B6BD481F21A8560019391D /* bench_ios.podspec in Resources */,
 			);
@@ -891,6 +904,7 @@
 				D8A7996E2109CC0300D40B4B /* UIViewController+CCHook.m in Sources */,
 				D8365DE4205A54CE00357C0F /* testUIViewController.m in Sources */,
 				D839266420FEDFC60034D10F /* CASInvocation.m in Sources */,
+				D8DAFCD4212BE6D2009E0FEC /* CC_AESEncrypt.m in Sources */,
 				D8389DFC206BA3680010A04A /* CC_LogicClass.m in Sources */,
 				D8B0E45C1F5016EA00425D06 /* CC_GColor.m in Sources */,
 				D839266220FEDFC60034D10F /* UIColor+CASAdditions.m in Sources */,
