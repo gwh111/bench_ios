@@ -18,9 +18,9 @@
  *  对齐方式
  */
 typedef enum : NSUInteger {
-    Left,
-    Center,
-    Right,
+    CCAutoLabelAlignmentTypeLeft,
+    CCAutoLabelAlignmentTypeCenter,
+    CCAutoLabelAlignmentTypeRight,
 } CCAutoLabelAlignmentType;
 
 @interface CC_AutoLabelGroup : UIView
@@ -42,6 +42,13 @@ typedef enum : NSUInteger {
  *  margin 文字距离边框
  */
 - (void)updateType:(CCAutoLabelAlignmentType)type width:(float)width stepWidth:(float)stepWidth sideX:(float)sideX sideY:(float)sideY itemHeight:(float)itemHeight margin:(float)margin;
+
+/**
+ *  图片 view的布局
+ *  number 总个数
+ *  控件是正方形的 高度和宽度相同
+ */
+- (void)updateNumber:(NSUInteger)number;
 
 /**
  *  更新文本和选中状态

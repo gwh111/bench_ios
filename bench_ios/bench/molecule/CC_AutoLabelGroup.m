@@ -44,6 +44,14 @@ static int baseTag=100;
 }
 
 - (void)updateLabels:(NSArray *)tempArr selected:(NSArray *)selected{
+    [self updateLabels:tempArr selected:selected number:0];
+}
+
+- (void)updateNumber:(NSUInteger)number{
+    [self updateLabels:nil selected:nil number:number];
+}
+
+- (void)updateLabels:(NSArray *)tempArr selected:(NSArray *)selected number:(NSUInteger)number{
     
     [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
@@ -52,9 +60,20 @@ static int baseTag=100;
     int lastLine=0;
     int lastBeginIndex=0;
     int lastRight=0;
-    for (int i=0; i<tempArr.count; i++) {
-    
-        CC_Button *leftBt=[ccs copyThis:_sampleBt];
+    NSUInteger count;
+    if (number>0) {
+        count=number;
+    }else{
+        count=tempArr.count;
+    }
+    for (int i=0; i<count; i++) {
+        
+        CC_Button *leftBt;
+        if (_sampleBt) {
+            leftBt=[ccs copyThis:_sampleBt];
+        }else{
+            leftBt=[[CC_Button alloc]init];
+        }
         leftBt.cs_dictBackgroundColor=_sampleBt.cs_dictBackgroundColor;
         leftBt.height=iH;
         [self addSubview:leftBt];
@@ -66,11 +85,14 @@ static int baseTag=100;
         [leftBt setTitle:tempArr[i] forState:UIControlStateNormal];
         [leftBt.titleLabel sizeToFit];
         float w=leftBt.titleLabel.width+mg;
+        if (number>0) {
+            w=iH;
+        }
         if (x+stepW+w>maxW) {
             x=sX;
             y=y+iH+sY;
             
-            if (altype==Center) {
+            if (altype==CCAutoLabelAlignmentTypeCenter) {
                 float needMove=(maxW-lastRight-sX)/2;
                 for (int m=lastBeginIndex; m<i; m++) {
                     CC_Button *button=[self viewWithTag:baseTag+m];
@@ -99,9 +121,9 @@ static int baseTag=100;
         [self.delegate buttonInitFinish:leftBt];
     }
     
-    if (altype==Center) {
+    if (altype==CCAutoLabelAlignmentTypeCenter) {
         float needMove=(maxW-lastRight-sX)/2;
-        for (int m=lastBeginIndex; m<tempArr.count; m++) {
+        for (int m=lastBeginIndex; m<count; m++) {
             CC_Button *button=[self viewWithTag:baseTag+m];
             button.left=button.left+needMove;
         }

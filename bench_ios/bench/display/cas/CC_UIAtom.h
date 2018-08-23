@@ -15,23 +15,13 @@
  * 控件的类别
  */
 typedef enum : NSUInteger {
-    CCView,
-    CCLabel,
-    CCButton,
-    CCTextField,
-    CCTextView,
-    CCImageView,
+    CCAtomTypeView,
+    CCAtomTypeLabel,
+    CCAtomTypeButton,
+    CCAtomTypeTextField,
+    CCAtomTypeTextView,
+    CCAtomTypeImageView,
 } CCAtomType;
-
-/**
- * 约束的类型
- */
-typedef enum : NSUInteger {
-    CCTopLeft,
-    CCTopRight,
-    CCBottomLeft,
-    CCBottomRight,
-} CCDisplayType;
 
 @interface CC_UIAtom : NSObject
 

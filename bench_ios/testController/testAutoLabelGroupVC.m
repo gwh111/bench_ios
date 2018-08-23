@@ -23,7 +23,7 @@
     
     group=[[CC_AutoLabelGroup alloc]initWithFrame:CGRectMake(0, 100, 100, 100)];
     group.delegate=self;
-    [group updateType:Center width:[ccui getW] stepWidth:[ccui getRH:10] sideX:[ccui getRH:10] sideY:[ccui getRH:10] itemHeight:[ccui getRH:30] margin:[ccui getRH:5]];
+    [group updateType:CCAutoLabelAlignmentTypeCenter width:[ccui getW] stepWidth:[ccui getRH:10] sideX:[ccui getRH:10] sideY:[ccui getRH:10] itemHeight:[ccui getRH:30] margin:[ccui getRH:5]];
     
     //单元样本创建
     CC_Button *sampleBt=[[CC_Button alloc]init];

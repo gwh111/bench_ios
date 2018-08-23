@@ -47,42 +47,42 @@
     varView.atomType=type;
     varView.atomName=name;
     switch (type) {
-        case CCView:
+        case CCAtomTypeView:
         {
             CC_View *atom=[[CC_View alloc]init];
             atom.cas_styleClass = name;
             varView.atom=atom;
             break;
         }
-        case CCLabel:
+        case CCAtomTypeLabel:
         {
             CC_Label *atom=[[CC_Label alloc]init];
             atom.cas_styleClass = name;
             varView.atom=atom;
             break;
         }
-        case CCButton:
+        case CCAtomTypeButton:
         {
             CC_Button *atom=[[CC_Button alloc]init];
             atom.cas_styleClass = name;
             varView.atom=atom;
             break;
         }
-        case CCTextView:
+        case CCAtomTypeTextView:
         {
             CC_TextView *atom=[[CC_TextView alloc]init];
             atom.cas_styleClass = name;
             varView.atom=atom;
             break;
         }
-        case CCTextField:
+        case CCAtomTypeTextField:
         {
             CC_TextField *atom=[[CC_TextField alloc]init];
             atom.cas_styleClass = name;
             varView.atom=atom;
             break;
         }
-        case CCImageView:
+        case CCAtomTypeImageView:
         {
             UIImageView *atom=[[UIImageView alloc]init];
             atom.cas_styleClass = name;

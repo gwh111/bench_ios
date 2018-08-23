@@ -1,12 +1,12 @@
 
 Pod::Spec.new do |spec|
   spec.name         = 'bench_ios'
-  spec.version      = '1.3.15'
+  spec.version      = '1.3.16'
   spec.license      = { :type => 'BSD' }
   spec.homepage     = 'https://github.com/gwh111/bench_ios'
   spec.authors      = { 'apple' => '173695508@qq.com' }
   spec.summary      = 'IOS bench tool for developer'
-  spec.source       = { :git => 'https://github.com/gwh111/bench_ios.git', :tag => 'v1.3.15' }
+  spec.source       = { :git => 'https://github.com/gwh111/bench_ios.git', :tag => 'v1.3.16' }
   spec.frameworks   = 'UIKit'  
   spec.module_name  = 'Rich'
 
