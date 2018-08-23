@@ -99,6 +99,23 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
 @interface ccs : NSObject
 
 /**
+ *  获取Bundle字典
+ */
++ (NSDictionary *)getBundle;
+
+/**
+ *  获取CFBundleIdentifier
+ */
++ (NSString *)getBid;
+
+/**
+ *  存储keychain的字段
+ *  在app删除再重新安装后依然可以获取
+ */
++(void)saveKeychainName:(NSString *)key str:(NSString *)str;
++(NSString *)getKeychainName:(NSString *)str;
+
+/**
  *  直接获取工程中的plist
  */
 + (NSString *)getPlistStr:(NSString *)name;

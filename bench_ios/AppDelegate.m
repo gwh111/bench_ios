@@ -20,6 +20,11 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+    NSDictionary *d=[ccs getBundle];
+    
+    [ccs saveKeychainName:@"kkkd" str:@"湿哒哒哦aaa"];
+    NSString *get=[ccs getKeychainName:@"kkkd"];
+    
 //    [UIApplication hookUIApplication];
 //    [UIViewController hookUIViewController];
     [UINavigationController hookUINavigationController_push];

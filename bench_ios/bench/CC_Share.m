@@ -7,6 +7,7 @@
 //
 
 #import "CC_Share.h"
+#import "CC_KeyChainStore.h"
 
 @implementation CC_Share
 
@@ -23,6 +24,23 @@ static dispatch_once_t onceToken;
 @end
 
 @implementation ccs
+
++ (NSDictionary *)getBundle{
+    return [[NSBundle mainBundle]infoDictionary];
+}
+
++ (NSString *)getBid{
+    return [[NSBundle mainBundle]infoDictionary][@"CFBundleIdentifier"];
+}
+
++(void)saveKeychainName:(NSString *)key str:(NSString *)str{
+    [CC_KeyChainStore save:key data:str];
+}
+
++(NSString *)getKeychainName:(NSString *)str{
+    NSString *strUUID = (NSString*)[CC_KeyChainStore load:str];
+    return strUUID;
+}
 
 + (NSString *)getPlistStr:(NSString *)name{
     NSString *plistPath = [[NSBundle mainBundle] pathForResource:name ofType:@"plist"];

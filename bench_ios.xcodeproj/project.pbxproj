@@ -88,6 +88,7 @@
 		D883EEFA200E37910062A6C6 /* LCdes.m in Sources */ = {isa = PBXBuildFile; fileRef = D883EEF7200E37910062A6C6 /* LCdes.m */; };
 		D88C293F212CFCC600828AA6 /* test1.png in Resources */ = {isa = PBXBuildFile; fileRef = D88C293E212CFCC500828AA6 /* test1.png */; };
 		D88C2941212CFCD000828AA6 /* test2.png in Resources */ = {isa = PBXBuildFile; fileRef = D88C2940212CFCD000828AA6 /* test2.png */; };
+		D88C2966212EAF3F00828AA6 /* CC_KeyChainStore.m in Sources */ = {isa = PBXBuildFile; fileRef = D88C2965212EAF3E00828AA6 /* CC_KeyChainStore.m */; };
 		D89AA87020947265001DE9B8 /* CC_Parser.m in Sources */ = {isa = PBXBuildFile; fileRef = D89AA86F20947265001DE9B8 /* CC_Parser.m */; };
 		D8A799682109CAFB00D40B4B /* UIApplication+CCHook.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A799672109CAFB00D40B4B /* UIApplication+CCHook.m */; };
 		D8A7996E2109CC0300D40B4B /* UIViewController+CCHook.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A7996D2109CC0300D40B4B /* UIViewController+CCHook.m */; };
@@ -286,6 +287,8 @@
 		D883EEF8200E37910062A6C6 /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
 		D88C293E212CFCC500828AA6 /* test1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test1.png; sourceTree = "<group>"; };
 		D88C2940212CFCD000828AA6 /* test2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test2.png; sourceTree = "<group>"; };
+		D88C2964212EAF3E00828AA6 /* CC_KeyChainStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_KeyChainStore.h; sourceTree = "<group>"; };
+		D88C2965212EAF3E00828AA6 /* CC_KeyChainStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC_KeyChainStore.m; sourceTree = "<group>"; };
 		D89AA86E20947265001DE9B8 /* CC_Parser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_Parser.h; sourceTree = "<group>"; };
 		D89AA86F20947265001DE9B8 /* CC_Parser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC_Parser.m; sourceTree = "<group>"; };
 		D8A799662109CAFB00D40B4B /* UIApplication+CCHook.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIApplication+CCHook.h"; sourceTree = "<group>"; };
@@ -351,6 +354,8 @@
 		188268271F4BCEC500D72048 /* storage */ = {
 			isa = PBXGroup;
 			children = (
+				D88C2964212EAF3E00828AA6 /* CC_KeyChainStore.h */,
+				D88C2965212EAF3E00828AA6 /* CC_KeyChainStore.m */,
 				188268281F4BCEC500D72048 /* CC_GCoreDataManager.h */,
 				188268291F4BCEC500D72048 /* CC_GCoreDataManager.m */,
 			);
@@ -895,6 +900,7 @@
 				D839260B20FEDFA40034D10F /* UIView+ClassyExtend.m in Sources */,
 				D839266620FEDFC60034D10F /* CASToken.m in Sources */,
 				D839265F20FEDFC60034D10F /* UIViewController+CASAdditions.m in Sources */,
+				D88C2966212EAF3F00828AA6 /* CC_KeyChainStore.m in Sources */,
 				D8BDAF6820FC4F49006BF14C /* CC_ResponseLogicModel.m in Sources */,
 				D883EEFA200E37910062A6C6 /* LCdes.m in Sources */,
 				D839266120FEDFC60034D10F /* UITextField+CASAdditions.m in Sources */,

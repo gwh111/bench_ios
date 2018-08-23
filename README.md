@@ -34,10 +34,17 @@ CC_UIAtom;
 ```
 
 
-# v1.3.16
+# v1.3.17
 ========
 规范枚举
 CC_AutoLabelGroup增加了- (void)updateNumber:(NSUInteger)number;
+新增ccs的+ (NSDictionary *)getBundle;
+/**
+*  存储keychain的字段
+*  在app删除再重新安装后依然可以获取
+*/
++(void)saveKeychainName:(NSString *)key str:(NSString *)str;
++(NSString *)getKeychainName:(NSString *)str;
 
 # v1.3.15
 ========
