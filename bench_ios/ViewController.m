@@ -31,7 +31,7 @@
     
     
 #pragma mark init
-    [CC_Share getInstance].ccDebug=0;
+    [CC_Share getInstance].ccDebug=1;
     //设置基准 效果图的尺寸即可
     [[CC_UIHelper getInstance]initUIDemoWidth:375 andHeight:750];
     NSString *absoluteFilePath=CASAbsoluteFilePath(@"stylesheet.cas");
@@ -146,6 +146,11 @@
         CCLOG(@"dateStr2=%@",dateStr2);
         CCLOG(@"min=%f",[CC_Date compareDate:[NSDate date] cut:result.responseDate]/60);
         
+        NSMutableString *tempStr = [NSMutableString stringWithString:dateStr2];
+        NSRange range = NSMakeRange (10, tempStr.length-10);
+        [tempStr deleteCharactersInRange:range];
+        
+        CCLOG(@"");
     }];
 #pragma mark map arr parser
     NSDictionary *result=@{@"response":

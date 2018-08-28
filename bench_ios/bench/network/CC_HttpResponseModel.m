@@ -16,7 +16,7 @@
     self = [super init];
     if (self) {
         _debug=[CC_Share getInstance].ccDebug;
-        _responseDateFormatStr=@"dd MMM yyyy HH:mm:ss";
+        _responseDateFormatStr=@"dd MM yyyy HH:mm:ss";
     }
     return self;
 }
@@ -54,6 +54,8 @@
                 [CC_Note showAlert:_errorMsgStr];
                 if ([ccs getLocalKeyNamed:@"service" andKey:_serviceStr]) {
                     _resultStr=[ccs getLocalKeyNamed:@"service" andKey:_serviceStr];
+                    _errorNameStr=nil;
+                    _errorMsgStr=nil;
                     [self parsingResult:_resultStr];
                     [CC_Note showAlert:@"_debug Data" atView:nil];
                 }

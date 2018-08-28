@@ -22,7 +22,7 @@
     
     NSDictionary *d=[ccs getBundle];
     
-    [ccs saveKeychainName:@"kkkd" str:@"湿哒哒哦aaa"];
+    [ccs saveKeychainName:@"kkkd" str:@"zxca哦aaa"];
     NSString *get=[ccs getKeychainName:@"kkkd"];
     
 //    [UIApplication hookUIApplication];
