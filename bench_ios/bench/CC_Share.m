@@ -82,6 +82,25 @@ static dispatch_once_t onceToken;
     CCLOG(@"读取失败%@",name);
     return nil;
 }
+
++ (void)removeLocalPlistNamed:(NSString *)name{
+    NSFileManager* fileManager=[NSFileManager defaultManager];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
+    
+    //文件名
+    NSString *uniquePath=[[paths objectAtIndex:0] stringByAppendingPathComponent:name];
+    BOOL blHave=[[NSFileManager defaultManager] fileExistsAtPath:uniquePath];
+    if (!blHave) {
+        return ;
+    }else {
+        BOOL blDele= [fileManager removeItemAtPath:uniquePath error:nil];
+        if (blDele) {
+            NSLog(@"dele success");
+        }else {
+            NSLog(@"dele fail");
+        }
+    }
+}
 //保存到本地
 + (void)saveLocalPlistNamed:(NSString *)name{
     if (!name) {
@@ -183,6 +202,9 @@ static dispatch_once_t onceToken;
         return nil;
     }
     NSData *oriData=[self getDefault:key];
+    if (!oriData) {
+        return nil;
+    }
     NSData *aeskey = [aesk dataUsingEncoding:NSUTF8StringEncoding];
     NSData *decodeData = [CC_AESEncrypt decryptData:oriData key:aeskey];
     NSString *decodeString = [[NSString alloc] initWithData:decodeData encoding:NSUTF8StringEncoding];

@@ -122,11 +122,16 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
 + (NSDictionary *)getPlistDic:(NSString *)name;
 
 /**
- *  获取和保存沙盒中的plist
- *  保存时先查找沙盒中是否有该plist，如果有读取并更新，如果没有，找工程中有无plist，如果有则复制一份并更新保存到沙盒，如果无则初始化一个并更新保存到沙盒
+ *  + (NSMutableDictionary *)getLocalPlistNamed:(NSString *)name;
+    获取和保存沙盒中的plist
+    + (void)saveLocalPlistNamed:(NSString *)name;
+    保存时先查找沙盒中是否有该plist，如果有读取并更新，如果没有，找工程中有无plist，如果有则复制一份并更新保存到沙盒，如果无则初始化一个并更新保存到沙盒
+    + (void)removeLocalPlistNamed:(NSString *)name;
+    删除时注意要加上文件名后缀
  */
 + (NSMutableDictionary *)getLocalPlistNamed:(NSString *)name;
 + (void)saveLocalPlistNamed:(NSString *)name;
++ (void)removeLocalPlistNamed:(NSString *)name;
 + (id)getLocalKeyNamed:(NSString *)name andKey:(NSString *)key;
 + (void)saveLocalKeyNamed:(NSString *)name andKey:(NSString *)key andValue:(id)value;
 
