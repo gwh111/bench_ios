@@ -16,6 +16,6 @@
  *  0 v1=v2
  * -1 v1<v2
  */
-- (int)compareV1:(NSString *)v1 cutV2:(NSString *)v2;
++ (int)compareV1:(NSString *)v1 cutV2:(NSString *)v2;
 
 @end

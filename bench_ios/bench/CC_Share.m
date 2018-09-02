@@ -33,6 +33,10 @@ static dispatch_once_t onceToken;
     return [[NSBundle mainBundle]infoDictionary][@"CFBundleIdentifier"];
 }
 
++ (NSString *)getVersion{
+    return [[NSBundle mainBundle]infoDictionary][@"CFBundleShortVersionString"];
+}
+
 +(void)saveKeychainName:(NSString *)key str:(NSString *)str{
     [CC_KeyChainStore save:key data:str];
 }
@@ -193,6 +197,7 @@ static dispatch_once_t onceToken;
         return;
     }
     [[NSUserDefaults standardUserDefaults]setObject:v forKey:key];
+    [[NSUserDefaults standardUserDefaults]synchronize];
 }
 
 + (id)getSafeDefault:(NSString *)key{
@@ -216,6 +221,9 @@ static dispatch_once_t onceToken;
     if (!aesk) {
         CCLOG(@"没有设置加密key 不能使用");
         return;
+    }
+    if (!v) {
+        [self saveDefaultKey:key andV:nil];
     }
     NSData *data =[v dataUsingEncoding:NSUTF8StringEncoding];
     NSData *aeskey = [aesk dataUsingEncoding:NSUTF8StringEncoding];

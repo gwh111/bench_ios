@@ -265,6 +265,7 @@ static dispatch_once_t onceToken;
 - (void)addResponseLogic:(NSString *)logicName logicStr:(NSString *)logicStr stop:(BOOL)stop popOnce:(BOOL)popOnce logicBlock:(void (^)(NSDictionary *errorDic))block{
     CC_ResLModel *model=[[CC_ResLModel alloc]init];
     model.logicNameStr=logicName;
+    model.logicPassStop=stop;
     model.logicBlock=block;
     model.logicPopOnce=popOnce;
     if ([logicStr containsString:@"="]) {

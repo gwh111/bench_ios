@@ -11,7 +11,7 @@
 
 @implementation CC_Logic
 
-- (int)compareV1:(NSString *)v1 cutV2:(NSString *)v2{
++ (int)compareV1:(NSString *)v1 cutV2:(NSString *)v2{
     if (!v1||!v2) {
         CCLOG("不能为空");
         return -100;

@@ -105,8 +105,10 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
 
 /**
  *  获取CFBundleIdentifier
+    获取CFBundleShortVersionString
  */
 + (NSString *)getBid;
++ (NSString *)getVersion;
 
 /**
  *  存储keychain的字段
