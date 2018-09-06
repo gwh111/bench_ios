@@ -32,6 +32,10 @@ static dispatch_once_t onceToken;
     }
     SystemSoundID soundID;
     NSString *strSoundFile = [[NSBundle mainBundle] pathForResource:name ofType:type];
+    if (!strSoundFile) {
+        NSLog(@"strSoundFile=nil");
+        return;
+    }
     AudioServicesCreateSystemSoundID((__bridge CFURLRef)[NSURL fileURLWithPath:strSoundFile],&soundID);
     AudioServicesPlaySystemSound(soundID);
 }
@@ -50,6 +54,10 @@ static dispatch_once_t onceToken;
         return;
     }
     NSString *musicPath = [[NSBundle mainBundle] pathForResource:name ofType:type];
+    if (!musicPath) {
+        NSLog(@"musicPath=nil");
+        return;
+    }
     NSURL *musicURL = [NSURL fileURLWithPath:musicPath];
     _audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:musicURL error:nil];
     [_audioPlayer setDelegate:self];

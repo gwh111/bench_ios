@@ -90,6 +90,9 @@
     if (!infoDict) {
         return @"";
     }
+    if ([infoDict isKindOfClass:[NSString class]]) {
+        return infoDict;
+    }
     NSError *error;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:infoDict
                                                        options:NSJSONWritingPrettyPrinted // Pass 0 if you don't care about the readability of the generated string
