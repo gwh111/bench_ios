@@ -10,6 +10,9 @@
 
 @interface CC_Valiation : NSObject
 
++ (BOOL)isOnlyNumerAndLetter:(NSString *)textStr;
++ (BOOL)isOnlyChinese:(NSString *)textStr;
+
 /** 手机号码验证*/
 + (BOOL)validateMobile:(NSString *)mobileStr;
 /** 邮箱*/

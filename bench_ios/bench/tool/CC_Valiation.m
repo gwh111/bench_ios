@@ -10,6 +10,21 @@
 
 @implementation CC_Valiation
 
+//匹配由字母/数字组成的字符串的正则表达式
++ (BOOL)isOnlyNumerAndLetter:(NSString *)textStr{
+    NSString * regex = @"^[A-Za-z0-9]$";
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
+    BOOL isMatch = [pred evaluateWithObject:textStr];
+    return isMatch;
+}
+
++ (BOOL)isOnlyChinese:(NSString *)textStr{
+    NSString * regex = @"[a-zA-Z\u4e00-\u9fa5][a-zA-Z0-9\u4e00-\u9fa5]+";
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
+    BOOL isMatch = [pred evaluateWithObject:textStr];
+    return isMatch;
+}
+
 // 手机号码验证
 + (BOOL)validateMobile:(NSString *)mobileStr{
     //手机号以13， 15，18开头，八个 \d 数字字符
