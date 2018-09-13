@@ -159,7 +159,13 @@ NSString *ccstr(NSString *format, ...);
  */
 + (id)copyThis:(id)bt;
 
+/**
+ *  进入子线程
+ */
 + (void)gotoThread:(void (^)(void))block;
+/**
+ *  回到主线程
+ */
 + (void)gotoMain:(void (^)(void))block;
 
 @end
