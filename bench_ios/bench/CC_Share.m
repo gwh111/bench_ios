@@ -246,4 +246,18 @@ NSString *ccstr(NSString *format, ...){
     return [NSKeyedUnarchiver unarchiveObjectWithData:tempArchive];
 }
 
++ (void)gotoThread:(void (^)(void))block{
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        // 耗时操作放在这里
+        block();
+    });
+}
+
++ (void)gotoMain:(void (^)(void))block{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        // 回到主线程进行UI操作
+        block();
+    });
+}
+
 @end

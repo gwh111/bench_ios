@@ -29,6 +29,15 @@
     [super viewDidLoad];
     self.view.backgroundColor=COLOR_WHITE;
     
+    NSLog(@"1");
+    [ccs gotoThread:^{
+        NSLog(@"2");
+        NSLog(@"3");
+        [ccs gotoMain:^{
+            NSLog(@"4");
+        }];
+    }];
+    NSLog(@"5");
     
 #pragma mark init
     [CC_Share getInstance].ccDebug=1;

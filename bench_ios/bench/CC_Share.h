@@ -159,5 +159,8 @@ NSString *ccstr(NSString *format, ...);
  */
 + (id)copyThis:(id)bt;
 
++ (void)gotoThread:(void (^)(void))block;
++ (void)gotoMain:(void (^)(void))block;
+
 @end
 
