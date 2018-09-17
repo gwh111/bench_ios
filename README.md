@@ -23,6 +23,7 @@ $ pod install
 # v1.3.0
 ========
 ![img](https://github.com/gwh111/bench_ios/blob/master/casGif.gif)
+![img](https://github.com/gwh111/bench_ios/blob/master/casGif2.gif)
 CC_UIAtom;
 创建可以动态修改的基础控件
 ```
