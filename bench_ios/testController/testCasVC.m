@@ -30,13 +30,9 @@
     l.backgroundColor=[UIColor yellowColor];
     l.text=@"普通label";
     [self.view addSubview:l];
-    l.stopCas=3;
     
     [CC_UIAtom initAt:self.view name:@"MainVC_i_figure1" class:[UIImageView class] finishBlock:^(UIImageView *atom) {
     }];
-    
-//    [CC_UIAtom initAt:self.view name:@"MainVC_v_figure1" type:CCView finishBlock:^(CC_View *atom) {
-//    }];
     
     [CC_UIAtom initAt:self.view name:@"MainVC_b_box1" class:[CC_Button class] finishBlock:^(CC_Button *atom) {
         [atom setBackgroundColor:[UIColor brownColor]];

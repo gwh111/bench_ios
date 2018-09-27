@@ -51,10 +51,14 @@
     [view.layer setCornerRadius:radius];
 }
 
-+ (void)setShadow:(UIColor *)color view:(UIView *)view{
++ (void)setShadow:(UIColor *)color view:(UIView *)view offset:(CGSize)size opacity:(float)opacity{
     view.layer.shadowColor = color.CGColor;
-    view.layer.shadowOffset = CGSizeMake(2, 5);
-    view.layer.shadowOpacity = 0.5;
+    view.layer.shadowOffset = size;
+    view.layer.shadowOpacity = opacity;
+}
+
++ (void)setShadow:(UIColor *)color view:(UIView *)view{
+    [self setShadow:color view:view offset:CGSizeMake(2, 5) opacity:0.5];
 }
 
 + (void)setLineColor:(UIColor *)color andA:(float)alpha width:(float)width view:(UIView *)view{

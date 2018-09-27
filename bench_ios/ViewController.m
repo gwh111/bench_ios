@@ -161,6 +161,23 @@
         
         CCLOG(@"");
     }];
+    
+//    [[CC_HttpTask getInstance]get:[NSURL URLWithString:@"https://gwhnewword.oss-cn-shanghai.aliyuncs.com/word4.plist?Expires=1537608258&OSSAccessKeyId=TMP.AQGQr7p95Q4AeiSGE7_Pw3XJCjXSZiFuxdyBkOsPb31cfMwU7QaqA-LOcInaMC4CFQCCO8zDL6QVrMEBWPYo9Rj9NSINBQIVAMGbrF9gU8Jxlf-x1Ges2Ejc1Tju&Signature=h9O8%2F8Z0lOjBmMrZVfsa8NbCeZQ%3D"] params:@{@"getDate":@""} model:[[ResModel alloc]init] finishCallbackBlock:^(NSString *error, ResModel *result) {
+//        
+//        NSData* plistData = [result.resultStr dataUsingEncoding:NSUTF8StringEncoding];
+//        
+////        NSPropertyListFormat format;
+//        NSDictionary* plist = [NSPropertyListSerialization propertyListWithData:plistData options:NSPropertyListReadStreamError format:NSPropertyListImmutable error:nil];
+//        
+//        NSString *documentsDirectory = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
+//        NSString *fileName = [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.plist",@"word4_1"]];
+//        [plist writeToFile:fileName atomically:YES];
+//        
+////        NSLog( @"plist is %@", plist );
+//        
+//        
+//        NSLog(@"1");
+//    }];
 #pragma mark map arr parser
     NSDictionary *result=@{@"response":
   @{@"purchaseOrders":

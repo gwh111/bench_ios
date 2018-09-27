@@ -6,10 +6,6 @@
 //  Copyright © 2017年 apple. All rights reserved.
 //
 
-#define KEY_USERNAME_PASSWORD @"com.gwh.mine.MyWord.usernamepassword"
-#define KEY_USERNAME @"com.gwh.mine.MyWord.username"
-#define KEY_PASSWORD @"com.gwh.mine.MyWord.password"
-
 #import <Foundation/Foundation.h>
 
 @interface CC_KeyChainStore : NSObject

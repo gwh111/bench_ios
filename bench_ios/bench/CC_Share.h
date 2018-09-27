@@ -167,6 +167,10 @@ NSString *ccstr(NSString *format, ...);
  *  回到主线程
  */
 + (void)gotoMain:(void (^)(void))block;
+/**
+ *  延时、延迟
+ */
++ (void)delay:(double)delayInSeconds block:(void (^)(void))block;
 
 @end
 

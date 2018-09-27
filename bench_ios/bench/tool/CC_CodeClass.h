@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+//弃用 请使用CC_Code
 @interface CC_CodeClass : NSObject
 
 #pragma mark code for view
@@ -17,6 +18,7 @@
 /**
  * 设置view圆角
  */
+//弃用 请使用CC_Code
 + (void)setBoundsWithRadius:(float)radius view:(UIView *)view;
 
 /**
@@ -24,6 +26,7 @@
  * r g b a 取值范围0-1
  * with 边框宽度
  */
+//弃用 请使用CC_Code
 + (void)setLineColorR:(float)r andG:(float)g andB:(float)b andA:(float)alpha width:(float)width view:(UIView *)view;
 
 @end
@@ -33,6 +36,8 @@
 + (void)setRadius:(float)radius view:(UIView *)view;
 
 + (void)setShadow:(UIColor *)color view:(UIView *)view;
+
++ (void)setShadow:(UIColor *)color view:(UIView *)view offset:(CGSize)size opacity:(float)opacity;
 
 + (void)setLineColor:(UIColor *)color andA:(float)alpha width:(float)width view:(UIView *)view;
 

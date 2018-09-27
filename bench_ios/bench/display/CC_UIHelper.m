@@ -138,7 +138,7 @@ static dispatch_once_t onceToken;
  */
 + (float)getY{
     //    NSLog(@"h=%f",SCREEN_HEIGHT);
-    if (CC_SCREEN_HEIGHT==812) {
+    if (CC_SCREEN_HEIGHT>=812) {
         return 30;
     }
     return 0;
@@ -155,7 +155,7 @@ static dispatch_once_t onceToken;
  * 获取设备Height
  */
 + (float)getH{
-    if (CC_SCREEN_HEIGHT==812) {//iphone x
+    if (CC_SCREEN_HEIGHT>=812) {//iphone x
         return CC_SCREEN_HEIGHT-30;
     }
     return CC_SCREEN_HEIGHT;
