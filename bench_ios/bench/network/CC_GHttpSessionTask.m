@@ -159,8 +159,8 @@ static dispatch_once_t onceToken;
                 NSMutableString *mutUrlStr = [NSMutableString stringWithString:urlBase.relativeString];
                 NSURL *newUrl = [NSURL URLWithString:[mutUrlStr stringByReplacingOccurrencesOfString:urlBase.host withString:ipStr]];
                 dispatch_sync(dispatch_get_main_queue(), ^{
-                    [_requestHTTPHeaderFieldDic setValue:urlBase.host forKey:@"host"];
-                    [self request:newUrl Params:paramsDic model:model FinishCallbackBlock:^(NSString *error, ResModel *result) {
+                    [blockSelf->_requestHTTPHeaderFieldDic setValue:urlBase.host forKey:@"host"];
+                    [blockSelf request:newUrl Params:paramsDic model:model FinishCallbackBlock:^(NSString *error, ResModel *result) {
                         block(error,result);
                     } type:0];
                     
@@ -170,7 +170,7 @@ static dispatch_once_t onceToken;
             }
         }else
         {
-            [_requestHTTPHeaderFieldDic setValue:nil forKey:@"host"];
+            [blockSelf->_requestHTTPHeaderFieldDic setValue:nil forKey:@"host"];
         }
         
         if (paramsDic[@"getDate"]||blockSelf.needResponseDate) {
