@@ -36,6 +36,20 @@ static dispatch_once_t onceToken;
     return instance;
 }
 
+- (void)setRequestHTTPHeaderFieldDic:(id)requestHTTPHeaderFieldDic{
+    if ([requestHTTPHeaderFieldDic isKindOfClass:[NSDictionary class]]) {
+        _requestHTTPHeaderFieldDic=[[NSMutableDictionary alloc]initWithDictionary:requestHTTPHeaderFieldDic];
+    }else if ([requestHTTPHeaderFieldDic isKindOfClass:[NSMutableDictionary class]]){
+        _requestHTTPHeaderFieldDic=requestHTTPHeaderFieldDic;
+    }else{
+        CCLOG(@"requestHTTPHeaderFieldDic 格式错误 只允许 NSDictionary or NSMutableDictionary");
+    }
+}
+
+- (id)requestHTTPHeaderFieldDic{
+    return _requestHTTPHeaderFieldDic;
+}
+
 - (void)initBase{
     _httpTimeoutInterval=10;
 }
@@ -145,7 +159,7 @@ static dispatch_once_t onceToken;
                 NSMutableString *mutUrlStr = [NSMutableString stringWithString:urlBase.relativeString];
                 NSURL *newUrl = [NSURL URLWithString:[mutUrlStr stringByReplacingOccurrencesOfString:urlBase.host withString:ipStr]];
                 dispatch_sync(dispatch_get_main_queue(), ^{
-                    [self->_requestHTTPHeaderFieldDic setValue:urlBase.host forKey:@"host"];
+                    [_requestHTTPHeaderFieldDic setValue:urlBase.host forKey:@"host"];
                     [self request:newUrl Params:paramsDic model:model FinishCallbackBlock:^(NSString *error, ResModel *result) {
                         block(error,result);
                     } type:0];
@@ -156,7 +170,7 @@ static dispatch_once_t onceToken;
             }
         }else
         {
-            [self->_requestHTTPHeaderFieldDic setValue:nil forKey:@"host"];
+            [_requestHTTPHeaderFieldDic setValue:nil forKey:@"host"];
         }
         
         if (paramsDic[@"getDate"]||blockSelf.needResponseDate) {
@@ -213,7 +227,7 @@ static dispatch_once_t onceToken;
 }
 
 - (void)setHttpHeader:(NSDictionary *)dic{
-    _requestHTTPHeaderFieldDic=dic;
+    self.requestHTTPHeaderFieldDic=dic;
 }
 
 - (void)setSignKey:(NSString *)str{

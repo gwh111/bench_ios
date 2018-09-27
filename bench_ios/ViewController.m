@@ -29,6 +29,8 @@
     [super viewDidLoad];
     self.view.backgroundColor=COLOR_WHITE;
     
+    
+    
     NSLog(@"1");
     [ccs gotoThread:^{
         NSLog(@"2");
@@ -40,7 +42,7 @@
     NSLog(@"5");
     
 #pragma mark init
-    [CC_Share getInstance].ccDebug=1;
+//    [CC_Share getInstance].ccDebug=1;
     //设置基准 效果图的尺寸即可
     [[CC_UIHelper getInstance]initUIDemoWidth:375 andHeight:750];
     NSString *absoluteFilePath=CASAbsoluteFilePath(@"stylesheet.cas");
@@ -131,6 +133,11 @@
     @"appVersion":@"1.0.3",
     @"appUserAgent":@"e1",
     }];
+    
+    NSLog(@"?%@",[CC_HttpTask getInstance].requestHTTPHeaderFieldDic);
+    [[CC_HttpTask getInstance].requestHTTPHeaderFieldDic setObject:@"11" forKey:@"22"];
+    [[CC_HttpTask getInstance].requestHTTPHeaderFieldDic setValue:@"23" forKey:@"34"];
+    NSLog(@"?%@",[CC_HttpTask getInstance].requestHTTPHeaderFieldDic);
     //签名的key 一般登录后获取
 //    [[CC_HttpTask getInstance]setSignKeyStr:@"abc"];
     //额外每个请求要传的参数

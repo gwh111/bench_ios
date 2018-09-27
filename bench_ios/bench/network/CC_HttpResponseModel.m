@@ -24,18 +24,23 @@
 - (void)parsingError:(NSError *)error{
     
     if (_debug) {
+        
         if ([ccs getLocalKeyNamed:@"service" andKey:_serviceStr]) {
             _resultStr=[ccs getLocalKeyNamed:@"service" andKey:_serviceStr];
             [self parsingResult:_resultStr];
             [CC_Note showAlert:@"_debug Data" atView:nil];
         }else{
             _errorNameStr=error.description;
+            CCLOG(@"%@",_errorNameStr);
+            _errorNameStr=[NSString stringWithFormat:@"网络连接失败(%ld)",(long)error.code];
             _errorMsgStr=_errorNameStr;
         }
     }else{
-        _errorNameStr=error.description;
+        
+        _errorNameStr=[NSString stringWithFormat:@"网络连接失败(%ld)",(long)error.code];
         _errorMsgStr=_errorNameStr;
     }
+    
 }
 
 - (void)parsingResult:(NSString *)resultStr{

@@ -19,6 +19,7 @@
 
 @interface CC_HttpTask : NSObject<NSURLSessionDelegate>{
     void (^finishCallbackBlock)(NSString *errorStr, ResModel *model); // 执行完成后回调的block
+    id _requestHTTPHeaderFieldDic;
 }
 
 + (instancetype)getInstance;
@@ -28,7 +29,6 @@
  访问ip
  */
 @property(nonatomic,retain) NSString *scopeIp;
-
 
 /**
  *  不传时间戳字段
@@ -48,7 +48,7 @@
 /**
  *  设置http请求头部
  */
-@property(nonatomic,retain) NSDictionary *requestHTTPHeaderFieldDic;
+@property(nonatomic,retain) id requestHTTPHeaderFieldDic;
 
 /**
  *  设置登录后拿到的signKey
@@ -71,6 +71,13 @@
  *  设置通用响应结果特殊处理回调集合
  */
 @property(nonatomic,retain) NSMutableDictionary *logicBlockMutDic;
+
+/**
+ *  重写requestHTTPHeaderFieldDic的set和get
+ *  类型可以为NSDictionary or NSMutableDictionary
+ */
+- (void)setRequestHTTPHeaderFieldDic:(id)requestHTTPHeaderFieldDic;
+- (id)requestHTTPHeaderFieldDic;
 
 /**
  *  添加额外参数
