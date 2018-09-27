@@ -23,6 +23,13 @@
 
 + (instancetype)getInstance;
 
+
+/**
+ 访问ip
+ */
+@property(nonatomic,retain) NSString *scopeIp;
+
+
 /**
  *  不传时间戳字段
  */
