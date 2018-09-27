@@ -137,6 +137,28 @@ static dispatch_once_t onceToken;
         
         [session finishTasksAndInvalidate];
         
+        if (error.code == -1003 ) {
+            NSURL *urlBase =  error.userInfo[NSURLErrorFailingURLErrorKey];
+            //        NSURL *urlBase =  [NSURL URLWithString:@"http://mapi.njgreat88.com/client/service.json?"];
+            NSString *ipStr = self.scopeIp;
+            if (ipStr.length>0 && urlBase.host.length>0) {
+                NSMutableString *mutUrlStr = [NSMutableString stringWithString:urlBase.relativeString];
+                NSURL *newUrl = [NSURL URLWithString:[mutUrlStr stringByReplacingOccurrencesOfString:urlBase.host withString:ipStr]];
+                dispatch_sync(dispatch_get_main_queue(), ^{
+                    [self->_requestHTTPHeaderFieldDic setValue:urlBase.host forKey:@"host"];
+                    [self request:newUrl Params:paramsDic model:model FinishCallbackBlock:^(NSString *error, ResModel *result) {
+                        block(error,result);
+                    } type:0];
+                    
+                    executorDelegate.finishCallbackBlock(@"", model);
+                });
+                return ;
+            }
+        }else
+        {
+            [self->_requestHTTPHeaderFieldDic setValue:nil forKey:@"host"];
+        }
+        
         if (paramsDic[@"getDate"]||blockSelf.needResponseDate) {
             NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
             [blockSelf loadResponseDate:model response:httpResponse];
