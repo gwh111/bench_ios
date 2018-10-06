@@ -76,6 +76,9 @@
             }else if (_resultDic[@"response"][@"error"]) {
                 _errorNameStr=_resultDic[@"response"][@"error"][@"name"];
                 _errorMsgStr=_resultDic[@"response"][@"error"][@"message"];
+            }else{
+                _errorNameStr=@"success=false 但没有 detailMessage&error";
+                _errorMsgStr=_errorNameStr;
             }
         }
         

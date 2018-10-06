@@ -81,8 +81,8 @@ typedef enum : NSUInteger {
 + (id)initAt:(UIView *)view name:(NSString *)name type:(CCAtomType)type finishBlock:(void (^)(id atom))block;
 
 /**
- *  创建第三方扩展类
- *  class 第三方类名创建的类
+ *  创建通用扩展类
+ *  class 所有其他类名创建的类
  *  其他用法和使用type时相同
  */
 + (id)initAt:(UIView *)view name:(NSString *)name class:(id)atomClass;

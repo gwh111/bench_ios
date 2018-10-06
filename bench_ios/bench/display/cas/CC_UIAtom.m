@@ -29,10 +29,10 @@
     
     [view addSubview:varView.atom];
     
-#if !TARGET_IPHONE_SIMULATOR
+//#if !TARGET_IPHONE_SIMULATOR
     [varView.atom updateLayout_device];
-#else
-#endif
+//#else
+//#endif
     
     return varView.atom;
 }
