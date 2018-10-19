@@ -37,6 +37,17 @@ static dispatch_once_t onceToken;
     return [[NSBundle mainBundle]infoDictionary][@"CFBundleShortVersionString"];
 }
 
++ (NSString *)getSandboxPath{
+    NSString *path=[NSString stringWithFormat:@"%@", NSHomeDirectory()];
+    CCLOG(@"%@",path);
+    return path;
+}
+
++ (NSArray *)getPathsOfType:(NSString *)type inDirectory:(NSString *)directory{
+    NSArray *paths = [[NSBundle mainBundle] pathsForResourcesOfType:type inDirectory:directory];
+    return paths;
+}
+
 +(void)saveKeychainName:(NSString *)key str:(NSString *)str{
     [CC_KeyChainStore save:key data:str];
 }
@@ -147,19 +158,51 @@ static dispatch_once_t onceToken;
     return nil;
 }
 
++ (NSString *)saveLocalDic:(NSDictionary *)dic toPath:(NSString *)path name:(NSString *)name{
+    if (!dic) {
+        NSLog(@"没有dic");
+        return nil;
+    }
+    NSString *documentsDirectory = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
+    NSString *dataFilePath=documentsDirectory;
+    if (path) {
+        dataFilePath = [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@",path]];
+    }
+    NSString *fileName=[NSString stringWithFormat:@"%@/%@.plist",dataFilePath,name];
+    
+    BOOL isDir = NO;
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    BOOL existed = [fileManager fileExistsAtPath:dataFilePath isDirectory:&isDir];
+    
+    if (!(isDir && existed)) {
+        [fileManager createDirectoryAtPath:dataFilePath withIntermediateDirectories:YES attributes:nil error:nil];
+    }
+    
+    BOOL success=[dic writeToFile:fileName atomically:YES];
+    if (success) {
+        
+        return fileName;
+    }else{
+        
+        NSLog(@"保存失败");
+        return nil;
+    }
+    return @"";
+}
+
 //设置字典数据
-+ (void)saveLocalKeyNamed:(NSString *)name andKey:(NSString *)key andValue:(id)value{
++ (NSString *)saveLocalKeyNamed:(NSString *)name andKey:(NSString *)key andValue:(id)value{
     if (!name) {
         NSLog(@"没有name");
-        return;
+        return nil;
     }
     if (!key) {
         NSLog(@"没有key");
-        return;
+        return nil;
     }
     if (!value) {
         NSLog(@"没有value");
-        return;
+        return nil;
     }
     NSMutableDictionary *setupDic=[self getLocalPlistNamed:name];
     if (!setupDic) {
@@ -177,9 +220,18 @@ static dispatch_once_t onceToken;
     if (setupDic) {
         NSString *documentsDirectory = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
         NSString *fileName = [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.plist",name]];
-        [setupDic writeToFile:fileName atomically:YES];
+        BOOL success=[setupDic writeToFile:fileName atomically:YES];
+        if (success) {
+            
+            return fileName;
+        }else{
+            
+            NSLog(@"保存失败");
+            return nil;
+        }
     }else{
         NSLog(@"name 不存在");
+        return nil;
     }
 }
 
@@ -241,8 +293,17 @@ NSString *ccstr(NSString *format, ...){
     return body;
 }
 
-+ (id)copyThis:(id)bt{
-    NSData *tempArchive = [NSKeyedArchiver archivedDataWithRootObject:bt];
++ (NSData *)copyToData:(id)object{
+    NSData *tempArchive = [NSKeyedArchiver archivedDataWithRootObject:object];
+    return tempArchive;
+}
+
++ (id)dataToObject:(id)data{
+    return [NSKeyedUnarchiver unarchiveObjectWithData:data];
+}
+
++ (id)copyThis:(id)object{
+    NSData *tempArchive = [NSKeyedArchiver archivedDataWithRootObject:object];
     return [NSKeyedUnarchiver unarchiveObjectWithData:tempArchive];
 }
 

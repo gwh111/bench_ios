@@ -29,7 +29,46 @@
     [super viewDidLoad];
     self.view.backgroundColor=COLOR_WHITE;
     
+    CC_Button *button11=[[CC_Button alloc]init];
+    if ([button11 isKindOfClass:[CC_Button class]]) {
+        NSLog(@"2");
+    }
+    id class1=[CC_Button superclass];
+    id class2=[UIButton class];
     
+    
+    if ([class1 isKindOfClass:class2]) {
+        NSLog(@"yes");
+    }
+    
+    [CC_Share getInstance].ccDebug=1;
+    //3D
+//    [CC_3DWindow show];
+#if (ZZ_TARGET_PLATFORM == ZZ_PLATFORM_IOS_IPHONE)
+    NSLog(@"new");
+#endif
+    
+    //获得一个文件夹下的所有文件完整路径
+    NSArray *plistPath = [ccs getPathsOfType:@"plist" inDirectory:@"model"];
+    
+    [[CC_UIHelper getInstance]addModelDocument:@"model"];
+    [[CC_UIHelper getInstance]initModels];
+    
+    CC_Button *getbt=[CC_Button getModel:@"normal1"];
+    [CC_ObjectModel showModel:getbt];
+    
+    NSString *path=[NSString stringWithFormat:@"%@", NSHomeDirectory()];
+    CCLOG(@"%@",path);
+    CC_Button *button=[[CC_Button alloc]init];
+    button.frame=CGRectMake(0, 0, [ccui getRH:100], [ccui getRH:35]);
+    button.backgroundColor=[UIColor clearColor];
+    button.titleLabel.font=[ccui getRFS:14];
+    [button setTitle:@"normal2" forState:UIControlStateNormal];
+    [button setTitleColor:COLOR_BLACK forState:UIControlStateNormal];
+    [CC_Button saveModel:button name:@"normal2" des:@"黑色无边框黑色文字圆角 初始字体14 " hasSetLayer:0];
+//    [CC_ObjectModel showModel:button];
+    
+    [CC_ObjectModel showModels];
     
     NSLog(@"1");
     [ccs gotoThread:^{
@@ -41,19 +80,6 @@
     }];
     NSLog(@"5");
     
-#pragma mark init
-//    [CC_Share getInstance].ccDebug=1;
-    //设置基准 效果图的尺寸即可
-    [[CC_UIHelper getInstance]initUIDemoWidth:375 andHeight:750];
-    NSString *absoluteFilePath=CASAbsoluteFilePath(@"stylesheet.cas");
-    [CC_ClassyExtend initSheet:absoluteFilePath];
-    [CC_ClassyExtend parseCas];
-    
-    //3D
-    [CC_3DWindow show];
-#if (ZZ_TARGET_PLATFORM == ZZ_PLATFORM_IOS_IPHONE)
-    NSLog(@"new");
-#endif
     
     NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
     {//emoj->str
@@ -67,38 +93,11 @@
     }
         CCLOG(@"path=%@\n%@",NSHomeDirectory(),[[CCReqRecord getInstance]getTotalStr]);
     
-    //CC_Button
-    //一行代码完成button的基本功能创建
-    CC_Button *button=[CC_Button createWithFrame:CGRectMake(100, 100, 100, 100) andTitleString_stateNoraml:@"123" andAttributedString_stateNoraml:nil andTitleColor_stateNoraml:[UIColor blackColor] andTitleFont:[UIFont systemFontOfSize:16] andBackGroundColor:nil andImage:nil andBackGroundImage:nil inView:self.view];
-    [button addTappedOnceDelay:.1 withBlock:^(UIButton *button) {
-        NSLog(@"tap");
-        button.selected=!button.selected;
-//        [self requestxxx];
-    }];
-    button.selected=YES;
-    [button setImage:[UIImage imageNamed:@"test1"] forState:UIControlStateNormal];
-    [button setImage:[UIImage imageNamed:@"test2"] forState:UIControlStateSelected];
-    [button setTitle:@"asda" forState:UIControlStateSelected];
-    //附加属性自由添加
-    [button setBackgroundColor:[UIColor grayColor]];
-    [CC_CodeClass setLineColorR:2 andG:32 andB:33 andA:1 width:2 view:button];
-    
-    
     //CC_UIVIEWExt
     button.width=100;
     
     //CC_Label
     id label323=[CC_Label createWithFrame:CGRectMake(100, 200, 100, 100) andTitleString:@"123" andAttributedString:nil andTitleColor:[UIColor greenColor] andBackGroundColor:nil andFont:[UIFont systemFontOfSize:24] andTextAlignment:NSTextAlignmentRight atView:self.view];
-    
-    id l=[CC_Label cr:self.view l:100 t:200 w:100 h:30 ts:@"cclabel" ats:nil tc:ccRGBHexA(0xFF0000, 1) bgc:[UIColor yellowColor] f:[ccui getRFS:14] ta:0];
-    
-    id v=[CC_View cr:self.view l:50 t:250 w:30 h:30 bgc:ccRGBHexA(0xFFF000,1)];
-    
-    id tf=[CC_TextField cr:self.view l:0 t:100 w:100 h:30 tc:[UIColor blackColor] bgc:[UIColor whiteColor] f:[ccui getRFS:14] ta:0 ph:@"ccfield" uie:NO];
-    
-    id tv=[CC_TextView cr:self.view l:200 t:100 w:100 h:30 ts:@"cctextview" ats:nil tc:[UIColor blackColor] bgc:[UIColor whiteColor] f:[ccui getRFS:14] ta:0 sb:NO eb:NO uie:NO];
-    
-    id b=[CC_Button cr:self.view l:0 t:50 w:100 h:40 ts:@"ccbutton" ats:nil tc:[UIColor blackColor] bgc:nil img:nil bgimg:nil f:[ccui getRFS:16] ta:2 uie:NO];
     
     NSString *newDes=[DESTool encryptUseDES:@"😄多少abc123h到底2344343242343243223423方法。" key:@"91caizhan"];
     newDes=[LCdes lcEncryUseDES:@"abc"];
@@ -120,13 +119,7 @@
         
         [[CC_HttpTask getInstance]resetResponseLogicPopOnce:@"PARAMETER_ERROR"];
     }];
-//    [[CC_HttpTask getInstance] addResponseLogic:@"jumpLogin" logicStr:@"response,jumpLogin=0" stop:YES popOnce:YES logicBlock:^(NSDictionary *errorDic) {
-//        CCLOG(@"%@",@"jumpLogin");
-//    }];
-    //CC_GHttpSessionTask
-    //    [request setValue:@"cc-iphone" forHTTPHeaderField:@"appName"];
-    //    [request setValue:[NSString stringWithFormat:@"%@",[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]] forHTTPHeaderField:@"appVersion"];
-    //    CCLOG(@"%@",request.allHTTPHeaderFields);
+    
     //http头部信息
     [[CC_HttpTask getInstance]setRequestHTTPHeaderFieldDic:
   @{@"appName":@"ljzsmj_ios",
@@ -142,7 +135,7 @@
 //    [[CC_HttpTask getInstance]setSignKeyStr:@"abc"];
     //额外每个请求要传的参数
 //    [[CC_HttpTask getInstance]setExtreDic:@{@"key":@"v"}];
-    [self requestxxx];
+//    [self requestxxx];
     
     
     //https://api.leancloud.cn/1/date

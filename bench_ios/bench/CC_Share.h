@@ -67,6 +67,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
 #import "CC_View.h"
 #import "CC_TextField.h"
 #import "CC_TextView.h"
+#import "CC_ImageView.h"
 #import "CC_LogicClass.h"
 #import "CC_Date.h"
 #import "CC_Parser.h"
@@ -85,6 +86,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
 #import "CC_Dictionary.h"
 #import "UIButton+CCExtention.h"
 #import "CC_AESEncrypt.h"
+#import "CC_ObjectModel.h"
 
 @interface CC_Share : NSObject
 
@@ -111,6 +113,18 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
 + (NSString *)getVersion;
 
 /**
+ *  获取沙盒路径
+ */
++ (NSString *)getSandboxPath;
+/**
+ *  获取文件列表
+    type 筛选文件类型
+    directory 路径 从工程文件夹内开始 如在工程中添加了model文件夹 要取里面的文件就填model
+    注意需要蓝色Folder References文件夹
+ */
++ (NSArray *)getPathsOfType:(NSString *)type inDirectory:(NSString *)directory;
+
+/**
  *  存储keychain的字段
  *  在app删除再重新安装后依然可以获取
  */
@@ -130,12 +144,18 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
     保存时先查找沙盒中是否有该plist，如果有读取并更新，如果没有，找工程中有无plist，如果有则复制一份并更新保存到沙盒，如果无则初始化一个并更新保存到沙盒
     + (void)removeLocalPlistNamed:(NSString *)name;
     删除时注意要加上文件名后缀
+ 
+    + (NSString *)saveLocalDic:(NSDictionary *)dic toPath:(NSString *)path name:(NSString *)name;
+    新建一个NSDictionary保存到沙盒
+    path 是Documents后文件夹 如没有传nil 如文件夹不存在创建一个
+ 
  */
 + (NSMutableDictionary *)getLocalPlistNamed:(NSString *)name;
 + (void)saveLocalPlistNamed:(NSString *)name;
 + (void)removeLocalPlistNamed:(NSString *)name;
 + (id)getLocalKeyNamed:(NSString *)name andKey:(NSString *)key;
-+ (void)saveLocalKeyNamed:(NSString *)name andKey:(NSString *)key andValue:(id)value;
++ (NSString *)saveLocalKeyNamed:(NSString *)name andKey:(NSString *)key andValue:(id)value;
++ (NSString *)saveLocalDic:(NSDictionary *)dic toPath:(NSString *)path name:(NSString *)name;
 
 /**
  *  获取NSUserDefaults
@@ -155,9 +175,20 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
 NSString *ccstr(NSString *format, ...);
 
 /**
+ *  归档
+ *  用在将对象转换为NSData
+ */
++ (NSData *)copyToData:(id)object;
+/**
+ *  归档恢复为对象
+ *  用在将NSData转换为对象
+ */
++ (id)dataToObject:(id)data;
+
+/**
  *  快速复制
  */
-+ (id)copyThis:(id)bt;
++ (id)copyThis:(id)object;
 
 /**
  *  进入子线程

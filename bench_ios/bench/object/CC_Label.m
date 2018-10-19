@@ -11,6 +11,16 @@
 
 @implementation CC_Label
 
++ (CC_Label *)getModel:(NSString *)name{
+    return [CC_ObjectModel getModel:name class:[self class]];
+}
+
++ (NSString *)saveModel:(CC_Label *)model name:(NSString *)name des:(NSString *)des hasSetLayer:(BOOL)hasSetLayer{
+    return [CC_ObjectModel saveModel:model name:name des:des hasSetLayer:hasSetLayer];
+}
+
+
+
 + (CC_Label *)cr:(UIView *)view l:(float)left t:(float)top w:(float)width h:(float)height ts:(NSString *)titleStr ats:(NSAttributedString *)attributedStr tc:(UIColor *)textColor bgc:(UIColor *)backgroundColor f:(UIFont *)font ta:(NSTextAlignment)textAlignment{
     return [self cr:view l:left t:top w:width h:height ts:titleStr ats:attributedStr tc:textColor bgc:backgroundColor f:font ta:textAlignment relative:YES];
 }

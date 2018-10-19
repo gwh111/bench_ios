@@ -20,6 +20,15 @@
 @property (nonatomic,assign) float uiDemoWidth;
 @property (nonatomic,assign) float uiDemoHeight;
 
+/**
+ *  模型文件路径列表
+ */
+@property (nonatomic,retain) NSMutableArray *modelPaths;
+/**
+ *  模型路径对应模型名称的字典
+ */
+@property (nonatomic,retain) NSMutableDictionary *modelsDic;
+
 + (instancetype)getInstance;
 /*
  * 初始化 必须放入ui图尺寸 整个app以后的效果图全部以这个为尺寸
@@ -28,6 +37,18 @@
 - (void)initUIDemoWidth:(float)width andHeight:(float)height;
 - (float)getUIDemoWith;
 - (float)getUIDemoHeight;
+
+/**
+ *  添加app用的到的模型文件夹路径
+    可添加多个 建议1个app用1个管理
+    return 返回该路径下模型个数
+ */
+- (int)addModelDocument:(NSString *)path;
+/**
+ *  添加完路径 把路径加载到内存
+    这里不读取文件加载到内存 防止浪费内存
+ */
+- (int)initModels;
 
 - (void)initToolV;
 

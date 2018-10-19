@@ -47,7 +47,21 @@
 
 @implementation CC_Code
 
++ (UIWindow *)lastWindow{
+    NSArray *windows = [UIApplication sharedApplication].windows;
+    for(UIWindow *window in [windows reverseObjectEnumerator]) {
+        
+        if ([window isKindOfClass:[UIWindow class]] &&
+            CGRectEqualToRect(window.bounds, [UIScreen mainScreen].bounds))
+            window.hidden = NO;
+        return window;
+    }
+    
+    return [UIApplication sharedApplication].keyWindow;
+}
+
 + (void)setRadius:(float)radius view:(UIView *)view{
+    [view.layer setMasksToBounds:YES];
     [view.layer setCornerRadius:radius];
 }
 

@@ -11,6 +11,17 @@
 
 @implementation CC_TextView
 
++ (CC_TextView *)getModel:(NSString *)name{
+    return [CC_ObjectModel getModel:name class:[self class]];
+}
+
++ (NSString *)saveModel:(CC_TextView *)model name:(NSString *)name des:(NSString *)des hasSetLayer:(BOOL)hasSetLayer{
+    return [CC_ObjectModel saveModel:model name:name des:des hasSetLayer:hasSetLayer];
+}
+
+
+
+
 + (CC_TextView *)cr:(UIView *)view l:(float)left t:(float)top w:(float)width h:(float)height ts:(NSString *)titleStr ats:(NSAttributedString *)attributedStr tc:(UIColor *)textColor bgc:(UIColor *)backgroundColor f:(UIFont *)font ta:(NSTextAlignment)textAlignment sb:(BOOL)selectable eb:(BOOL)editable uie:(BOOL)userInteractionEnabled{
     return [self cr:view l:left t:top w:width h:height ts:titleStr ats:attributedStr tc:textColor bgc:backgroundColor f:font ta:textAlignment sb:selectable eb:editable uie:userInteractionEnabled relative:YES];
 }

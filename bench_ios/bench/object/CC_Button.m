@@ -17,6 +17,14 @@
 @implementation CC_Button
 @synthesize tappedBlock;
 
++ (CC_Button *)getModel:(NSString *)name{
+    return [CC_ObjectModel getModel:name class:[self class]];
+}
+
++ (NSString *)saveModel:(CC_Button *)model name:(NSString *)name des:(NSString *)des hasSetLayer:(BOOL)hasSetLayer{
+    return [CC_ObjectModel saveModel:model name:name des:des hasSetLayer:hasSetLayer];
+}
+
 + (CC_Button *)cr:(UIView *)view l:(float)left t:(float)top w:(float)width h:(float)height ts:(NSString *)titleStr ats:(NSAttributedString *)attributedStr tc:(UIColor *)textColor bgc:(UIColor *)backgroundColor img:(UIImage *)image bgimg:(UIImage *)backgroundImage f:(UIFont *)font ta:(UIControlContentHorizontalAlignment)contentHorizontalAlignment uie:(BOOL)userInteractionEnabled{
     return [self cr:view l:left t:top w:width h:height ts:titleStr ats:attributedStr tc:textColor bgc:backgroundColor img:image bgimg:backgroundImage f:font ta:contentHorizontalAlignment uie:userInteractionEnabled relative:YES];
 }

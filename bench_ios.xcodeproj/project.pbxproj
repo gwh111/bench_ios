@@ -27,6 +27,8 @@
 		D8195F511F29CE6B00C7BADD /* CC_MD5Object.m in Sources */ = {isa = PBXBuildFile; fileRef = D8195F4C1F29CE6B00C7BADD /* CC_MD5Object.m */; };
 		D8195F541F29CEEF00C7BADD /* CC_Valiation.m in Sources */ = {isa = PBXBuildFile; fileRef = D8195F531F29CEEF00C7BADD /* CC_Valiation.m */; };
 		D823153C1F53AED3006055FB /* testColorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D823153B1F53AED3006055FB /* testColorViewController.m */; };
+		D8288C492178881D000F3B89 /* model in Resources */ = {isa = PBXBuildFile; fileRef = D8288C482178881D000F3B89 /* model */; };
+		D8288C4C2178B01F000F3B89 /* CC_ObjectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D8288C4B2178B01F000F3B89 /* CC_ObjectModel.m */; };
 		D8335338205F93F90030AB62 /* CC_HttpResponseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D8335337205F93F90030AB62 /* CC_HttpResponseModel.m */; };
 		D83507621F309D2700B7461C /* CC_DESTool.m in Sources */ = {isa = PBXBuildFile; fileRef = D83507611F309D2700B7461C /* CC_DESTool.m */; };
 		D835077A1F31E2CD00B7461C /* CC_CodeClass.m in Sources */ = {isa = PBXBuildFile; fileRef = D83507791F31E2CD00B7461C /* CC_CodeClass.m */; };
@@ -107,6 +109,7 @@
 		D8EC6FCD212410E8006ECFE3 /* CC_AutoLabelGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = D8EC6FCC212410E8006ECFE3 /* CC_AutoLabelGroup.m */; };
 		D8EC6FD02124154A006ECFE3 /* testAutoLabelGroupVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D8EC6FCF2124154A006ECFE3 /* testAutoLabelGroupVC.m */; };
 		D8EC6FD321242380006ECFE3 /* UIButton+CCExtention.m in Sources */ = {isa = PBXBuildFile; fileRef = D8EC6FD221242380006ECFE3 /* UIButton+CCExtention.m */; };
+		D8F2B1AD2179E9E5002748B9 /* CC_ImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D8F2B1AC2179E9E5002748B9 /* CC_ImageView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -165,6 +168,9 @@
 		D8195F531F29CEEF00C7BADD /* CC_Valiation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC_Valiation.m; sourceTree = "<group>"; };
 		D823153A1F53AED3006055FB /* testColorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = testColorViewController.h; sourceTree = "<group>"; };
 		D823153B1F53AED3006055FB /* testColorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testColorViewController.m; sourceTree = "<group>"; };
+		D8288C482178881D000F3B89 /* model */ = {isa = PBXFileReference; lastKnownFileType = folder; path = model; sourceTree = "<group>"; };
+		D8288C4A2178B01F000F3B89 /* CC_ObjectModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_ObjectModel.h; sourceTree = "<group>"; };
+		D8288C4B2178B01F000F3B89 /* CC_ObjectModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC_ObjectModel.m; sourceTree = "<group>"; };
 		D8335336205F93F90030AB62 /* CC_HttpResponseModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_HttpResponseModel.h; sourceTree = "<group>"; };
 		D8335337205F93F90030AB62 /* CC_HttpResponseModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC_HttpResponseModel.m; sourceTree = "<group>"; };
 		D83507601F309D2700B7461C /* CC_DESTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_DESTool.h; sourceTree = "<group>"; };
@@ -324,6 +330,8 @@
 		D8EC6FCF2124154A006ECFE3 /* testAutoLabelGroupVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = testAutoLabelGroupVC.m; sourceTree = "<group>"; };
 		D8EC6FD121242380006ECFE3 /* UIButton+CCExtention.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIButton+CCExtention.h"; sourceTree = "<group>"; };
 		D8EC6FD221242380006ECFE3 /* UIButton+CCExtention.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIButton+CCExtention.m"; sourceTree = "<group>"; };
+		D8F2B1AB2179E9E5002748B9 /* CC_ImageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_ImageView.h; sourceTree = "<group>"; };
+		D8F2B1AC2179E9E5002748B9 /* CC_ImageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC_ImageView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -395,6 +403,7 @@
 				18B6BCFF1F1F09CA0019391D /* AppDelegate.m */,
 				18B6BD011F1F09CA0019391D /* ViewController.h */,
 				18B6BD021F1F09CA0019391D /* ViewController.m */,
+				D8288C482178881D000F3B89 /* model */,
 				D883EEE0200E34790062A6C6 /* test */,
 				D82315391F53AEC1006055FB /* testController */,
 				18B6BD2E1F1F143E0019391D /* bench */,
@@ -668,6 +677,8 @@
 				D8064C58206A43F50096F80D /* CC_TextView.m */,
 				D83EBBF91FEB5BA700B94D6F /* CC_Button.h */,
 				D83EBBFA1FEB5BA700B94D6F /* CC_Button.m */,
+				D8F2B1AB2179E9E5002748B9 /* CC_ImageView.h */,
+				D8F2B1AC2179E9E5002748B9 /* CC_ImageView.m */,
 				D83EBBF51FEB5BA700B94D6F /* CC_Array.h */,
 				D83EBBF61FEB5BA700B94D6F /* CC_Array.m */,
 				D83EBBF71FEB5BA700B94D6F /* CC_AttributedStr.h */,
@@ -676,6 +687,8 @@
 				D83EBBFC1FEB5BA700B94D6F /* CC_Image.m */,
 				D8EC6FC721240303006ECFE3 /* CC_Dictionary.h */,
 				D8EC6FC821240303006ECFE3 /* CC_Dictionary.m */,
+				D8288C4A2178B01F000F3B89 /* CC_ObjectModel.h */,
+				D8288C4B2178B01F000F3B89 /* CC_ObjectModel.m */,
 			);
 			path = object;
 			sourceTree = "<group>";
@@ -858,6 +871,7 @@
 				D8B0E4611F501EE400425D06 /* nyyh.jpg in Resources */,
 				18B6BD081F1F09CA0019391D /* Assets.xcassets in Resources */,
 				D876FE871FB0514B0094C274 /* panda.plist in Resources */,
+				D8288C492178881D000F3B89 /* model in Resources */,
 				D88C2941212CFCD000828AA6 /* test2.png in Resources */,
 				18B6BD061F1F09CA0019391D /* Main.storyboard in Resources */,
 				D839267A20FEE07B0034D10F /* gwh.cas in Resources */,
@@ -902,6 +916,7 @@
 				D839265F20FEDFC60034D10F /* UIViewController+CASAdditions.m in Sources */,
 				D88C2966212EAF3F00828AA6 /* CC_KeyChainStore.m in Sources */,
 				D8BDAF6820FC4F49006BF14C /* CC_ResponseLogicModel.m in Sources */,
+				D8F2B1AD2179E9E5002748B9 /* CC_ImageView.m in Sources */,
 				D883EEFA200E37910062A6C6 /* LCdes.m in Sources */,
 				D839266120FEDFC60034D10F /* UITextField+CASAdditions.m in Sources */,
 				D83B74DF2068FD9F000F81F8 /* CC_View.m in Sources */,
@@ -912,6 +927,7 @@
 				D839266420FEDFC60034D10F /* CASInvocation.m in Sources */,
 				D8DAFCD4212BE6D2009E0FEC /* CC_AESEncrypt.m in Sources */,
 				D8389DFC206BA3680010A04A /* CC_LogicClass.m in Sources */,
+				D8288C4C2178B01F000F3B89 /* CC_ObjectModel.m in Sources */,
 				D8B0E45C1F5016EA00425D06 /* CC_GColor.m in Sources */,
 				D839266220FEDFC60034D10F /* UIColor+CASAdditions.m in Sources */,
 				18B6BD031F1F09CA0019391D /* ViewController.m in Sources */,

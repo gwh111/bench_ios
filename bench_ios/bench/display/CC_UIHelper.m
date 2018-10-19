@@ -47,6 +47,36 @@ static dispatch_once_t onceToken;
     return _uiDemoHeight;
 }
 
+- (int)addModelDocument:(NSString *)path{
+    if (!_modelPaths) {
+        _modelPaths=[[NSMutableArray alloc]init];
+    }
+    
+    //这里有优化空间：保存相同的路径前缀 和 名称
+    NSArray *paths=[ccs getPathsOfType:@"plist" inDirectory:path];
+    [_modelPaths addObjectsFromArray:paths];
+    
+    return (int)paths.count;
+}
+
+- (int)initModels{
+    if (!_modelsDic) {
+        _modelsDic=[[NSMutableDictionary alloc]init];
+    }
+    
+    for (int i=0; i<_modelPaths.count; i++) {
+        NSString *path=_modelPaths[i];
+        NSString *name=[[path componentsSeparatedByString:@"/"] lastObject];
+        name=[name stringByReplacingOccurrencesOfString:@".plist" withString:@""];
+//        name=[[name componentsSeparatedByString:@"_"] lastObject];
+        //如读取后加载到内存会太大浪费
+//        NSDictionary *setupDic = [NSDictionary dictionaryWithContentsOfFile:path];
+        [_modelsDic setObject:path forKey:name];
+    }
+    
+    return (int)[_modelsDic allKeys].count;
+}
+
 - (void)initToolV{
     CC_UIToolView *tool=[[CC_UIToolView alloc]init];
     UIWindow *window = [[[UIApplication sharedApplication] windows] lastObject];
@@ -64,10 +94,13 @@ static dispatch_once_t onceToken;
 }
 
 + (UIFont *)getRFS:(float)fontSize{
-    fontSize=10+(fontSize-10)*([self getW]/[[CC_UIHelper getInstance]getUIDemoWith]);
-    return [UIFont systemFontOfSize:fontSize];
+    return [self getRelativeFont:nil fontSize:fontSize];
 }
 + (UIFont *)getRelativeFont:(NSString *)fontName fontSize:(float)fontSize{
+    if (fontSize<=10) {
+        fontSize=10*[self getW]/[[CC_UIHelper getInstance]getUIDemoWith];
+        return [UIFont systemFontOfSize:fontSize];
+    }
     fontSize=10+(fontSize-10)*([self getW]/[[CC_UIHelper getInstance]getUIDemoWith]);
     if (fontName) {
         return [UIFont fontWithName:fontName size:fontSize];

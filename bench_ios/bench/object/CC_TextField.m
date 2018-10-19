@@ -11,6 +11,17 @@
 
 @implementation CC_TextField
 
++ (CC_TextField *)getModel:(NSString *)name{
+    return [CC_ObjectModel getModel:name class:[self class]];
+}
+
++ (NSString *)saveModel:(CC_TextField *)model name:(NSString *)name des:(NSString *)des hasSetLayer:(BOOL)hasSetLayer{
+    return [CC_ObjectModel saveModel:model name:name des:des hasSetLayer:hasSetLayer];
+}
+
+
+
+
 + (CC_TextField *)cr:(UIView *)view l:(float)left t:(float)top w:(float)width h:(float)height tc:(UIColor *)textColor bgc:(UIColor *)backgroundColor f:(UIFont *)font ta:(NSTextAlignment)textAlignment ph:(NSString *)placeholder uie:(BOOL)userInteractionEnabled{
     return [self cr:view l:left t:top w:width h:height tc:textColor bgc:backgroundColor f:font ta:textAlignment ph:placeholder uie:userInteractionEnabled relative:YES];
 }

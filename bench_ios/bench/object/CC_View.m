@@ -10,6 +10,15 @@
 #import "CC_Share.h"
 
 @implementation CC_View
+
++ (CC_View *)getModel:(NSString *)name{
+    return [CC_ObjectModel getModel:name class:[self class]];
+}
+
++ (NSString *)saveModel:(CC_View *)model name:(NSString *)name des:(NSString *)des hasSetLayer:(BOOL)hasSetLayer{
+    return [CC_ObjectModel saveModel:model name:name des:des hasSetLayer:hasSetLayer];
+}
+
 //
 //+ (CC_View *)createWithFrame:(CGRect)frame relative:(BOOL)relative backgroundColor:(UIColor *)backgroundColor inView:(UIView *)view{
 //    CC_View *newV=[[CC_View alloc]initWithFrame:frame];

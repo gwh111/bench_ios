@@ -22,6 +22,16 @@
     
     NSDictionary *d=[ccs getBundle];
     
+    
+#pragma mark init
+    //    [CC_Share getInstance].ccDebug=1;
+    //设置基准 效果图的尺寸即可
+    [[CC_UIHelper getInstance]initUIDemoWidth:375 andHeight:750];
+    NSString *absoluteFilePath=CASAbsoluteFilePath(@"stylesheet.cas");
+    [CC_ClassyExtend initSheet:absoluteFilePath];
+    [CC_ClassyExtend parseCas];
+    
+    
     [ccs saveKeychainName:@"kkkd" str:@"zxca哦aaa"];
     NSString *get=[ccs getKeychainName:@"kkkd"];
     
