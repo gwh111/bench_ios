@@ -7,6 +7,7 @@
 //
 
 #import "CC_ImageView.h"
+#import "CC_Share.h"
 
 @implementation CC_ImageView
 

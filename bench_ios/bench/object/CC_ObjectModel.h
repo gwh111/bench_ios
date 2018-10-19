@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CC_Share.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
