@@ -59,6 +59,7 @@
 + (float)getStatusH;
 + (float)getX;
 + (float)getY;
++ (float)getSY;
 + (float)getW;
 + (float)getH;
 

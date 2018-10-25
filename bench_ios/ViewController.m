@@ -55,6 +55,7 @@
     [[CC_UIHelper getInstance]initModels];
     
     CC_Button *getbt=[CC_Button getModel:@"normal1"];
+    
 //    [CC_ObjectModel showModel:getbt];
     
 //    NSString *path=[NSString stringWithFormat:@"%@", NSHomeDirectory()];
@@ -65,7 +66,7 @@
     button.titleLabel.font=[ccui getRFS:14];
     [button setTitle:@"normal2" forState:UIControlStateNormal];
     [button setTitleColor:COLOR_BLACK forState:UIControlStateNormal];
-//    [CC_Button saveModel:button name:@"normal2" des:@"黑色无边框黑色文字圆角 初始字体14 " hasSetLayer:0];
+    [CC_Button saveModel:button name:@"normal2" des:@"黑色无边框黑色文字圆角 初始字体14 " hasSetLayer:0];
 //    [CC_ObjectModel showModel:button];
     
 //    [CC_ObjectModel showModels];

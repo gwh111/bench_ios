@@ -177,6 +177,14 @@ static dispatch_once_t onceToken;
     return 0;
 }
 
++ (float)getSY{
+    //    NSLog(@"h=%f",SCREEN_HEIGHT);
+    if (CC_SCREEN_HEIGHT>=812) {
+        return 30;
+    }
+    return 20;
+}
+
 /**
  * 获取设备Width
  */

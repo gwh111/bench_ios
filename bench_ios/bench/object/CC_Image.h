@@ -11,6 +11,8 @@
 
 @interface CC_Image : NSObject
 
-+(UIImage *)scaleImage:(UIImage *)image toKb:(NSInteger)kb;
++ (UIImage *)scaleImage:(UIImage *)image toKb:(NSInteger)kb;
+
++ (UIImage*)getImageWithColor:(UIColor*)color width:(CGFloat)width height:(CGFloat)height;
 
 @end

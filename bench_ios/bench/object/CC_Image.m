@@ -32,4 +32,19 @@
     return compressedImage;
 }
 
++ (UIImage*)getImageWithColor:(UIColor*)color width:(CGFloat)width height:(CGFloat)height
+{
+    CGRect r= CGRectMake(0.0f, 0.0f, width,height);
+    UIGraphicsBeginImageContext(r.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    CGContextSetFillColorWithColor(context, [color CGColor]);
+    CGContextFillRect(context, r);
+    
+    UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return img;
+}
+
 @end
