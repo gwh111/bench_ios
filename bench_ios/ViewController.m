@@ -35,10 +35,13 @@
     [super viewDidLoad];
     self.view.backgroundColor=COLOR_WHITE;
     
-    [[CC_HttpTask getInstance]getDomain:@"https://test-caihong-resource.oss-cn-hangzhou.aliyuncs.com/URL/ch_url.txt" block:^(ResModel *result) {
+    //@"https://test-caihong-resource.oss-cn-hangzhou.aliyuncs.com/URL/ch_url.txt"
+//    [[CC_HttpTask getInstance]getDomain:@"http://test-kkbuluo-resource.oss-cn-hangzhou.aliyuncs.com/URL/kk_url.txt" block:^(ResModel *result) {
+//        
+//    }];
+    [[CC_HttpTask getInstance]getDomainWithReqList:@[@"http://test-kkbuluo-resource.oss-cn-hangzhou.aliyuncs.com/URL/kk_url.txt",@"http://dynamic.kkbuluo.net/kk_url.txt"] block:^(ResModel *result) {
         
     }];
-    
     
     
 //    NSString *sss=[self filterString3:@"1"];

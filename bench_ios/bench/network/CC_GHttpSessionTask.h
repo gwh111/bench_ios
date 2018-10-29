@@ -76,8 +76,10 @@
 
 @property(strong) void (^getUrlBlock)(ResModel *result);
 
-@property(nonatomic,assign) int hasSuccessGetUrl;//成功获取url
-@property(nonatomic,assign) int hasSuccessGetThirdUrl;//成功获取第三方网站url
+@property(nonatomic,assign) int hasSuccessGetDomain;//成功获取domain
+@property(nonatomic,assign) int hasSuccessGetThirdUrlResponse;//成功获取第三方网站响应
+@property(nonatomic,retain) NSArray *domainReqList;//域名和备用域名请求地址
+@property(nonatomic,assign) int domainReqListIndex;//q域名获取循环索引
 
 /**
  *  重写requestHTTPHeaderFieldDic的set和get
@@ -133,5 +135,10 @@
     一直循环请求 失败后过3秒 如果还是没有请求到域名 判断第三方网址能否请求成功 如果第三方网址能请求成功而域名请求不到 提示域名请求失败 否则提示给出网络错误的统一提示
  */
 - (void)getDomain:(NSString *)urlStr block:(void (^)(ResModel *result))block;
+/**
+ *  获取域名 传入获取域名的地址
+    domainReqList 域名和备用域名列表 主域名放第一个
+ */
+- (void)getDomainWithReqList:(NSArray *)domainReqList block:(void (^)(ResModel *result))block;
 
 @end
