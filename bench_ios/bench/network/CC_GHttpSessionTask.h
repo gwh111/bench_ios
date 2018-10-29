@@ -132,6 +132,6 @@
  *  获取域名 传入获取域名的地址
     一直循环请求 失败后过3秒 如果还是没有请求到域名 判断第三方网址能否请求成功 如果第三方网址能请求成功而域名请求不到 提示域名请求失败 否则提示给出网络错误的统一提示
  */
-- (void)getUrl:(NSString *)urlStr block:(void (^)(ResModel *result))block;
+- (void)getDomain:(NSString *)urlStr block:(void (^)(ResModel *result))block;
 
 @end

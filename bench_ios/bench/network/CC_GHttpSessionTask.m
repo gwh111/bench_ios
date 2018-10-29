@@ -349,7 +349,7 @@ static dispatch_once_t onceToken;
 }
 
 #pragma mark getUrl
-- (void)getUrl:(NSString *)urlStr block:(void (^)(ResModel *result))block{
+- (void)getDomain:(NSString *)urlStr block:(void (^)(ResModel *result))block{
     //    UIPasteboard*pasteboard = [UIPasteboard generalPasteboard];
     //    pasteboard.string=@"http://sssynout-prod-caihong-resource.oss-cn-hangzhou.aliyuncs.com/URL/ch_url.txt";
     
@@ -385,7 +385,7 @@ static dispatch_once_t onceToken;
             
             [ccs delay:1 block:^{
                 
-                [self getUrl:urlStr block:block];
+                [self getDomain:urlStr block:block];
             }];
             return ;
         }

@@ -35,7 +35,7 @@
     [super viewDidLoad];
     self.view.backgroundColor=COLOR_WHITE;
     
-    [[CC_HttpTask getInstance]getUrl:@"https://test-caihong-resource.oss-cn-hangzhou.aliyuncs.com/URL/ch_url.txt" block:^(ResModel *result) {
+    [[CC_HttpTask getInstance]getDomain:@"https://test-caihong-resource.oss-cn-hangzhou.aliyuncs.com/URL/ch_url.txt" block:^(ResModel *result) {
         
     }];
     
