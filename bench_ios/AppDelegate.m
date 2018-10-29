@@ -22,7 +22,6 @@
     
     NSDictionary *d=[ccs getBundle];
     
-    
 #pragma mark init
     //    [CC_Share getInstance].ccDebug=1;
     //设置基准 效果图的尺寸即可

@@ -25,9 +25,31 @@
 
 @implementation ViewController
 
+////方案3
+//- (NSString *)filterString3:(NSString *)str{
+//    NSString *regex = @"[^a-zA-Z0-9\u4e00-\u9fa5]";
+//    return [str stringByReplacingOccurrencesOfString:regex withString:@"" options:NSRegularExpressionSearch range:NSMakeRange(0, str.length)];
+//}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor=COLOR_WHITE;
+    
+    [[CC_HttpTask getInstance]getUrl:@"https://test-caihong-resource.oss-cn-hangzhou.aliyuncs.com/URL/ch_url.txt" block:^(ResModel *result) {
+        
+    }];
+    
+    
+    
+//    NSString *sss=[self filterString3:@"1"];
+    
+    NSString *regex = @"[^a-zA-Z0-9\u4e00-\u9fa5]";
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
+    BOOL isMatch = [pred evaluateWithObject:@"1但"];
+    if (isMatch==0) {
+        
+    }
+    BOOL isMatch2 = [NSPredicate isMatchNumberWordChinese:@"，否"];
     
     CC_Button *button11=[[CC_Button alloc]init];
     if ([button11 isKindOfClass:[CC_Button class]]) {
@@ -156,9 +178,9 @@
         CCLOG(@"dateStr2=%@",dateStr2);
         CCLOG(@"min=%f",[CC_Date compareDate:[NSDate date] cut:result.responseDate]/60);
         
-        NSMutableString *tempStr = [NSMutableString stringWithString:dateStr2];
-        NSRange range = NSMakeRange (10, tempStr.length-10);
-        [tempStr deleteCharactersInRange:range];
+//        NSMutableString *tempStr = [NSMutableString stringWithString:dateStr2];
+//        NSRange range = NSMakeRange (10, tempStr.length-10);
+//        [tempStr deleteCharactersInRange:range];
         
         CCLOG(@"");
     }];

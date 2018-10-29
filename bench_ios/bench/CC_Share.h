@@ -64,6 +64,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
 #import "CC_HttpResponseModel.h"
 #import "CC_GHttpSessionTask.h"
 #import "CC_Note.h"
+#import "CC_Notice.h"
 #import "CC_View.h"
 #import "CC_TextField.h"
 #import "CC_TextView.h"
@@ -85,6 +86,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
 #import "CC_HookTrack.h"
 #import "CC_Dictionary.h"
 #import "UIButton+CCExtention.h"
+#import "NSPredicate+CCExtention.h"
 #import "CC_AESEncrypt.h"
 #import "CC_ObjectModel.h"
 

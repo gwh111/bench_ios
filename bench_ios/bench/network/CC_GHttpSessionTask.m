@@ -348,6 +348,55 @@ static dispatch_once_t onceToken;
     [self reponseLogicPassed:model result:result[model.logicPathArr[index]] index:index+1];
 }
 
+#pragma mark getUrl
+- (void)getUrl:(NSString *)urlStr block:(void (^)(ResModel *result))block{
+    //    UIPasteboard*pasteboard = [UIPasteboard generalPasteboard];
+    //    pasteboard.string=@"http://sssynout-prod-caihong-resource.oss-cn-hangzhou.aliyuncs.com/URL/ch_url.txt";
+    
+    //线上 http://sssynout-prod-caihong-resource.oss-cn-hangzhou.aliyuncs.com/URL/ch_url.txt
+    //线下 https://test-caihong-resource.oss-cn-hangzhou.aliyuncs.com/URL/ch_url.txt
+    
+    _hasSuccessGetUrl=0;
+    _getUrlBlock=block;
+    __block CC_HttpTask *blockSelf=self;
+    [[CC_HttpTask getInstance]get:urlStr params:nil model:nil finishCallbackBlock:^(NSString *error, ResModel *result) {
+        if (error) {
+            [ccs delay:3 block:^{
+                if (blockSelf.hasSuccessGetUrl==0) {
+                    
+                    if (blockSelf.hasSuccessGetThirdUrl==1) {
+                        
+                        [CC_Notice showNoticeStr:@"域名请求失败"];
+                    }else{
+                        
+                        [CC_Notice showNoticeStr:error];
+                    }
+                    
+                }
+                
+            }];
+            
+            [[CC_HttpTask getInstance]get:@"http://www.baidu.com" params:@{@"getDate":@""} model:nil finishCallbackBlock:^(NSString *error, ResModel *result) {
+                if (result.responseDate) {
+                    blockSelf.hasSuccessGetThirdUrl=1;
+                }else{
+                }
+            }];
+            
+            [ccs delay:1 block:^{
+                
+                [self getUrl:urlStr block:block];
+            }];
+            return ;
+        }
+        
+        blockSelf.hasSuccessGetUrl=1;
+        
+        blockSelf.getUrlBlock(result);
+        
+    }];
+}
+
 @end
 
 

@@ -91,6 +91,8 @@
 		D88C293F212CFCC600828AA6 /* test1.png in Resources */ = {isa = PBXBuildFile; fileRef = D88C293E212CFCC500828AA6 /* test1.png */; };
 		D88C2941212CFCD000828AA6 /* test2.png in Resources */ = {isa = PBXBuildFile; fileRef = D88C2940212CFCD000828AA6 /* test2.png */; };
 		D88C2966212EAF3F00828AA6 /* CC_KeyChainStore.m in Sources */ = {isa = PBXBuildFile; fileRef = D88C2965212EAF3E00828AA6 /* CC_KeyChainStore.m */; };
+		D88E2C3F2186AB9D00D71480 /* UIImage+CCExtention.m in Sources */ = {isa = PBXBuildFile; fileRef = D88E2C3E2186AB9D00D71480 /* UIImage+CCExtention.m */; };
+		D88E2C422186B14200D71480 /* NSPredicate+CCExtention.m in Sources */ = {isa = PBXBuildFile; fileRef = D88E2C412186B14200D71480 /* NSPredicate+CCExtention.m */; };
 		D89AA87020947265001DE9B8 /* CC_Parser.m in Sources */ = {isa = PBXBuildFile; fileRef = D89AA86F20947265001DE9B8 /* CC_Parser.m */; };
 		D8A799682109CAFB00D40B4B /* UIApplication+CCHook.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A799672109CAFB00D40B4B /* UIApplication+CCHook.m */; };
 		D8A7996E2109CC0300D40B4B /* UIViewController+CCHook.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A7996D2109CC0300D40B4B /* UIViewController+CCHook.m */; };
@@ -295,6 +297,10 @@
 		D88C2940212CFCD000828AA6 /* test2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test2.png; sourceTree = "<group>"; };
 		D88C2964212EAF3E00828AA6 /* CC_KeyChainStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_KeyChainStore.h; sourceTree = "<group>"; };
 		D88C2965212EAF3E00828AA6 /* CC_KeyChainStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC_KeyChainStore.m; sourceTree = "<group>"; };
+		D88E2C3D2186AB9D00D71480 /* UIImage+CCExtention.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+CCExtention.h"; sourceTree = "<group>"; };
+		D88E2C3E2186AB9D00D71480 /* UIImage+CCExtention.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+CCExtention.m"; sourceTree = "<group>"; };
+		D88E2C402186B14200D71480 /* NSPredicate+CCExtention.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSPredicate+CCExtention.h"; sourceTree = "<group>"; };
+		D88E2C412186B14200D71480 /* NSPredicate+CCExtention.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSPredicate+CCExtention.m"; sourceTree = "<group>"; };
 		D89AA86E20947265001DE9B8 /* CC_Parser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_Parser.h; sourceTree = "<group>"; };
 		D89AA86F20947265001DE9B8 /* CC_Parser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC_Parser.m; sourceTree = "<group>"; };
 		D8A799662109CAFB00D40B4B /* UIApplication+CCHook.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIApplication+CCHook.h"; sourceTree = "<group>"; };
@@ -736,6 +742,8 @@
 		D8C511CC211AE32200944CB0 /* extention */ = {
 			isa = PBXGroup;
 			children = (
+				D88E2C3D2186AB9D00D71480 /* UIImage+CCExtention.h */,
+				D88E2C3E2186AB9D00D71480 /* UIImage+CCExtention.m */,
 				D8EC6FD121242380006ECFE3 /* UIButton+CCExtention.h */,
 				D8EC6FD221242380006ECFE3 /* UIButton+CCExtention.m */,
 				D8C511CE211AE3D100944CB0 /* NSString+CCExtention.h */,
@@ -746,6 +754,8 @@
 				D8A7996D2109CC0300D40B4B /* UIViewController+CCHook.m */,
 				D8A7996F2109CC4F00D40B4B /* UINavigationController+CCHook.h */,
 				D8A799702109CC4F00D40B4B /* UINavigationController+CCHook.m */,
+				D88E2C402186B14200D71480 /* NSPredicate+CCExtention.h */,
+				D88E2C412186B14200D71480 /* NSPredicate+CCExtention.m */,
 			);
 			path = extention;
 			sourceTree = "<group>";
@@ -969,8 +979,10 @@
 				D839267620FEDFC60034D10F /* CASArgumentDescriptor.m in Sources */,
 				D83EBC021FEB5BA700B94D6F /* CC_AttributedStr.m in Sources */,
 				D83EBC031FEB5BA700B94D6F /* CC_Button.m in Sources */,
+				D88E2C422186B14200D71480 /* NSPredicate+CCExtention.m in Sources */,
 				D8195F4F1F29CE6B00C7BADD /* CC_FormatDic.m in Sources */,
 				D83EBC051FEB5BA700B94D6F /* CC_Label.m in Sources */,
+				D88E2C3F2186AB9D00D71480 /* UIImage+CCExtention.m in Sources */,
 				D839265920FEDFC60034D10F /* UITabBar+CASAdditions.m in Sources */,
 				D8064C59206A43F50096F80D /* CC_TextView.m in Sources */,
 				1882682A1F4BCEC500D72048 /* CC_GCoreDataManager.m in Sources */,

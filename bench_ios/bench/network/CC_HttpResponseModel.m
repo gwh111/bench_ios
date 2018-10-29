@@ -32,12 +32,12 @@
         }else{
             _errorNameStr=error.description;
             CCLOG(@"%@",_errorNameStr);
-            _errorNameStr=[NSString stringWithFormat:@"网络连接失败(%ld)",(long)error.code];
+            _errorNameStr=[NSString stringWithFormat:@"请求失败，请检查网络是否开启(%ld)",(long)error.code];
             _errorMsgStr=_errorNameStr;
         }
     }else{
         
-        _errorNameStr=[NSString stringWithFormat:@"网络连接失败(%ld)",(long)error.code];
+        _errorNameStr=[NSString stringWithFormat:@"请求失败，请检查网络是否开启(%ld)",(long)error.code];
         _errorMsgStr=_errorNameStr;
     }
     
@@ -77,7 +77,7 @@
                 _errorNameStr=_resultDic[@"response"][@"error"][@"name"];
                 _errorMsgStr=_resultDic[@"response"][@"error"][@"message"];
             }else{
-                _errorNameStr=@"success=false 但没有 detailMessage&error";
+                _errorNameStr=nil;
                 _errorMsgStr=_errorNameStr;
             }
         }
