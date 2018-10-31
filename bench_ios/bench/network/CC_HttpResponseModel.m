@@ -54,6 +54,9 @@
                                           error: nil];
         if (_resultDic==nil) {
             _errorNameStr=@"_resultDic=nil 无法解析data";
+            if (_debug==0) {
+                _errorNameStr=@"服务器开小差了";
+            }
             _errorMsgStr=_errorNameStr;
             if (_debug) {
                 [CC_Note showAlert:_errorMsgStr];
