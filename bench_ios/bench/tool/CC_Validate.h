@@ -8,7 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-@interface CC_Valiation : NSObject
+@interface CC_Validate : NSObject
+
++ (BOOL)isMatchNumberWordChinese:(NSString *)str;
 
 + (BOOL)isOnlyNumerAndLetter:(NSString *)textStr;
 + (BOOL)isOnlyChinese:(NSString *)textStr;

@@ -47,7 +47,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
 
 #import <Foundation/Foundation.h>
 
-#import "CC_Valiation.h"
+#import "CC_Validate.h"
 #import "CC_Image.h"
 #import "CC_Button.h"
 #import "CC_Label.h"
@@ -88,7 +88,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
 #import "UIImage+CCExtention.h"
 #import "UIButton+CCExtention.h"
 
-#import "NSPredicate+CCExtention.h"
 #import "UIApplication+CCHook.h"
 #import "UIViewController+CCHook.h"
 

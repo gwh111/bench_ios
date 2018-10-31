@@ -52,7 +52,7 @@
     if (isMatch==0) {
         
     }
-    BOOL isMatch2 = [NSPredicate isMatchNumberWordChinese:@"，否"];
+    BOOL isMatch2 = [CC_Validate isMatchNumberWordChinese:@"，否"];
     
     CC_Button *button11=[[CC_Button alloc]init];
     if ([button11 isKindOfClass:[CC_Button class]]) {

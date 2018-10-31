@@ -6,9 +6,19 @@
 //  Copyright © 2017年 apple. All rights reserved.
 //
 
-#import "CC_Valiation.h"
+#import "CC_Validate.h"
 
-@implementation CC_Valiation
+@implementation CC_Validate
+
++ (BOOL)isMatchNumberWordChinese:(NSString *)str{
+    NSString *regex = @"[a-zA-Z0-9\u4e00-\u9fa5][a-zA-Z0-9\u4e00-\u9fa5]+";
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
+    BOOL isMatch = [pred evaluateWithObject:str];
+    if(isMatch==0){
+        return NO;
+    }
+    return YES;
+}
 
 //匹配由字母/数字组成的字符串的正则表达式
 + (BOOL)isOnlyNumerAndLetter:(NSString *)textStr{
