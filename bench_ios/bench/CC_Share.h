@@ -98,6 +98,9 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
 @property (nonatomic,assign) BOOL ccDebug;
 @property (nonatomic,retain) NSString *aesKey;
 
+@property (nonatomic,retain) NSString *currentUniqueTimeStamp;
+@property (nonatomic,assign) int currentUniqueTimeStampCount;
+
 + (instancetype)getInstance;
 
 @end

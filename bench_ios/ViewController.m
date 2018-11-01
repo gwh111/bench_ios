@@ -52,7 +52,8 @@
     if (isMatch==0) {
         
     }
-    BOOL isMatch2 = [CC_Validate isMatchNumberWordChinese:@"，否"];
+    NSString *time = [CC_Date getUniqueNowTimeTimestamp];
+    NSString *time2 = [CC_Date getUniqueNowTimeTimestamp];
     
     CC_Button *button11=[[CC_Button alloc]init];
     if ([button11 isKindOfClass:[CC_Button class]]) {

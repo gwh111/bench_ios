@@ -16,4 +16,15 @@
 
 + (NSTimeInterval)compareDate:(NSDate *)date1 cut:(NSDate *)date2;
 
+/**
+ *  获取当前时间戳
+ */
++ (NSString *)getNowTimeTimestamp;
+
+/**
+ *  获取唯一当前时间戳
+    如同一时间并发，会在时间节点上带上_n，n表示次数
+ */
++ (NSString *)getUniqueNowTimeTimestamp;
+
 @end
