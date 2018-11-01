@@ -361,21 +361,32 @@ static dispatch_once_t onceToken;
     
     //线上 http://sssynout-prod-caihong-resource.oss-cn-hangzhou.aliyuncs.com/URL/ch_url.txt
     //线下 https://test-caihong-resource.oss-cn-hangzhou.aliyuncs.com/URL/ch_url.txt
-    
     _hasSuccessGetDomain=0;
     _getUrlBlock=block;
+    
     __block CC_HttpTask *blockSelf=self;
     [[CC_HttpTask getInstance]get:urlStr params:nil model:nil finishCallbackBlock:^(NSString *error, ResModel *result) {
         if (error) {
             [ccs delay:3 block:^{
                 if (blockSelf.hasSuccessGetDomain==0) {
                     
-                    if (blockSelf.hasSuccessGetThirdUrlResponse==1) {
+                    if ([ccs getDefault:@"domainDic"]) {
                         
-                        [CC_Notice showNoticeStr:@"域名请求失败"];
+                        ResModel *model=[[ResModel alloc]init];
+                        model.resultDic=[ccs getDefault:@"domainDic"];
+                        blockSelf.hasSuccessGetDomain=1;
+                        
+                        blockSelf.getUrlBlock(model);
+                        return ;
                     }else{
                         
-                        [CC_Notice showNoticeStr:error];
+                        if (blockSelf.hasSuccessGetThirdUrlResponse==1) {
+                            
+                            [CC_Notice showNoticeStr:@"域名请求失败"];
+                        }else{
+                            
+                            [CC_Notice showNoticeStr:error];
+                        }
                     }
                     
                 }
@@ -410,6 +421,7 @@ static dispatch_once_t onceToken;
         }
         
         blockSelf.hasSuccessGetDomain=1;
+        [ccs saveDefaultKey:@"domainDic" andV:result.resultDic];
         
         blockSelf.getUrlBlock(result);
         
