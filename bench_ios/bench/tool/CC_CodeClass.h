@@ -19,9 +19,12 @@
 
 + (void)setShadow:(UIColor *)color view:(UIView *)view offset:(CGSize)size opacity:(float)opacity;
 
-+ (void)setLineColor:(UIColor *)color andA:(float)alpha width:(float)width view:(UIView *)view;
++ (void)setLineColor:(UIColor *)color width:(float)width view:(UIView *)view;
 
 + (void)setFade:(UIView *)view;
+
+#pragma mark 不再建议使用 保留是为了兼容之前版本
++ (void)setLineColor:(UIColor *)color andA:(float)alpha width:(float)width view:(UIView *)view;
 
 @end
 

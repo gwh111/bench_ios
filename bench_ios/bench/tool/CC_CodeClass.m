@@ -75,7 +75,7 @@
     [self setShadow:color view:view offset:CGSizeMake(2, 5) opacity:0.5];
 }
 
-+ (void)setLineColor:(UIColor *)color andA:(float)alpha width:(float)width view:(UIView *)view{
++ (void)setLineColor:(UIColor *)color width:(float)width view:(UIView *)view{
     [view.layer setBorderWidth:width];
     view.layer.borderColor = [color CGColor];
 }
@@ -97,6 +97,12 @@
     
     [_gradLayer setFrame:CGRectMake(0, 0, view.frame.size.width, view.frame.size.height)];
     [view.layer setMask:_gradLayer];
+}
+
+#pragma mark 不再建议使用 保留是为了兼容之前版本
++ (void)setLineColor:(UIColor *)color andA:(float)alpha width:(float)width view:(UIView *)view{
+    [view.layer setBorderWidth:width];
+    view.layer.borderColor = [color CGColor];
 }
 
 @end
