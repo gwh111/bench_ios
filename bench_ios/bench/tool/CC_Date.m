@@ -7,6 +7,7 @@
 //
 
 #import "CC_Date.h"
+#import "CC_Share.h"
 
 @implementation CC_Date
 
