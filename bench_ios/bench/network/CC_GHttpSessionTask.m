@@ -422,6 +422,7 @@ static dispatch_once_t onceToken;
         }
         
         NSString *domanKey=result.resultDic[_domainReqKey];
+        //验证url可请求成功
         if (domanKey) {
             [[CC_HttpTask getInstance]get:domanKey params:nil model:nil finishCallbackBlock:^(NSString *error, ResModel *result) {
                 
