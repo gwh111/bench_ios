@@ -424,9 +424,9 @@ static dispatch_once_t onceToken;
         NSString *domanKey=result.resultDic[blockSelf.domainReqKey];
         //验证url可请求成功
         if (domanKey) {
-            [[CC_HttpTask getInstance]get:domanKey params:nil model:nil finishCallbackBlock:^(NSString *error, ResModel *result) {
+            [[CC_HttpTask getInstance]get:domanKey params:nil model:nil finishCallbackBlock:^(NSString *error2, ResModel *result2) {
                 
-                if (error&&result.parseFail==0) {
+                if (error2&&result2.parseFail==0) {
                     
                     if (blockSelf.domainReqList.count>0) {
                         blockSelf.domainReqListIndex++;
