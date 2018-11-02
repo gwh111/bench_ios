@@ -143,7 +143,7 @@ static dispatch_once_t onceToken;
     }else{
         urlReq=[self getRequestWithUrl:tempUrl andParamters:paraString];
     }
-   
+    
     model.requestUrlStr=urlReq.URL.absoluteString; model.requestStr=ccstr(@"%@%@",urlReq.URL.absoluteString,paraString);
     
     __block CC_HttpTask *blockSelf=self;
@@ -182,7 +182,7 @@ static dispatch_once_t onceToken;
             [model parsingError:error];
         }else{
             NSString *resultStr= [NSString stringWithContentsOfURL:location encoding:NSUTF8StringEncoding error:&error];
-//            NSCAssert(!resultStr, @"没有解析成数据");
+            //            NSCAssert(!resultStr, @"没有解析成数据");
             if (!resultStr) {
                 NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
                 resultStr= [NSString stringWithContentsOfURL:location encoding:enc error:&error];
@@ -207,7 +207,7 @@ static dispatch_once_t onceToken;
                 CC_ResLModel *logicModel=blockSelf.logicBlockMutDic[name];
                 if (logicModel.logicPathArr.count>0) {
                     [blockSelf reponseLogicPassed:logicModel result:model.resultDic index:0];
-                   //使用更新后的数据
+                    //使用更新后的数据
                     CC_ResLModel *newModel=blockSelf.logicBlockMutDic[logicModel.logicNameStr];
                     if (newModel.logicPassed) {
                         newModel.logicBlock(model.resultDic);
@@ -269,7 +269,7 @@ static dispatch_once_t onceToken;
         CCLOG(@"没有设置_requestHTTPHeaderFieldDic");
         return request;
     }
-
+    
     NSArray *keys=[_requestHTTPHeaderFieldDic allKeys];
     for (int i=0; i<keys.count; i++) {
         [request setValue:_requestHTTPHeaderFieldDic[keys[i]] forHTTPHeaderField:keys[i]];
@@ -365,6 +365,15 @@ static dispatch_once_t onceToken;
     _hasSuccessGetDomain=0;
     _getUrlBlock=block;
     
+    if ([ccs getDefault:@"domainDic"]) {
+        ResModel *model=[[ResModel alloc]init];
+        model.resultDic=[ccs getDefault:@"domainDic"];
+        self.hasSuccessGetDomain=1;
+        
+        self.getUrlBlock(model);
+        return;
+    }
+    
     __block CC_HttpTask *blockSelf=self;
     [[CC_HttpTask getInstance]get:urlStr params:nil model:nil finishCallbackBlock:^(NSString *error, ResModel *result) {
         if (error) {
@@ -422,16 +431,25 @@ static dispatch_once_t onceToken;
         }
         
         NSString *domanKey=result.resultDic[blockSelf.domainReqKey];
+        domanKey=[NSString stringWithFormat:@"%@/client/service.json?service=TEST",domanKey];
         //验证url可请求成功
         if (domanKey) {
             [[CC_HttpTask getInstance]get:domanKey params:nil model:nil finishCallbackBlock:^(NSString *error2, ResModel *result2) {
                 
-                if (error2&&result2.parseFail==0) {
+                if (result2.parseFail==1||error2) {
                     
                     if (blockSelf.domainReqList.count>0) {
                         blockSelf.domainReqListIndex++;
                         if (blockSelf.domainReqListIndex>=blockSelf.domainReqList.count) {
                             blockSelf.domainReqListIndex=0;
+                            [ccs delay:3 block:^{
+                                if (blockSelf.hasSuccessGetDomain==0) {
+                                    
+                                    [CC_Notice showNoticeStr:@"域名请求失败"];
+                                    
+                                }
+                                
+                            }];
                         }
                         
                         [ccs delay:.3 block:^{
