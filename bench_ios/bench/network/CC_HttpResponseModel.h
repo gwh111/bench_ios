@@ -61,6 +61,11 @@
  */
 @property(nonatomic,retain) NSDate *responseDate;
 
+/**
+ *  解析失败
+ */
+@property(nonatomic,assign) int parseFail;
+
 - (void)parsingError:(NSError *)error;
 - (void)parsingResult:(NSString *)resultStr;
 

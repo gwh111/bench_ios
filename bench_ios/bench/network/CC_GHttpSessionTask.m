@@ -350,9 +350,10 @@ static dispatch_once_t onceToken;
 
 #pragma mark getUrl
 
-- (void)getDomainWithReqList:(NSArray *)domainReqList block:(void (^)(ResModel *result))block{
+- (void)getDomainWithReqList:(NSArray *)domainReqList andKey:(NSString *)domainReqKey block:(void (^)(ResModel *result))block{
     self.domainReqListIndex=0;
     self.domainReqList=domainReqList;
+    self.domainReqKey=domainReqKey;
     [self getDomain:domainReqList[0] block:block];
 }
 - (void)getDomain:(NSString *)urlStr block:(void (^)(ResModel *result))block{
@@ -420,12 +421,47 @@ static dispatch_once_t onceToken;
             return ;
         }
         
-        blockSelf.hasSuccessGetDomain=1;
-        [ccs saveDefaultKey:@"domainDic" andV:result.resultDic];
+        NSString *domanKey=result.resultDic[_domainReqKey];
+        if (domanKey) {
+            [[CC_HttpTask getInstance]get:domanKey params:nil model:nil finishCallbackBlock:^(NSString *error, ResModel *result) {
+                
+                if (error&&result.parseFail==0) {
+                    
+                    if (blockSelf.domainReqList.count>0) {
+                        blockSelf.domainReqListIndex++;
+                        if (blockSelf.domainReqListIndex>=blockSelf.domainReqList.count) {
+                            blockSelf.domainReqListIndex=0;
+                        }
+                        
+                        [ccs delay:.3 block:^{
+                            
+                            [self getDomain:blockSelf.domainReqList[blockSelf.domainReqListIndex] block:block];
+                        }];
+                    }else{
+                        
+                        [ccs delay:1 block:^{
+                            
+                            [self getDomain:urlStr block:block];
+                        }];
+                    }
+                    
+                }else{
+                    
+                    blockSelf.hasSuccessGetDomain=1;
+                    [ccs saveDefaultKey:@"domainDic" andV:result.resultDic];
+                    
+                    blockSelf.getUrlBlock(result);
+                }
+                
+            }];
+        }
         
-        blockSelf.getUrlBlock(result);
         
     }];
+}
+
+- (void)nextReq{
+    
 }
 
 @end

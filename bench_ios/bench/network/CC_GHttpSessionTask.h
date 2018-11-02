@@ -80,6 +80,7 @@
 @property(nonatomic,assign) int hasSuccessGetThirdUrlResponse;//成功获取第三方网站响应
 @property(nonatomic,retain) NSArray *domainReqList;//域名和备用域名请求地址
 @property(nonatomic,assign) int domainReqListIndex;//q域名获取循环索引
+@property(nonatomic,retain) NSString *domainReqKey;//域名获取key
 
 /**
  *  重写requestHTTPHeaderFieldDic的set和get
@@ -139,6 +140,6 @@
  *  获取域名 传入获取域名的地址
     domainReqList 域名和备用域名列表 主域名放第一个
  */
-- (void)getDomainWithReqList:(NSArray *)domainReqList block:(void (^)(ResModel *result))block;
+- (void)getDomainWithReqList:(NSArray *)domainReqList andKey:(NSString *)domainReqKey block:(void (^)(ResModel *result))block;
 
 @end

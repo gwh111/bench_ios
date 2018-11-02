@@ -53,6 +53,7 @@
                                         options: NSJSONReadingMutableLeaves
                                           error: nil];
         if (_resultDic==nil) {
+            _parseFail=1;
             _errorNameStr=@"_resultDic=nil 无法解析data";
             if (_debug==0) {
                 _errorNameStr=@"服务器开小差了";
