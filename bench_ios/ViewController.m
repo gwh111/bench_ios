@@ -14,7 +14,7 @@
 #import "CC_3DWindow.h"
 
 #import <objc/runtime.h>
-
+#import<SystemConfiguration/CaptiveNetwork.h>
 
 @interface ViewController (){
     NSArray *nameArr;
@@ -31,11 +31,18 @@
 //    return [str stringByReplacingOccurrencesOfString:regex withString:@"" options:NSRegularExpressionSearch range:NSMakeRange(0, str.length)];
 //}
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor=COLOR_WHITE;
     
-    NSString *bid=[ccs getBid];
+    NSString *key=[NSString stringWithFormat:@"%@%@",[ccs getBid],[ccs getBundleVersion]];
+    
+    //@"http://bench-ios.oss-cn-shanghai.aliyuncs.com/bench.json"
+    [[CC_HttpTask getInstance]getConfigure:^(CCConfigure *configure) {
+        
+    }];
+    
     //@"https://test-caihong-resource.oss-cn-hangzhou.aliyuncs.com/URL/ch_url.txt"
 //    [[CC_HttpTask getInstance]getDomain:@"http://test-kkbuluo-resource.oss-cn-hangzhou.aliyuncs.com/URL/kk_url.txt" block:^(ResModel *result) {
 //        
@@ -43,7 +50,6 @@
     [[CC_HttpTask getInstance]getDomainWithReqList:@[@"http://dynamic.kkbuluo.net/kk_url.txt",@"http://dynamic.kkbuluo.net/kk_url.txt"] andKey:@"KK" block:^(ResModel *result) {
         
     }];
-    
     
 //    NSString *sss=[self filterString3:@"1"];
     

@@ -119,6 +119,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
  */
 + (NSString *)getBid;
 + (NSString *)getVersion;
++ (NSString *)getBundleVersion;
 
 /**
  *  获取沙盒路径

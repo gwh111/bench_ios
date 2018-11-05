@@ -36,6 +36,15 @@ static dispatch_once_t onceToken;
     return instance;
 }
 
+- (void)initBase{
+    _httpTimeoutInterval=10;
+    _static_domainTestKey=@"/client/service.json?service=TEST";
+    _static_pingThirdWebUrl=@"http://www.baidu.com";
+    _static_netTestUrl=@"http://d.net/";
+    _static_configureUrl=@"http://bench-ios.oss-cn-shanghai.aliyuncs.com/bench.json";
+    _static_netTestContain=@"http://d.net";
+}
+
 - (void)setRequestHTTPHeaderFieldDic:(id)requestHTTPHeaderFieldDic{
     if ([requestHTTPHeaderFieldDic isKindOfClass:[NSDictionary class]]) {
         _requestHTTPHeaderFieldDic=[[NSMutableDictionary alloc]initWithDictionary:requestHTTPHeaderFieldDic];
@@ -48,10 +57,6 @@ static dispatch_once_t onceToken;
 
 - (id)requestHTTPHeaderFieldDic{
     return _requestHTTPHeaderFieldDic;
-}
-
-- (void)initBase{
-    _httpTimeoutInterval=10;
 }
 
 - (void)post:(id)url params:(id)paramsDic model:(ResModel *)model finishCallbackBlock:(void (^)(NSString *, ResModel *))block{
@@ -191,6 +196,7 @@ static dispatch_once_t onceToken;
                 }
             }
             [model parsingResult:resultStr];
+            model.networkError=nil;
         }
         dispatch_sync(dispatch_get_main_queue(), ^{
             if (model.debug) {
@@ -348,7 +354,7 @@ static dispatch_once_t onceToken;
     [self reponseLogicPassed:model result:result[model.logicPathArr[index]] index:index+1];
 }
 
-#pragma mark getUrl
+#pragma mark getDomain
 
 - (void)getDomainWithReqList:(NSArray *)domainReqList andKey:(NSString *)domainReqKey block:(void (^)(ResModel *result))block{
     self.domainReqListIndex=0;
@@ -380,36 +386,28 @@ static dispatch_once_t onceToken;
             [ccs delay:3 block:^{
                 if (blockSelf.hasSuccessGetDomain==0) {
                     
-                    if ([ccs getDefault:@"domainDic"]) {
+                    //3秒后提示 是网络没有打开的提示还是网络打开了但是域名请求失败的提示
+                    if (blockSelf.hasSuccessGetThirdUrlResponse==1) {
                         
-                        ResModel *model=[[ResModel alloc]init];
-                        model.resultDic=[ccs getDefault:@"domainDic"];
-                        blockSelf.hasSuccessGetDomain=1;
-                        
-                        blockSelf.getUrlBlock(model);
-                        return ;
+                        [CC_Notice showNoticeStr:@"域名请求失败"];
                     }else{
                         
-                        if (blockSelf.hasSuccessGetThirdUrlResponse==1) {
-                            
-                            [CC_Notice showNoticeStr:@"域名请求失败"];
-                        }else{
-                            
-                            [CC_Notice showNoticeStr:error];
-                        }
+                        [CC_Notice showNoticeStr:error];
                     }
                     
                 }
                 
             }];
             
-            [[CC_HttpTask getInstance]get:@"http://www.baidu.com" params:@{@"getDate":@""} model:nil finishCallbackBlock:^(NSString *error, ResModel *result) {
+            //请求第三方的网络验证网络情况
+            [[CC_HttpTask getInstance]get:blockSelf.static_pingThirdWebUrl params:@{@"getDate":@""} model:nil finishCallbackBlock:^(NSString *error, ResModel *result) {
                 if (result.responseDate) {
                     blockSelf.hasSuccessGetThirdUrlResponse=1;
                 }else{
                 }
             }];
             
+            //多个备用域名请求链接
             if (blockSelf.domainReqList.count>0) {
                 blockSelf.domainReqListIndex++;
                 if (blockSelf.domainReqListIndex>=blockSelf.domainReqList.count) {
@@ -430,8 +428,9 @@ static dispatch_once_t onceToken;
             return ;
         }
         
+        //成功获取域名请求
         NSString *domanKey=result.resultDic[blockSelf.domainReqKey];
-        domanKey=[NSString stringWithFormat:@"%@/client/service.json?service=TEST",domanKey];
+        domanKey=[NSString stringWithFormat:@"%@%@",domanKey,blockSelf.static_domainTestKey];
         //验证url可请求成功
         if (domanKey) {
             [[CC_HttpTask getInstance]get:domanKey params:nil model:nil finishCallbackBlock:^(NSString *error2, ResModel *result2) {
@@ -445,7 +444,7 @@ static dispatch_once_t onceToken;
                             [ccs delay:3 block:^{
                                 if (blockSelf.hasSuccessGetDomain==0) {
                                     
-                                    [CC_Notice showNoticeStr:@"域名请求失败"];
+                                    [CC_Notice showNoticeStr:@"服务器开小差了"];
                                     
                                 }
                                 
@@ -473,14 +472,74 @@ static dispatch_once_t onceToken;
                 }
                 
             }];
+        }else{
+            [CC_Notice showNoticeStr:@"域名获取失败"];
         }
         
         
     }];
 }
 
-- (void)nextReq{
+#pragma mark getConfigure
+- (void)getConfigure:(void (^)(CCConfigure *result))block{
+    [self getConfigure:_static_netTestUrl contain:_static_netTestContain block:block];
+}
+- (void)getConfigure:(NSString *)urlStr contain:(NSString *)containStr block:(void (^)(CCConfigure *result))block{
     
+    self.getConfigureBlock=block;
+    
+    NSDictionary *resultDic=[ccs getDefault:@"bench_configure"];
+    if (resultDic) {
+        //缓存
+        CCConfigure *configure=[[CCConfigure alloc]init];
+        configure.resultDic=resultDic;
+        configure.net=[resultDic[@"net"] intValue];
+        configure.showLog=[resultDic[@"showLog"] intValue];
+        self.getConfigureBlock(configure);
+        return;
+    }
+    CC_HttpTask *tempTask=[[CC_HttpTask alloc]init];
+    tempTask.httpTimeoutInterval=3;
+    [tempTask get:urlStr params:nil model:nil finishCallbackBlock:^(NSString *error, ResModel *result) {
+        
+        if ([[NSString stringWithFormat:@"%@",result.resultStr] containsString:containStr]&&result.networkError==nil) {
+            [tempTask get:_static_configureUrl params:nil model:nil finishCallbackBlock:^(NSString *error2, ResModel *result2) {
+                
+                NSString *buildKey=[NSString stringWithFormat:@"build%@%@",[ccs getBid],[ccs getBundleVersion]];
+                NSDictionary *resultDic2=result2.resultDic[buildKey];
+                CCLOG(@"k=%@",buildKey);
+                if (!resultDic2) {
+                    NSString *key=[NSString stringWithFormat:@"%@%@",[ccs getBid],[ccs getVersion]];
+                    resultDic2=result2.resultDic[key];
+                    CCLOG(@"k=%@",key);
+                }
+                if (resultDic2) {
+                    
+                    [ccs saveDefaultKey:@"bench_configure" andV:resultDic2];
+                    //缓存下来
+                    CCConfigure *configure=[[CCConfigure alloc]init];
+                    configure.resultDic=resultDic2;
+                    configure.net=[resultDic2[@"net"] intValue];
+                    configure.showLog=[resultDic2[@"showLog"] intValue];
+                    self.getConfigureBlock(configure);
+                }else{
+                    [ccs saveDefaultKey:@"bench_configure" andV:@{@"net":@"0",@"showLog":@"0"}];
+                    CCConfigure *configure=[[CCConfigure alloc]init];
+                    configure.net=0;
+                    configure.showLog=0;
+                    self.getConfigureBlock(configure);
+                }
+            }];
+        }else{
+            [ccs saveDefaultKey:@"bench_configure" andV:@{@"net":@"0",@"showLog":@"0"}];
+            CCConfigure *configure=[[CCConfigure alloc]init];
+            configure.net=0;
+            configure.showLog=0;
+            self.getConfigureBlock(configure);
+        }
+        
+        
+    }];
 }
 
 @end

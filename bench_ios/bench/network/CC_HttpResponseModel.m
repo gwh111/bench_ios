@@ -23,6 +23,7 @@
 
 - (void)parsingError:(NSError *)error{
     
+    _networkError=error;
     if (_debug) {
         
         if ([ccs getLocalKeyNamed:@"service" andKey:_serviceStr]) {
@@ -45,6 +46,14 @@
 
 - (void)parsingResult:(NSString *)resultStr{
     
+    if (!resultStr) {
+        _errorNameStr=@"resultStr=nil 无法解析data";
+        if (_debug==0) {
+            _errorNameStr=@"服务器开小差了";
+        }
+        _errorMsgStr=_errorNameStr;
+        return;
+    }
     _resultStr=resultStr;
     NSData *data = [_resultStr dataUsingEncoding:NSUTF8StringEncoding];
     if (data) {
@@ -85,7 +94,6 @@
                 _errorMsgStr=_errorNameStr;
             }
         }
-        
     }else{//解析错误
         _errorNameStr=@"data=nil";
         _errorMsgStr=_errorNameStr;

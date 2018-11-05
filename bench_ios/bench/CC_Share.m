@@ -37,6 +37,10 @@ static dispatch_once_t onceToken;
     return [[NSBundle mainBundle]infoDictionary][@"CFBundleShortVersionString"];
 }
 
++ (NSString *)getBundleVersion{
+    return [[NSBundle mainBundle]infoDictionary][@"CFBundleVersion"];
+}
+
 + (NSString *)getSandboxPath{
     NSString *path=[NSString stringWithFormat:@"%@", NSHomeDirectory()];
     CCLOG(@"%@",path);

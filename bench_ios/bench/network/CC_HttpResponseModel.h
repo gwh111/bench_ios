@@ -49,6 +49,10 @@
  *  中文错误
  */
 @property(nonatomic,retain) NSString *errorMsgStr;
+/**
+ *  网络环境的错误
+ */
+@property(nonatomic,retain) NSError *networkError;
 
 
 /**

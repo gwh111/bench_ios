@@ -16,6 +16,7 @@
 
 #import <Foundation/Foundation.h>
 #import "CC_HttpResponseModel.h"
+#import "CC_HttpConfigure.h"
 
 @interface CC_HttpTask : NSObject<NSURLSessionDelegate>{
     void (^finishCallbackBlock)(NSString *errorStr, ResModel *model); // 执行完成后回调的block
@@ -71,16 +72,62 @@
  */
 @property(nonatomic,retain) NSMutableDictionary *logicBlockMutDic;
 
+/**
+ *  成功获取domain
+ */
+@property(nonatomic,assign) int hasSuccessGetDomain;
+/**
+ *  成功获取第三方网站响应
+ */
+@property(nonatomic,assign) int hasSuccessGetThirdUrlResponse;
+/**
+ *  域名和备用域名请求地址
+ */
+@property(nonatomic,retain) NSArray *domainReqList;
+/**
+ *  域名获取循环索引
+ */
+@property(nonatomic,assign) int domainReqListIndex;
+/**
+ *  域名获取key
+ */
+@property(nonatomic,retain) NSString *domainReqKey;
 
+/**
+ *  网络请求回调
+ */
 @property(strong) void (^finishCallbackBlock)(NSString *error,ResModel *result);
-
+/**
+ *  获取域名回调
+ */
 @property(strong) void (^getUrlBlock)(ResModel *result);
+/**
+ *  获取配置回调
+ */
+@property(strong) void (^getConfigureBlock)(CCConfigure *result);
 
-@property(nonatomic,assign) int hasSuccessGetDomain;//成功获取domain
-@property(nonatomic,assign) int hasSuccessGetThirdUrlResponse;//成功获取第三方网站响应
-@property(nonatomic,retain) NSArray *domainReqList;//域名和备用域名请求地址
-@property(nonatomic,assign) int domainReqListIndex;//q域名获取循环索引
-@property(nonatomic,retain) NSString *domainReqKey;//域名获取key
+#pragma mark - bench配置的静态变量 一般情况不需修改
+/**
+ *  测试域名是否可用的服务端地址
+ */
+@property(nonatomic,retain) NSString *static_domainTestKey;
+/**
+ *  测试第三方网站是否可用访问地址
+ */
+@property(nonatomic,retain) NSString *static_pingThirdWebUrl;
+/**
+ *  测试是否是线下环境地址
+ */
+@property(nonatomic,retain) NSString *static_netTestUrl;
+/**
+ *  根据是否包含关键字判断是否是线下环境地址
+ */
+@property(nonatomic,retain) NSString *static_netTestContain;
+/**
+ *  获取线下网络等配置地址
+    如检测不是线下环境，默认用一切正式环境配置，即给用户使用配置
+ */
+@property(nonatomic,retain) NSString *static_configureUrl;
 
 /**
  *  重写requestHTTPHeaderFieldDic的set和get
@@ -141,5 +188,10 @@
     domainReqList 域名和备用域名列表 主域名放第一个
  */
 - (void)getDomainWithReqList:(NSArray *)domainReqList andKey:(NSString *)domainReqKey block:(void (^)(ResModel *result))block;
+
+/**
+ *  获取配置
+ */
+- (void)getConfigure:(void (^)(CCConfigure *result))block;
 
 @end
