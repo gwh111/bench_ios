@@ -92,6 +92,10 @@
  *  域名获取key
  */
 @property(nonatomic,retain) NSString *domainReqKey;
+/**
+ *  更新domain
+ */
+@property(nonatomic,assign) int updateInBackGround;
 
 /**
  *  网络请求回调

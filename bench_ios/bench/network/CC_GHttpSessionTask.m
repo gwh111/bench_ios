@@ -401,12 +401,18 @@ static dispatch_once_t onceToken;
     _hasSuccessGetDomain=0;
     _getUrlBlock=block;
     
-    if ([ccs getDefault:@"domainDic"]) {
+    if ([ccs getDefault:@"domainDic"]&&_updateInBackGround==0) {
+        
         ResModel *model=[[ResModel alloc]init];
         model.resultDic=[ccs getDefault:@"domainDic"];
+        
         self.hasSuccessGetDomain=1;
         
         self.getUrlBlock(model);
+        
+        //后台更新domain
+        _updateInBackGround=1;
+        [self getDomain:urlStr block:block];
         return;
     }
     
@@ -416,15 +422,17 @@ static dispatch_once_t onceToken;
             [ccs delay:3 block:^{
                 if (blockSelf.hasSuccessGetDomain==0) {
                     
-                    //3秒后提示 是网络没有打开的提示还是网络打开了但是域名请求失败的提示
-                    if (blockSelf.hasSuccessGetThirdUrlResponse==1) {
-                        
-                        [CC_Notice showNoticeStr:@"域名请求失败"];
-                    }else{
-                        
-                        [CC_Notice showNoticeStr:@"网络权限被关闭，不能获取网络"];
+                    //更新不提示
+                    if (blockSelf.updateInBackGround==0) {
+                        //3秒后提示 是网络没有打开的提示还是网络打开了但是域名请求失败的提示
+                        if (blockSelf.hasSuccessGetThirdUrlResponse==1) {
+                            
+                            [CC_Notice showNoticeStr:@"域名请求失败"];
+                        }else{
+                            
+                            [CC_Notice showNoticeStr:@"网络权限被关闭，不能获取网络"];
+                        }
                     }
-                    
                 }
                 
             }];
@@ -445,16 +453,29 @@ static dispatch_once_t onceToken;
                     blockSelf.domainReqListIndex=0;
                 }
                 
-                [ccs delay:.3 block:^{
-                    
-                    [self getDomain:blockSelf.domainReqList[blockSelf.domainReqListIndex] block:block];
-                }];
+                if (blockSelf.updateInBackGround==0) {
+                    [ccs delay:.3 block:^{
+                        
+                        [self getDomain:blockSelf.domainReqList[blockSelf.domainReqListIndex] block:block];
+                    }];
+                }else{
+                    if (blockSelf.domainReqListIndex>0) {
+                        [ccs delay:.3 block:^{
+                            
+                            [self getDomain:blockSelf.domainReqList[blockSelf.domainReqListIndex] block:block];
+                        }];
+                    }
+                }
+                
             }else{
                 
-                [ccs delay:1 block:^{
-                    
-                    [self getDomain:urlStr block:block];
-                }];
+                if (blockSelf.updateInBackGround==0) {
+                    [ccs delay:1 block:^{
+                        
+                        [self getDomain:urlStr block:block];
+                    }];
+                }
+                
             }
             return ;
         }
@@ -472,26 +493,43 @@ static dispatch_once_t onceToken;
                         blockSelf.domainReqListIndex++;
                         if (blockSelf.domainReqListIndex>=blockSelf.domainReqList.count) {
                             blockSelf.domainReqListIndex=0;
-                            [ccs delay:3 block:^{
-                                if (blockSelf.hasSuccessGetDomain==0) {
+                            
+                            if (blockSelf.updateInBackGround==0) {
+                                [ccs delay:3 block:^{
+                                    if (blockSelf.hasSuccessGetDomain==0) {
+                                        
+                                        [CC_Notice showNoticeStr:@"服务器开小差了"];
+                                        
+                                    }
                                     
-                                    [CC_Notice showNoticeStr:@"服务器开小差了"];
-                                    
-                                }
-                                
-                            }];
+                                }];
+                            }
+                            
                         }
                         
-                        [ccs delay:.3 block:^{
-                            
-                            [self getDomain:blockSelf.domainReqList[blockSelf.domainReqListIndex] block:block];
-                        }];
+                        if (blockSelf.updateInBackGround==0) {
+                            [ccs delay:.3 block:^{
+                                
+                                [self getDomain:blockSelf.domainReqList[blockSelf.domainReqListIndex] block:block];
+                            }];
+                        }else{
+                            if (blockSelf.domainReqListIndex>0) {
+                                [ccs delay:.3 block:^{
+                                    
+                                    [self getDomain:blockSelf.domainReqList[blockSelf.domainReqListIndex] block:block];
+                                }];
+                            }
+                        }
+                        
                     }else{
                         
-                        [ccs delay:1 block:^{
+                        if (blockSelf.updateInBackGround==0) {
                             
-                            [self getDomain:urlStr block:block];
-                        }];
+                            [ccs delay:1 block:^{
+                                
+                                [self getDomain:urlStr block:block];
+                            }];
+                        }
                     }
                     
                 }else{
@@ -499,12 +537,16 @@ static dispatch_once_t onceToken;
                     blockSelf.hasSuccessGetDomain=1;
                     [ccs saveDefaultKey:@"domainDic" andV:result.resultDic];
                     
-                    blockSelf.getUrlBlock(result);
+                    if (blockSelf.updateInBackGround==0) {
+                        blockSelf.getUrlBlock(result);
+                    }
                 }
                 
             }];
         }else{
-            [CC_Notice showNoticeStr:@"域名获取失败"];
+            if (blockSelf.updateInBackGround==0) {
+                [CC_Notice showNoticeStr:@"域名获取失败"];
+            }
         }
         
         
