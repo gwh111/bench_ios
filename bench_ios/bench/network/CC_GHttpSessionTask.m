@@ -529,12 +529,13 @@ static dispatch_once_t onceToken;
         self.getConfigureBlock(configure);
         return;
     }
+    __block CC_HttpTask *blockSelf=self;
     CC_HttpTask *tempTask=[[CC_HttpTask alloc]init];
     tempTask.httpTimeoutInterval=3;
     [tempTask get:urlStr params:nil model:nil finishCallbackBlock:^(NSString *error, ResModel *result) {
         //第一次网络没有授权情况？
         if ([[NSString stringWithFormat:@"%@",result.resultStr] containsString:containStr]&&result.networkError==nil) {
-            [tempTask get:_static_configureUrl params:nil model:nil finishCallbackBlock:^(NSString *error2, ResModel *result2) {
+            [tempTask get:blockSelf.static_configureUrl params:nil model:nil finishCallbackBlock:^(NSString *error2, ResModel *result2) {
                 
                 NSString *buildKey=[NSString stringWithFormat:@"build%@%@",[ccs getBid],[ccs getBundleVersion]];
                 NSDictionary *resultDic2=result2.resultDic[buildKey];
