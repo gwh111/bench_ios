@@ -1,0 +1,8 @@
+*.pyc
+.idea
+.project
+.pydevproject
+.settings
+.coverage
+build
+dist

@@ -103,6 +103,7 @@
 		D8C5110A2112F40C00944CB0 /* CC_HookTrack.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C511082112F40C00944CB0 /* CC_HookTrack.m */; };
 		D8C511D0211AE3D100944CB0 /* NSString+CCExtention.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C511CF211AE3D100944CB0 /* NSString+CCExtention.m */; };
 		D8CA1DF321912AC900CE4889 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = D8CA1DF121912AC900CE4889 /* Reachability.m */; };
+		D8CA1DF521913F9400CE4889 /* configure in Resources */ = {isa = PBXBuildFile; fileRef = D8CA1DF421913F9400CE4889 /* configure */; };
 		D8CC62551FF25610006E2ED6 /* CC_Envirnment.m in Sources */ = {isa = PBXBuildFile; fileRef = D8CC62541FF25610006E2ED6 /* CC_Envirnment.m */; };
 		D8CE47B720D28A3E00587337 /* CC_RequestRecordTool.m in Sources */ = {isa = PBXBuildFile; fileRef = D8CE47B620D28A3D00587337 /* CC_RequestRecordTool.m */; };
 		D8DAFCD4212BE6D2009E0FEC /* CC_AESEncrypt.m in Sources */ = {isa = PBXBuildFile; fileRef = D8DAFCD3212BE6D2009E0FEC /* CC_AESEncrypt.m */; };
@@ -321,6 +322,7 @@
 		D8C511CF211AE3D100944CB0 /* NSString+CCExtention.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+CCExtention.m"; sourceTree = "<group>"; };
 		D8CA1DF121912AC900CE4889 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		D8CA1DF221912AC900CE4889 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		D8CA1DF421913F9400CE4889 /* configure */ = {isa = PBXFileReference; lastKnownFileType = folder; path = configure; sourceTree = "<group>"; };
 		D8CC62531FF25610006E2ED6 /* CC_Envirnment.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_Envirnment.h; sourceTree = "<group>"; };
 		D8CC62541FF25610006E2ED6 /* CC_Envirnment.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC_Envirnment.m; sourceTree = "<group>"; };
 		D8CE47B520D28A3D00587337 /* CC_RequestRecordTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_RequestRecordTool.h; sourceTree = "<group>"; };
@@ -412,6 +414,7 @@
 				18B6BCFF1F1F09CA0019391D /* AppDelegate.m */,
 				18B6BD011F1F09CA0019391D /* ViewController.h */,
 				18B6BD021F1F09CA0019391D /* ViewController.m */,
+				D8CA1DF421913F9400CE4889 /* configure */,
 				D8288C482178881D000F3B89 /* model */,
 				D883EEE0200E34790062A6C6 /* test */,
 				D82315391F53AEC1006055FB /* testController */,
@@ -885,6 +888,7 @@
 				18B6BD0B1F1F09CA0019391D /* LaunchScreen.storyboard in Resources */,
 				D8B0E4611F501EE400425D06 /* nyyh.jpg in Resources */,
 				18B6BD081F1F09CA0019391D /* Assets.xcassets in Resources */,
+				D8CA1DF521913F9400CE4889 /* configure in Resources */,
 				D876FE871FB0514B0094C274 /* panda.plist in Resources */,
 				D8288C492178881D000F3B89 /* model in Resources */,
 				D88C2941212CFCD000828AA6 /* test2.png in Resources */,
