@@ -25,11 +25,7 @@
 
 @implementation ViewController
 
-////方案3
-//- (NSString *)filterString3:(NSString *)str{
-//    NSString *regex = @"[^a-zA-Z0-9\u4e00-\u9fa5]";
-//    return [str stringByReplacingOccurrencesOfString:regex withString:@"" options:NSRegularExpressionSearch range:NSMakeRange(0, str.length)];
-//}
+
 
 
 - (void)viewDidLoad {
@@ -39,6 +35,7 @@
     NSString *key=[NSString stringWithFormat:@"%@%@",[ccs getBid],[ccs getBundleVersion]];
     
     //@"http://bench-ios.oss-cn-shanghai.aliyuncs.com/bench.json"
+    [CC_HttpTask getInstance].static_netTestContain=@"KK部落";
     [[CC_HttpTask getInstance]getConfigure:^(CCConfigure *configure) {
         
     }];

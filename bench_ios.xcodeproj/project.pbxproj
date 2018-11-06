@@ -102,6 +102,7 @@
 		D8BDAF6820FC4F49006BF14C /* CC_ResponseLogicModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D8BDAF6720FC4F49006BF14C /* CC_ResponseLogicModel.m */; };
 		D8C5110A2112F40C00944CB0 /* CC_HookTrack.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C511082112F40C00944CB0 /* CC_HookTrack.m */; };
 		D8C511D0211AE3D100944CB0 /* NSString+CCExtention.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C511CF211AE3D100944CB0 /* NSString+CCExtention.m */; };
+		D8CA1DF321912AC900CE4889 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = D8CA1DF121912AC900CE4889 /* Reachability.m */; };
 		D8CC62551FF25610006E2ED6 /* CC_Envirnment.m in Sources */ = {isa = PBXBuildFile; fileRef = D8CC62541FF25610006E2ED6 /* CC_Envirnment.m */; };
 		D8CE47B720D28A3E00587337 /* CC_RequestRecordTool.m in Sources */ = {isa = PBXBuildFile; fileRef = D8CE47B620D28A3D00587337 /* CC_RequestRecordTool.m */; };
 		D8DAFCD4212BE6D2009E0FEC /* CC_AESEncrypt.m in Sources */ = {isa = PBXBuildFile; fileRef = D8DAFCD3212BE6D2009E0FEC /* CC_AESEncrypt.m */; };
@@ -318,6 +319,8 @@
 		D8C511092112F40C00944CB0 /* CC_HookTrack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_HookTrack.h; sourceTree = "<group>"; };
 		D8C511CE211AE3D100944CB0 /* NSString+CCExtention.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+CCExtention.h"; sourceTree = "<group>"; };
 		D8C511CF211AE3D100944CB0 /* NSString+CCExtention.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+CCExtention.m"; sourceTree = "<group>"; };
+		D8CA1DF121912AC900CE4889 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		D8CA1DF221912AC900CE4889 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		D8CC62531FF25610006E2ED6 /* CC_Envirnment.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_Envirnment.h; sourceTree = "<group>"; };
 		D8CC62541FF25610006E2ED6 /* CC_Envirnment.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC_Envirnment.m; sourceTree = "<group>"; };
 		D8CE47B520D28A3D00587337 /* CC_RequestRecordTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_RequestRecordTool.h; sourceTree = "<group>"; };
@@ -474,6 +477,8 @@
 		D8195F461F29CE6B00C7BADD /* network */ = {
 			isa = PBXGroup;
 			children = (
+				D8CA1DF221912AC900CE4889 /* Reachability.h */,
+				D8CA1DF121912AC900CE4889 /* Reachability.m */,
 				D8195F471F29CE6B00C7BADD /* CC_FormatDic.h */,
 				D8195F481F29CE6B00C7BADD /* CC_FormatDic.m */,
 				D84649A1218FFDA900F33451 /* CC_HttpConfigure.h */,
@@ -998,6 +1003,7 @@
 				D8195F501F29CE6B00C7BADD /* CC_GHttpSessionTask.m in Sources */,
 				D83B73342068A170000F81F8 /* CC_Note.m in Sources */,
 				D839267020FEDFC60034D10F /* CASStyleNode.m in Sources */,
+				D8CA1DF321912AC900CE4889 /* Reachability.m in Sources */,
 				D8A799682109CAFB00D40B4B /* UIApplication+CCHook.m in Sources */,
 				D839266920FEDFC60034D10F /* CASDeviceTypeItem.m in Sources */,
 				D8335338205F93F90030AB62 /* CC_HttpResponseModel.m in Sources */,

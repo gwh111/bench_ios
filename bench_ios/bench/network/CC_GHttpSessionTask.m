@@ -12,6 +12,7 @@
 #import "CC_RequestRecordTool.h"
 #import "CC_ResponseLogicModel.h"
 #import "CC_HookTrack.h"
+#import "Reachability.h"
 
 @interface CC_HttpTask()
 /**
@@ -43,6 +44,35 @@ static dispatch_once_t onceToken;
     _static_netTestUrl=@"http://d.net/";
     _static_configureUrl=@"http://bench-ios.oss-cn-shanghai.aliyuncs.com/bench.json";
     _static_netTestContain=@"http://d.net";
+}
+
+#pragma mark network
+- (BOOL)isNetworkReachable{
+    
+    Reachability *internetReach = [Reachability reachabilityForInternetConnection];
+    NetworkStatus netStatus = [internetReach currentReachabilityStatus];
+    
+#ifndef __OPTIMIZE__
+    switch (netStatus) {
+        case NotReachable:
+            NSLog(@"Network is not reachable");
+            break;
+        case ReachableViaWiFi:
+            NSLog(@"Network is WiFi");
+            break;
+        case ReachableViaWWAN:
+            NSLog(@"Network is WWAN");
+            break;
+        default:
+            break;
+    }
+#endif
+    
+    if(netStatus == NotReachable) {
+        return NO;
+    }
+    
+    return YES;
 }
 
 - (void)setRequestHTTPHeaderFieldDic:(id)requestHTTPHeaderFieldDic{
@@ -392,7 +422,7 @@ static dispatch_once_t onceToken;
                         [CC_Notice showNoticeStr:@"域名请求失败"];
                     }else{
                         
-                        [CC_Notice showNoticeStr:error];
+                        [CC_Notice showNoticeStr:@"网络权限被关闭，不能获取网络"];
                     }
                     
                 }
@@ -400,12 +430,13 @@ static dispatch_once_t onceToken;
             }];
             
             //请求第三方的网络验证网络情况
-            [[CC_HttpTask getInstance]get:blockSelf.static_pingThirdWebUrl params:@{@"getDate":@""} model:nil finishCallbackBlock:^(NSString *error, ResModel *result) {
-                if (result.responseDate) {
-                    blockSelf.hasSuccessGetThirdUrlResponse=1;
-                }else{
-                }
-            }];
+            blockSelf.hasSuccessGetThirdUrlResponse=[self isNetworkReachable];
+//            [[CC_HttpTask getInstance]get:blockSelf.static_pingThirdWebUrl params:@{@"getDate":@""} model:nil finishCallbackBlock:^(NSString *error, ResModel *result) {
+//                if (result.responseDate) {
+//                    blockSelf.hasSuccessGetThirdUrlResponse=1;
+//                }else{
+//                }
+//            }];
             
             //多个备用域名请求链接
             if (blockSelf.domainReqList.count>0) {
@@ -501,7 +532,7 @@ static dispatch_once_t onceToken;
     CC_HttpTask *tempTask=[[CC_HttpTask alloc]init];
     tempTask.httpTimeoutInterval=3;
     [tempTask get:urlStr params:nil model:nil finishCallbackBlock:^(NSString *error, ResModel *result) {
-        
+        //第一次网络没有授权情况？
         if ([[NSString stringWithFormat:@"%@",result.resultStr] containsString:containStr]&&result.networkError==nil) {
             [tempTask get:_static_configureUrl params:nil model:nil finishCallbackBlock:^(NSString *error2, ResModel *result2) {
                 

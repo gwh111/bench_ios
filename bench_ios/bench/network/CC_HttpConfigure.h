@@ -18,8 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  key:bundId+bundleVersion
     {"com.app.bench-ios1.11":{"net": "2","debugLog": "1"}}
-    key:build+bundId+bundleVersion 优先级高
-    {"buildcom.app.bench-ios1.11":{"net": "2","debugLog": "1"}}
+    key:build+bundId+buildVersion 优先级高
+    {"buildcom.app.bench-ios1.112":{"net": "2","debugLog": "1"}}
     http://bench-ios.oss-cn-shanghai.aliyuncs.com/bench.json
  */
 @property(nonatomic,retain) NSDictionary *resultDic;
