@@ -25,12 +25,60 @@
 
 @implementation ViewController
 
+- (NSString *) utf8ToUnicode:(NSString *)string{
+    
+    NSUInteger length = [string length];
+    NSMutableString *str = [NSMutableString stringWithCapacity:0];
+    for (int i = 0;i < length; i++){
+        NSMutableString *s = [NSMutableString stringWithCapacity:0];
+        unichar _char = [string characterAtIndex:i];
+        // 判断是否为英文和数字
+        if (_char <= '9' && _char >='0'){
+            [s appendFormat:@"%@",[string substringWithRange:NSMakeRange(i,1)]];
+        }else if(_char >='a' && _char <= 'z'){
+            [s appendFormat:@"%@",[string substringWithRange:NSMakeRange(i,1)]];
+        }else if(_char >='A' && _char <= 'Z')
+        {
+            [s appendFormat:@"%@",[string substringWithRange:NSMakeRange(i,1)]];
+        }else{
+            // 中文和字符
+            [s appendFormat:@"\\u%x",[string characterAtIndex:i]];
+            // 不足位数补0 否则解码不成功
+            if(s.length == 4) {
+                [s insertString:@"00" atIndex:2];
+            } else if (s.length == 5) {
+                [s insertString:@"0" atIndex:2];
+            }
+        }
+        [str appendFormat:@"%@", s];
+    }
+    return str;
+    
+}
+     
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor=COLOR_WHITE;
     
-    NSString *key=[NSString stringWithFormat:@"%@%@",[ccs getBid],[ccs getBundleVersion]];
+    {
+        id i=@(5);
+        NSString *html2=[i stringValue];
+        
+        
+        NSString *html=[ccs getPlistDic:@"test"][@"test4"];
+        
+        NSLog(@"%@",html);
+        NSString *tempStr1 = [html stringByReplacingOccurrencesOfString:@"\\u" withString:@"\\U"];
+        NSString *tempStr2 = [tempStr1 stringByReplacingOccurrencesOfString:@"\""withString:@"\\\""];
+        NSString *tempStr3 = [[@"\""stringByAppendingString:tempStr2]stringByAppendingString:@"\""];
+        NSData *tempData = [tempStr3 dataUsingEncoding:NSUTF8StringEncoding];
+        NSString *str = [NSPropertyListSerialization propertyListWithData:tempData options:NSPropertyListImmutable format:NULL error:NULL];
+        
+        NSLog(@"%@",str);
+    }
     
+    NSString *key=[NSString stringWithFormat:@"%@%@",[ccs getBid],[ccs getBundleVersion]];
+    key=[self utf8ToUnicode:@"😆"];
     
     NSString *html = @"{\"71.40\":71.40,\"8.37\":8.37,\"80.40\":80.40,\"188.40\":188.40}";//模拟器处理耗时0.000379秒
     //\"test\":\"xxx\"
@@ -45,7 +93,7 @@
     dic=[dic correctDecimalLoss:dic];
     NSLog(@"dic:%@", dic);
     NSString *value=dic[@"71.40"];
-    NSLog(@"dic:%@", [value correctDecimalLoss:value]);
+    NSLog(@"dic:%@", [dic[@"71.40"] stringValue]);
     
     
     //@"http://bench-ios.oss-cn-shanghai.aliyuncs.com/bench.json"

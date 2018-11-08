@@ -29,13 +29,13 @@
     return nil;
 }
 
-- (NSString *)reviseNum:(NSNumber *)num
+- (NSDecimalNumber *)reviseNum:(NSNumber *)num
 {
     //直接传入精度丢失有问题的Double类型
     double conversionValue = [num doubleValue];
     NSString *doubleString = [NSString stringWithFormat:@"%lf", conversionValue];
     NSDecimalNumber *decNumber = [NSDecimalNumber decimalNumberWithString:doubleString];
-    return [decNumber stringValue];
+    return decNumber;
 }
 
 - (NSMutableDictionary *)parseDic:(NSMutableDictionary *)dic{
@@ -47,12 +47,12 @@
         {
             NSMutableDictionary *mutDic=[NSMutableDictionary dictionaryWithDictionary:v];
             [dic setObject:[self parseDic:mutDic] forKey:key];
-        }
+        }else
         if ([v isKindOfClass:[NSArray class]])
         {
             NSMutableArray *mutArr=[NSMutableArray arrayWithArray:v];
             [dic setObject:[self parseArr:mutArr] forKey:key];
-        }
+        }else
         if ([v isKindOfClass:[NSNumber class]])
         {
             [dic setObject:[self parseNumber:v] forKey:key];
@@ -68,12 +68,12 @@
         {
             NSMutableDictionary *mutDic=[NSMutableDictionary dictionaryWithDictionary:v];
             [arr replaceObjectAtIndex:i withObject:[self parseDic:mutDic]];
-        }
+        }else
         if ([v isKindOfClass:[NSArray class]])
         {
             NSMutableArray *mutArr=[NSMutableArray arrayWithArray:v];
             [arr replaceObjectAtIndex:i withObject:[self parseArr:mutArr]];
-        }
+        }else
         if ([v isKindOfClass:[NSNumber class]])
         {
             [arr replaceObjectAtIndex:i withObject:[self parseNumber:v]];
