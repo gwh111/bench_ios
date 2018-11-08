@@ -79,6 +79,11 @@
                 }
             }
             return;
+        }else{
+            //纠正出现的小数8.369999999999999问题
+            NSMutableDictionary *mutDic=[NSMutableDictionary dictionaryWithDictionary:_resultDic];
+            mutDic=[mutDic correctDecimalLoss:mutDic];
+            _resultDic=(NSDictionary *)mutDic;
         }
         //服务端返回的错误
         if ([_resultDic[@"response"][@"success"]intValue]==0) {

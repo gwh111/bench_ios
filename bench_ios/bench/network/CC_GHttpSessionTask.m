@@ -39,6 +39,7 @@ static dispatch_once_t onceToken;
 
 - (void)initBase{
     _httpTimeoutInterval=10;
+    _forbiddenSendHookTrack=1;
     _static_domainTestKey=@"/client/service.json?service=TEST";
     _static_pingThirdWebUrl=@"http://www.baidu.com";
     _static_netTestUrl=@"http://d.net/";

@@ -85,6 +85,8 @@
 		D83EBC061FEB5BA700B94D6F /* CC_Notice.m in Sources */ = {isa = PBXBuildFile; fileRef = D83EBC001FEB5BA700B94D6F /* CC_Notice.m */; };
 		D83EBC0C1FEB5CBC00B94D6F /* CC_UIHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D83EBC091FEB5CBC00B94D6F /* CC_UIHelper.m */; };
 		D84649A3218FFDA900F33451 /* CC_HttpConfigure.m in Sources */ = {isa = PBXBuildFile; fileRef = D84649A2218FFDA900F33451 /* CC_HttpConfigure.m */; };
+		D85BFC8F2193DBA400F567EF /* test.plist in Resources */ = {isa = PBXBuildFile; fileRef = D85BFC8E2193DBA400F567EF /* test.plist */; };
+		D85BFC9B219409FC00F567EF /* NSMutableDictionary+CCExtention.m in Sources */ = {isa = PBXBuildFile; fileRef = D85BFC9A219409FC00F567EF /* NSMutableDictionary+CCExtention.m */; };
 		D86F4C9D20883841000DF173 /* CC_Date.m in Sources */ = {isa = PBXBuildFile; fileRef = D86F4C9C20883841000DF173 /* CC_Date.m */; };
 		D876FE871FB0514B0094C274 /* panda.plist in Resources */ = {isa = PBXBuildFile; fileRef = D876FE861FB0514B0094C274 /* panda.plist */; };
 		D883EEF9200E37910062A6C6 /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = D883EEF4200E37910062A6C6 /* GTMBase64.m */; };
@@ -289,6 +291,9 @@
 		D83EBC0E1FEB646100B94D6F /* PlatformConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlatformConfig.h; sourceTree = "<group>"; };
 		D84649A1218FFDA900F33451 /* CC_HttpConfigure.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_HttpConfigure.h; sourceTree = "<group>"; };
 		D84649A2218FFDA900F33451 /* CC_HttpConfigure.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC_HttpConfigure.m; sourceTree = "<group>"; };
+		D85BFC8E2193DBA400F567EF /* test.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = test.plist; sourceTree = "<group>"; };
+		D85BFC99219409FC00F567EF /* NSMutableDictionary+CCExtention.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSMutableDictionary+CCExtention.h"; sourceTree = "<group>"; };
+		D85BFC9A219409FC00F567EF /* NSMutableDictionary+CCExtention.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSMutableDictionary+CCExtention.m"; sourceTree = "<group>"; };
 		D86F4C9B20883841000DF173 /* CC_Date.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_Date.h; sourceTree = "<group>"; };
 		D86F4C9C20883841000DF173 /* CC_Date.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC_Date.m; sourceTree = "<group>"; };
 		D876FE861FB0514B0094C274 /* panda.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = panda.plist; sourceTree = "<group>"; };
@@ -414,6 +419,7 @@
 				18B6BCFF1F1F09CA0019391D /* AppDelegate.m */,
 				18B6BD011F1F09CA0019391D /* ViewController.h */,
 				18B6BD021F1F09CA0019391D /* ViewController.m */,
+				D85BFC8E2193DBA400F567EF /* test.plist */,
 				D8CA1DF421913F9400CE4889 /* configure */,
 				D8288C482178881D000F3B89 /* model */,
 				D883EEE0200E34790062A6C6 /* test */,
@@ -758,6 +764,8 @@
 				D8EC6FD221242380006ECFE3 /* UIButton+CCExtention.m */,
 				D8C511CE211AE3D100944CB0 /* NSString+CCExtention.h */,
 				D8C511CF211AE3D100944CB0 /* NSString+CCExtention.m */,
+				D85BFC99219409FC00F567EF /* NSMutableDictionary+CCExtention.h */,
+				D85BFC9A219409FC00F567EF /* NSMutableDictionary+CCExtention.m */,
 				D8A799662109CAFB00D40B4B /* UIApplication+CCHook.h */,
 				D8A799672109CAFB00D40B4B /* UIApplication+CCHook.m */,
 				D8A7996C2109CC0300D40B4B /* UIViewController+CCHook.h */,
@@ -890,6 +898,7 @@
 				18B6BD081F1F09CA0019391D /* Assets.xcassets in Resources */,
 				D8CA1DF521913F9400CE4889 /* configure in Resources */,
 				D876FE871FB0514B0094C274 /* panda.plist in Resources */,
+				D85BFC8F2193DBA400F567EF /* test.plist in Resources */,
 				D8288C492178881D000F3B89 /* model in Resources */,
 				D88C2941212CFCD000828AA6 /* test2.png in Resources */,
 				18B6BD061F1F09CA0019391D /* Main.storyboard in Resources */,
@@ -949,6 +958,7 @@
 				D8389DFC206BA3680010A04A /* CC_LogicClass.m in Sources */,
 				D8288C4C2178B01F000F3B89 /* CC_ObjectModel.m in Sources */,
 				D8B0E45C1F5016EA00425D06 /* CC_GColor.m in Sources */,
+				D85BFC9B219409FC00F567EF /* NSMutableDictionary+CCExtention.m in Sources */,
 				D839266220FEDFC60034D10F /* UIColor+CASAdditions.m in Sources */,
 				18B6BD031F1F09CA0019391D /* ViewController.m in Sources */,
 				D8C511D0211AE3D100944CB0 /* NSString+CCExtention.m in Sources */,

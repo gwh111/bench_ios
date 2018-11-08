@@ -10,7 +10,7 @@
 
 @implementation NSString (CCExtention)
 
-+ (NSArray *)ccWords:(NSString *)cStr{
+- (NSArray *)ccWords:(NSString *)cStr{
     
     NSMutableArray *words = [[NSMutableArray alloc] init];
     
@@ -46,6 +46,15 @@
     }
     
     return words;
+}
+
+- (NSString *)correctDecimalLoss:(NSString *)str
+{
+    //直接传入精度丢失有问题的Double类型
+    double conversionValue = [str doubleValue];
+    NSString *doubleString = [NSString stringWithFormat:@"%lf", conversionValue];
+    NSDecimalNumber *decNumber = [NSDecimalNumber decimalNumberWithString:doubleString];
+    return [decNumber stringValue];
 }
 
 @end

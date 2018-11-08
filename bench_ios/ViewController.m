@@ -25,14 +25,28 @@
 
 @implementation ViewController
 
-
-
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor=COLOR_WHITE;
     
     NSString *key=[NSString stringWithFormat:@"%@%@",[ccs getBid],[ccs getBundleVersion]];
+    
+    
+    NSString *html = @"{\"71.40\":71.40,\"8.37\":8.37,\"80.40\":80.40,\"188.40\":188.40}";//模拟器处理耗时0.000379秒
+    //\"test\":\"xxx\"
+//    NSString *html = @"{\"test\":\"xxx\"}";
+//    NSString *html = @"{\"test\":xxx}";
+//    NSString *html=[ccs getPlistDic:@"test"][@"test2"];//12:23:55.709415+0800 12:23:55.711681+0800 耗时0.002266秒
+
+    NSData *jsonData_ = [html dataUsingEncoding:NSUTF8StringEncoding];
+    NSError *jsonParsingError_ = nil;
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:[NSJSONSerialization JSONObjectWithData:jsonData_ options:0 error:&jsonParsingError_]];
+    NSLog(@"dic:%@", dic);
+    dic=[dic correctDecimalLoss:dic];
+    NSLog(@"dic:%@", dic);
+    NSString *value=dic[@"71.40"];
+    NSLog(@"dic:%@", [value correctDecimalLoss:value]);
+    
     
     //@"http://bench-ios.oss-cn-shanghai.aliyuncs.com/bench.json"
     [CC_HttpTask getInstance].static_netTestContain=@"KK部落";

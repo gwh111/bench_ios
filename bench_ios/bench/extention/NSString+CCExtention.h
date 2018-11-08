@@ -13,6 +13,11 @@
 /**
  *  把string拆分成单个字
  */
-+ (NSArray *)ccWords:(NSString *)cStr;
+- (NSArray *)ccWords:(NSString *)cStr;
+
+/**
+ *  修正小数如8.369999999999999问题
+ */
+- (NSString *)correctDecimalLoss:(NSString *)str;
 
 @end
