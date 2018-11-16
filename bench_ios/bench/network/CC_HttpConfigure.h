@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CCConfigure : NSObject
+@interface Confi : NSObject
 
 @property(nonatomic,assign) int net;//0线上 1线下 2线下第二个地址 ...
 @property(nonatomic,assign) BOOL showLog;

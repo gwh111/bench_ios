@@ -8,6 +8,6 @@
 
 #import "CC_HttpConfigure.h"
 
-@implementation CCConfigure
+@implementation Confi
 
 @end

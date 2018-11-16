@@ -108,7 +108,7 @@
 /**
  *  获取配置回调
  */
-@property(strong) void (^getConfigureBlock)(CCConfigure *result);
+@property(strong) void (^getConfigureBlock)(Confi *result);
 
 #pragma mark - bench配置的静态变量 一般情况不需修改
 /**
@@ -196,6 +196,6 @@
 /**
  *  获取配置
  */
-- (void)getConfigure:(void (^)(CCConfigure *result))block;
+- (void)getConfigure:(void (^)(Confi *result))block;
 
 @end

@@ -60,6 +60,13 @@
     [super viewDidLoad];
     self.view.backgroundColor=COLOR_WHITE;
     
+    id s= [CC_Date getWeekFromDate:[NSDate date]];
+    //2018-11-13 09:48:51
+    
+    NSString *s1=[CC_Date getFormatDateFromNow:@"2018-11-13 09:48:51" andTime:@"2018-11-13 09:48:41"];
+    NSString *s2=[CC_Date getFormatBeforeDateFromNow:@"2018-11-13 09:48:51" andTime:@"2018-11-13 09:48:41"];
+    NSString *s3=[CC_Date getFormatMinuteDateFromNow:@"2018-11-13 09:48:51" andTime:@"2018-11-13 09:48:41"];
+    
     {
         id i=@(5);
         NSString *html2=[i stringValue];
@@ -98,7 +105,7 @@
     
     //@"http://bench-ios.oss-cn-shanghai.aliyuncs.com/bench.json"
     [CC_HttpTask getInstance].static_netTestContain=@"KK部落";
-    [[CC_HttpTask getInstance]getConfigure:^(CCConfigure *configure) {
+    [[CC_HttpTask getInstance]getConfigure:^(Confi *configure) {
         
     }];
     

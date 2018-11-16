@@ -89,6 +89,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
 #import "UIButton+CCExtention.h"
 #import "NSString+CCExtention.h"
 #import "NSMutableDictionary+CCExtention.h"
+#import "NSDate+CCExtention.h"
 
 #import "UIApplication+CCHook.h"
 #import "UIViewController+CCHook.h"

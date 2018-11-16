@@ -29,6 +29,7 @@
 		D823153C1F53AED3006055FB /* testColorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D823153B1F53AED3006055FB /* testColorViewController.m */; };
 		D8288C492178881D000F3B89 /* model in Resources */ = {isa = PBXBuildFile; fileRef = D8288C482178881D000F3B89 /* model */; };
 		D8288C4C2178B01F000F3B89 /* CC_ObjectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D8288C4B2178B01F000F3B89 /* CC_ObjectModel.m */; };
+		D82F0B9B219533AF006EDF54 /* NSDate+CCExtention.m in Sources */ = {isa = PBXBuildFile; fileRef = D82F0B9A219533AF006EDF54 /* NSDate+CCExtention.m */; };
 		D8335338205F93F90030AB62 /* CC_HttpResponseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D8335337205F93F90030AB62 /* CC_HttpResponseModel.m */; };
 		D83507621F309D2700B7461C /* CC_DESTool.m in Sources */ = {isa = PBXBuildFile; fileRef = D83507611F309D2700B7461C /* CC_DESTool.m */; };
 		D835077A1F31E2CD00B7461C /* CC_CodeClass.m in Sources */ = {isa = PBXBuildFile; fileRef = D83507791F31E2CD00B7461C /* CC_CodeClass.m */; };
@@ -101,6 +102,7 @@
 		D8A799712109CC4F00D40B4B /* UINavigationController+CCHook.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A799702109CC4F00D40B4B /* UINavigationController+CCHook.m */; };
 		D8B0E45C1F5016EA00425D06 /* CC_GColor.m in Sources */ = {isa = PBXBuildFile; fileRef = D8B0E45B1F5016EA00425D06 /* CC_GColor.m */; };
 		D8B0E4611F501EE400425D06 /* nyyh.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D8B0E4601F501EE400425D06 /* nyyh.jpg */; };
+		D8B759B0219A84B0008A6C80 /* CC_Loading.m in Sources */ = {isa = PBXBuildFile; fileRef = D8B759AE219A84B0008A6C80 /* CC_Loading.m */; };
 		D8BDAF6820FC4F49006BF14C /* CC_ResponseLogicModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D8BDAF6720FC4F49006BF14C /* CC_ResponseLogicModel.m */; };
 		D8C5110A2112F40C00944CB0 /* CC_HookTrack.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C511082112F40C00944CB0 /* CC_HookTrack.m */; };
 		D8C511D0211AE3D100944CB0 /* NSString+CCExtention.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C511CF211AE3D100944CB0 /* NSString+CCExtention.m */; };
@@ -177,6 +179,8 @@
 		D8288C482178881D000F3B89 /* model */ = {isa = PBXFileReference; lastKnownFileType = folder; path = model; sourceTree = "<group>"; };
 		D8288C4A2178B01F000F3B89 /* CC_ObjectModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_ObjectModel.h; sourceTree = "<group>"; };
 		D8288C4B2178B01F000F3B89 /* CC_ObjectModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC_ObjectModel.m; sourceTree = "<group>"; };
+		D82F0B99219533AF006EDF54 /* NSDate+CCExtention.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSDate+CCExtention.h"; sourceTree = "<group>"; };
+		D82F0B9A219533AF006EDF54 /* NSDate+CCExtention.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSDate+CCExtention.m"; sourceTree = "<group>"; };
 		D8335336205F93F90030AB62 /* CC_HttpResponseModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_HttpResponseModel.h; sourceTree = "<group>"; };
 		D8335337205F93F90030AB62 /* CC_HttpResponseModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC_HttpResponseModel.m; sourceTree = "<group>"; };
 		D83507601F309D2700B7461C /* CC_DESTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_DESTool.h; sourceTree = "<group>"; };
@@ -319,6 +323,8 @@
 		D8B0E45A1F5016EA00425D06 /* CC_GColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_GColor.h; sourceTree = "<group>"; };
 		D8B0E45B1F5016EA00425D06 /* CC_GColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC_GColor.m; sourceTree = "<group>"; };
 		D8B0E4601F501EE400425D06 /* nyyh.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = nyyh.jpg; sourceTree = "<group>"; };
+		D8B759AE219A84B0008A6C80 /* CC_Loading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC_Loading.m; sourceTree = "<group>"; };
+		D8B759AF219A84B0008A6C80 /* CC_Loading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_Loading.h; sourceTree = "<group>"; };
 		D8BDAF6620FC4F49006BF14C /* CC_ResponseLogicModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_ResponseLogicModel.h; sourceTree = "<group>"; };
 		D8BDAF6720FC4F49006BF14C /* CC_ResponseLogicModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC_ResponseLogicModel.m; sourceTree = "<group>"; };
 		D8C511082112F40C00944CB0 /* CC_HookTrack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC_HookTrack.m; sourceTree = "<group>"; };
@@ -721,6 +727,8 @@
 				D839260420FEDF9D0034D10F /* cas */,
 				3081D9BE20FC364F00FF5B3D /* CC_UIViewExt.h */,
 				3081D9BF20FC364F00FF5B3D /* CC_UIViewExt.m */,
+				D8B759AF219A84B0008A6C80 /* CC_Loading.h */,
+				D8B759AE219A84B0008A6C80 /* CC_Loading.m */,
 				D83B73322068A170000F81F8 /* CC_Note.h */,
 				D83B73332068A170000F81F8 /* CC_Note.m */,
 				D83EBBFF1FEB5BA700B94D6F /* CC_Notice.h */,
@@ -772,6 +780,8 @@
 				D8A7996D2109CC0300D40B4B /* UIViewController+CCHook.m */,
 				D8A7996F2109CC4F00D40B4B /* UINavigationController+CCHook.h */,
 				D8A799702109CC4F00D40B4B /* UINavigationController+CCHook.m */,
+				D82F0B99219533AF006EDF54 /* NSDate+CCExtention.h */,
+				D82F0B9A219533AF006EDF54 /* NSDate+CCExtention.m */,
 			);
 			path = extention;
 			sourceTree = "<group>";
@@ -984,12 +994,14 @@
 				D839265D20FEDFC60034D10F /* UIView+CASAdditions.m in Sources */,
 				D8DD97EB20B6A6F2000A890D /* CC_Animation.m in Sources */,
 				D839266E20FEDFC60034D10F /* CASStyleProperty.m in Sources */,
+				D8B759B0219A84B0008A6C80 /* CC_Loading.m in Sources */,
 				D839266720FEDFC60034D10F /* CASLexer.m in Sources */,
 				D839267420FEDFC60034D10F /* CASObjectClassDescriptor.m in Sources */,
 				D839265E20FEDFC60034D10F /* UISlider+CASAdditions.m in Sources */,
 				D8195F511F29CE6B00C7BADD /* CC_MD5Object.m in Sources */,
 				D8A799712109CC4F00D40B4B /* UINavigationController+CCHook.m in Sources */,
 				D839267120FEDFC60034D10F /* CASUnitToken.m in Sources */,
+				D82F0B9B219533AF006EDF54 /* NSDate+CCExtention.m in Sources */,
 				D83EBC011FEB5BA700B94D6F /* CC_Array.m in Sources */,
 				D839266520FEDFC60034D10F /* CASExpressionSolver.m in Sources */,
 				D839267320FEDFC60034D10F /* CASPropertyDescriptor.m in Sources */,

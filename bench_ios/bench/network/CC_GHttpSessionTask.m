@@ -555,17 +555,17 @@ static dispatch_once_t onceToken;
 }
 
 #pragma mark getConfigure
-- (void)getConfigure:(void (^)(CCConfigure *result))block{
+- (void)getConfigure:(void (^)(Confi *result))block{
     [self getConfigure:_static_netTestUrl contain:_static_netTestContain block:block];
 }
-- (void)getConfigure:(NSString *)urlStr contain:(NSString *)containStr block:(void (^)(CCConfigure *result))block{
+- (void)getConfigure:(NSString *)urlStr contain:(NSString *)containStr block:(void (^)(Confi *result))block{
     
     self.getConfigureBlock=block;
     
     NSDictionary *resultDic=[ccs getDefault:@"bench_configure"];
     if (resultDic) {
         //缓存
-        CCConfigure *configure=[[CCConfigure alloc]init];
+        Confi *configure=[[Confi alloc]init];
         configure.resultDic=resultDic;
         configure.net=[resultDic[@"net"] intValue];
         configure.showLog=[resultDic[@"showLog"] intValue];
@@ -592,14 +592,14 @@ static dispatch_once_t onceToken;
                     
                     [ccs saveDefaultKey:@"bench_configure" andV:resultDic2];
                     //缓存下来
-                    CCConfigure *configure=[[CCConfigure alloc]init];
+                    Confi *configure=[[Confi alloc]init];
                     configure.resultDic=resultDic2;
                     configure.net=[resultDic2[@"net"] intValue];
                     configure.showLog=[resultDic2[@"showLog"] intValue];
                     self.getConfigureBlock(configure);
                 }else{
                     [ccs saveDefaultKey:@"bench_configure" andV:@{@"net":@"0",@"showLog":@"0"}];
-                    CCConfigure *configure=[[CCConfigure alloc]init];
+                    Confi *configure=[[Confi alloc]init];
                     configure.net=0;
                     configure.showLog=0;
                     self.getConfigureBlock(configure);
@@ -607,7 +607,7 @@ static dispatch_once_t onceToken;
             }];
         }else{
             [ccs saveDefaultKey:@"bench_configure" andV:@{@"net":@"0",@"showLog":@"0"}];
-            CCConfigure *configure=[[CCConfigure alloc]init];
+            Confi *configure=[[Confi alloc]init];
             configure.net=0;
             configure.showLog=0;
             self.getConfigureBlock(configure);
