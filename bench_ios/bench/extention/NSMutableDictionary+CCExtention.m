@@ -82,7 +82,7 @@
     return arr;
 }
 
-- (NSString *)parseNumber:(NSNumber *)number{
+- (NSDecimalNumber *)parseNumber:(NSNumber *)number{
     return [self reviseNum:number];
 }
 

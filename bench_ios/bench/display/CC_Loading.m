@@ -7,6 +7,7 @@
 //
 
 #import "CC_Loading.h"
+#import "CC_Share.h"
 
 @interface CC_Loading(){
     UIView *loadingV;
