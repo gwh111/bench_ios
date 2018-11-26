@@ -60,6 +60,18 @@
     [super viewDidLoad];
     self.view.backgroundColor=COLOR_WHITE;
     
+    NSMutableArray *mutArr=[[NSMutableArray alloc]init];
+    NSMutableString *str22=[[NSMutableString alloc]init];
+    for (int i=0; i<4; i++) {
+        NSMutableString *str222=[ccs copyThis:str22];
+        [str222 appendString:@"2"];
+        [mutArr addObject:str222];
+    }
+    
+    NSString *sss=mutArr[1];
+    sss=@"abc";
+    
+    
     id s= [CC_Date getWeekFromDate:[NSDate date]];
     //2018-11-13 09:48:51
     
@@ -159,11 +171,16 @@
     
 //    NSString *path=[NSString stringWithFormat:@"%@", NSHomeDirectory()];
 //    CCLOG(@"%@",path);
+    
+    NSMutableAttributedString *att=[[NSMutableAttributedString alloc]init];
+    att=[CC_AttributedStr getOrigAttStr:att appendStr:@"" withColor:nil];
+    
     CC_Button *button=[[CC_Button alloc]init];
     button.frame=CGRectMake(0, 0, [ccui getRH:100], [ccui getRH:35]);
     button.backgroundColor=[UIColor clearColor];
     button.titleLabel.font=[ccui getRFS:14];
     [button setTitle:@"normal2" forState:UIControlStateNormal];
+    [button setAttributedTitle:att forState:UIControlStateNormal];
     [button setTitleColor:COLOR_BLACK forState:UIControlStateNormal];
     [CC_Button saveModel:button name:@"normal2" des:@"黑色无边框黑色文字圆角 初始字体14 " hasSetLayer:0];
 //    [CC_ObjectModel showModel:button];

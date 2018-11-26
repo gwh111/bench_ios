@@ -11,6 +11,16 @@
 @interface CC_TextView : UITextView
 
 /**
+ *  计算textview的高度
+ */
+- (float)heightForWidth:(float)width;
+
+/**
+ *  计算textview的宽度
+ */
+- (float)widthForHeight:(float)height;
+
+/**
  *  根据模型name取得模型
  需导入模型文件 并初始化时读取
  */

@@ -11,6 +11,15 @@
 @interface CC_Label : UILabel
 
 /**
+ *  描边颜色
+ */
+@property (nonatomic,strong)UIColor *borderColor;
+/**
+ *  描边宽
+ */
+@property (nonatomic,assign)CGFloat borderWidth;
+
+/**
  *  根据模型name取得模型
  需导入模型文件 并初始化时读取
  */

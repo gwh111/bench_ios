@@ -48,13 +48,43 @@
     return words;
 }
 
-- (NSString *)correctDecimalLoss:(NSString *)str
+- (NSString *)correctDecimalLoss
 {
+    if (self==nil) {
+        return nil;
+    }
+    if (self.length<=0) {
+        return @"";
+    }
     //直接传入精度丢失有问题的Double类型
-    double conversionValue = [str doubleValue];
+    double conversionValue = [self doubleValue];
     NSString *doubleString = [NSString stringWithFormat:@"%lf", conversionValue];
     NSDecimalNumber *decNumber = [NSDecimalNumber decimalNumberWithString:doubleString];
     return [decNumber stringValue];
+}
+
+- (CGFloat)heightForWidth:(CGFloat)width font:(UIFont *)font{
+    
+    if (self.length<=0) {
+        return 0;
+    }
+    CGSize textSize = CGSizeMake(width , CGFLOAT_MAX);
+    NSMutableParagraphStyle *parStyle=[[NSMutableParagraphStyle alloc]init];
+    parStyle.lineBreakMode=NSLineBreakByWordWrapping;
+    NSDictionary *attributes=@{NSFontAttributeName:font,NSParagraphStyleAttributeName:parStyle };
+    return ceil([self boundingRectWithSize:textSize options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil].size.height);
+}
+
+- (CGFloat)widthForHeight:(CGFloat)height font:(UIFont *)font{
+    
+    if (self.length<=0) {
+        return 0;
+    }
+    CGSize textSize = CGSizeMake(CGFLOAT_MAX , height);
+    NSMutableParagraphStyle *parStyle=[[NSMutableParagraphStyle alloc]init];
+    parStyle.lineBreakMode=NSLineBreakByWordWrapping;
+    NSDictionary *attributes=@{NSFontAttributeName:font,NSParagraphStyleAttributeName:parStyle };
+    return ceil([self boundingRectWithSize:textSize options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil].size.width);
 }
 
 @end

@@ -214,6 +214,10 @@ NSString *ccstr(NSString *format, ...);
  *  延时、延迟
  */
 + (void)delay:(double)delayInSeconds block:(void (^)(void))block;
+/**
+ *  判断是否为空或没有数据
+ */
++ (BOOL)isEmpty:(id)obj;
 
 @end
 

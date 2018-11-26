@@ -11,7 +11,9 @@
 @implementation CC_AttributedStr
 
 + (NSMutableAttributedString *)getOrigAttStr:(NSMutableAttributedString *)origAttStr appendStr:(NSString *)appendStr withColor:(UIColor *)color{
-    
+    if (!appendStr||appendStr.length==0) {
+        return origAttStr;
+    }
     NSMutableAttributedString *appendAttStr=[[NSMutableAttributedString alloc]initWithString:appendStr];
     [appendAttStr addAttribute:NSForegroundColorAttributeName value:color range:NSMakeRange(0,appendAttStr.length)];
     [origAttStr appendAttributedString:appendAttStr];
@@ -20,7 +22,7 @@
 }
 
 + (NSMutableAttributedString *)getOrigAttStr:(NSMutableAttributedString *)origAttStr appendStr:(NSString *)appendStr withColor:(UIColor *)color andFont:(UIFont *)font{
-    if (!appendStr) {
+    if (!appendStr||appendStr.length==0) {
         return origAttStr;
     }
     NSMutableAttributedString *appendAttStr=[[NSMutableAttributedString alloc]initWithString:appendStr];
@@ -29,41 +31,6 @@
     [origAttStr appendAttributedString:appendAttStr];
     
     return origAttStr;
-}
-
-+ (CGFloat)heightForLableWithStr:(NSString *)text lableWidth:(CGFloat)lableWidth font:(UIFont *)font{
-    
-    CGSize textSize = CGSizeMake(lableWidth , CGFLOAT_MAX);
-    
-    NSMutableParagraphStyle *parStyle=[[NSMutableParagraphStyle alloc]init];
-    
-    parStyle.lineBreakMode=NSLineBreakByWordWrapping;
-    
-    NSDictionary *attributes=@{NSFontAttributeName:font,NSParagraphStyleAttributeName:parStyle };
-    
-    return ceil([text boundingRectWithSize:textSize options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil].size.height);
-}
-
-+ (CGFloat)lengthForLableWithStr:(NSString *)text lableHeight:(CGFloat)lableHeight font:(UIFont *)font{
-    
-    CGSize textSize = CGSizeMake(CGFLOAT_MAX , lableHeight);
-    
-    NSMutableParagraphStyle *parStyle=[[NSMutableParagraphStyle alloc]init];
-    
-    parStyle.lineBreakMode=NSLineBreakByWordWrapping;
-    
-    NSDictionary *attributes=@{NSFontAttributeName:font,NSParagraphStyleAttributeName:parStyle };
-    
-    return ceil([text boundingRectWithSize:textSize options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil].size.width);
-}
-
-+ (float)heightForStr:(UITextView *)textView andWidth:(float)width{
-    CGSize sizeToFit = [textView sizeThatFits:CGSizeMake(width, MAXFLOAT)];
-    return sizeToFit.height;
-}
-+ (float)widthForStr:(UITextView *)textView andHeight:(float)height{
-    CGSize sizeToFit = [textView sizeThatFits:CGSizeMake(MAXFLOAT, height)];
-    return sizeToFit.width;
 }
 
 - (NSString *)cutHtmlTagFromStr:(NSString *)htmlStr withTagName:(NSString *)tagNameStr toStr:(NSString *)replaceStr trimSpace:(BOOL)trim

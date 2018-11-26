@@ -19,7 +19,15 @@
     return [CC_ObjectModel saveModel:model name:name des:des hasSetLayer:hasSetLayer];
 }
 
+- (float)heightForWidth:(float)width{
+    CGSize sizeToFit = [self sizeThatFits:CGSizeMake(width, MAXFLOAT)];
+    return sizeToFit.height;
+}
 
+- (float)widthForHeight:(float)height{
+    CGSize sizeToFit = [self sizeThatFits:CGSizeMake(MAXFLOAT, height)];
+    return sizeToFit.width;
+}
 
 
 + (CC_TextView *)cr:(UIView *)view l:(float)left t:(float)top w:(float)width h:(float)height ts:(NSString *)titleStr ats:(NSAttributedString *)attributedStr tc:(UIColor *)textColor bgc:(UIColor *)backgroundColor f:(UIFont *)font ta:(NSTextAlignment)textAlignment sb:(BOOL)selectable eb:(BOOL)editable uie:(BOOL)userInteractionEnabled{
