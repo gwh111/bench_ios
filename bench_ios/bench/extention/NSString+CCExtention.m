@@ -63,6 +63,14 @@
     return [decNumber stringValue];
 }
 
+- (NSString *)getDecimalStrWithMode:(NSRoundingMode)roundingMode scale:(short)scale {
+    NSDecimalNumberHandler *roundingBehavior = [NSDecimalNumberHandler decimalNumberHandlerWithRoundingMode:roundingMode scale:scale raiseOnExactness:NO raiseOnOverflow:NO raiseOnUnderflow:NO raiseOnDivideByZero:NO];
+    NSDecimalNumber *aDN = [[NSDecimalNumber alloc] initWithString:self];
+    NSDecimalNumber *resultDN = [aDN decimalNumberByRoundingAccordingToBehavior:roundingBehavior];
+    NSString *str=[NSString stringWithFormat:@"%@",resultDN];
+    return str;
+}
+
 - (CGFloat)heightForWidth:(CGFloat)width font:(UIFont *)font{
     
     if (self.length<=0) {
@@ -72,7 +80,7 @@
     NSMutableParagraphStyle *parStyle=[[NSMutableParagraphStyle alloc]init];
     parStyle.lineBreakMode=NSLineBreakByWordWrapping;
     NSDictionary *attributes=@{NSFontAttributeName:font,NSParagraphStyleAttributeName:parStyle };
-    return ceil([self boundingRectWithSize:textSize options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil].size.height);
+    return ceil([self boundingRectWithSize:textSize options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:attributes context:nil].size.height);
 }
 
 - (CGFloat)widthForHeight:(CGFloat)height font:(UIFont *)font{
@@ -84,7 +92,7 @@
     NSMutableParagraphStyle *parStyle=[[NSMutableParagraphStyle alloc]init];
     parStyle.lineBreakMode=NSLineBreakByWordWrapping;
     NSDictionary *attributes=@{NSFontAttributeName:font,NSParagraphStyleAttributeName:parStyle };
-    return ceil([self boundingRectWithSize:textSize options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil].size.width);
+    return ceil([self boundingRectWithSize:textSize options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:attributes context:nil].size.width);
 }
 
 @end

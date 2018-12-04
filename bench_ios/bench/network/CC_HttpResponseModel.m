@@ -116,6 +116,12 @@
             if (![ccs getLocalKeyNamed:@"service" andKey:_serviceStr]) {
                 [ccs saveLocalKeyNamed:@"service" andKey:_serviceStr andValue:_resultStr];
             }
+            
+            if ([CC_Parser safeCheckStart:self]) {
+                
+            }else{
+                [CC_Parser safeCheckEnd:self];
+            }
         }
     }
 }

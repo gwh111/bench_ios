@@ -20,6 +20,4 @@
 
 + (void)showNoticeStr:(NSString *)noticeStr delay:(int)delay;
 
-+ (void)showNoticeStr:(NSString *)noticeStr delay:(int)delay atView:(UIView *)view;
-
 @end

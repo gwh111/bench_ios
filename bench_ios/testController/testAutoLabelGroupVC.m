@@ -43,7 +43,7 @@
 
 - (void)buttonInitFinish:(UIButton *)button{
     [CC_Code setRadius:4 view:button];
-    [CC_Code setLineColor:COLOR_WHITE andA:1 width:1 view:button];
+    [CC_Code setLineColor:COLOR_WHITE width:1 view:button];
 }
 
 - (void)buttonTappedIndex:(int)index button:(UIButton *)button{

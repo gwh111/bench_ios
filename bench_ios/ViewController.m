@@ -257,13 +257,31 @@
     
     //https://api.leancloud.cn/1/date
     //http://mapi1.93leju.net/service.json?service=APP_INITIAL_CONFIG_LOAD&loginKey=&timestamp=1526266427&authedUserId=&sign=03971cacca9b2c1dc90065edea390cb5
-    [[CC_HttpTask getInstance]post:[NSURL URLWithString:@"https://www.baidu.com/baidu?wd=%E4%BD%A0%E4%BB%8E%E5%93%AA%E9%87%8C%E6%9D%A5"] params:@{} model:[[ResModel alloc]init] finishCallbackBlock:^(NSString *error, ResModel *result) {
+    //http://mapi.kkbuluo.net/client/service.json?getDxGgSp=1&getRfGgSp=1&getSfGgSp=1&getSfcGgSp=1&getSupport=1&hhgg=1&service=JCZQ_SELLABLE_ISSUE_QUERY
+    [[CC_HttpTask getInstance]post:[NSURL URLWithString:@"http://mapi.kkbuluo.net/client/service.json?"] params:@{@"service":@"JCZQ_SELLABLE_ISSUE_QUERY",@"getSfGgSp":@"0"} model:[[ResModel alloc]init] finishCallbackBlock:^(NSString *error, ResModel *result) {
         if (error) {
             [CC_Note showAlert:error];
             return ;
         }
-//        CCLOG(@"%@",result.resultDic);
-//        ccstr(@"a%@b=2",@"=1");
+        
+        NSMutableDictionary *mutDic=[[NSMutableDictionary alloc]initWithDictionary:result.resultDic];
+        NSMutableDictionary *mutDic2=mutDic[@"response"];
+        NSMutableArray *mutArr=mutDic2[@"jczqIssueDataList"];
+        NSMutableDictionary *mutDic3=mutArr[0];
+        [mutDic3 removeObjectForKey:@"issueNo"];
+        [mutArr replaceObjectAtIndex:0 withObject:mutDic3];
+
+        [mutDic2 setObject:mutArr forKey:@"jczqIssueDataList"];
+        [mutDic setObject:mutDic2 forKey:@"response"];
+
+        NSDictionary *diccc=[NSDictionary dictionaryWithDictionary:mutDic];
+
+        result.resultDic=diccc;
+        if ([CC_Parser safeCheckStart:result]) {
+            return;
+        }
+        [CC_Parser safeCheckEnd:result];
+        
     }];
     
     [[CC_HttpTask getInstance]get:[NSURL URLWithString:@"https://www.baidu.com"] params:@{@"getDate":@""} model:[[ResModel alloc]init] finishCallbackBlock:^(NSString *error, ResModel *result) {

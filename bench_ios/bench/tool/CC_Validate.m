@@ -10,6 +10,13 @@
 
 @implementation CC_Validate
 
++ (BOOL)isPureInt:(NSString *)str{
+    
+    NSScanner* scan = [NSScanner scannerWithString:str];
+    int val;
+    return [scan scanInt:&val] && [scan isAtEnd];
+}
+
 + (BOOL)isMatchNumberWordChinese:(NSString *)str{
     NSString *regex = @"[a-zA-Z0-9\u4e00-\u9fa5][a-zA-Z0-9\u4e00-\u9fa5]+";
     NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
@@ -20,19 +27,15 @@
     return YES;
 }
 
-//匹配由字母/数字组成的字符串的正则表达式
-+ (BOOL)isOnlyNumerAndLetter:(NSString *)textStr{
-    NSString * regex = @"^[A-Za-z0-9]$";
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
-    BOOL isMatch = [pred evaluateWithObject:textStr];
-    return isMatch;
-}
-
-+ (BOOL)isOnlyChinese:(NSString *)textStr{
-    NSString * regex = @"[a-zA-Z\u4e00-\u9fa5][a-zA-Z0-9\u4e00-\u9fa5]+";
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
-    BOOL isMatch = [pred evaluateWithObject:textStr];
-    return isMatch;
++ (BOOL)hasChinese:(NSString *)str{
+    for(int i=0; i< [str length];i++){
+        int a = [str characterAtIndex:i];
+        if( a > 0x4e00 && a < 0x9fff)
+        {
+            return YES;
+        }
+    }
+    return NO;
 }
 
 // 手机号码验证

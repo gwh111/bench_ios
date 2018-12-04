@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 
 #import "ViewController.h"
+#import "NSDictionary+CCExtention.h"
 
 @interface AppDelegate ()
 
@@ -21,8 +22,26 @@
     // Override point for customization after application launch.
     
     
-    NSDictionary *d=[ccs getBundle];
+    int i=[CC_Validate hasChinese:@""];
     
+    float f1=1.25;
+    float f2=1.24;
+    float f3=1.26;
+    float f4=1.35;
+    float f5=1.34;
+    float f6=1.36;
+    CCLOG(@"%.1f %.1f %.1f    %.1f %.1f %.1f",f1,f2,f3,f4,f5,f6);
+    NSDecimalNumberHandler *handel=[NSDecimalNumberHandler decimalNumberHandlerWithRoundingMode:NSRoundBankers scale:6 raiseOnExactness:NO raiseOnOverflow:NO raiseOnUnderflow:NO raiseOnDivideByZero:NO];
+    NSDecimalNumberHandler *roundingBehavior = [NSDecimalNumberHandler decimalNumberHandlerWithRoundingMode:NSRoundPlain scale:2 raiseOnExactness:NO raiseOnOverflow:NO raiseOnUnderflow:NO raiseOnDivideByZero:NO];
+    NSDecimalNumber *num1 = [NSDecimalNumber decimalNumberWithString:@"1.25"];
+    NSDecimalNumber *num2 = [NSDecimalNumber decimalNumberWithString:@"2"];
+    
+    NSDecimalNumber *aDN = [[NSDecimalNumber alloc] initWithFloat:0.125532];
+    NSDecimalNumber *resultDN = [aDN decimalNumberByRoundingAccordingToBehavior:roundingBehavior];
+    NSString *str=[NSString stringWithFormat:@"%@",resultDN];
+    NSString *str1=[NSString stringWithFormat:@"1.254"];
+    str1=[str1 getDecimalStrWithMode:NSRoundPlain scale:1];
+    CCLOG(@"%@ %@ %@",resultDN,str,str1);
 #pragma mark init
     //    [CC_Share getInstance].ccDebug=1;
     //设置基准 效果图的尺寸即可

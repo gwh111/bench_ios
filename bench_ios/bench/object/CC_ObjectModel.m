@@ -61,7 +61,7 @@
         background.contentSize=CGSizeMake(background.width, top);
     }
     
-    [[CC_Code lastWindow]addSubview:background];
+    [[CC_Code getLastWindow]addSubview:background];
     
 }
 
@@ -86,7 +86,7 @@
         
         [background addSubview:temp];
         
-        [[CC_Code lastWindow]addSubview:background];
+        [[CC_Code getLastWindow]addSubview:background];
     }
 }
 

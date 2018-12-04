@@ -47,7 +47,23 @@
 
 @implementation CC_Code
 
-+ (UIWindow *)lastWindow{
++ (UIViewController *)getCurrentVC
+{
+    UIWindow * window = [[UIApplication sharedApplication] keyWindow];
+    UIViewController *rootVC = window.rootViewController;
+    UIViewController *presentedViewController = rootVC.presentedViewController;
+    if (presentedViewController != nil) {
+        if ([presentedViewController isKindOfClass:[UINavigationController class]]) {
+            UINavigationController *nv = (UINavigationController *)presentedViewController;
+            return [nv.viewControllers lastObject];
+        }else{
+            return presentedViewController;
+        }
+    }
+    return nil;
+}
+    
++ (UIWindow *)getLastWindow{
     NSArray *windows = [UIApplication sharedApplication].windows;
     for(UIWindow *window in [windows reverseObjectEnumerator]) {
         
@@ -58,6 +74,14 @@
     }
     
     return [UIApplication sharedApplication].keyWindow;
+}
+
++ (UIView *)getAView{
+    UIView *showV=[CC_Code getCurrentVC].view;
+    if (!showV) {
+        showV=[CC_Code getLastWindow];
+    }
+    return showV;
 }
 
 + (void)setRadius:(float)radius view:(UIView *)view{
@@ -97,12 +121,6 @@
     
     [_gradLayer setFrame:CGRectMake(0, 0, view.frame.size.width, view.frame.size.height)];
     [view.layer setMask:_gradLayer];
-}
-
-#pragma mark 不再建议使用 保留是为了兼容之前版本
-+ (void)setLineColor:(UIColor *)color andA:(float)alpha width:(float)width view:(UIView *)view{
-    [view.layer setBorderWidth:width];
-    view.layer.borderColor = [color CGColor];
 }
 
 @end

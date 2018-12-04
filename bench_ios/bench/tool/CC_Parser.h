@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CC_HttpResponseModel.h"
 
 @interface CC_Parser : NSObject
 
@@ -27,5 +28,18 @@
  * 将map的数据移置list中 多个map时添加
  */
 + (NSMutableArray *)addMapParser:(NSMutableArray *)pathArr idKey:(NSString *)idKey keepKey:(BOOL)keepKey map:(NSDictionary *)getMap;
+
+/**
+ *  根据上一次缓存验证请求结果是否少字段
+    适用于必须有固定字段的请求
+    不适用于多变结果、如类型很多，不同类型返回不同结构的请求
+    返回 1 不成功
+    if ([CC_Parser safeCheckStart:result]) {
+        return;
+    }
+    [CC_Parser safeCheckEnd:result];
+ */
++ (int)safeCheckStart:(ResModel *)resModel;
++ (void)safeCheckEnd:(ResModel *)resModel;
 
 @end

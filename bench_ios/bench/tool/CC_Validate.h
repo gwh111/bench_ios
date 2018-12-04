@@ -10,10 +10,20 @@
 
 @interface CC_Validate : NSObject
 
+/**
+ *  纯数字
+ */
++ (BOOL)isPureInt:(NSString *)str;
+
+/**
+ *  只有数字字母和中文
+ */
 + (BOOL)isMatchNumberWordChinese:(NSString *)str;
 
-+ (BOOL)isOnlyNumerAndLetter:(NSString *)textStr;
-+ (BOOL)isOnlyChinese:(NSString *)textStr;
+/**
+ *  有中文
+ */
++ (BOOL)hasChinese:(NSString *)str;
 
 /** 手机号码验证*/
 + (BOOL)validateMobile:(NSString *)mobileStr;
