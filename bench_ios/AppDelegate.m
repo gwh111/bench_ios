@@ -9,7 +9,6 @@
 #import "AppDelegate.h"
 
 #import "ViewController.h"
-#import "NSDictionary+CCExtention.h"
 
 @interface AppDelegate ()
 
