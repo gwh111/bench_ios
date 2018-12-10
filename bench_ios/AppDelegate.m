@@ -20,6 +20,14 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+    NSDate *d1=[NSDate date];
+    CCLOG(@"d1=%@",d1);
+    [ccs delay:.5 block:^{
+        NSDate *d2=[NSDate date];
+        CCLOG(@"d2=%@",d2);
+        NSTimeInterval d3=[CC_Date compareDate:d2 cut:d1]*1000;
+        CCLOG(@"d3=%f",d3);
+    }];
     
     int i=[CC_Validate hasChinese:@""];
     

@@ -26,6 +26,7 @@ static dispatch_once_t onceToken;
 + (void)showAlert:(NSString *)str{
     [self showAlert:str atView:nil];
 }
+
 + (void)showAlert:(NSString *)str atView:(UIView *)view{
     if ([NSThread isMainThread]) {
         [self main_showAlert:str atView:view];
@@ -35,15 +36,16 @@ static dispatch_once_t onceToken;
         });
     }
 }
+
 + (void)main_showAlert:(NSString *)str atView:(UIView *)view{
-    UIView *showV=[CC_CodeClass topViewController].view;
+    UIView *showV=[CC_Code getAView];
     
     UIView *alertView=[[UIView alloc]initWithFrame:CGRectMake(10, showV.frame.size.height/2+[CC_Note getInstance].ccnote_count*40, showV.frame.size.width-20, 40)];
     [CC_Note getInstance].ccnote_count=[CC_Note getInstance].ccnote_count+1;
     if ([CC_Note getInstance].ccnote_count>3) {
         [CC_Note getInstance].ccnote_count=-3;
     }
-    [[CC_CodeClass topViewController].view addSubview:alertView];
+    [[CC_Code getAView] addSubview:alertView];
     alertView.backgroundColor=ccRGBA(0, 0, 0, .8);
     
     UILabel *alertLabel=[[UILabel alloc]initWithFrame:CGRectMake(0, 0, showV.frame.size.width-20, 40)];
@@ -70,4 +72,5 @@ static dispatch_once_t onceToken;
         });
     }];
 }
+
 @end

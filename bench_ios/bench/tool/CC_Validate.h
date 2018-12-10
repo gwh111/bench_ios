@@ -16,6 +16,11 @@
 + (BOOL)isPureInt:(NSString *)str;
 
 /**
+ *  纯字母
+ */
++ (BOOL)isPureLetter:(NSString *)str;
+
+/**
  *  只有数字字母和中文
  */
 + (BOOL)isMatchNumberWordChinese:(NSString *)str;

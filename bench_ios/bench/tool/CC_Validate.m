@@ -12,9 +12,16 @@
 
 + (BOOL)isPureInt:(NSString *)str{
     
-    NSScanner* scan = [NSScanner scannerWithString:str];
+    NSScanner *scan = [NSScanner scannerWithString:str];
     int val;
     return [scan scanInt:&val] && [scan isAtEnd];
+}
+
++ (BOOL)isPureLetter:(NSString *)str{
+    if (str.length == 0) return NO;
+    NSString *regex =@"[a-zA-Z]*";
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",regex];
+    return [pred evaluateWithObject:str];
 }
 
 + (BOOL)isMatchNumberWordChinese:(NSString *)str{

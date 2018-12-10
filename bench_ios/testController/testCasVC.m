@@ -51,8 +51,6 @@
     
     CC_TextField *textField=[CC_UIAtom initAt:self.view name:@"MainVC_tf_box1" type:CCAtomTypeTextField finishBlock:^(id atom) {
     }];
-    [CC_CodeClass setLineColorR:0 andG:0 andB:0 andA:1 width:2 view:textField];
-    [CC_CodeClass setBoundsWithRadius:10 view:textField];
     
     
     double delayInSeconds = 3;

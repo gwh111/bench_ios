@@ -8,43 +8,6 @@
 
 #import "CC_CodeClass.h"
 
-@implementation CC_CodeClass
-
-+ (UIViewController *)topViewController{
-    UIViewController *resultVC;
-    resultVC = [self _topViewController:[[UIApplication sharedApplication].keyWindow rootViewController]];
-    while (resultVC.presentedViewController) {
-        resultVC = [self _topViewController:resultVC.presentedViewController];
-    }
-    return resultVC;
-}
-
-+ (UIViewController *)_topViewController:(UIViewController *)vc{
-    if ([vc isKindOfClass:[UINavigationController class]]) {
-        return [self _topViewController:[(UINavigationController *)vc topViewController]];
-    } else if ([vc isKindOfClass:[UITabBarController class]]){
-        return [self _topViewController:[(UITabBarController *)vc selectedViewController]];
-    } else {
-        return vc;
-    }
-    return nil;
-}
-
-+ (void)setBoundsWithRadius:(float)radius view:(UIView *)view{
-    [view.layer setMasksToBounds:YES];
-    [view.layer setCornerRadius:radius];
-}
-
-+ (void)setLineColorR:(float)r andG:(float)g andB:(float)b andA:(float)alpha width:(float)width view:(UIView *)view{
-    [view.layer setBorderWidth:width]; //边框宽度
-    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    CGColorRef colorref = CGColorCreate(colorSpace,(CGFloat[]){ r, g, b, alpha});
-    [view.layer setBorderColor:colorref];//边框颜色
-    CGColorRelease(colorref);
-}
-
-@end
-
 @implementation CC_Code
 
 + (UIViewController *)getCurrentVC
@@ -82,6 +45,42 @@
         showV=[CC_Code getLastWindow];
     }
     return showV;
+}
+
++ (NSMutableArray *)sortMutArr:(NSMutableArray *)mutArr byKey:(NSString *)key desc:(int)desc{
+    if (desc) {
+        //降序
+        for (int i = 0; i < mutArr.count; i++) {
+            for (int j = 0; j < mutArr.count - 1 - i; j++) {
+                if (key) {
+                    if ([mutArr[j][key] intValue] < [mutArr[j + 1][key] intValue]) {
+                        [mutArr exchangeObjectAtIndex:j withObjectAtIndex:j+1];
+                    }
+                }else{
+                    if ([mutArr[j] intValue] < [mutArr[j + 1] intValue]) {
+                        [mutArr exchangeObjectAtIndex:j withObjectAtIndex:j+1];
+                    }
+                }
+            }
+        }
+    }else{
+        //升序
+        for (int i = 0; i < mutArr.count; i++) {
+            for (int j = 0; j < mutArr.count - 1 - i;j++) {
+                if (key) {
+                    if ([mutArr[j+1][key]intValue] < [mutArr[j][key] intValue]) {
+                        [mutArr exchangeObjectAtIndex:j withObjectAtIndex:j+1];
+                    }
+                }else{
+                    if ([mutArr[j+1]intValue] < [mutArr[j] intValue]) {
+                        [mutArr exchangeObjectAtIndex:j withObjectAtIndex:j+1];
+                    }
+                }
+            }
+        }
+    }
+    
+    return mutArr;
 }
 
 + (void)setRadius:(float)radius view:(UIView *)view{
@@ -127,7 +126,7 @@
 
 @implementation convert
 
-+ (NSString*)convertToJSONData:(id)infoDict
++ (NSString *)convertToJSONData:(id)infoDict
 {
     if (!infoDict) {
         return @"";

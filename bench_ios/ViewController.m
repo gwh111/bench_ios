@@ -60,6 +60,46 @@
     [super viewDidLoad];
     self.view.backgroundColor=COLOR_WHITE;
     
+    
+    [[CC_TManager getInstance]registerT:@"g1" interval:0.1 block:^{
+        
+        CCLOG(@"g1");
+    }];
+    [[CC_TManager getInstance]registerT:@"g2" interval:2 block:^{
+        
+        CCLOG(@"g2");
+    }];
+    [[CC_TManager getInstance]registerT:@"g3" interval:5 block:^{
+        
+        CCLOG(@"g3");
+        [[CC_TManager getInstance]unRegisterT:@"g1"];
+        [[CC_TManager getInstance]unRegisterT:@"g2"];
+        [[CC_TManager getInstance]unRegisterT:@"g3"];
+    }];
+    
+    CCLOG(@"%@",self.view);
+    CCLOG(@"%@",self.view.window);
+    {
+        
+        NSMutableArray *mutArr=[[NSMutableArray alloc]init];
+        
+        NSDictionary *dic1=@{@"la":@"1",@"count":@"2"};
+        NSDictionary *dic4=@{@"la":@"1",@"count":@"123"};
+        NSDictionary *dic0=@{@"la":@"1",@"count":@"99"};
+        NSDictionary *dic2=@{@"la":@"1",@"count":@"34"};
+        NSDictionary *dic3=@{@"la":@"1",@"count":@"13"};
+        [mutArr addObject:dic0];
+        [mutArr addObject:dic1];
+        [mutArr addObject:dic2];
+        [mutArr addObject:dic3];
+        [mutArr addObject:dic4];
+        mutArr=[CC_Code sortMutArr:mutArr byKey:@"count" desc:1];
+        CCLOG(@"%@",mutArr);
+        mutArr=[CC_Code sortMutArr:mutArr byKey:@"count" desc:0];
+        CCLOG(@"%@",mutArr);
+        
+    }
+    
     NSMutableArray *mutArr=[[NSMutableArray alloc]init];
     NSMutableString *str22=[[NSMutableString alloc]init];
     for (int i=0; i<4; i++) {

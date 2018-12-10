@@ -29,6 +29,7 @@
 		D823153C1F53AED3006055FB /* testColorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D823153B1F53AED3006055FB /* testColorViewController.m */; };
 		D8288C492178881D000F3B89 /* model in Resources */ = {isa = PBXBuildFile; fileRef = D8288C482178881D000F3B89 /* model */; };
 		D8288C4C2178B01F000F3B89 /* CC_ObjectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D8288C4B2178B01F000F3B89 /* CC_ObjectModel.m */; };
+		D82CBC7621BE611100058044 /* CC_TManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D82CBC7521BE611100058044 /* CC_TManager.m */; };
 		D82F0B9B219533AF006EDF54 /* NSDate+CCExtention.m in Sources */ = {isa = PBXBuildFile; fileRef = D82F0B9A219533AF006EDF54 /* NSDate+CCExtention.m */; };
 		D8335338205F93F90030AB62 /* CC_HttpResponseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D8335337205F93F90030AB62 /* CC_HttpResponseModel.m */; };
 		D83507621F309D2700B7461C /* CC_DESTool.m in Sources */ = {isa = PBXBuildFile; fileRef = D83507611F309D2700B7461C /* CC_DESTool.m */; };
@@ -179,6 +180,8 @@
 		D8288C482178881D000F3B89 /* model */ = {isa = PBXFileReference; lastKnownFileType = folder; path = model; sourceTree = "<group>"; };
 		D8288C4A2178B01F000F3B89 /* CC_ObjectModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_ObjectModel.h; sourceTree = "<group>"; };
 		D8288C4B2178B01F000F3B89 /* CC_ObjectModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC_ObjectModel.m; sourceTree = "<group>"; };
+		D82CBC7421BE611100058044 /* CC_TManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_TManager.h; sourceTree = "<group>"; };
+		D82CBC7521BE611100058044 /* CC_TManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC_TManager.m; sourceTree = "<group>"; };
 		D82F0B99219533AF006EDF54 /* NSDate+CCExtention.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSDate+CCExtention.h"; sourceTree = "<group>"; };
 		D82F0B9A219533AF006EDF54 /* NSDate+CCExtention.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSDate+CCExtention.m"; sourceTree = "<group>"; };
 		D8335336205F93F90030AB62 /* CC_HttpResponseModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_HttpResponseModel.h; sourceTree = "<group>"; };
@@ -537,6 +540,8 @@
 				D8DD97EA20B6A6F2000A890D /* CC_Animation.m */,
 				D8DD97EC20B7BC02000A890D /* CC_MusicBox.h */,
 				D8DD97ED20B7BC02000A890D /* CC_MusicBox.m */,
+				D82CBC7421BE611100058044 /* CC_TManager.h */,
+				D82CBC7521BE611100058044 /* CC_TManager.m */,
 			);
 			path = tool;
 			sourceTree = "<group>";
@@ -1032,6 +1037,7 @@
 				D8CA1DF321912AC900CE4889 /* Reachability.m in Sources */,
 				D8A799682109CAFB00D40B4B /* UIApplication+CCHook.m in Sources */,
 				D839266920FEDFC60034D10F /* CASDeviceTypeItem.m in Sources */,
+				D82CBC7621BE611100058044 /* CC_TManager.m in Sources */,
 				D8335338205F93F90030AB62 /* CC_HttpResponseModel.m in Sources */,
 				D83507621F309D2700B7461C /* CC_DESTool.m in Sources */,
 				D8DD97EE20B7BC02000A890D /* CC_MusicBox.m in Sources */,

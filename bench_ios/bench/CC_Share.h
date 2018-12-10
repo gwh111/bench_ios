@@ -95,6 +95,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
 #import "UIViewController+CCHook.h"
 
 #import "UIView+CCLayout.h"
+#import "CC_TManager.h"
 
 @interface CC_Share : NSObject
 
