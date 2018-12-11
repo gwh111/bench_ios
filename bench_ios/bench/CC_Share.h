@@ -140,9 +140,17 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
 /**
  *  存储keychain的字段
  *  在app删除再重新安装后依然可以获取
+    KeychainName一般使用appbid
  */
-+(void)saveKeychainName:(NSString *)key str:(NSString *)str;
-+(NSString *)getKeychainName:(NSString *)str;
++ (void)saveKeychainName:(NSString *)key str:(NSString *)str;
+/**
+ *  根据name获取keychain里的字段 可能获取为空
+ */
++ (NSString *)getKeychainName:(NSString *)str;
+/**
+ *  获取一个唯一UUID并存储到keychain 不会为空
+ */
++ (NSString *)getKeychainUUID;
 
 /**
  *  直接获取工程中的plist
@@ -151,23 +159,30 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
 + (NSDictionary *)getPlistDic:(NSString *)name;
 
 /**
- *  + (NSMutableDictionary *)getLocalPlistNamed:(NSString *)name;
-    获取和保存沙盒中的plist
-    + (void)saveLocalPlistNamed:(NSString *)name;
-    保存时先查找沙盒中是否有该plist，如果有读取并更新，如果没有，找工程中有无plist，如果有则复制一份并更新保存到沙盒，如果无则初始化一个并更新保存到沙盒
-    + (void)removeLocalPlistNamed:(NSString *)name;
-    删除时注意要加上文件名后缀
- 
-    + (NSString *)saveLocalDic:(NSDictionary *)dic toPath:(NSString *)path name:(NSString *)name;
-    新建一个NSDictionary保存到沙盒
-    path 是Documents后文件夹 如没有传nil 如文件夹不存在创建一个
- 
+ *  获取沙盒中的plist
  */
 + (NSMutableDictionary *)getLocalPlistNamed:(NSString *)name;
+/**
+ *  保存沙盒中的plist
+    保存时先查找沙盒中是否有该plist，如果有读取并更新，如果没有，找工程中有无plist，如果有则复制一份并更新保存到沙盒，如果无则初始化一个并更新保存到沙盒
+ */
 + (void)saveLocalPlistNamed:(NSString *)name;
+/**
+ *  从沙盒移除plist
+ */
 + (void)removeLocalPlistNamed:(NSString *)name;
+/**
+ *  获取沙盒里plist中某一字段值
+ */
 + (id)getLocalKeyNamed:(NSString *)name andKey:(NSString *)key;
+/**
+ *  新建一个NSDictionary保存到沙盒
+    path 是Documents后文件夹 如没有传nil 如文件夹不存在创建一个
+ */
 + (NSString *)saveLocalKeyNamed:(NSString *)name andKey:(NSString *)key andValue:(id)value;
+/**
+ *  保存NSDictionary到沙盒
+ */
 + (NSString *)saveLocalDic:(NSDictionary *)dic toPath:(NSString *)path name:(NSString *)name;
 
 /**

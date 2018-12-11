@@ -34,6 +34,11 @@
     label.top=CC_SCREEN_HEIGHT/3;
     label.left=CC_SCREEN_WIDTH/2-label.width/2;
     
+    //adjust
+    label.width=label.width+[ccui getRH:20];
+    label.left=label.left-[ccui getRH:10];
+    label.height=label.height+[ccui getRH:20];
+    
     [ccs delay:delay block:^{
         [UIView animateWithDuration:.5f animations:^{
             label.alpha=0;

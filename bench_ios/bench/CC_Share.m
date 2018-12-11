@@ -52,12 +52,27 @@ static dispatch_once_t onceToken;
     return paths;
 }
 
-+(void)saveKeychainName:(NSString *)key str:(NSString *)str{
++ (void)saveKeychainName:(NSString *)key str:(NSString *)str{
     [CC_KeyChainStore save:key data:str];
 }
 
-+(NSString *)getKeychainName:(NSString *)str{
++ (NSString *)getKeychainName:(NSString *)str{
     NSString *strUUID = (NSString*)[CC_KeyChainStore load:str];
+    return strUUID;
+}
+
++ (NSString *)getKeychainUUID{
+    NSString *strUUID = (NSString*)[CC_KeyChainStore load:[self getBid]];
+    //首次执行该方法时，uuid为空
+    if([strUUID isEqualToString:@""]|| !strUUID)
+    {
+        //生成一个uuid的方法
+        strUUID = [NSUUID UUID].UUIDString;
+        
+        //将该uuid保存到keychain
+        [self saveKeychainName:[self getBid] str:strUUID];
+        
+    }
     return strUUID;
 }
 

@@ -20,6 +20,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+    NSString *iiii=[ccs getKeychainUUID];
+    
     NSDate *d1=[NSDate date];
     CCLOG(@"d1=%@",d1);
     [ccs delay:.5 block:^{
