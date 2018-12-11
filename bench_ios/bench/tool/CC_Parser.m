@@ -62,6 +62,42 @@
     return mutArr;
 }
 
++ (NSMutableArray *)sortMutArr:(NSMutableArray *)mutArr byKey:(NSString *)key desc:(int)desc{
+    if (desc) {
+        //降序
+        for (int i = 0; i < mutArr.count; i++) {
+            for (int j = 0; j < mutArr.count - 1 - i; j++) {
+                if (key) {
+                    if ([mutArr[j][key] intValue] < [mutArr[j + 1][key] intValue]) {
+                        [mutArr exchangeObjectAtIndex:j withObjectAtIndex:j+1];
+                    }
+                }else{
+                    if ([mutArr[j] intValue] < [mutArr[j + 1] intValue]) {
+                        [mutArr exchangeObjectAtIndex:j withObjectAtIndex:j+1];
+                    }
+                }
+            }
+        }
+    }else{
+        //升序
+        for (int i = 0; i < mutArr.count; i++) {
+            for (int j = 0; j < mutArr.count - 1 - i;j++) {
+                if (key) {
+                    if ([mutArr[j+1][key]intValue] < [mutArr[j][key] intValue]) {
+                        [mutArr exchangeObjectAtIndex:j withObjectAtIndex:j+1];
+                    }
+                }else{
+                    if ([mutArr[j+1]intValue] < [mutArr[j] intValue]) {
+                        [mutArr exchangeObjectAtIndex:j withObjectAtIndex:j+1];
+                    }
+                }
+            }
+        }
+    }
+    
+    return mutArr;
+}
+
 + (int)safeCheckStart:(ResModel *)resModel{
     if (!resModel.serviceStr) {
         return 0;

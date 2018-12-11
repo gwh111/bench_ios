@@ -30,6 +30,13 @@
 + (NSMutableArray *)addMapParser:(NSMutableArray *)pathArr idKey:(NSString *)idKey keepKey:(BOOL)keepKey map:(NSDictionary *)getMap;
 
 /**
+ *  冒泡排序
+ *  desc=1 降序
+    key=nil 直接对mutArr取值排序
+ */
++ (NSMutableArray *)sortMutArr:(NSMutableArray *)mutArr byKey:(NSString *)key desc:(int)desc;
+
+/**
  *  根据上一次缓存验证请求结果是否少字段
     适用于必须有固定字段的请求
     不适用于多变结果、如类型很多，不同类型返回不同结构的请求

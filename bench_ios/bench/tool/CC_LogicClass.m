@@ -16,6 +16,15 @@
         CCLOG("不能为空");
         return -100;
     }
+    if (v1.length<v2.length) {
+        for (int i=0; i<(v2.length-v1.length)/2; i++) {
+            v1=[NSString stringWithFormat:@"%@.0",v1];
+        }
+    }else if (v2.length<v1.length){
+        for (int i=0; i<(v1.length-v2.length)/2; i++) {
+            v2=[NSString stringWithFormat:@"%@.0",v2];
+        }
+    }
     NSArray  *arr1 = [v1 componentsSeparatedByString:@"."];
     NSArray  *arr2 = [v2 componentsSeparatedByString:@"."];
     NSInteger c1=arr1.count;

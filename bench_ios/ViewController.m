@@ -93,9 +93,9 @@
         [mutArr addObject:dic2];
         [mutArr addObject:dic3];
         [mutArr addObject:dic4];
-        mutArr=[CC_Code sortMutArr:mutArr byKey:@"count" desc:1];
+        mutArr=[CC_Parser sortMutArr:mutArr byKey:@"count" desc:1];
         CCLOG(@"%@",mutArr);
-        mutArr=[CC_Code sortMutArr:mutArr byKey:@"count" desc:0];
+        mutArr=[CC_Parser sortMutArr:mutArr byKey:@"count" desc:0];
         CCLOG(@"%@",mutArr);
         
     }

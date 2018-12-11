@@ -28,13 +28,6 @@
 + (UIView *)getAView;
 
 /**
- *  冒泡排序
- *  desc=1 降序
-    key=nil 直接对mutArr取值排序
- */
-+ (NSMutableArray *)sortMutArr:(NSMutableArray *)mutArr byKey:(NSString *)key desc:(int)desc;
-
-/**
  *  设置圆角
  */
 + (void)setRadius:(float)radius view:(UIView *)view;

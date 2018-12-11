@@ -22,6 +22,13 @@
     
     NSString *iiii=[ccs getKeychainUUID];
     
+    int v1=[CC_Logic compareV1:@"1.3" cutV2:@"1.2.1"];
+//    int v2=[CC_Logic compareV1:@"1.3.2" cutV2:@"1.3.2"];
+//    int v3=[CC_Logic compareV1:@"1.3.2" cutV2:@"1.3.3"];
+    int v2=[CC_Logic compareV1:@"1.3.2" cutV2:@"1.2"];
+    int v3=[CC_Logic compareV1:@"1.3.2" cutV2:@"1.3"];
+    int v4=[CC_Logic compareV1:@"1.3.2" cutV2:@"1.4"];
+    
     NSDate *d1=[NSDate date];
     CCLOG(@"d1=%@",d1);
     [ccs delay:.5 block:^{
