@@ -117,11 +117,11 @@
                 [ccs saveLocalKeyNamed:@"service" andKey:_serviceStr andValue:_resultStr];
             }
             
-            if ([CC_Parser safeCheckStart:self]) {
-                
-            }else{
-                [CC_Parser safeCheckEnd:self];
-            }
+//            if ([CC_Parser safeCheckStart:self]) {
+//                
+//            }else{
+//                [CC_Parser safeCheckEnd:self];
+//            }
         }
     }
 }

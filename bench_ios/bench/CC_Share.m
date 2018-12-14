@@ -76,6 +76,12 @@ static dispatch_once_t onceToken;
     return strUUID;
 }
 
++ (NSString *)getFileStr:(NSString *)name type:(NSString *)type{
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:name ofType:type];
+    NSString *str = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
+    return str;
+}
+
 + (NSString *)getPlistStr:(NSString *)name{
     NSString *plistPath = [[NSBundle mainBundle] pathForResource:name ofType:@"plist"];
     if (!plistPath) {

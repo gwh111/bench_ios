@@ -59,6 +59,9 @@
 + (float)getStatusH;
 + (float)getX;
 + (float)getY;
+/**
+ *  状态栏高度
+ */
 + (float)getSY;
 + (float)getW;
 + (float)getH;

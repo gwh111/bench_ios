@@ -132,7 +132,7 @@
         id tempV=templateDic[key];
         id v=dic[key];
         
-        if (!v&&pathArr.count>0&&![CC_Validate hasChinese:key]) {
+        if (!v&&pathArr.count>0&&![CC_Validate hasChinese:key]&&![CC_Validate isPureInt:key]) {
             NSString *pathStr=@"";
             for (int i=0; i<pathArr.count; i++) {
                 pathStr=[NSString stringWithFormat:@"%@%@:",pathStr,pathArr[i]];

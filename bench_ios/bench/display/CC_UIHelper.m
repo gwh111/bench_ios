@@ -172,7 +172,7 @@ static dispatch_once_t onceToken;
 + (float)getY{
     //    NSLog(@"h=%f",SCREEN_HEIGHT);
     if (CC_SCREEN_HEIGHT>=812) {
-        return 30;
+        return 44;
     }
     return 0;
 }
@@ -180,7 +180,7 @@ static dispatch_once_t onceToken;
 + (float)getSY{
     //    NSLog(@"h=%f",SCREEN_HEIGHT);
     if (CC_SCREEN_HEIGHT>=812) {
-        return 30;
+        return 44;
     }
     return 20;
 }

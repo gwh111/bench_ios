@@ -31,9 +31,9 @@
     for(UIWindow *window in [windows reverseObjectEnumerator]) {
         
         if ([window isKindOfClass:[UIWindow class]] &&
-            CGRectEqualToRect(window.bounds, [UIScreen mainScreen].bounds))
-            window.hidden = NO;
-        return window;
+            CGRectEqualToRect(window.bounds, [UIScreen mainScreen].bounds)&&window.hidden==NO){
+            return window;
+        }
     }
     
     return [UIApplication sharedApplication].keyWindow;

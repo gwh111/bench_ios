@@ -55,6 +55,15 @@
     return str;
     
 }
+
+- (void)reqqq{
+    [[CC_HttpTask getInstance]get:[NSURL URLWithString:@"http://mapi1.kkbuluo.net/client/service.json?authedUserId=10004001888050707700290980138076&columnId=4001777412645712260000006810&commentByPay=1&content=%E5%91%A8%E4%BA%8C002%0A%20%20%20Word%E7%BC%96%E8%BE%91%EF%BC%8C%E5%A4%8D%E5%88%B6%E5%88%B0%E5%BE%AE%E4%BF%A1%EF%BC%8C%E5%86%8D%E5%A4%8D%E5%88%B6%E5%87%BA%E6%9D%A5%E3%80%82%0A%20%20%20%E5%9C%B0%E7%82%B9%EF%BC%9A%E6%96%97%E5%B1%B1%E7%90%83%E5%9C%BA%0A%20%20%20%E5%9C%BA%E6%AC%A1%EF%BC%9A2018-19%E8%B5%9B%E5%AD%A3%E6%AC%A7%E5%86%A0%E5%B0%8F%E7%BB%84%E8%B5%9B%E7%AC%AC6%E8%BD%AE&from=publishpay_navigation_unpersonalrelease_null_null_null&hiddenContent=%F0%9F%90%B0%E3%80%81ygg&loginKey=USL16a153b37edb4e2da9990c52fa16bc27&objectType=PERSONAL_ARTICLE&oneAuthId=6201807270000122&postChannelId=10004001888050707700290980138076&postChannelType=USER_TOPIC&priceAmount=58&service=SUBJECT_CREATE&stopAfterTime=1&timeUnitType=MINUTE&timestamp=1544600889667&title=%E5%A5%BD%E5%90%A7%E4%B9%9F%E8%A6%81&to=news&transmitToUserTopic=0&sign=97a75ac9b10657a96d73a1ecd42d4da3"] params:@{@"getDate":@""} model:[[ResModel alloc]init] finishCallbackBlock:^(NSString *error, ResModel *result) {
+        
+        if (error) {
+            [self reqqq];
+        }
+    }];
+}
      
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -324,12 +333,15 @@
         
     }];
     
-    [[CC_HttpTask getInstance]get:[NSURL URLWithString:@"https://www.baidu.com"] params:@{@"getDate":@""} model:[[ResModel alloc]init] finishCallbackBlock:^(NSString *error, ResModel *result) {
+    [[CC_HttpTask getInstance]setRequestHTTPHeaderFieldDic:@{@"appCode":@"chaoyue",@"appName":@"ch_user_ios",@"appVersion":@"100000"}];
+    [[CC_HttpTask getInstance]get:[NSURL URLWithString:@"http://user1-mapi.caihong.net/client/service.json?service=CLIENT_VERSION_UPDATE_QUERY"] params:@{@"getDate":@""} model:[[ResModel alloc]init] finishCallbackBlock:^(NSString *error, ResModel *result) {
         NSString *dateStr=[CC_Date ccgetDateStr:result.responseDate formatter:result.responseDateFormatStr];
         NSString *dateStr2=[CC_Date ccgetDateStr:result.responseDate formatter:@"dd MM yyyy HH:mm:ss"];
         CCLOG(@"dateStr2=%@",dateStr2);
         CCLOG(@"min=%f",[CC_Date compareDate:[NSDate date] cut:result.responseDate]/60);
         
+        UIAlertView *alt=[[UIAlertView alloc]initWithTitle:@"tishi" message:result.resultDic[@"response"][@"updateLogMemo"] delegate:nil cancelButtonTitle:@"yes" otherButtonTitles:nil, nil];
+        [alt show];
 //        NSMutableString *tempStr = [NSMutableString stringWithString:dateStr2];
 //        NSRange range = NSMakeRange (10, tempStr.length-10);
 //        [tempStr deleteCharactersInRange:range];

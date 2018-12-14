@@ -153,6 +153,11 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
 + (NSString *)getKeychainUUID;
 
 /**
+ *  获取项目中一个文件的文本
+ */
++ (NSString *)getFileStr:(NSString *)name type:(NSString *)type;
+
+/**
  *  直接获取工程中的plist
  */
 + (NSString *)getPlistStr:(NSString *)name;
