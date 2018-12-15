@@ -45,9 +45,13 @@
     }];
     
     for (NSString *categoryId in resultArray) {
+        NSString *valueStr=[NSString stringWithFormat:@"%@",[newDic objectForKey:categoryId]];
+        //替换服务端不能识别的空格
+        //微信里的空格 处理
+        valueStr=[valueStr stringByReplacingOccurrencesOfString:@" " withString:@" "];
         NSString *tempString=( NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(
                                                                                                     NULL, /* allocator */
-                                                                                                    (CFStringRef)[NSString stringWithFormat:@"%@",[newDic objectForKey:categoryId]],
+                                                                                                    (CFStringRef)[NSString stringWithFormat:@"%@",valueStr],
                                                                                                     NULL, /* charactersToLeaveUnescaped */
                                                                                                     (CFStringRef)@"!*'();:@&=+$,/?%#[]<>&\\",kCFStringEncodingUTF8)) ;
         
@@ -55,7 +59,7 @@
         if (tempString.length>0) {//参数为空不放入
             [urlFormatString appendString:[NSString stringWithFormat:@"%@=%@&",categoryId,tempString]];
             
-            [formatString appendString:[NSString stringWithFormat:@"%@=%@&",categoryId,[newDic objectForKey:categoryId]]];
+            [formatString appendString:[NSString stringWithFormat:@"%@=%@&",categoryId,valueStr]];
         }
         
     }

@@ -69,6 +69,15 @@
     [super viewDidLoad];
     self.view.backgroundColor=COLOR_WHITE;
     
+    [[CC_HttpTask getInstance]post:[NSURL URLWithString:@"http://mapi.kkbuluo.net/client/service.json?"] params:@{@"service":@"JCZQ_SELLABLE_ISSUE_QUERY",@"getSfGgSp":@"0 "} model:[[ResModel alloc]init] finishCallbackBlock:^(NSString *error, ResModel *result) {
+        if (error) {
+            [CC_Note showAlert:error];
+            return ;
+        }
+        
+        
+    }];
+    return;
     
     [[CC_TManager getInstance]registerT:@"g1" interval:0.1 block:^{
         
