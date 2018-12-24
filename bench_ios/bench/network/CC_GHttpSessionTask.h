@@ -85,9 +85,17 @@
  */
 @property(nonatomic,retain) NSArray *domainReqList;
 /**
+ *  不缓存的域名和备用域名请求地址
+ */
+@property(nonatomic,retain) NSArray *domainReqListNoCache;
+/**
  *  域名获取循环索引
  */
 @property(nonatomic,assign) int domainReqListIndex;
+/**
+ *  不缓存的域名获取循环索引
+ */
+@property(nonatomic,assign) int domainReqListNoCacheIndex;
 /**
  *  域名获取key
  */
@@ -101,10 +109,6 @@
  *  网络请求回调
  */
 @property(strong) void (^finishCallbackBlock)(NSString *error,ResModel *result);
-/**
- *  获取域名回调
- */
-@property(strong) void (^getUrlBlock)(ResModel *result);
 /**
  *  获取配置回调
  */
@@ -192,6 +196,12 @@
     domainReqList 域名和备用域名列表 主域名放第一个
  */
 - (void)getDomainWithReqList:(NSArray *)domainReqList andKey:(NSString *)domainReqKey block:(void (^)(ResModel *result))block;
+/**
+ *  获取域名 传入获取域名的地址
+    domainReqList 域名和备用域名列表 主域名放第一个
+    没有缓存 也没有域名访问是否成功检查
+ */
+- (void)getDomainWithReqListNoCache:(NSArray *)domainReqList block:(void (^)(ResModel *result))block;
 
 /**
  *  获取配置

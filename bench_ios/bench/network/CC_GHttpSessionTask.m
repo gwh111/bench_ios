@@ -386,6 +386,26 @@ static dispatch_once_t onceToken;
 }
 
 #pragma mark getDomain
+- (void)getDomainWithReqListNoCache:(NSArray *)domainReqList block:(void (^)(ResModel *result))block{
+    self.domainReqListNoCacheIndex=0;
+    [self getDomainNoCache:domainReqList[0] block:block];
+}
+- (void)getDomainNoCache:(NSString *)urlStr block:(void (^)(ResModel *result))block{
+    __block CC_HttpTask *blockSelf=self;
+    [[CC_HttpTask getInstance]get:urlStr params:nil model:nil finishCallbackBlock:^(NSString *error, ResModel *result) {
+        if (error) {
+            blockSelf.domainReqListNoCacheIndex++;
+            if (blockSelf.domainReqListNoCacheIndex>=blockSelf.domainReqListNoCache.count) {
+                blockSelf.domainReqListNoCacheIndex=0;
+            }
+            [ccs delay:1 block:^{
+                [blockSelf getDomainNoCache:blockSelf.domainReqListNoCache[blockSelf.domainReqListNoCacheIndex] block:block];
+            }];
+            return ;
+        }
+        block(result);
+    }];
+}
 
 - (void)getDomainWithReqList:(NSArray *)domainReqList andKey:(NSString *)domainReqKey block:(void (^)(ResModel *result))block{
     self.domainReqListIndex=0;
@@ -400,7 +420,6 @@ static dispatch_once_t onceToken;
     //线上 http://sssynout-prod-caihong-resource.oss-cn-hangzhou.aliyuncs.com/URL/ch_url.txt
     //线下 https://test-caihong-resource.oss-cn-hangzhou.aliyuncs.com/URL/ch_url.txt
     _hasSuccessGetDomain=0;
-    _getUrlBlock=block;
     
     if ([ccs getDefault:@"domainDic"]&&_updateInBackGround==0) {
         
@@ -409,7 +428,7 @@ static dispatch_once_t onceToken;
         
         self.hasSuccessGetDomain=1;
         
-        self.getUrlBlock(model);
+        block(model);
         
         //后台更新domain
         _updateInBackGround=1;
@@ -539,7 +558,7 @@ static dispatch_once_t onceToken;
                     [ccs saveDefaultKey:@"domainDic" andV:result.resultDic];
                     
                     if (blockSelf.updateInBackGround==0) {
-                        blockSelf.getUrlBlock(result);
+                        block(result);
                     }
                 }
                 

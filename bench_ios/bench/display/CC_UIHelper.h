@@ -56,15 +56,31 @@
 
 @interface ccui : NSObject
 
+/**
+ *  oc代码获取的状态栏高度
+ */
 + (float)getStatusH;
 + (float)getX;
+/**
+ *  刘海的高度
+ */
 + (float)getY;
 /**
  *  状态栏高度
  */
 + (float)getSY;
+/**
+ *  设备宽度
+ */
 + (float)getW;
+/**
+ *  去掉刘海的高度
+ */
 + (float)getH;
+/**
+ *  减去状态栏的高度
+ */
++ (float)getSH;
 
 /*
  * height ui图标注的值

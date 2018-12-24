@@ -69,12 +69,7 @@
     [super viewDidLoad];
     self.view.backgroundColor=COLOR_WHITE;
     
-    [[CC_HttpTask getInstance]post:[NSURL URLWithString:@"http://mapi.kkbuluo.net/client/service.json?"] params:@{@"service":@"JCZQ_SELLABLE_ISSUE_QUERY",@"getSfGgSp":@"0 "} model:[[ResModel alloc]init] finishCallbackBlock:^(NSString *error, ResModel *result) {
-        if (error) {
-            [CC_Note showAlert:error];
-            return ;
-        }
-        
+    [[CC_HttpTask getInstance]getDomainWithReqListNoCache:@[@"http://test-kkbuluo-resource.oss-cn-hangzhou.aliyuncs.com/URL/analysis_url.txt",@"http://dynamic.kkbuluo.net/analysis_url.txt"] block:^(ResModel *result) {
         
     }];
     return;

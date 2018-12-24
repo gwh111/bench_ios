@@ -196,10 +196,11 @@ static dispatch_once_t onceToken;
  * 获取设备Height
  */
 + (float)getH{
-    if (CC_SCREEN_HEIGHT>=812) {//iphone x
-        return CC_SCREEN_HEIGHT-30;
-    }
-    return CC_SCREEN_HEIGHT;
+    return CC_SCREEN_HEIGHT-[self getY];
+}
+
++ (float)getSH{
+    return CC_SCREEN_HEIGHT-[self getSY];
 }
 
 @end

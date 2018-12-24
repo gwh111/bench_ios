@@ -89,6 +89,7 @@
 		D84649A3218FFDA900F33451 /* CC_HttpConfigure.m in Sources */ = {isa = PBXBuildFile; fileRef = D84649A2218FFDA900F33451 /* CC_HttpConfigure.m */; };
 		D85BFC8F2193DBA400F567EF /* test.plist in Resources */ = {isa = PBXBuildFile; fileRef = D85BFC8E2193DBA400F567EF /* test.plist */; };
 		D85BFC9B219409FC00F567EF /* NSMutableDictionary+CCExtention.m in Sources */ = {isa = PBXBuildFile; fileRef = D85BFC9A219409FC00F567EF /* NSMutableDictionary+CCExtention.m */; };
+		D8678D9921D073F100E04986 /* NSObject+CCExtention.m in Sources */ = {isa = PBXBuildFile; fileRef = D8678D9721D073F100E04986 /* NSObject+CCExtention.m */; };
 		D86F4C9D20883841000DF173 /* CC_Date.m in Sources */ = {isa = PBXBuildFile; fileRef = D86F4C9C20883841000DF173 /* CC_Date.m */; };
 		D876FE871FB0514B0094C274 /* panda.plist in Resources */ = {isa = PBXBuildFile; fileRef = D876FE861FB0514B0094C274 /* panda.plist */; };
 		D883EEF9200E37910062A6C6 /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = D883EEF4200E37910062A6C6 /* GTMBase64.m */; };
@@ -301,6 +302,8 @@
 		D85BFC8E2193DBA400F567EF /* test.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = test.plist; sourceTree = "<group>"; };
 		D85BFC99219409FC00F567EF /* NSMutableDictionary+CCExtention.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSMutableDictionary+CCExtention.h"; sourceTree = "<group>"; };
 		D85BFC9A219409FC00F567EF /* NSMutableDictionary+CCExtention.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSMutableDictionary+CCExtention.m"; sourceTree = "<group>"; };
+		D8678D9721D073F100E04986 /* NSObject+CCExtention.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+CCExtention.m"; sourceTree = "<group>"; };
+		D8678D9821D073F100E04986 /* NSObject+CCExtention.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+CCExtention.h"; sourceTree = "<group>"; };
 		D86F4C9B20883841000DF173 /* CC_Date.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_Date.h; sourceTree = "<group>"; };
 		D86F4C9C20883841000DF173 /* CC_Date.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC_Date.m; sourceTree = "<group>"; };
 		D876FE861FB0514B0094C274 /* panda.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = panda.plist; sourceTree = "<group>"; };
@@ -771,6 +774,8 @@
 		D8C511CC211AE32200944CB0 /* extention */ = {
 			isa = PBXGroup;
 			children = (
+				D8678D9821D073F100E04986 /* NSObject+CCExtention.h */,
+				D8678D9721D073F100E04986 /* NSObject+CCExtention.m */,
 				D88E2C3D2186AB9D00D71480 /* UIImage+CCExtention.h */,
 				D88E2C3E2186AB9D00D71480 /* UIImage+CCExtention.m */,
 				D8EC6FD121242380006ECFE3 /* UIButton+CCExtention.h */,
@@ -946,6 +951,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D8EC6FD02124154A006ECFE3 /* testAutoLabelGroupVC.m in Sources */,
+				D8678D9921D073F100E04986 /* NSObject+CCExtention.m in Sources */,
 				D839260D20FEDFA40034D10F /* CC_ClassyExtend.m in Sources */,
 				D8CC62551FF25610006E2ED6 /* CC_Envirnment.m in Sources */,
 				D83EBC041FEB5BA700B94D6F /* CC_Image.m in Sources */,
