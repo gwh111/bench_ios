@@ -288,7 +288,7 @@ static dispatch_once_t onceToken;
         return nil;
     }
     NSData *aeskey = [aesk dataUsingEncoding:NSUTF8StringEncoding];
-    NSData *decodeData = [CC_AESEncrypt decryptData:oriData key:aeskey];
+    NSData *decodeData = [CC_AES decryptData:oriData key:aeskey];
     NSString *decodeString = [[NSString alloc] initWithData:decodeData encoding:NSUTF8StringEncoding];
     return decodeString;
 }
@@ -304,7 +304,7 @@ static dispatch_once_t onceToken;
     }
     NSData *data =[v dataUsingEncoding:NSUTF8StringEncoding];
     NSData *aeskey = [aesk dataUsingEncoding:NSUTF8StringEncoding];
-    NSData *encodeData3 = [CC_AESEncrypt encryptData:data key:aeskey];
+    NSData *encodeData3 = [CC_AES encryptData:data key:aeskey];
     [self saveDefaultKey:key andV:encodeData3];
 }
 

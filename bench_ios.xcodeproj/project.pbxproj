@@ -112,7 +112,7 @@
 		D8CA1DF521913F9400CE4889 /* configure in Resources */ = {isa = PBXBuildFile; fileRef = D8CA1DF421913F9400CE4889 /* configure */; };
 		D8CC62551FF25610006E2ED6 /* CC_Envirnment.m in Sources */ = {isa = PBXBuildFile; fileRef = D8CC62541FF25610006E2ED6 /* CC_Envirnment.m */; };
 		D8CE47B720D28A3E00587337 /* CC_RequestRecordTool.m in Sources */ = {isa = PBXBuildFile; fileRef = D8CE47B620D28A3D00587337 /* CC_RequestRecordTool.m */; };
-		D8DAFCD4212BE6D2009E0FEC /* CC_AESEncrypt.m in Sources */ = {isa = PBXBuildFile; fileRef = D8DAFCD3212BE6D2009E0FEC /* CC_AESEncrypt.m */; };
+		D8DAFCD4212BE6D2009E0FEC /* CC_AES.m in Sources */ = {isa = PBXBuildFile; fileRef = D8DAFCD3212BE6D2009E0FEC /* CC_AES.m */; };
 		D8DD97EB20B6A6F2000A890D /* CC_Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = D8DD97EA20B6A6F2000A890D /* CC_Animation.m */; };
 		D8DD97EE20B7BC02000A890D /* CC_MusicBox.m in Sources */ = {isa = PBXBuildFile; fileRef = D8DD97ED20B7BC02000A890D /* CC_MusicBox.m */; };
 		D8EC6FC921240303006ECFE3 /* CC_Dictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = D8EC6FC821240303006ECFE3 /* CC_Dictionary.m */; };
@@ -344,8 +344,8 @@
 		D8CC62541FF25610006E2ED6 /* CC_Envirnment.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC_Envirnment.m; sourceTree = "<group>"; };
 		D8CE47B520D28A3D00587337 /* CC_RequestRecordTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_RequestRecordTool.h; sourceTree = "<group>"; };
 		D8CE47B620D28A3D00587337 /* CC_RequestRecordTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC_RequestRecordTool.m; sourceTree = "<group>"; };
-		D8DAFCD2212BE6D2009E0FEC /* CC_AESEncrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_AESEncrypt.h; sourceTree = "<group>"; };
-		D8DAFCD3212BE6D2009E0FEC /* CC_AESEncrypt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC_AESEncrypt.m; sourceTree = "<group>"; };
+		D8DAFCD2212BE6D2009E0FEC /* CC_AES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_AES.h; sourceTree = "<group>"; };
+		D8DAFCD3212BE6D2009E0FEC /* CC_AES.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC_AES.m; sourceTree = "<group>"; };
 		D8DD97E920B6A6F2000A890D /* CC_Animation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_Animation.h; sourceTree = "<group>"; };
 		D8DD97EA20B6A6F2000A890D /* CC_Animation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC_Animation.m; sourceTree = "<group>"; };
 		D8DD97EC20B7BC02000A890D /* CC_MusicBox.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_MusicBox.h; sourceTree = "<group>"; };
@@ -525,8 +525,8 @@
 			children = (
 				D86F4C9B20883841000DF173 /* CC_Date.h */,
 				D86F4C9C20883841000DF173 /* CC_Date.m */,
-				D8DAFCD2212BE6D2009E0FEC /* CC_AESEncrypt.h */,
-				D8DAFCD3212BE6D2009E0FEC /* CC_AESEncrypt.m */,
+				D8DAFCD2212BE6D2009E0FEC /* CC_AES.h */,
+				D8DAFCD3212BE6D2009E0FEC /* CC_AES.m */,
 				D83507601F309D2700B7461C /* CC_DESTool.h */,
 				D83507611F309D2700B7461C /* CC_DESTool.m */,
 				D8195F521F29CEEF00C7BADD /* CC_Validate.h */,
@@ -975,7 +975,7 @@
 				D8A7996E2109CC0300D40B4B /* UIViewController+CCHook.m in Sources */,
 				D8365DE4205A54CE00357C0F /* testUIViewController.m in Sources */,
 				D839266420FEDFC60034D10F /* CASInvocation.m in Sources */,
-				D8DAFCD4212BE6D2009E0FEC /* CC_AESEncrypt.m in Sources */,
+				D8DAFCD4212BE6D2009E0FEC /* CC_AES.m in Sources */,
 				D8389DFC206BA3680010A04A /* CC_LogicClass.m in Sources */,
 				D8288C4C2178B01F000F3B89 /* CC_ObjectModel.m in Sources */,
 				D8B0E45C1F5016EA00425D06 /* CC_GColor.m in Sources */,

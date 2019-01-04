@@ -10,6 +10,7 @@
 
 @implementation NSString (CCExtention)
 
+#pragma mark common
 - (NSArray *)ccWords:(NSString *)cStr{
     
     NSMutableArray *words = [[NSMutableArray alloc] init];

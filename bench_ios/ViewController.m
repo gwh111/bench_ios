@@ -69,6 +69,27 @@
     [super viewDidLoad];
     self.view.backgroundColor=COLOR_WHITE;
     
+    {
+        NSString *key = @"efrVN9vy6MxuHrtG";
+        NSString *iv = @"N3nLasdhgypjZu3r";
+        
+        NSString *str1 = @"you are not that into me";
+        NSData *data1 = [str1 dataUsingEncoding:NSUTF8StringEncoding];
+        //加密
+        data1=[CC_AES encryptWithKey:key iv:iv data:data1];
+        NSData *base64Data = [data1 base64EncodedDataWithOptions:0];
+        NSString *base64Str = [[NSString alloc]initWithData:base64Data encoding:NSUTF8StringEncoding];
+        NSData *data = [[NSData alloc]initWithBase64EncodedString:base64Str options:NSDataBase64DecodingIgnoreUnknownCharacters];
+        //解密
+        NSData *data2 = [CC_AES decryptWithKey:key iv:iv data:data1];
+        NSString *str2 = [[NSString alloc] initWithData:data2 encoding:NSUTF8StringEncoding];
+        NSLog(@"str2:%@", str2);
+    }
+    
+    [[CC_HttpTask getInstance]getConfigure:^(Confi *result) {
+        
+    }];
+    
     [[CC_HttpTask getInstance]getDomainWithReqListNoCache:@[@"http://test-kkbuluo-resource.oss-cn-hangzhou.aliyuncs.com/URL/analysis_url.txt",@"http://dynamic.kkbuluo.net/analysis_url.txt"] block:^(ResModel *result) {
         
     }];

@@ -81,7 +81,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
 #import "UINavigationController+CCHook.h"
 #import "CC_HookTrack.h"
 #import "CC_Dictionary.h"
-#import "CC_AESEncrypt.h"
+#import "CC_AES.h"
 #import "CC_ObjectModel.h"
 
 #import "UIView+ClassyExtend.h"

@@ -263,6 +263,14 @@ static dispatch_once_t onceToken;
     [mytask resume];
 }
 
+#pragma mark NSURLSessionDelegate
+- (void)URLSession:(NSURLSession *)session didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential * __nullable credential))completionHandler{
+    //信任伪造HTTPS证书
+    //    if([challenge.protectionSpace.host isEqualToString:@"api.lz517.me"] /*check if this is host you trust: */ ){
+    completionHandler(NSURLSessionAuthChallengeUseCredential, [NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust]);
+    //    }
+}
+
 - (void)setHttpHeader:(NSDictionary *)dic{
     self.requestHTTPHeaderFieldDic=dic;
 }
@@ -390,6 +398,7 @@ static dispatch_once_t onceToken;
     self.domainReqListNoCacheIndex=0;
     [self getDomainNoCache:domainReqList[0] block:block];
 }
+
 - (void)getDomainNoCache:(NSString *)urlStr block:(void (^)(ResModel *result))block{
     __block CC_HttpTask *blockSelf=self;
     [[CC_HttpTask getInstance]get:urlStr params:nil model:nil finishCallbackBlock:^(NSString *error, ResModel *result) {
@@ -413,6 +422,7 @@ static dispatch_once_t onceToken;
     self.domainReqKey=domainReqKey;
     [self getDomain:domainReqList[0] block:block];
 }
+
 - (void)getDomain:(NSString *)urlStr block:(void (^)(ResModel *result))block{
     //    UIPasteboard*pasteboard = [UIPasteboard generalPasteboard];
     //    pasteboard.string=@"http://sssynout-prod-caihong-resource.oss-cn-hangzhou.aliyuncs.com/URL/ch_url.txt";
@@ -577,6 +587,7 @@ static dispatch_once_t onceToken;
 - (void)getConfigure:(void (^)(Confi *result))block{
     [self getConfigure:_static_netTestUrl contain:_static_netTestContain block:block];
 }
+
 - (void)getConfigure:(NSString *)urlStr contain:(NSString *)containStr block:(void (^)(Confi *result))block{
     
     self.getConfigureBlock=block;

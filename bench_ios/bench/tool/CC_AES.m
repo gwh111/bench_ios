@@ -6,10 +6,54 @@
 //  Copyright © 2018年 gwh. All rights reserved.
 //
 
-#import "CC_AESEncrypt.h"
+#import "CC_AES.h"
 #import <CommonCrypto/CommonCrypto.h>
 
-@implementation CC_AESEncrypt
+//NSData* xmlData = [@"testdata" dataUsingEncoding:NSUTF8StringEncoding];
+//NSString * str  =[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+@implementation CC_AES
+
+//加密
++ (NSData *)encryptWithKey:(NSString *)key iv:(NSString *)iv data:(NSData *)data{
+    return [self AES128operation:kCCEncrypt key:key iv:iv data:data];
+}
+
+//解密
++ (NSData *)decryptWithKey:(NSString *)key iv:(NSString *)iv data:(NSData *)data{
+    return [self AES128operation:kCCDecrypt key:key iv:iv data:data];
+}
+
++ (NSData *)AES128operation:(CCOperation)operation key:(NSString *)key iv:(NSString *)iv data:(NSData *)data{
+    char keyPtr[kCCKeySizeAES128 + 1];
+    bzero(keyPtr, sizeof(keyPtr));
+    [key getCString:keyPtr maxLength:sizeof(keyPtr) encoding:NSUTF8StringEncoding];
+    
+    // IV
+    char ivPtr[kCCBlockSizeAES128 + 1];
+    bzero(ivPtr, sizeof(ivPtr));
+    [iv getCString:ivPtr maxLength:sizeof(ivPtr) encoding:NSUTF8StringEncoding];
+    
+    size_t bufferSize = [data length] + kCCBlockSizeAES128;
+    void *buffer = malloc(bufferSize);
+    size_t numBytesEncrypted = 0;
+    
+    
+    CCCryptorStatus cryptorStatus = CCCrypt(operation, kCCAlgorithmAES128, kCCOptionPKCS7Padding,
+                                            keyPtr, kCCKeySizeAES128,
+                                            ivPtr,
+                                            [data bytes], [data length],
+                                            buffer, bufferSize,
+                                            &numBytesEncrypted);
+    
+    if(cryptorStatus == kCCSuccess){
+        return [NSData dataWithBytesNoCopy:buffer length:numBytesEncrypted];
+    }else{
+        NSLog(@"Error%d",cryptorStatus);
+    }
+    
+    free(buffer);
+    return nil;
+}
 
 //需要导入：#import <CommonCrypto/CommonCrypto.h>库才能使用
 /**
