@@ -15,6 +15,7 @@
 
 #import <objc/runtime.h>
 #import<SystemConfiguration/CaptiveNetwork.h>
+#import "abc.h"
 
 @interface ViewController (){
     NSArray *nameArr;
@@ -69,6 +70,10 @@
     [super viewDidLoad];
     self.view.backgroundColor=COLOR_WHITE;
     
+//    abc *a=[[abc alloc]init];
+//    a.str=@"dfdsg";
+//    [a log];
+    
     {
         NSString *key = @"efrVN9vy6MxuHrtG";
         NSString *iv = @"N3nLasdhgypjZu3r";
@@ -93,7 +98,7 @@
     [[CC_HttpTask getInstance]getDomainWithReqListNoCache:@[@"http://test-kkbuluo-resource.oss-cn-hangzhou.aliyuncs.com/URL/analysis_url.txt",@"http://dynamic.kkbuluo.net/analysis_url.txt"] block:^(ResModel *result) {
         
     }];
-    return;
+//    return;
     
     [[CC_TManager getInstance]registerT:@"g1" interval:0.1 block:^{
         
@@ -287,8 +292,31 @@
     //CC_UIVIEWExt
     button.width=100;
     
-    //CC_Label
-    id label323=[CC_Label createWithFrame:CGRectMake(100, 200, 100, 100) andTitleString:@"123" andAttributedString:nil andTitleColor:[UIColor greenColor] andBackGroundColor:nil andFont:[UIFont systemFontOfSize:24] andTextAlignment:NSTextAlignmentRight atView:self.view];
+    {
+        CC_Label *label=[[CC_Label alloc]init];
+        label.frame=CGRectMake(100, 200, 100, 100);
+        [self.view addSubview:label];
+        NSString *originStr=@"askfofpfjdsfdsf";
+        NSDictionary *attrDict1 = @{ NSFontAttributeName: [UIFont fontWithName: @"Zapfino" size: 15],
+                                     NSForegroundColorAttributeName: [UIColor blueColor] };
+        NSAttributedString *attrStr1 = [[NSAttributedString alloc] initWithString: [originStr substringWithRange: NSMakeRange(0, 4)] attributes: attrDict1];
+        
+        //第二段
+        NSDictionary *attrDict2 = @{ NSFontAttributeName: [UIFont fontWithName: @"Zapfino" size: 15],
+                                     NSForegroundColorAttributeName: [UIColor redColor] };
+        NSAttributedString *attrStr2 = [[NSAttributedString alloc] initWithString: [originStr substringWithRange: NSMakeRange(4, 3)] attributes: attrDict2];
+        
+        //第三段
+        NSDictionary *attrDict3 = @{ NSFontAttributeName: [UIFont fontWithName: @"Zapfino" size: 15],
+                                     NSForegroundColorAttributeName: [UIColor blackColor] };
+        NSAttributedString *attrStr3 = [[NSAttributedString alloc] initWithString: [originStr substringWithRange:
+                                                                                    NSMakeRange(7, originStr.length - 4 - 3)] attributes: attrDict3];
+        //合并
+        NSMutableAttributedString *attributedStr03 = [[NSMutableAttributedString alloc] initWithAttributedString: attrStr1];
+        [attributedStr03 appendAttributedString: attrStr2];
+        [attributedStr03 appendAttributedString: attrStr3];
+        label.attributedText=attributedStr03;
+    }
     
     NSString *newDes=[DESTool encryptUseDES:@"😄多少abc123h到底2344343242343243223423方法。" key:@"91caizhan"];
     newDes=[LCdes lcEncryUseDES:@"abc"];

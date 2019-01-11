@@ -11,7 +11,7 @@
 @interface CC_Label : UILabel
 
 /**
- *  描边颜色
+ *  描边颜色 无法使用多色的attbutedstr
  */
 @property (nonatomic,strong)UIColor *borderColor;
 /**

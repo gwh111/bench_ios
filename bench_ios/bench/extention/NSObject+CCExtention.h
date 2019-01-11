@@ -12,9 +12,21 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject(CCExtention)
 
+/**
+ *  遍历model所有属性对model赋值
+ */
 - (id)setClassKVDic:(NSDictionary *)dic;
+/**
+ *  对model所有属性输出字典
+ */
 - (NSDictionary *)getClassKVDic;
+/**
+ *  获取所有类名
+ */
 - (NSArray *)getClassNameList;
+/**
+ *  获取所有类的类型
+ */
 - (NSArray *)getClassTypeList;
 
 @end
