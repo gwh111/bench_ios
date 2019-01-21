@@ -305,7 +305,9 @@ static dispatch_once_t onceToken;
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]init];
     request.URL=url;
     
-    request.HTTPBody = [paramsString dataUsingEncoding:NSUTF8StringEncoding];
+    if (type==0) {
+        request.HTTPBody = [paramsString dataUsingEncoding:NSUTF8StringEncoding];
+    }
     NSArray *types=@[@"POST",@"GET"];
     [request setHTTPMethod:types[type]];
     [request setTimeoutInterval:_httpTimeoutInterval];
@@ -395,6 +397,7 @@ static dispatch_once_t onceToken;
 
 #pragma mark getDomain
 - (void)getDomainWithReqListNoCache:(NSArray *)domainReqList block:(void (^)(ResModel *result))block{
+    self.domainReqListNoCache=domainReqList;
     self.domainReqListNoCacheIndex=0;
     [self getDomainNoCache:domainReqList[0] block:block];
 }

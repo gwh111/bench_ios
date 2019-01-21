@@ -29,7 +29,7 @@
     }
     if (service) {
         [usersDic setObject:@{@"requestUrl":requestUrl, @"parameters":parameters} forKey:service];
-    }else{
+    }else if(requestUrl){
         [usersDic setObject:@{@"requestUrl":requestUrl, @"parameters":parameters} forKey:requestUrl];
     }
 //    [usersDic setObject:[NSString stringWithFormat:@"%@?%@", requestUrl, parameters] forKey:service];
