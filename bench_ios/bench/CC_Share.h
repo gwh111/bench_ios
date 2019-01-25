@@ -85,6 +85,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
 #import "CC_ObjectModel.h"
 
 #import "UIView+ClassyExtend.h"
+#import "UIControl+CCExtention.h"
 #import "UIImage+CCExtention.h"
 #import "UIButton+CCExtention.h"
 #import "NSString+CCExtention.h"

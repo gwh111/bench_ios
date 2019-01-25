@@ -74,6 +74,20 @@
 //    a.str=@"dfdsg";
 //    [a log];
     
+    UITextField *textF=[[UITextField alloc]initWithFrame:CGRectMake(0, [ccui getRH:100], [ccui getRH:100], [ccui getRH:100])];
+    textF.keyboardType=UIKeyboardTypeNumberPad;
+    textF.backgroundColor=[UIColor orangeColor];
+    [self.view addSubview:textF];
+    
+    {
+        CC_Button *button=[[CC_Button alloc]initWithFrame:CGRectMake(0, [ccui getRH:200], [ccui getRH:100], [ccui getRH:100])];
+        button.backgroundColor=[UIColor orangeColor];
+        [self.view addSubview:button];
+        [button addTappedBlock:^(UIButton *button) {
+            
+        }];
+    }
+    
     {
         NSString *key = @"efrVN9vy6MxuHrtG";
         NSString *iv = @"N3nLasdhgypjZu3r";
@@ -265,7 +279,7 @@
     [CC_Button saveModel:button name:@"normal2" des:@"黑色无边框黑色文字圆角 初始字体14 " hasSetLayer:0];
 //    [CC_ObjectModel showModel:button];
 //    [button addTarget:self action:@selector(bttt:) forControlEvents:UIControlEventTouchUpInside];
-    [button addTappedBlock:^(UIButton *button) {
+    [button addTappedOnceDelay:2 withBlock:^(UIButton *button) {
         CCLOG(@"???");
     }];
     

@@ -121,6 +121,7 @@
 		D8EC6FD02124154A006ECFE3 /* testAutoLabelGroupVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D8EC6FCF2124154A006ECFE3 /* testAutoLabelGroupVC.m */; };
 		D8EC6FD321242380006ECFE3 /* UIButton+CCExtention.m in Sources */ = {isa = PBXBuildFile; fileRef = D8EC6FD221242380006ECFE3 /* UIButton+CCExtention.m */; };
 		D8F2B1AD2179E9E5002748B9 /* CC_ImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D8F2B1AC2179E9E5002748B9 /* CC_ImageView.m */; };
+		D8FD8F2421FB12AA00E167CE /* UIControl+CCExtention.m in Sources */ = {isa = PBXBuildFile; fileRef = D8FD8F2221FB12AA00E167CE /* UIControl+CCExtention.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -363,6 +364,8 @@
 		D8EC6FD221242380006ECFE3 /* UIButton+CCExtention.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIButton+CCExtention.m"; sourceTree = "<group>"; };
 		D8F2B1AB2179E9E5002748B9 /* CC_ImageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_ImageView.h; sourceTree = "<group>"; };
 		D8F2B1AC2179E9E5002748B9 /* CC_ImageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC_ImageView.m; sourceTree = "<group>"; };
+		D8FD8F2221FB12AA00E167CE /* UIControl+CCExtention.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIControl+CCExtention.m"; sourceTree = "<group>"; };
+		D8FD8F2321FB12AA00E167CE /* UIControl+CCExtention.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIControl+CCExtention.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -779,6 +782,8 @@
 		D8C511CC211AE32200944CB0 /* extention */ = {
 			isa = PBXGroup;
 			children = (
+				D8FD8F2321FB12AA00E167CE /* UIControl+CCExtention.h */,
+				D8FD8F2221FB12AA00E167CE /* UIControl+CCExtention.m */,
 				D8678D9821D073F100E04986 /* NSObject+CCExtention.h */,
 				D8678D9721D073F100E04986 /* NSObject+CCExtention.m */,
 				D88E2C3D2186AB9D00D71480 /* UIImage+CCExtention.h */,
@@ -958,6 +963,7 @@
 				D8EC6FD02124154A006ECFE3 /* testAutoLabelGroupVC.m in Sources */,
 				D8678D9921D073F100E04986 /* NSObject+CCExtention.m in Sources */,
 				D839260D20FEDFA40034D10F /* CC_ClassyExtend.m in Sources */,
+				D8FD8F2421FB12AA00E167CE /* UIControl+CCExtention.m in Sources */,
 				D8CC62551FF25610006E2ED6 /* CC_Envirnment.m in Sources */,
 				D83EBC041FEB5BA700B94D6F /* CC_Image.m in Sources */,
 				D89AA87020947265001DE9B8 /* CC_Parser.m in Sources */,
