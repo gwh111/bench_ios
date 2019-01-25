@@ -10,6 +10,8 @@
 
 @interface UIButton(CCExtention)
 
+@property (nonatomic, assign) NSTimeInterval cs_acceptEventInterval; // 重复点击的间隔
+
 @property (nonatomic, strong) NSMutableDictionary *cs_dictBackgroundColor;
 
 - (void)setBackgroundColor:(UIColor *)backgroundColor forState:(UIControlState)state;

@@ -100,21 +100,22 @@
     }];
 //    return;
     
-    [[CC_TManager getInstance]registerT:@"g1" interval:0.1 block:^{
-        
-        CCLOG(@"g1");
-    }];
-    [[CC_TManager getInstance]registerT:@"g2" interval:2 block:^{
-        
-        CCLOG(@"g2");
-    }];
-    [[CC_TManager getInstance]registerT:@"g3" interval:5 block:^{
-        
-        CCLOG(@"g3");
-        [[CC_TManager getInstance]unRegisterT:@"g1"];
-        [[CC_TManager getInstance]unRegisterT:@"g2"];
-        [[CC_TManager getInstance]unRegisterT:@"g3"];
-    }];
+    //timer
+//    [[CC_TManager getInstance]registerT:@"g1" interval:0.1 block:^{
+//
+//        CCLOG(@"g1");
+//    }];
+//    [[CC_TManager getInstance]registerT:@"g2" interval:2 block:^{
+//
+//        CCLOG(@"g2");
+//    }];
+//    [[CC_TManager getInstance]registerT:@"g3" interval:5 block:^{
+//
+//        CCLOG(@"g3");
+//        [[CC_TManager getInstance]unRegisterT:@"g1"];
+//        [[CC_TManager getInstance]unRegisterT:@"g2"];
+//        [[CC_TManager getInstance]unRegisterT:@"g3"];
+//    }];
     
     CCLOG(@"%@",self.view);
     CCLOG(@"%@",self.view.window);
@@ -263,7 +264,12 @@
     [button setTitleColor:COLOR_BLACK forState:UIControlStateNormal];
     [CC_Button saveModel:button name:@"normal2" des:@"黑色无边框黑色文字圆角 初始字体14 " hasSetLayer:0];
 //    [CC_ObjectModel showModel:button];
+//    [button addTarget:self action:@selector(bttt:) forControlEvents:UIControlEventTouchUpInside];
+    [button addTappedBlock:^(UIButton *button) {
+        CCLOG(@"???");
+    }];
     
+//    button.cs_acceptEventInterval=10;
 //    [CC_ObjectModel showModels];
     
     NSLog(@"1");
@@ -454,6 +460,10 @@
     
     
     // Do any additional setup after loading the view, typically from a nib.
+}
+
+- (void)bttt:(CC_Button *)button{
+    CCLOG(@"???");
 }
 
 - (void)requestxxx{
