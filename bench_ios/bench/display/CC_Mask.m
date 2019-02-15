@@ -7,6 +7,7 @@
 //
 
 #import "CC_Mask.h"
+#import "CC_Share.h"
 
 @interface CC_Mask()
 
