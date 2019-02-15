@@ -1,8 +1,8 @@
 //
-//  abc.h
+//  CC_Mask.h
 //  bench_ios
 //
-//  Created by gwh on 2019/1/8.
+//  Created by gwh on 2019/2/15.
 //  Copyright © 2019 apple. All rights reserved.
 //
 
@@ -10,11 +10,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface abc : UIView
+@interface CC_Mask : UIView
 
-@property(nonatomic,retain) NSString *str;
++ (instancetype)getInstance;
 
-- (void)log;
+- (void)startAtView:(UIView *)view;
+
+- (void)stop;
 
 @end
 

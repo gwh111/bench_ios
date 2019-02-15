@@ -139,7 +139,7 @@
             }
             pathStr=[NSString stringWithFormat:@"%@\n%@%@",serviceStr,pathStr,key];
             [ccs gotoMain:^{
-                [CC_Notice showNoticeStr:[NSString stringWithFormat:@"%@字段丢失",pathStr] delay:5];
+                [CC_Notice showNoticeStr:[NSString stringWithFormat:@"%@字段丢失",pathStr]];
             }];
             return 1;
         }

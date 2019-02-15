@@ -12,12 +12,21 @@
 @implementation CC_Notice
 
 + (void)showNoticeStr:(NSString *)noticeStr{
-    [self showNoticeStr:noticeStr delay:3];
+    [self showNoticeStr:noticeStr atView:nil delay:0];
 }
 
-+ (void)showNoticeStr:(NSString *)noticeStr delay:(int)delay{
++ (void)showNoticeStr:(NSString *)noticeStr atView:(UIView *)view{
+    [self showNoticeStr:noticeStr atView:view delay:0];
+}
+
++ (void)showNoticeStr:(NSString *)noticeStr atView:(UIView *)view delay:(int)delay{
  
-    UIView *showV=[CC_Code getAView];
+    UIView *showV;
+    if (view) {
+        showV=view;
+    }else{
+        showV=[CC_Code getAView];
+    }
     
     CC_Label *label=[[CC_Label alloc]init];
     label.text=noticeStr;
@@ -38,6 +47,16 @@
     label.width=label.width+[ccui getRH:20];
     label.left=label.left-[ccui getRH:10];
     label.height=label.height+[ccui getRH:20];
+    
+    if (delay==0) {
+        if (noticeStr.length<10) {
+            delay=3;
+        }else if (noticeStr.length<30){
+            delay=3+(noticeStr.length-10)*0.2;
+        }else{
+            delay=7;
+        }
+    }
     
     [ccs delay:delay block:^{
         [UIView animateWithDuration:.5f animations:^{

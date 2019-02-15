@@ -18,6 +18,15 @@
  */
 + (void)showNoticeStr:(NSString *)noticeStr;
 
-+ (void)showNoticeStr:(NSString *)noticeStr delay:(int)delay;
+/**
+ *  有键盘的页面获取window会被释放 传入view
+    delay 延时
+ */
++ (void)showNoticeStr:(NSString *)noticeStr atView:(UIView *)view delay:(int)delay;
+
+/**
+ *  当delay==0时自动根据noticeStr长度调整消失时间
+ */
++ (void)showNoticeStr:(NSString *)noticeStr atView:(UIView *)view;
 
 @end

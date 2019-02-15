@@ -258,6 +258,7 @@ static dispatch_once_t onceToken;
             executorDelegate.finishCallbackBlock(model.errorMsgStr, model);
         });
         
+        blockSelf=nil;
     }];
     
     [mytask resume];

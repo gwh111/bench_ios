@@ -28,6 +28,9 @@
 #   define CCLOG(...)
 #endif
 
+#define WS(weakSelf)  __weak __typeof(&*self)weakSelf = self;
+#define SS(strongSelf)  __strong __typeof(&*weakSelf)strongSelf = weakSelf;
+
 #define COLOR_BLACK [UIColor colorWithRed:0/255.0f green:0/255.0f blue:0/255.0f alpha:1]
 #define COLOR_WHITE [UIColor colorWithRed:255.0f/255.0f green:255.0f/255.0f blue:255.0f/255.0f alpha:1]
 #define COLOR_CLEAR [UIColor colorWithRed:0/255.0f green:0/255.0f blue:0/255.0f alpha:0]
@@ -98,6 +101,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
 
 #import "UIView+CCLayout.h"
 #import "CC_TManager.h"
+#import "CC_Mask.h"
 
 @interface CC_Share : NSObject
 

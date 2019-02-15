@@ -15,12 +15,14 @@
 
 #import <objc/runtime.h>
 #import<SystemConfiguration/CaptiveNetwork.h>
-#import "abc.h"
+#import "LoginKit.h"
 
 @interface ViewController (){
     NSArray *nameArr;
     NSArray *controArr;
 }
+
+@property(strong) void (^blk)();
 
 @end
 
@@ -70,9 +72,45 @@
     [super viewDidLoad];
     self.view.backgroundColor=COLOR_WHITE;
     
+    {
+        [[LoginKit getInstance]setUrlStr:@"http://mapi.kkbuluo.net/client/service.json?"];
+        MAPI_ONE_AUTH_LOGIN *req=[[MAPI_ONE_AUTH_LOGIN alloc]initWithCell:@"15000000000" loginPassword:@"123" selectedDefaultUserToLogin:YES];
+        [req requestAtView:self.view mask:YES block:^(NSDictionary *modifiedDic, ResModel *result) {
+            
+        }];
+        
+        CCLOG(@"%@",req.cell);
+    }
+    
+    __weak typeof(self) weakSelf = self;
+    self.blk = ^{
+        __strong typeof(self) strongSelf = weakSelf;
+        NSLog(@"Use Property:%@", weakSelf);
+        NSLog(@"Use Property:%@", strongSelf);
+        //……
+    };
+    self.blk();
+    
+    {
+        self.blk = ^(UIViewController *vc) {
+            NSLog(@"Use Property:%@", vc);
+        };
+        self.blk(self);
+    }
+    
 //    abc *a=[[abc alloc]init];
 //    a.str=@"dfdsg";
 //    [a log];
+    {
+        
+        NSArray *arr=[[NSArray alloc]init];
+        CCLOG(@"%@",[arr class]);
+        UIButton *bbb=[[UIButton alloc]init];
+        CCLOG(@"%@",[bbb class]);
+        UIButton *ccc=[UIButton buttonWithType:UIButtonTypeInfoDark];
+        CCLOG(@"%@",[ccc class]);
+    }
+    
     
     UITextField *textF=[[UITextField alloc]initWithFrame:CGRectMake(0, [ccui getRH:100], [ccui getRH:100], [ccui getRH:100])];
     textF.keyboardType=UIKeyboardTypeNumberPad;
@@ -380,31 +418,6 @@
     //https://api.leancloud.cn/1/date
     //http://mapi1.93leju.net/service.json?service=APP_INITIAL_CONFIG_LOAD&loginKey=&timestamp=1526266427&authedUserId=&sign=03971cacca9b2c1dc90065edea390cb5
     //http://mapi.kkbuluo.net/client/service.json?getDxGgSp=1&getRfGgSp=1&getSfGgSp=1&getSfcGgSp=1&getSupport=1&hhgg=1&service=JCZQ_SELLABLE_ISSUE_QUERY
-    [[CC_HttpTask getInstance]post:[NSURL URLWithString:@"http://mapi.kkbuluo.net/client/service.json?"] params:@{@"service":@"JCZQ_SELLABLE_ISSUE_QUERY",@"getSfGgSp":@"0"} model:[[ResModel alloc]init] finishCallbackBlock:^(NSString *error, ResModel *result) {
-        if (error) {
-            [CC_Note showAlert:error];
-            return ;
-        }
-        
-        NSMutableDictionary *mutDic=[[NSMutableDictionary alloc]initWithDictionary:result.resultDic];
-        NSMutableDictionary *mutDic2=mutDic[@"response"];
-        NSMutableArray *mutArr=mutDic2[@"jczqIssueDataList"];
-        NSMutableDictionary *mutDic3=mutArr[0];
-        [mutDic3 removeObjectForKey:@"issueNo"];
-        [mutArr replaceObjectAtIndex:0 withObject:mutDic3];
-
-        [mutDic2 setObject:mutArr forKey:@"jczqIssueDataList"];
-        [mutDic setObject:mutDic2 forKey:@"response"];
-
-        NSDictionary *diccc=[NSDictionary dictionaryWithDictionary:mutDic];
-
-        result.resultDic=diccc;
-        if ([CC_Parser safeCheckStart:result]) {
-            return;
-        }
-        [CC_Parser safeCheckEnd:result];
-        
-    }];
     
     [[CC_HttpTask getInstance]setRequestHTTPHeaderFieldDic:@{@"appCode":@"chaoyue",@"appName":@"ch_user_ios",@"appVersion":@"100000"}];
     [[CC_HttpTask getInstance]get:[NSURL URLWithString:@"http://user1-mapi.caihong.net/client/service.json?service=CLIENT_VERSION_UPDATE_QUERY"] params:@{@"getDate":@""} model:[[ResModel alloc]init] finishCallbackBlock:^(NSString *error, ResModel *result) {
