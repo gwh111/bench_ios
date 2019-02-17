@@ -32,14 +32,21 @@ static dispatch_once_t onceToken;
 
 - (void)startAtView:(UIView *)view
 {
+    UIView *showV;
+    if (view) {
+        showV=view;
+    }else{
+        showV=[CC_Code getAView];
+    }
+    
     [self.activityIndicator startAnimating];
     
     UIView *progressView = self.progressView;
     
-    [progressView setCenter:view.center];
-    [view addSubview:progressView];
+    [progressView setCenter:showV.center];
+    [showV addSubview:progressView];
     
-    self.hidden=NO;
+    _progressView.hidden=NO;
 }
 
 - (void)initUI
@@ -59,7 +66,7 @@ static dispatch_once_t onceToken;
 - (void)stop
 {
     [self.activityIndicator stopAnimating];
-    self.hidden=YES;
+    _progressView.hidden=YES;
 }
 
 - (void)dealloc

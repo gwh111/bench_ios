@@ -14,8 +14,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)getInstance;
 
+/**
+ *  添加mask到view view=nil时使用window
+ */
 - (void)startAtView:(UIView *)view;
 
+/**
+ *  停止mask
+ */
 - (void)stop;
 
 @end

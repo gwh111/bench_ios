@@ -40,7 +40,7 @@
     
     label.width=CC_SCREEN_WIDTH-[ccui getRH:40];
     [label sizeToFit];
-    label.top=CC_SCREEN_HEIGHT/3;
+    label.bottom=CC_SCREEN_HEIGHT/2;
     label.left=CC_SCREEN_WIDTH/2-label.width/2;
     
     //adjust
