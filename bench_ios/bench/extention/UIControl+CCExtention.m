@@ -42,6 +42,16 @@ static const char *UIControl_acceptEventTime = "UIControl_acceptEventTime";
 
 - (void)cs_sendAction:(SEL)action to:(id)target forEvent:(UIEvent *)event {
     
+    NSArray *touchArr=[event.allTouches allObjects];
+    if (touchArr.count>0) {
+        UITouch *touch=touchArr[0];
+        int p=touch.phase;
+        if (p!=UITouchPhaseEnded) {
+            [self cs_sendAction:action to:target forEvent:event];
+            return;
+        }
+    }
+    
     if (self.cs_acceptEventInterval==0) {
         self.cs_acceptEventInterval=1;
     }

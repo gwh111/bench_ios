@@ -329,6 +329,9 @@ static dispatch_once_t onceToken;
 - (void)loadResponseDate:(ResModel *)model response:(NSHTTPURLResponse *)httpResponse{
     //转换时间
     NSString *date = [[httpResponse allHeaderFields] objectForKey:@"Date"];
+    if (date.length<5) {
+        return;
+    }
     date = [date substringFromIndex:5];
     date = [date substringToIndex:[date length]-4];
     NSDateFormatter *dMatter = [[NSDateFormatter alloc] init]; dMatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
