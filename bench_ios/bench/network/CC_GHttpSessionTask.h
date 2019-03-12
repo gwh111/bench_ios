@@ -20,6 +20,7 @@
 
 @interface CC_HttpTask : NSObject<NSURLSessionDelegate>{
     void (^finishCallbackBlock)(NSString *errorStr, ResModel *model); // 执行完成后回调的block
+    void (^finishUploadImagesCallbackBlock)(NSArray<NSString*> *errorStrArr, NSArray<ResModel*> *modelArr); // 上传图片完成后回调的block
     id _requestHTTPHeaderFieldDic;
 }
 
@@ -109,6 +110,12 @@
  *  网络请求回调
  */
 @property(strong) void (^finishCallbackBlock)(NSString *error,ResModel *result);
+
+/**
+ 上传图片完成回调
+ */
+@property(strong) void (^finishUploadImagesCallbackBlock)(NSArray<NSString*> *errorStrArr, NSArray<ResModel*> *modelArr);
+
 /**
  *  获取配置回调
  */
@@ -207,5 +214,27 @@
  *  获取配置
  */
 - (void)getConfigure:(void (^)(Confi *result))block;
+
+/**
+ 上传多张图片
+ 
+ @param images 图片数组
+ @param url URL
+ @param paramsDic 参数
+ @param mimeType mimeType 可以传nil
+ @param imageScale 上传图片缩放比例
+ @param times 上传失败-重新上传次数
+ @param uploadImageBlock 回调函数
+ */
+-(void)uploadImages:(NSArray<UIImage *> *)images url:(id)url params:(id)paramsDic mimeType:(NSString*)mimeType imageScale:(CGFloat)imageScale reConnectTimes:(NSInteger)times finishBlock:(void (^)(NSArray<NSString*> *errorStrArr, NSArray<ResModel*> *modelArr))uploadImageBlock;
+
+/**
+ 拼接URLRequest
+
+ @param url url
+ @param paramsString paramsString description
+ @return NSMutableURLRequest
+ */
+- (NSMutableURLRequest *)postRequestWithUrl:(NSURL *)url andParamters:(NSString *)paramsString;
 
 @end
