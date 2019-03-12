@@ -13,6 +13,7 @@
 #import "CC_ResponseLogicModel.h"
 #import "CC_HookTrack.h"
 #import "Reachability.h"
+#import "CC_UploadImagesTool.h"
 
 @interface CC_HttpTask()
 /**
@@ -292,16 +293,16 @@ static dispatch_once_t onceToken;
     _extreDic=dic;
 }
 
-- (NSURLRequest *)postRequestWithUrl:(NSURL *)url andParamters:(NSString *)paramsString{
+- (NSMutableURLRequest *)postRequestWithUrl:(NSURL *)url andParamters:(NSString *)paramsString{
     return [self requestWithUrl:url andParamters:paramsString andType:0];
 }
 
-- (NSURLRequest *)getRequestWithUrl:(NSURL *)url andParamters:(NSString *)paramsString{
+- (NSMutableURLRequest *)getRequestWithUrl:(NSURL *)url andParamters:(NSString *)paramsString{
     return [self requestWithUrl:url andParamters:paramsString andType:1];
 }
 
 //创建request
-- (NSURLRequest *)requestWithUrl:(NSURL *)url andParamters:(NSString *)paramsString andType:(int)type{
+- (NSMutableURLRequest *)requestWithUrl:(NSURL *)url andParamters:(NSString *)paramsString andType:(int)type{
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]init];
     request.URL=url;
@@ -668,6 +669,11 @@ static dispatch_once_t onceToken;
         
         
     }];
+}
+
+//一次性上传多张图片
+-(void)uploadImages:(NSArray<UIImage *> *)images url:(id)url params:(id)paramsDic mimeType:(NSString *)mimeType imageScale:(CGFloat)imageScale reConnectTimes:(NSInteger)times finishBlock:(void (^)(NSArray<NSString *> *, NSArray<ResModel *> *))uploadImageBlock{
+    [CC_UploadImagesTool uploadImages:images url:url params:paramsDic mimeType:mimeType imageScale:imageScale reConnectTimes:times finishBlock:uploadImageBlock];
 }
 
 @end
