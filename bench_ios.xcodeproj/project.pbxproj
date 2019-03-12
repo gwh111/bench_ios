@@ -524,6 +524,8 @@
 				D8335337205F93F90030AB62 /* CC_HttpResponseModel.m */,
 				D8195F491F29CE6B00C7BADD /* CC_GHttpSessionTask.h */,
 				D8195F4A1F29CE6B00C7BADD /* CC_GHttpSessionTask.m */,
+				1F3E017C223793A3004E630F /* CC_UploadImagesTool.h */,
+				1F3E017B223793A3004E630F /* CC_UploadImagesTool.m */,
 				D8BDAF6620FC4F49006BF14C /* CC_ResponseLogicModel.h */,
 				D8BDAF6720FC4F49006BF14C /* CC_ResponseLogicModel.m */,
 				D8195F4B1F29CE6B00C7BADD /* CC_MD5Object.h */,
@@ -561,8 +563,6 @@
 				D8DD97ED20B7BC02000A890D /* CC_MusicBox.m */,
 				D82CBC7421BE611100058044 /* CC_TManager.h */,
 				D82CBC7521BE611100058044 /* CC_TManager.m */,
-				1F3E017C223793A3004E630F /* CC_UploadImagesTool.h */,
-				1F3E017B223793A3004E630F /* CC_UploadImagesTool.m */,
 			);
 			path = tool;
 			sourceTree = "<group>";
