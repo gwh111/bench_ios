@@ -461,6 +461,8 @@ static dispatch_once_t onceToken;
                     
                     //更新不提示
                     if (blockSelf.updateInBackGround==0) {
+                        
+                        blockSelf.hasSuccessGetThirdUrlResponse=[blockSelf isNetworkReachable];
                         //3秒后提示 是网络没有打开的提示还是网络打开了但是域名请求失败的提示
                         if (blockSelf.hasSuccessGetThirdUrlResponse==1) {
                             
@@ -475,7 +477,7 @@ static dispatch_once_t onceToken;
             }];
             
             //请求第三方的网络验证网络情况
-            blockSelf.hasSuccessGetThirdUrlResponse=[self isNetworkReachable];
+            blockSelf.hasSuccessGetThirdUrlResponse=[blockSelf isNetworkReachable];
             //            [[CC_HttpTask getInstance]get:blockSelf.static_pingThirdWebUrl params:@{@"getDate":@""} model:nil finishCallbackBlock:^(NSString *error, ResModel *result) {
             //                if (result.responseDate) {
             //                    blockSelf.hasSuccessGetThirdUrlResponse=1;
@@ -493,13 +495,13 @@ static dispatch_once_t onceToken;
                 if (blockSelf.updateInBackGround==0) {
                     [ccs delay:.3 block:^{
                         
-                        [self getDomain:blockSelf.domainReqList[blockSelf.domainReqListIndex] block:block];
+                        [blockSelf getDomain:blockSelf.domainReqList[blockSelf.domainReqListIndex] block:block];
                     }];
                 }else{
                     if (blockSelf.domainReqListIndex>0) {
                         [ccs delay:.3 block:^{
                             
-                            [self getDomain:blockSelf.domainReqList[blockSelf.domainReqListIndex] block:block];
+                            [blockSelf getDomain:blockSelf.domainReqList[blockSelf.domainReqListIndex] block:block];
                         }];
                     }
                 }
@@ -509,11 +511,12 @@ static dispatch_once_t onceToken;
                 if (blockSelf.updateInBackGround==0) {
                     [ccs delay:1 block:^{
                         
-                        [self getDomain:urlStr block:block];
+                        [blockSelf getDomain:urlStr block:block];
                     }];
                 }
                 
             }
+            blockSelf=nil;
             return ;
         }
         
@@ -547,13 +550,13 @@ static dispatch_once_t onceToken;
                         if (blockSelf.updateInBackGround==0) {
                             [ccs delay:.3 block:^{
                                 
-                                [self getDomain:blockSelf.domainReqList[blockSelf.domainReqListIndex] block:block];
+                                [blockSelf getDomain:blockSelf.domainReqList[blockSelf.domainReqListIndex] block:block];
                             }];
                         }else{
                             if (blockSelf.domainReqListIndex>0) {
                                 [ccs delay:.3 block:^{
                                     
-                                    [self getDomain:blockSelf.domainReqList[blockSelf.domainReqListIndex] block:block];
+                                    [blockSelf getDomain:blockSelf.domainReqList[blockSelf.domainReqListIndex] block:block];
                                 }];
                             }
                         }
@@ -564,7 +567,7 @@ static dispatch_once_t onceToken;
                             
                             [ccs delay:1 block:^{
                                 
-                                [self getDomain:urlStr block:block];
+                                [blockSelf getDomain:urlStr block:block];
                             }];
                         }
                     }
@@ -602,7 +605,7 @@ static dispatch_once_t onceToken;
             }
         }
         
-        
+        blockSelf=nil;
     }];
 }
 
@@ -649,13 +652,13 @@ static dispatch_once_t onceToken;
                     configure.resultDic=resultDic2;
                     configure.net=[resultDic2[@"net"] intValue];
                     configure.showLog=[resultDic2[@"showLog"] intValue];
-                    self.getConfigureBlock(configure);
+                    blockSelf.getConfigureBlock(configure);
                 }else{
                     [ccs saveDefaultKey:@"bench_configure" andV:@{@"net":@"0",@"showLog":@"0"}];
                     Confi *configure=[[Confi alloc]init];
                     configure.net=0;
                     configure.showLog=0;
-                    self.getConfigureBlock(configure);
+                    blockSelf.getConfigureBlock(configure);
                 }
             }];
         }else{
@@ -663,10 +666,10 @@ static dispatch_once_t onceToken;
             Confi *configure=[[Confi alloc]init];
             configure.net=0;
             configure.showLog=0;
-            self.getConfigureBlock(configure);
+            blockSelf.getConfigureBlock(configure);
         }
         
-        
+        blockSelf=nil;
     }];
 }
 

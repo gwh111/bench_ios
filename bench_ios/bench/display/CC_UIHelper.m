@@ -139,7 +139,7 @@ static dispatch_once_t onceToken;
 //            CCLOG(@"不是有效相对height");
 //        }
     }
-    return height*[self getW]/[[CC_UIHelper getInstance] getUIDemoWith];
+    return (int)(height*[self getW]/[[CC_UIHelper getInstance] getUIDemoWith]);
 }
 
 + (CGRect)adjustRelativeRect:(UIView *)obj withFrameArr:(NSArray *)arr{

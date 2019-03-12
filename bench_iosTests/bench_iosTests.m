@@ -7,6 +7,7 @@
 //
 
 #import <XCTest/XCTest.h>
+#import "CC_Loading.h"
 
 @interface bench_iosTests : XCTestCase
 
@@ -17,6 +18,8 @@
 - (void)setUp {
     [super setUp];
     // Put setup code here. This method is called before the invocation of each test method in the class.
+    [CC_Loading getInstance];
+    
 }
 
 - (void)tearDown {
