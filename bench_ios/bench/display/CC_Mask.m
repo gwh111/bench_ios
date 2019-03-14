@@ -30,6 +30,10 @@ static dispatch_once_t onceToken;
     return instance;
 }
 
+- (void)start{
+    [self startAtView:nil];
+}
+
 - (void)startAtView:(UIView *)view
 {
     UIView *showV;

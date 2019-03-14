@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UIImage (CCExtention)
+@interface UIImage (CCCat)
 
 /**
  *  把图片调整到新的大小

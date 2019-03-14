@@ -105,7 +105,7 @@
                 [model parsingError:error];
                 executorDelegate.finishCallbackBlock(model.errorMsgStr, model);
             }else{
-                NSLog(@"上传第%d张图片失败-----重连还剩%ld次", index, reTryTimes);
+                CCLOG(@"上传第%d张图片失败-----重连还剩%ld次", index, (long)reTryTimes);
                 reTryTimes--;
                 [strongSelf requestSingleImageWithSession:session executorDelegate:executorDelegate request:request index:index reConnectTimes:reTryTimes model:model finishBlock:block];
             }

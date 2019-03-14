@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "UIView+ClassyExtend.h"
+#import "UIView+ClassyCat.h"
 
 @interface UIView (CCLayout)
 

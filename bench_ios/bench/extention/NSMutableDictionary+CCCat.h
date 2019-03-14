@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NSMutableDictionary(CCExtention)
+@interface NSMutableDictionary(CCCat)
 
 /**
  *  key or v空时不闪退

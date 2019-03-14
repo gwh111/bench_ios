@@ -6,7 +6,7 @@
 //  Copyright © 2018年 apple. All rights reserved.
 //
 
-#import "UIButton+CCExtention.h"
+#import "UIButton+CCCat.h"
 #import <objc/runtime.h>
 
 @interface UIButton()
@@ -14,7 +14,7 @@
 
 @end
 
-@implementation UIButton(CCExtention)
+@implementation UIButton(CCCat)
 
 static const NSString *key_cs_backgroundColor = @"key_cs_backgroundColor";
 static NSString *cs_stringForUIControlStateNormal = @"cs_stringForUIControlStateNormal";

@@ -6,10 +6,10 @@
 //  Copyright © 2018 gwh. All rights reserved.
 //
 
-#import "NSObject+CCExtention.h"
+#import "NSObject+CCCat.h"
 #import <objc/runtime.h>
 
-@implementation NSObject(CCExtention)
+@implementation NSObject(CCCat)
 
 #pragma mark kv help
 

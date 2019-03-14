@@ -5,10 +5,10 @@
 //  Created by gwh on 2019/1/25.
 //
 
-#import "UIControl+CCExtention.h"
+#import "UIControl+CCCat.h"
 #import <objc/runtime.h>
 
-@implementation UIControl (CCExtention)
+@implementation UIControl (CCCat)
 
 #pragma mark - 防重复
 // 因category不能添加属性，只能通过关联对象的方式。

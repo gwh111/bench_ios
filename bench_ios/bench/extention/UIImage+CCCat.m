@@ -6,9 +6,9 @@
 //
 //
 
-#import "UIImage+CCExtention.h"
+#import "UIImage+CCCat.h"
 
-@implementation UIImage (CCExtention)
+@implementation UIImage (CCCat)
 
 -(UIImage *)transformToSize:(CGSize)newSize
 {

@@ -17,7 +17,7 @@ typedef enum : NSUInteger {
     CCDevice,
 } CCClassyType;
 
-@interface UIView (ClassyExtend)
+@interface UIView (ClassyCat)
 
 @property(nonatomic, assign) int stopCas;
 

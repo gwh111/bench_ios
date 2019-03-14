@@ -147,6 +147,10 @@
         
     }];
     
+    [[CC_HttpTask getInstance]getConfigure:^(Confi *result) {
+        
+    }];
+    
     [[CC_HttpTask getInstance]getDomainWithReqListNoCache:@[@"http://test-kkbuluo-resource.oss-cn-hangzhou.aliyuncs.com/URL/analysis_url.txt",@"http://dynamic.kkbuluo.net/analysis_url.txt"] block:^(ResModel *result) {
         
     }];
@@ -257,9 +261,9 @@
 //    [[CC_HttpTask getInstance]getDomain:@"http://test-kkbuluo-resource.oss-cn-hangzhou.aliyuncs.com/URL/kk_url.txt" block:^(ResModel *result) {
 //        
 //    }];
-    [[CC_HttpTask getInstance]getDomainWithReqList:@[@"http://dynamic.kkbuluo.net/kk_url.txt",@"http://dynamic.kkbuluo.net/kk_url.txt"] andKey:@"KK" block:^(ResModel *result) {
-        
-    }];
+//    [[CC_HttpTask getInstance]getDomainWithReqList:@[@"http://dynamic.kkbuluo.net/kk_url.txt",@"http://dynamic.kkbuluo.net/kk_url.txt"] andKey:@"KK" block:^(ResModel *result) {
+//        
+//    }];
     
 //    NSString *sss=[self filterString3:@"1"];
     

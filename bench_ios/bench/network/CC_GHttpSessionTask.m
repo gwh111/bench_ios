@@ -24,7 +24,7 @@
 @end
 
 @implementation CC_HttpTask
-@synthesize finishCallbackBlock;
+@synthesize finishCallbackBlock,finishUploadImagesCallbackBlock;
 
 static CC_HttpTask *instance = nil;
 static dispatch_once_t onceToken;
@@ -259,7 +259,6 @@ static dispatch_once_t onceToken;
             executorDelegate.finishCallbackBlock(model.errorMsgStr, model);
         });
         
-        blockSelf=nil;
     }];
     
     [mytask resume];
@@ -457,7 +456,7 @@ static dispatch_once_t onceToken;
     __block CC_HttpTask *blockSelf=self;
     [[CC_HttpTask getInstance]get:urlStr params:nil model:nil finishCallbackBlock:^(NSString *error, ResModel *result) {
         if (error) {
-            [ccs delay:3 block:^{
+            [ccs delay:5 block:^{
                 if (blockSelf.hasSuccessGetDomain==0) {
                     
                     //更新不提示
@@ -517,7 +516,6 @@ static dispatch_once_t onceToken;
                 }
                 
             }
-            blockSelf=nil;
             return ;
         }
         
@@ -536,7 +534,7 @@ static dispatch_once_t onceToken;
                             blockSelf.domainReqListIndex=0;
                             
                             if (blockSelf.updateInBackGround==0) {
-                                [ccs delay:3 block:^{
+                                [ccs delay:5 block:^{
                                     if (blockSelf.hasSuccessGetDomain==0) {
                                         
                                         [CC_Notice showNoticeStr:@"服务器开小差了"];
@@ -605,8 +603,6 @@ static dispatch_once_t onceToken;
                 [CC_Notice showNoticeStr:@"域名获取失败"];
             }
         }
-        
-        blockSelf=nil;
     }];
 }
 
@@ -670,7 +666,6 @@ static dispatch_once_t onceToken;
             blockSelf.getConfigureBlock(configure);
         }
         
-        blockSelf=nil;
     }];
 }
 
