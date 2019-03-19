@@ -73,6 +73,13 @@
     self.view.backgroundColor=COLOR_WHITE;
     
     {
+        [[CC_HttpTask getInstance]get:@"http://bench-ios.oss-cn-shanghai.aliyuncs.com/project/KKTribe_EO.plist" params:nil model:nil finishCallbackBlock:^(NSString *error, ResModel *result) {
+            
+            
+        }];
+    }
+    
+    {
         [[LoginKit getInstance]setUrlStr:@"http://mapi.kkbuluo.net/client/service.json?"];
         MAPI_ONE_AUTH_LOGIN *req=[[MAPI_ONE_AUTH_LOGIN alloc]initWithCell:@"15000000000" loginPassword:@"123" selectedDefaultUserToLogin:YES];
         [req requestAtView:self.view mask:YES block:^(NSDictionary *modifiedDic, ResModel *result) {
