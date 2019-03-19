@@ -221,13 +221,11 @@
  @param images 图片数组
  @param url URL
  @param paramsDic 参数
- @param mimeType mimeType 可以传nil
  @param imageScale 上传图片缩放比例
  @param times 上传失败-重新上传次数
  @param uploadImageBlock 回调函数
  */
--(void)uploadImages:(NSArray<UIImage *> *)images url:(id)url params:(id)paramsDic mimeType:(NSString*)mimeType imageScale:(CGFloat)imageScale reConnectTimes:(NSInteger)times finishBlock:(void (^)(NSArray<NSString*> *errorStrArr, NSArray<ResModel*> *modelArr))uploadImageBlock;
-
+-(void)uploadImages:(NSArray<UIImage *> *)images url:(id)url params:(id)paramsDic imageScale:(CGFloat)imageScale reConnectTimes:(NSInteger)times finishBlock:(void (^)(NSArray<NSString*> *errorStrArr, NSArray<ResModel*> *modelArr))uploadImageBlock;
 /**
  拼接URLRequest
 

@@ -10,8 +10,7 @@
 #import "CC_FormatDic.h"
 
 @implementation CC_UploadImagesTool
-
-+(void)uploadImages:(NSArray<UIImage *> *)images url:(id)url params:(id)paramsDic mimeType:(NSString *)mimeType imageScale:(CGFloat)imageScale reConnectTimes:(NSInteger)times finishBlock:(void (^)(NSArray<NSString *> *, NSArray<ResModel *> *))uploadImageBlock{
++(void)uploadImages:(NSArray<UIImage *> *)images url:(id)url params:(id)paramsDic imageScale:(CGFloat)imageScale reConnectTimes:(NSInteger)times finishBlock:(void (^)(NSArray<NSString *> *, NSArray<ResModel *> *))uploadImageBlock{
     
     NSURL *tempUrl;
     if ([url isKindOfClass:[NSURL class]]) {
@@ -27,12 +26,16 @@
     executorDelegate.finishUploadImagesCallbackBlock = uploadImageBlock; // 绑定执行完成时的block
     NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
     NSURLSession  *session = [NSURLSession sessionWithConfiguration:sessionConfig delegate:executorDelegate delegateQueue:nil];//子线程
+    
     //组装参数
     if ([paramsDic isKindOfClass:[NSDictionary class]]) {
         paramsDic=[[NSMutableDictionary alloc]initWithDictionary:paramsDic];
     }
     if (![paramsDic objectForKey:@"service"]) {
         [paramsDic setObject:@"IMAGE_TEMP_UPLOAD" forKey:@"service"];
+    }
+    if (paramsDic == nil) {
+        paramsDic = [[NSMutableDictionary alloc]init];
     }
     if ([CC_HttpTask getInstance].forbiddenTimestamp==0) {
         if (!paramsDic[@"timestamp"]) {
@@ -68,11 +71,13 @@
                 CCLOG(@"_signKeyStr为空");
             }
         }
-        model.requestUrlStr=urlReq.URL.absoluteString; model.requestStr=ccstr(@"%@%@",urlReq.URL.absoluteString,paraString);
+        model.requestUrlStr=urlReq.URL.absoluteString;
+        model.requestStr=ccstr(@"%@%@",urlReq.URL.absoluteString,paraString);
         
         dispatch_group_async(dispatchGroup, dispatchQueue, ^(){
             dispatch_group_enter(dispatchGroup);
             NSURLRequest* request = [CC_UploadImagesTool recaculateImageDatas:images[i] imageScale:imageScale paramsDic:paramsDic request:urlReq];
+            
             [CC_UploadImagesTool requestSingleImageWithSession:session executorDelegate:executorDelegate request:request index:i+1 reConnectTimes:times model:model finishBlock:^(NSString *error, ResModel *resModel) {
                 if (error) {
                     [errorResultArr addObject:error];
@@ -95,10 +100,10 @@
     executorDelegate.finishCallbackBlock = block; // 绑定执行完成时的block
     
     __block NSInteger reTryTimes = reConnectTimes;
-    WS(weakSelf);
+    __weak __typeof(self)weakSelf = self;
     
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        SS(strongSelf);
+        __strong __typeof(self)strongSelf = weakSelf;
         if (error) {
             //重新发起请求
             if (reTryTimes == 0) {
