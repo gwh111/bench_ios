@@ -50,6 +50,15 @@ static dispatch_once_t onceToken;
     textLabel.bottom=loadingV.bottom;
 }
 
+- (void)loading:(NSString *)loadingText withAni:(BOOL)ani atView:(UIView *)view textColor:(UIColor *)color{
+    textLabel.textColor=color;
+    [self showLoadingWithText:loadingText withAni:ani atView:view];
+}
+
+- (void)stop{
+    [self stopLoading];
+}
+
 - (void)showLoadingWithText:(NSString *)loadingText withAni:(BOOL)ani atView:(UIView *)view{
     
     [view addSubview:loadingV];

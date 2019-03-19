@@ -11,6 +11,14 @@
 
 @implementation CC_Notice
 
++ (void)show:(NSString *)noticeStr{
+    [self showNoticeStr:noticeStr atView:nil delay:0];
+}
+
++ (void)show:(NSString *)noticeStr atView:(UIView *)view{
+    [self showNoticeStr:noticeStr atView:view delay:0];
+}
+
 + (void)showNoticeStr:(NSString *)noticeStr{
     [self showNoticeStr:noticeStr atView:nil delay:0];
 }

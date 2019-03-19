@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UIButton(CCExtention)
+@interface UIButton(CCCat)
 
 @property (nonatomic, strong) NSMutableDictionary *cs_dictBackgroundColor;
 

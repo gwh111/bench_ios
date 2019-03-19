@@ -73,6 +73,13 @@
     self.view.backgroundColor=COLOR_WHITE;
     
     {
+        [[CC_HttpTask getInstance]get:@"http://bench-ios.oss-cn-shanghai.aliyuncs.com/project/KKTribe_EO.plist" params:nil model:nil finishCallbackBlock:^(NSString *error, ResModel *result) {
+            
+            
+        }];
+    }
+    
+    {
         [[LoginKit getInstance]setUrlStr:@"http://mapi.kkbuluo.net/client/service.json?"];
         MAPI_ONE_AUTH_LOGIN *req=[[MAPI_ONE_AUTH_LOGIN alloc]initWithCell:@"15000000000" loginPassword:@"123" selectedDefaultUserToLogin:YES];
         [req requestAtView:self.view mask:YES block:^(NSDictionary *modifiedDic, ResModel *result) {
@@ -142,6 +149,10 @@
         NSString *str2 = [[NSString alloc] initWithData:data2 encoding:NSUTF8StringEncoding];
         NSLog(@"str2:%@", str2);
     }
+    
+    [[CC_HttpTask getInstance]getConfigure:^(Confi *result) {
+        
+    }];
     
     [[CC_HttpTask getInstance]getConfigure:^(Confi *result) {
         
@@ -257,9 +268,9 @@
 //    [[CC_HttpTask getInstance]getDomain:@"http://test-kkbuluo-resource.oss-cn-hangzhou.aliyuncs.com/URL/kk_url.txt" block:^(ResModel *result) {
 //        
 //    }];
-    [[CC_HttpTask getInstance]getDomainWithReqList:@[@"http://dynamic.kkbuluo.net/kk_url.txt",@"http://dynamic.kkbuluo.net/kk_url.txt"] andKey:@"KK" block:^(ResModel *result) {
-        
-    }];
+//    [[CC_HttpTask getInstance]getDomainWithReqList:@[@"http://dynamic.kkbuluo.net/kk_url.txt",@"http://dynamic.kkbuluo.net/kk_url.txt"] andKey:@"KK" block:^(ResModel *result) {
+//        
+//    }];
     
 //    NSString *sss=[self filterString3:@"1"];
     

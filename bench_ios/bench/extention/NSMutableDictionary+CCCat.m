@@ -6,9 +6,9 @@
 //  Copyright © 2018 apple. All rights reserved.
 //
 
-#import "NSMutableDictionary+CCExtention.h"
+#import "NSMutableDictionary+CCCat.h"
 
-@implementation NSMutableDictionary(CCExtention)
+@implementation NSMutableDictionary(CCCat)
 
 - (void)safeSetObject:(id)anObject forKey:(id<NSCopying>)aKey{
     if (!aKey) {

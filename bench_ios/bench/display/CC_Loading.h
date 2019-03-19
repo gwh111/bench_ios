@@ -11,6 +11,9 @@
 @interface CC_Loading : UIView
 
 + (instancetype)getInstance;
+- (void)loading:(NSString *)loadingText withAni:(BOOL)ani atView:(UIView *)view textColor:(UIColor *)color;
+- (void)stop;
+
 - (void)showLoadingWithText:(NSString *)loadingText withAni:(BOOL)ani atView:(UIView *)view;
 - (void)stopLoading;
 

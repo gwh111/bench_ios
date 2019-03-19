@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NSObject(CCExtention)
+@interface NSObject(CCCat)
 
 /**
  *  遍历model所有属性对model赋值

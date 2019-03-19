@@ -6,9 +6,9 @@
 //  Copyright © 2018年 apple. All rights reserved.
 //
 
-#import "NSString+CCExtention.h"
+#import "NSString+CCCat.h"
 
-@implementation NSString (CCExtention)
+@implementation NSString (CCCat)
 
 #pragma mark common
 - (NSArray *)ccWords:(NSString *)cStr{

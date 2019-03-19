@@ -11,6 +11,16 @@
 @interface CC_Notice : UIView
 
 /**
+ *  自动根据noticeStr长度调整消失时间
+ */
++ (void)show:(NSString *)noticeStr;
+/**
+ *  自动根据noticeStr长度调整消失时间
+ */
++ (void)show:(NSString *)noticeStr atView:(UIView *)view;
+
+
+/**
  * CC_Notice同一时间可以有多个 覆盖弹出
  * 会一个个往下移使用CC_Note
  * 错误提示

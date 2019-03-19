@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSString (CCExtention)
+@interface NSString (CCCat)
 
 /**
  *  把string拆分成单个字

@@ -6,12 +6,12 @@
 //  Copyright © 2018 apple. All rights reserved.
 //
 
-#import "NSDate+CCExtention.h"
+#import "NSDate+CCCat.h"
 
 #define CURRENT_CALENDAR [NSCalendar currentCalendar]
 #define DATE_COMPONENTS (NSCalendarUnitYear| NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitWeekOfYear |  NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond | NSCalendarUnitWeekday | NSCalendarUnitWeekdayOrdinal)
 
-@implementation NSDate(CCExtention)
+@implementation NSDate(CCCat)
 
 - (int)dp_second
 {

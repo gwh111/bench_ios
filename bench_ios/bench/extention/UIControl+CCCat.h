@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface UIControl (CCExtention)
+@interface UIControl (CCCat)
 
 @property (nonatomic, assign) NSTimeInterval cs_acceptEventInterval; // 重复点击的间隔
 

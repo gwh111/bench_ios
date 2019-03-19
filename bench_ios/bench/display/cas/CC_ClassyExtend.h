@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "UIView+ClassyExtend.h"
+#import "UIView+ClassyCat.h"
 
 @interface CC_ClassyExtend : NSObject
 

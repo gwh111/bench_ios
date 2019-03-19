@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NSDate(CCExtention)
+@interface NSDate(CCCat)
 
 @property (nonatomic, assign, readonly) int dp_day;
 @property (nonatomic, assign, readonly) int dp_month;

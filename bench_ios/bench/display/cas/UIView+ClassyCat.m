@@ -6,12 +6,12 @@
 //  Copyright © 2018年 gwh. All rights reserved.
 //
 
-#import "UIView+ClassyExtend.h"
+#import "UIView+ClassyCat.h"
 #import <objc/runtime.h>
 #import "CC_UIAtom.h"
 #import "UIView+CCLayout.h"
 
-@implementation UIView (ClassyExtend)
+@implementation UIView (ClassyCat)
 
 + (void)load {
     [super load];

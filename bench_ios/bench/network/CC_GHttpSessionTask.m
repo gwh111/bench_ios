@@ -24,7 +24,7 @@
 @end
 
 @implementation CC_HttpTask
-@synthesize finishCallbackBlock;
+@synthesize finishCallbackBlock,finishUploadImagesCallbackBlock;
 
 static CC_HttpTask *instance = nil;
 static dispatch_once_t onceToken;
@@ -259,7 +259,6 @@ static dispatch_once_t onceToken;
             executorDelegate.finishCallbackBlock(model.errorMsgStr, model);
         });
         
-        blockSelf=nil;
     }];
     
     [mytask resume];
@@ -457,11 +456,13 @@ static dispatch_once_t onceToken;
     __block CC_HttpTask *blockSelf=self;
     [[CC_HttpTask getInstance]get:urlStr params:nil model:nil finishCallbackBlock:^(NSString *error, ResModel *result) {
         if (error) {
-            [ccs delay:3 block:^{
+            [ccs delay:5 block:^{
                 if (blockSelf.hasSuccessGetDomain==0) {
                     
                     //更新不提示
                     if (blockSelf.updateInBackGround==0) {
+                        
+                        blockSelf.hasSuccessGetThirdUrlResponse=[blockSelf isNetworkReachable];
                         //3秒后提示 是网络没有打开的提示还是网络打开了但是域名请求失败的提示
                         if (blockSelf.hasSuccessGetThirdUrlResponse==1) {
                             
@@ -476,7 +477,7 @@ static dispatch_once_t onceToken;
             }];
             
             //请求第三方的网络验证网络情况
-            blockSelf.hasSuccessGetThirdUrlResponse=[self isNetworkReachable];
+            blockSelf.hasSuccessGetThirdUrlResponse=[blockSelf isNetworkReachable];
             //            [[CC_HttpTask getInstance]get:blockSelf.static_pingThirdWebUrl params:@{@"getDate":@""} model:nil finishCallbackBlock:^(NSString *error, ResModel *result) {
             //                if (result.responseDate) {
             //                    blockSelf.hasSuccessGetThirdUrlResponse=1;
@@ -494,13 +495,13 @@ static dispatch_once_t onceToken;
                 if (blockSelf.updateInBackGround==0) {
                     [ccs delay:.3 block:^{
                         
-                        [self getDomain:blockSelf.domainReqList[blockSelf.domainReqListIndex] block:block];
+                        [blockSelf getDomain:blockSelf.domainReqList[blockSelf.domainReqListIndex] block:block];
                     }];
                 }else{
                     if (blockSelf.domainReqListIndex>0) {
                         [ccs delay:.3 block:^{
                             
-                            [self getDomain:blockSelf.domainReqList[blockSelf.domainReqListIndex] block:block];
+                            [blockSelf getDomain:blockSelf.domainReqList[blockSelf.domainReqListIndex] block:block];
                         }];
                     }
                 }
@@ -510,7 +511,7 @@ static dispatch_once_t onceToken;
                 if (blockSelf.updateInBackGround==0) {
                     [ccs delay:1 block:^{
                         
-                        [self getDomain:urlStr block:block];
+                        [blockSelf getDomain:urlStr block:block];
                     }];
                 }
                 
@@ -533,7 +534,7 @@ static dispatch_once_t onceToken;
                             blockSelf.domainReqListIndex=0;
                             
                             if (blockSelf.updateInBackGround==0) {
-                                [ccs delay:3 block:^{
+                                [ccs delay:5 block:^{
                                     if (blockSelf.hasSuccessGetDomain==0) {
                                         
                                         [CC_Notice showNoticeStr:@"服务器开小差了"];
@@ -548,13 +549,13 @@ static dispatch_once_t onceToken;
                         if (blockSelf.updateInBackGround==0) {
                             [ccs delay:.3 block:^{
                                 
-                                [self getDomain:blockSelf.domainReqList[blockSelf.domainReqListIndex] block:block];
+                                [blockSelf getDomain:blockSelf.domainReqList[blockSelf.domainReqListIndex] block:block];
                             }];
                         }else{
                             if (blockSelf.domainReqListIndex>0) {
                                 [ccs delay:.3 block:^{
                                     
-                                    [self getDomain:blockSelf.domainReqList[blockSelf.domainReqListIndex] block:block];
+                                    [blockSelf getDomain:blockSelf.domainReqList[blockSelf.domainReqListIndex] block:block];
                                 }];
                             }
                         }
@@ -565,7 +566,7 @@ static dispatch_once_t onceToken;
                             
                             [ccs delay:1 block:^{
                                 
-                                [self getDomain:urlStr block:block];
+                                [blockSelf getDomain:urlStr block:block];
                             }];
                         }
                     }
@@ -602,8 +603,6 @@ static dispatch_once_t onceToken;
                 [CC_Notice showNoticeStr:@"域名获取失败"];
             }
         }
-        
-        
     }];
 }
 
@@ -650,13 +649,13 @@ static dispatch_once_t onceToken;
                     configure.resultDic=resultDic2;
                     configure.net=[resultDic2[@"net"] intValue];
                     configure.showLog=[resultDic2[@"showLog"] intValue];
-                    self.getConfigureBlock(configure);
+                    blockSelf.getConfigureBlock(configure);
                 }else{
                     [ccs saveDefaultKey:@"bench_configure" andV:@{@"net":@"0",@"showLog":@"0"}];
                     Confi *configure=[[Confi alloc]init];
                     configure.net=0;
                     configure.showLog=0;
-                    self.getConfigureBlock(configure);
+                    blockSelf.getConfigureBlock(configure);
                 }
             }];
         }else{
@@ -664,9 +663,8 @@ static dispatch_once_t onceToken;
             Confi *configure=[[Confi alloc]init];
             configure.net=0;
             configure.showLog=0;
-            self.getConfigureBlock(configure);
+            blockSelf.getConfigureBlock(configure);
         }
-        
         
     }];
 }
