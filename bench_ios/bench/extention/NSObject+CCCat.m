@@ -44,6 +44,26 @@
     return mutDic;
 }
 
+- (NSDictionary *)getClassKVDic_equal{
+    
+    NSMutableDictionary *mutDic=[[NSMutableDictionary alloc]init];
+    
+    NSArray *names=[self getClassNameList];
+    for (int i=0; i<names.count; i++) {
+        NSString *name=names[i];
+        if (name.length>1) {
+            name=[name substringFromIndex:1];
+        }
+        id value=[self valueForKey:name];
+        if (!value) {
+            continue;
+        }
+        [mutDic setObject:[self valueForKey:name] forKey:name];
+    }
+    
+    return mutDic;
+}
+
 - (NSArray *)getClassNameList{
     
     NSMutableArray *mutArr=[[NSMutableArray alloc]init];

@@ -6,10 +6,10 @@
 //  Copyright © 2016年 apple. All rights reserved.
 //
 
-#import "CC_DESTool.h"
+#import "CC_DES.h"
 #import <CommonCrypto/CommonCryptor.h>
 
-@implementation DESTool
+@implementation CC_DES
 
 /*字符串加密
  *参数

@@ -32,7 +32,7 @@
 		D82CBC7621BE611100058044 /* CC_TManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D82CBC7521BE611100058044 /* CC_TManager.m */; };
 		D82F0B9B219533AF006EDF54 /* NSDate+CCCat.m in Sources */ = {isa = PBXBuildFile; fileRef = D82F0B9A219533AF006EDF54 /* NSDate+CCCat.m */; };
 		D8335338205F93F90030AB62 /* CC_HttpResponseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D8335337205F93F90030AB62 /* CC_HttpResponseModel.m */; };
-		D83507621F309D2700B7461C /* CC_DESTool.m in Sources */ = {isa = PBXBuildFile; fileRef = D83507611F309D2700B7461C /* CC_DESTool.m */; };
+		D83507621F309D2700B7461C /* CC_DES.m in Sources */ = {isa = PBXBuildFile; fileRef = D83507611F309D2700B7461C /* CC_DES.m */; };
 		D835077A1F31E2CD00B7461C /* CC_CodeClass.m in Sources */ = {isa = PBXBuildFile; fileRef = D83507791F31E2CD00B7461C /* CC_CodeClass.m */; };
 		D8365DE4205A54CE00357C0F /* testUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8365DE1205A54CD00357C0F /* testUIViewController.m */; };
 		D8365E23205A741D00357C0F /* CC_UIToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = D8365E22205A741D00357C0F /* CC_UIToolView.m */; };
@@ -194,8 +194,8 @@
 		D82F0B9A219533AF006EDF54 /* NSDate+CCCat.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSDate+CCCat.m"; sourceTree = "<group>"; };
 		D8335336205F93F90030AB62 /* CC_HttpResponseModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_HttpResponseModel.h; sourceTree = "<group>"; };
 		D8335337205F93F90030AB62 /* CC_HttpResponseModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC_HttpResponseModel.m; sourceTree = "<group>"; };
-		D83507601F309D2700B7461C /* CC_DESTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_DESTool.h; sourceTree = "<group>"; };
-		D83507611F309D2700B7461C /* CC_DESTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC_DESTool.m; sourceTree = "<group>"; };
+		D83507601F309D2700B7461C /* CC_DES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_DES.h; sourceTree = "<group>"; };
+		D83507611F309D2700B7461C /* CC_DES.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC_DES.m; sourceTree = "<group>"; };
 		D83507781F31E2CD00B7461C /* CC_CodeClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_CodeClass.h; sourceTree = "<group>"; };
 		D83507791F31E2CD00B7461C /* CC_CodeClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC_CodeClass.m; sourceTree = "<group>"; };
 		D8365DD8205A2E0E00357C0F /* Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
@@ -550,8 +550,8 @@
 				D86F4C9C20883841000DF173 /* CC_Date.m */,
 				D8DAFCD2212BE6D2009E0FEC /* CC_AES.h */,
 				D8DAFCD3212BE6D2009E0FEC /* CC_AES.m */,
-				D83507601F309D2700B7461C /* CC_DESTool.h */,
-				D83507611F309D2700B7461C /* CC_DESTool.m */,
+				D83507601F309D2700B7461C /* CC_DES.h */,
+				D83507611F309D2700B7461C /* CC_DES.m */,
 				D8195F521F29CEEF00C7BADD /* CC_Validate.h */,
 				D8195F531F29CEEF00C7BADD /* CC_Validate.m */,
 				D83507781F31E2CD00B7461C /* CC_CodeClass.h */,
@@ -1106,7 +1106,7 @@
 				D839266920FEDFC60034D10F /* CASDeviceTypeItem.m in Sources */,
 				D82CBC7621BE611100058044 /* CC_TManager.m in Sources */,
 				D8335338205F93F90030AB62 /* CC_HttpResponseModel.m in Sources */,
-				D83507621F309D2700B7461C /* CC_DESTool.m in Sources */,
+				D83507621F309D2700B7461C /* CC_DES.m in Sources */,
 				D8DD97EE20B7BC02000A890D /* CC_MusicBox.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

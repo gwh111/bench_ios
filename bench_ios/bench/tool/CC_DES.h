@@ -8,16 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
-@interface DESTool : NSObject
+@interface CC_DES : NSObject
 
 /*字符串加密
  *参数
  *plainText : 加密明文
  *key        : 密钥 64位
  */
-+ (NSString *) encryptUseDES:(NSString *)plainText key:(NSString *)key;
++ (NSString *)encryptUseDES:(NSString *)plainText key:(NSString *)key;
 
 //解密
-+ (NSString *) decryptUseDES:(NSString *)cipherText key:(NSString *)key;
++ (NSString *)decryptUseDES:(NSString *)cipherText key:(NSString *)key;
 
 @end
