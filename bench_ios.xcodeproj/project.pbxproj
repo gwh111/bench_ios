@@ -20,6 +20,7 @@
 		18B6BD461F21A6080019391D /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 18B6BD451F21A6080019391D /* README.md */; };
 		18B6BD481F21A8560019391D /* bench_ios.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 18B6BD471F21A8560019391D /* bench_ios.podspec */; };
 		3081D9C020FC364F00FF5B3D /* CC_UIViewExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 3081D9BF20FC364F00FF5B3D /* CC_UIViewExt.m */; };
+		C0354403224B82900036506A /* CC_webView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0354402224B82900036506A /* CC_webView.m */; };
 		C0CDC6E6223F94E600893ACB /* CC_UploadImagesTool.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CDC6E5223F94E500893ACB /* CC_UploadImagesTool.m */; };
 		D8064C53206A28AF0096F80D /* CC_TextField.m in Sources */ = {isa = PBXBuildFile; fileRef = D8064C52206A28AF0096F80D /* CC_TextField.m */; };
 		D8064C59206A43F50096F80D /* CC_TextView.m in Sources */ = {isa = PBXBuildFile; fileRef = D8064C58206A43F50096F80D /* CC_TextView.m */; };
@@ -170,7 +171,8 @@
 		18B6BD471F21A8560019391D /* bench_ios.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bench_ios.podspec; sourceTree = SOURCE_ROOT; };
 		3081D9BE20FC364F00FF5B3D /* CC_UIViewExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_UIViewExt.h; sourceTree = "<group>"; };
 		3081D9BF20FC364F00FF5B3D /* CC_UIViewExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC_UIViewExt.m; sourceTree = "<group>"; };
-		C0CDC6E4223F94E500893ACB /* CC_UploadImagesTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_UploadImagesTool.h; sourceTree = "<group>"; };
+		C0354401224B82900036506A /* CC_webView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_webView.h; sourceTree = "<group>"; };
+		C0354402224B82900036506A /* CC_webView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC_webView.m; sourceTree = "<group>"; };
 		C0CDC6E5223F94E500893ACB /* CC_UploadImagesTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC_UploadImagesTool.m; sourceTree = "<group>"; };
 		D8064C51206A28AF0096F80D /* CC_TextField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_TextField.h; sourceTree = "<group>"; };
 		D8064C52206A28AF0096F80D /* CC_TextField.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC_TextField.m; sourceTree = "<group>"; };
@@ -423,6 +425,7 @@
 				18B6BD141F1F09CA0019391D /* bench_iosTests */,
 				18B6BD1F1F1F09CA0019391D /* bench_iosUITests */,
 				18B6BCF91F1F09CA0019391D /* Products */,
+				C0354400224B82410036506A /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -514,6 +517,14 @@
 			path = bench;
 			sourceTree = "<group>";
 		};
+		C0354400224B82410036506A /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				C0CDC6E5223F94E500893ACB /* CC_UploadImagesTool.m */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 		D8195F461F29CE6B00C7BADD /* network */ = {
 			isa = PBXGroup;
 			children = (
@@ -542,8 +553,6 @@
 		D8195F4E1F29CE6B00C7BADD /* tool */ = {
 			isa = PBXGroup;
 			children = (
-				1F3E017C223793A3004E630F /* CC_UploadImagesTool.h */,
-				1F3E017B223793A3004E630F /* CC_UploadImagesTool.m */,
 				D86F4C9B20883841000DF173 /* CC_Date.h */,
 				D86F4C9C20883841000DF173 /* CC_Date.m */,
 				D8DAFCD2212BE6D2009E0FEC /* CC_AES.h */,
@@ -724,6 +733,8 @@
 		D83EBBF41FEB5BA700B94D6F /* object */ = {
 			isa = PBXGroup;
 			children = (
+				C0354401224B82900036506A /* CC_webView.h */,
+				C0354402224B82900036506A /* CC_webView.m */,
 				D83B74DD2068FD9F000F81F8 /* CC_View.h */,
 				D83B74DE2068FD9F000F81F8 /* CC_View.m */,
 				D83EBBFD1FEB5BA700B94D6F /* CC_Label.h */,
@@ -1056,6 +1067,7 @@
 				D8DD97EB20B6A6F2000A890D /* CC_Animation.m in Sources */,
 				D839266E20FEDFC60034D10F /* CASStyleProperty.m in Sources */,
 				D8B759B0219A84B0008A6C80 /* CC_Loading.m in Sources */,
+				C0354403224B82900036506A /* CC_webView.m in Sources */,
 				D839266720FEDFC60034D10F /* CASLexer.m in Sources */,
 				D839267420FEDFC60034D10F /* CASObjectClassDescriptor.m in Sources */,
 				D839265E20FEDFC60034D10F /* UISlider+CASAdditions.m in Sources */,
