@@ -1,5 +1,5 @@
 //
-//  CC_webView.h
+//  CC_WebView.h
 //  Patient
 //
 //  Created by 路飞 on 2019/3/21.
@@ -11,7 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol CC_webViewDelegate <NSObject>
+@protocol CC_WebViewDelegate <NSObject>
 @optional;
 // 页面标题
 -(void)webViewTitleChange:(NSString*)title;
@@ -52,9 +52,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)webView:(WKWebView *)webView runJavaScriptAlertPanelWithMessage:(NSString *)message initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(void))completionHandler;
 @end
 
-@interface CC_webView : UIView<WKUIDelegate, WKNavigationDelegate, WKScriptMessageHandler>
+@interface CC_WebView : UIView<WKUIDelegate, WKNavigationDelegate, WKScriptMessageHandler>
 
-@property (nonatomic, weak) id<CC_webViewDelegate>delegate;
+@property (nonatomic, weak) id<CC_WebViewDelegate>delegate;
 @property (nonatomic, copy) NSString* title;
 @property (nonatomic, copy) NSURL* url;
 @property (nonatomic, strong) UIColor* progressTintColor;//进度条tint颜色

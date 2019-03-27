@@ -1,5 +1,5 @@
 //
-//  CC_webView.m
+//  CC_WebView.m
 //  Patient
 //
 //  Created by 路飞 on 2019/3/21.
@@ -8,16 +8,16 @@
 #import <Foundation/Foundation.h>
 static NSString* const CCWKCookies = @"CCWKCookiesKey";
 
-#import "CC_webView.h"
+#import "CC_WebView.h"
 
-@interface CC_webView ()
+@interface CC_WebView ()
 @property (nonatomic, copy) WKWebViewConfiguration *configuration;
 @property (nonatomic, strong) WKWebView *webView;
 //网页加载进度视图
 @property (nonatomic, strong) UIProgressView * progressView;
 @property (nonatomic, copy) NSArray<NSString*>* messageHandleArr;//JS调用Native js方法名数组；供销毁和回调用
 @end
-@implementation CC_webView
+@implementation CC_WebView
 
 #pragma mark - lifeCircle
 -(instancetype)initWithFrame:(CGRect)frame configuration:(WKWebViewConfiguration *)configuration{
