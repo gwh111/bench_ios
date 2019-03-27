@@ -17,6 +17,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)start;
 
 /**
+ *  点击是否穿透
+ *  cross=0 点击不可穿透
+    cross=1 点击可以穿透
+ */
+- (void)setCross:(BOOL)cross;
+
+/**
  *  添加mask到view view=nil时使用window
  */
 - (void)startAtView:(UIView * _Nullable)view;
