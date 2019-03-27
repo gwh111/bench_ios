@@ -16,14 +16,21 @@ NS_ASSUME_NONNULL_BEGIN
  *  遍历model所有属性对model赋值
  */
 - (id)setClassKVDic:(NSDictionary *)dic;
+
 /**
  *  对model所有属性输出字典
  */
 - (NSDictionary *)getClassKVDic;
 /**
+ *  对model所有属性输出字典 去除下划线_
+ */
+- (NSDictionary *)getClassKVDic_equal;
+
+/**
  *  获取所有类名
  */
 - (NSArray *)getClassNameList;
+
 /**
  *  获取所有类的类型
  */

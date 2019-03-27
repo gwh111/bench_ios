@@ -73,7 +73,7 @@
     self.view.backgroundColor=COLOR_WHITE;
     
     {
-        [[CC_HttpTask getInstance]get:@"http://bench-ios.oss-cn-shanghai.aliyuncs.com/project/KKTribe_EO.plist" params:nil model:nil finishCallbackBlock:^(NSString *error, ResModel *result) {
+        [[CC_HttpTask getInstance]post:@"http://mapi1.kknew.net/client/service.json?authedUserId=10004001792637545700290980135543&cell=18888888888&loginKey=USL42ef00e0940446b8802bc8a586c76fea&loginPassword=123456&oneAuthId=6201807200000021&selectedDefaultUserToLogin=1&service=ONE_AUTH_LOGIN&timestamp=1553161639633&triggerAction=%5BLoginKit%20loginAtView%3Amask%3Acell%3Apwd%3AuseDefaultUser%3AextraParamDic%3Ablock%3A%5D-%5BMAPI_ONE_AUTH_LOGIN%20requestAtView%3Amask%3Ablock%3A%5D-&sign=fc2d068debc39ed533126f0a80de36f2" params:nil model:nil finishCallbackBlock:^(NSString *error, ResModel *result) {
             
             
         }];
@@ -387,11 +387,11 @@
         label.attributedText=attributedStr03;
     }
     
-    NSString *newDes=[DESTool encryptUseDES:@"😄多少abc123h到底2344343242343243223423方法。" key:@"91caizhan"];
+    NSString *newDes=[CC_DES encryptUseDES:@"😄多少abc123h到底2344343242343243223423方法。" key:@"91caizhan"];
     newDes=[LCdes lcEncryUseDES:@"abc"];
     NSLog(@"%@",[LCdes lcEncryUseDES:@""]);
     
-    NSString *decode=[DESTool decryptUseDES:newDes key:@"apple"];
+    NSString *decode=[CC_DES decryptUseDES:newDes key:@"apple"];
     NSLog(@"%@",decode);
     
     //base64
