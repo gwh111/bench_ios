@@ -14,6 +14,9 @@
 @property (nonatomic,strong) UIActivityIndicatorView *activityIndicator;
 @property (nonatomic,strong) UIView *progressView;
 
+@property (nonatomic,strong) UIView *crossView;
+@property (nonatomic,assign) BOOL canCross;
+
 @end
 
 @implementation CC_Mask
@@ -34,6 +37,10 @@ static dispatch_once_t onceToken;
     [self startAtView:nil];
 }
 
+- (void)setCross:(BOOL)cross{
+    self.canCross=cross;
+}
+
 - (void)startAtView:(UIView *)view
 {
     UIView *showV;
@@ -43,11 +50,19 @@ static dispatch_once_t onceToken;
         showV=[CC_Code getAView];
     }
     
+    if (_canCross==0) {
+        showV.hidden=NO;
+        [showV addSubview:_crossView];
+    }else{
+        showV.hidden=YES;
+    }
+    
     [self.activityIndicator startAnimating];
     
     UIView *progressView = self.progressView;
     
     [progressView setCenter:showV.center];
+    progressView.bottom=showV.height/2;
     [showV addSubview:progressView];
     
     _progressView.hidden=NO;
@@ -55,6 +70,8 @@ static dispatch_once_t onceToken;
 
 - (void)initUI
 {
+    _crossView=[[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, [ccui getW], [ccui getH])];
+    
     _progressView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, [ccui getRH:100], [ccui getRH:100])];
     [_progressView setBackgroundColor:[UIColor blackColor]];
     _progressView.backgroundColor = ccRGBA(0, 0, 0, .5);
@@ -71,6 +88,7 @@ static dispatch_once_t onceToken;
 {
     [self.activityIndicator stopAnimating];
     _progressView.hidden=YES;
+    _crossView.hidden=YES;
 }
 
 - (void)dealloc

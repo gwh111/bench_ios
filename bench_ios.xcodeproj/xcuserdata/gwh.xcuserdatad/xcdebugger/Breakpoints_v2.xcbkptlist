@@ -51,13 +51,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "bench_ios/ViewController.m"
-            timestampString = "574855901.850466"
+            filePath = "bench_ios/bench/network/CC_GHttpSessionTask.m"
+            timestampString = "575363478.917291"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "77"
-            endingLineNumber = "77"
-            landmarkName = "-viewDidLoad"
+            startingLineNumber = "147"
+            endingLineNumber = "147"
+            landmarkName = "-request:Params:model:FinishCallbackBlock:type:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
