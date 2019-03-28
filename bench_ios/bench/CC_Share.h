@@ -72,6 +72,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
 #import "CC_TextField.h"
 #import "CC_TextView.h"
 #import "CC_ImageView.h"
+#import "CC_WebView.h"
+
 #import "CC_LogicClass.h"
 #import "CC_Date.h"
 #import "CC_Parser.h"

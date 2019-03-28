@@ -13,52 +13,87 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol CC_WebViewDelegate <NSObject>
 @optional;
-// 页面标题
+
+/**
+ *  页面标题
+ */
 -(void)webViewTitleChange:(NSString*)title;
-// 页面开始加载时调用
+
+/**
+ *  页面开始加载时调用
+ */
 -(void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation;
 
-// 页面加载失败时调用
+/**
+ *  页面加载失败时调用
+ */
 - (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(null_unspecified WKNavigation *)navigation withError:(NSError *)error;
 
-// 当内容开始返回时调用
+/**
+ *  当内容开始返回时调用
+ */
 - (void)webView:(WKWebView *)webView didCommitNavigation:(WKNavigation *)navigation;
 
-// 页面加载完成之后调用
+/**
+ *  页面加载完成之后调用
+ */
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation;
 
-//提交发生错误时调用
+/**
+ *  提交发生错误时调用
+ */
 - (void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error;
 
-// 接收到服务器跳转请求即服务重定向时之后调用
+/**
+ *  接收到服务器跳转请求即服务重定向时之后调用
+ */
 - (void)webView:(WKWebView *)webView didReceiveServerRedirectForProvisionalNavigation:(WKNavigation *)navigation;
 
-// 根据WebView对于即将跳转的HTTP请求头信息和相关信息来决定是否跳转
+/**
+ *  根据WebView对于即将跳转的HTTP请求头信息和相关信息来决定是否跳转
+ */
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler;
 
-// 根据客户端受到的服务器响应头以及response相关信息来决定是否可以跳转
+/**
+ *  根据客户端受到的服务器响应头以及response相关信息来决定是否可以跳转
+ */
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationResponse:(WKNavigationResponse *)navigationResponse decisionHandler:(void (^)(WKNavigationResponsePolicy))decisionHandler;
 
-//进程被终止时调用
+/**
+ *  进程被终止时调用
+ */
 - (void)webViewWebContentProcessDidTerminate:(WKWebView *)webView;
 
-//若是https，需要响应身份验证时调用 同样在block中需要传入用户身份凭证
+/**
+ *  若是https，需要响应身份验证时调用 同样在block中需要传入用户身份凭证
+ */
 - (void)webView:(WKWebView *)webView didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential * _Nullable credential))completionHandler;
 
-//JS调用OC响应
+/**
+ *  JS调用OC响应
+ */
 -(void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message;
 
-//html的alert弹框
+/**
+ *  html的alert弹框
+ */
 - (void)webView:(WKWebView *)webView runJavaScriptAlertPanelWithMessage:(NSString *)message initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(void))completionHandler;
+
 @end
 
 @interface CC_WebView : UIView<WKUIDelegate, WKNavigationDelegate, WKScriptMessageHandler>
 
 @property (nonatomic, weak) id<CC_WebViewDelegate>delegate;
-@property (nonatomic, copy) NSString* title;
-@property (nonatomic, copy) NSURL* url;
-@property (nonatomic, strong) UIColor* progressTintColor;//进度条tint颜色
-@property (nonatomic, strong) UIColor* progressTrackTintColor;//进度条trackTint颜色
+@property (nonatomic, copy) NSString *title;
+@property (nonatomic, copy) NSURL *url;
+/**
+ *  进度条tint颜色
+ */
+@property (nonatomic, strong) UIColor *progressTintColor;
+/**
+ *  进度条trackTint颜色
+ */
+@property (nonatomic, strong) UIColor *progressTrackTintColor;
 
 /**
  初始化
@@ -127,6 +162,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /** 搜索指定域名下的cookies */
 - (WKUserScript *)searchCookieForUserScriptWithDomain:(NSString *)domain;
+
 @end
 
 NS_ASSUME_NONNULL_END
