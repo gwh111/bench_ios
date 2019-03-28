@@ -13,6 +13,12 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CC_RSA : NSObject
 
 /**
+ *  RSA第三方警告 已修改
+ - WARN  | [iOS] xcodebuild:  RSA.m:275:49: warning: values of type 'OSStatus' should not be used as format arguments; add an explicit cast to 'int' instead [-Wformat]
+ - WARN  | [iOS] xcodebuild:  RSA.m:331:49: warning: values of type 'OSStatus' should not be used as format arguments; add an explicit cast to 'int' instead [-Wformat]
+ */
+
+/**
  *  公钥加密
     NSString格式
  */
