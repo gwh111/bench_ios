@@ -87,8 +87,6 @@
 		D83EBC061FEB5BA700B94D6F /* CC_Notice.m in Sources */ = {isa = PBXBuildFile; fileRef = D83EBC001FEB5BA700B94D6F /* CC_Notice.m */; };
 		D83EBC0C1FEB5CBC00B94D6F /* CC_UIHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D83EBC091FEB5CBC00B94D6F /* CC_UIHelper.m */; };
 		D84649A3218FFDA900F33451 /* CC_HttpConfigure.m in Sources */ = {isa = PBXBuildFile; fileRef = D84649A2218FFDA900F33451 /* CC_HttpConfigure.m */; };
-		D852BF5A2215215500082681 /* LoginKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D852BF592215215500082681 /* LoginKit.m */; };
-		D852BF5E221521CE00082681 /* MAPI_ONE_AUTH_LOGIN.m in Sources */ = {isa = PBXBuildFile; fileRef = D852BF5D221521CE00082681 /* MAPI_ONE_AUTH_LOGIN.m */; };
 		D85BFC8F2193DBA400F567EF /* test.plist in Resources */ = {isa = PBXBuildFile; fileRef = D85BFC8E2193DBA400F567EF /* test.plist */; };
 		D85BFC9B219409FC00F567EF /* NSMutableDictionary+CCCat.m in Sources */ = {isa = PBXBuildFile; fileRef = D85BFC9A219409FC00F567EF /* NSMutableDictionary+CCCat.m */; };
 		D8678D9921D073F100E04986 /* NSObject+CCCat.m in Sources */ = {isa = PBXBuildFile; fileRef = D8678D9721D073F100E04986 /* NSObject+CCCat.m */; };
@@ -108,6 +106,8 @@
 		D8B0E4611F501EE400425D06 /* nyyh.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D8B0E4601F501EE400425D06 /* nyyh.jpg */; };
 		D8B759B0219A84B0008A6C80 /* CC_Loading.m in Sources */ = {isa = PBXBuildFile; fileRef = D8B759AE219A84B0008A6C80 /* CC_Loading.m */; };
 		D8BCCFDF224C88B10086A3EF /* CC_WebView.m in Sources */ = {isa = PBXBuildFile; fileRef = D8BCCFDD224C88B10086A3EF /* CC_WebView.m */; };
+		D8BCCFE6224CA5C00086A3EF /* RSA.m in Sources */ = {isa = PBXBuildFile; fileRef = D8BCCFE5224CA5BF0086A3EF /* RSA.m */; };
+		D8BCCFE9224CA5CB0086A3EF /* CC_RSA.m in Sources */ = {isa = PBXBuildFile; fileRef = D8BCCFE7224CA5CB0086A3EF /* CC_RSA.m */; };
 		D8BDAF6820FC4F49006BF14C /* CC_ResponseLogicModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D8BDAF6720FC4F49006BF14C /* CC_ResponseLogicModel.m */; };
 		D8C5110A2112F40C00944CB0 /* CC_HookTrack.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C511082112F40C00944CB0 /* CC_HookTrack.m */; };
 		D8C511D0211AE3D100944CB0 /* NSString+CCCat.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C511CF211AE3D100944CB0 /* NSString+CCCat.m */; };
@@ -306,10 +306,6 @@
 		D83EBC0E1FEB646100B94D6F /* PlatformConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlatformConfig.h; sourceTree = "<group>"; };
 		D84649A1218FFDA900F33451 /* CC_HttpConfigure.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_HttpConfigure.h; sourceTree = "<group>"; };
 		D84649A2218FFDA900F33451 /* CC_HttpConfigure.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC_HttpConfigure.m; sourceTree = "<group>"; };
-		D852BF582215215500082681 /* LoginKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginKit.h; sourceTree = "<group>"; };
-		D852BF592215215500082681 /* LoginKit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginKit.m; sourceTree = "<group>"; };
-		D852BF5C221521CE00082681 /* MAPI_ONE_AUTH_LOGIN.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MAPI_ONE_AUTH_LOGIN.h; sourceTree = "<group>"; };
-		D852BF5D221521CE00082681 /* MAPI_ONE_AUTH_LOGIN.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MAPI_ONE_AUTH_LOGIN.m; sourceTree = "<group>"; };
 		D85BFC8E2193DBA400F567EF /* test.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = test.plist; sourceTree = "<group>"; };
 		D85BFC99219409FC00F567EF /* NSMutableDictionary+CCCat.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSMutableDictionary+CCCat.h"; sourceTree = "<group>"; };
 		D85BFC9A219409FC00F567EF /* NSMutableDictionary+CCCat.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSMutableDictionary+CCCat.m"; sourceTree = "<group>"; };
@@ -344,6 +340,10 @@
 		D8B759AF219A84B0008A6C80 /* CC_Loading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_Loading.h; sourceTree = "<group>"; };
 		D8BCCFDD224C88B10086A3EF /* CC_WebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC_WebView.m; sourceTree = "<group>"; };
 		D8BCCFDE224C88B10086A3EF /* CC_WebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_WebView.h; sourceTree = "<group>"; };
+		D8BCCFE4224CA5BF0086A3EF /* RSA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSA.h; sourceTree = "<group>"; };
+		D8BCCFE5224CA5BF0086A3EF /* RSA.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSA.m; sourceTree = "<group>"; };
+		D8BCCFE7224CA5CB0086A3EF /* CC_RSA.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC_RSA.m; sourceTree = "<group>"; };
+		D8BCCFE8224CA5CB0086A3EF /* CC_RSA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_RSA.h; sourceTree = "<group>"; };
 		D8BDAF6620FC4F49006BF14C /* CC_ResponseLogicModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_ResponseLogicModel.h; sourceTree = "<group>"; };
 		D8BDAF6720FC4F49006BF14C /* CC_ResponseLogicModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC_ResponseLogicModel.m; sourceTree = "<group>"; };
 		D8C511082112F40C00944CB0 /* CC_HookTrack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC_HookTrack.m; sourceTree = "<group>"; };
@@ -452,7 +452,6 @@
 				18B6BCFF1F1F09CA0019391D /* AppDelegate.m */,
 				18B6BD011F1F09CA0019391D /* ViewController.h */,
 				18B6BD021F1F09CA0019391D /* ViewController.m */,
-				D852BF57221520F900082681 /* LoginKit */,
 				D85BFC8E2193DBA400F567EF /* test.plist */,
 				D8CA1DF421913F9400CE4889 /* configure */,
 				D8288C482178881D000F3B89 /* model */,
@@ -549,6 +548,8 @@
 			children = (
 				D86F4C9B20883841000DF173 /* CC_Date.h */,
 				D86F4C9C20883841000DF173 /* CC_Date.m */,
+				D8BCCFE8224CA5CB0086A3EF /* CC_RSA.h */,
+				D8BCCFE7224CA5CB0086A3EF /* CC_RSA.m */,
 				D8DAFCD2212BE6D2009E0FEC /* CC_AES.h */,
 				D8DAFCD3212BE6D2009E0FEC /* CC_AES.m */,
 				D83507601F309D2700B7461C /* CC_DES.h */,
@@ -615,6 +616,7 @@
 		D839260E20FEDFB20034D10F /* thd */ = {
 			isa = PBXGroup;
 			children = (
+				D8BCCFE3224CA5B50086A3EF /* RSA */,
 				D839260F20FEDFC60034D10F /* Classy */,
 			);
 			path = thd;
@@ -779,25 +781,6 @@
 			path = display;
 			sourceTree = "<group>";
 		};
-		D852BF57221520F900082681 /* LoginKit */ = {
-			isa = PBXGroup;
-			children = (
-				D852BF582215215500082681 /* LoginKit.h */,
-				D852BF592215215500082681 /* LoginKit.m */,
-				D852BF5B2215217C00082681 /* Service */,
-			);
-			path = LoginKit;
-			sourceTree = "<group>";
-		};
-		D852BF5B2215217C00082681 /* Service */ = {
-			isa = PBXGroup;
-			children = (
-				D852BF5C221521CE00082681 /* MAPI_ONE_AUTH_LOGIN.h */,
-				D852BF5D221521CE00082681 /* MAPI_ONE_AUTH_LOGIN.m */,
-			);
-			path = Service;
-			sourceTree = "<group>";
-		};
 		D883EEE0200E34790062A6C6 /* test */ = {
 			isa = PBXGroup;
 			children = (
@@ -816,6 +799,15 @@
 				D8B0E4601F501EE400425D06 /* nyyh.jpg */,
 			);
 			path = testImg;
+			sourceTree = "<group>";
+		};
+		D8BCCFE3224CA5B50086A3EF /* RSA */ = {
+			isa = PBXGroup;
+			children = (
+				D8BCCFE4224CA5BF0086A3EF /* RSA.h */,
+				D8BCCFE5224CA5BF0086A3EF /* RSA.m */,
+			);
+			path = RSA;
 			sourceTree = "<group>";
 		};
 		D8C511CC211AE32200944CB0 /* extention */ = {
@@ -1021,6 +1013,7 @@
 				D8BDAF6820FC4F49006BF14C /* CC_ResponseLogicModel.m in Sources */,
 				D8F2B1AD2179E9E5002748B9 /* CC_ImageView.m in Sources */,
 				D883EEFA200E37910062A6C6 /* LCdes.m in Sources */,
+				D8BCCFE6224CA5C00086A3EF /* RSA.m in Sources */,
 				D839266120FEDFC60034D10F /* UITextField+CASAdditions.m in Sources */,
 				D83B74DF2068FD9F000F81F8 /* CC_View.m in Sources */,
 				D839266A20FEDFC60034D10F /* CASUtilities.m in Sources */,
@@ -1056,7 +1049,6 @@
 				D8BCCFDF224C88B10086A3EF /* CC_WebView.m in Sources */,
 				D835077A1F31E2CD00B7461C /* CC_CodeClass.m in Sources */,
 				D823153C1F53AED3006055FB /* testColorViewController.m in Sources */,
-				D852BF5A2215215500082681 /* LoginKit.m in Sources */,
 				D8EC6FD321242380006ECFE3 /* UIButton+CCCat.m in Sources */,
 				D839265D20FEDFC60034D10F /* UIView+CASAdditions.m in Sources */,
 				D8DD97EB20B6A6F2000A890D /* CC_Animation.m in Sources */,
@@ -1081,6 +1073,7 @@
 				D8195F4F1F29CE6B00C7BADD /* CC_FormatDic.m in Sources */,
 				D83EBC051FEB5BA700B94D6F /* CC_Label.m in Sources */,
 				D88E2C3F2186AB9D00D71480 /* UIImage+CCCat.m in Sources */,
+				D8BCCFE9224CA5CB0086A3EF /* CC_RSA.m in Sources */,
 				D839265920FEDFC60034D10F /* UITabBar+CASAdditions.m in Sources */,
 				D8064C59206A43F50096F80D /* CC_TextView.m in Sources */,
 				1882682A1F4BCEC500D72048 /* CC_GCoreDataManager.m in Sources */,
@@ -1093,7 +1086,6 @@
 				D83EBC0C1FEB5CBC00B94D6F /* CC_UIHelper.m in Sources */,
 				D839266F20FEDFC60034D10F /* CASStyler.m in Sources */,
 				D86F4C9D20883841000DF173 /* CC_Date.m in Sources */,
-				D852BF5E221521CE00082681 /* MAPI_ONE_AUTH_LOGIN.m in Sources */,
 				D8195F501F29CE6B00C7BADD /* CC_GHttpSessionTask.m in Sources */,
 				D83B73342068A170000F81F8 /* CC_Note.m in Sources */,
 				D839267020FEDFC60034D10F /* CASStyleNode.m in Sources */,

@@ -20,6 +20,13 @@ Then, run the following command:
 $ pod install
 ```
 
+必须初始化布局
+You must init base UI frame
+```
+//需要先初始化布局
+[[CC_UIHelper getInstance]initUIDemoWidth:375 andHeight:750];
+```
+
 # v1.3.0
 ========
 ![img](https://github.com/gwh111/bench_ios/blob/master/casGif.gif)
@@ -28,7 +35,7 @@ CC_UIAtom;
 创建可以动态修改的基础控件
 ```
 //需要先初始化布局
-[[CC_UIHelper getInstance]initUIDemoWidth:375 andHeight:750];
+[[CC_UIHelper getInstance]initUIDemoWidth:375 andHeight:667];
 //创建一个view
 [CC_UIAtom initAt:self.view name:@"MainVC_v_figure1" type:CCView finishBlock:^(CC_View *atom) {
 }];

@@ -10,7 +10,25 @@
 
 @interface CC_Loading : UIView
 
+/**
+ *  加载文字的label
+ */
+@property (nonatomic,retain) UILabel *textL;
+
 + (instancetype)getInstance;
+
+- (void)start;
+
+/**
+ *  设置加载文字提示
+ */
+- (void)setText:(NSString *)text;
+
+/**
+ *  添加mask到view view=nil时使用window
+ */
+- (void)startAtView:(UIView * _Nullable)view;
+
 - (void)loading:(NSString *)loadingText withAni:(BOOL)ani atView:(UIView *)view textColor:(UIColor *)color;
 - (void)stop;
 
