@@ -41,7 +41,7 @@ CC_UIAtom;
 }];
 ```
 ### 网络请求
-get和post
+##### get和post
 ```
 //get
 [[CC_HttpTask getInstance]get:@"https://www.baidu.com/" params:nil model:nil finishCallbackBlock:^(NSString *error, ResModel *result) {
@@ -52,7 +52,7 @@ get和post
 
 }];
 ```
-接口统一处理回调
+##### 接口统一处理回调
 ```
 [[CC_HttpTask getInstance] addResponseLogic:@"PARAMETER_ERROR" logicStr:@"response,error,name=PARAMETER_ERROR" stop:YES popOnce:NO logicBlock:^(NSDictionary *resultDic) {
     CCLOG(@"%@",@"PARAMETER_ERROR");
@@ -61,9 +61,17 @@ get和post
     [[CC_HttpTask getInstance]resetResponseLogicPopOnce:@"PARAMETER_ERROR"];
 }];
 ```
+##### http请求头设置
+```
+[[CC_HttpTask getInstance]setRequestHTTPHeaderFieldDic:
+@{@"appName":@"ljzsmj_ios",
+  @"appVersion":@"1.0.3",
+  @"appUserAgent":@"e1",
+  }];
+```
 
 ### 数据处理
-转化map，将map数据插入数组。  
+##### 转化map，将map数据插入数组。  
 ```
 NSDictionary *result=@{@"response":
 @{@"purchaseOrders":
@@ -78,11 +86,32 @@ NSDictionary *result=@{@"response":
 @{@"aaa":@{@"name":@"a",@"time":@"ac"},
   @"bbb":@{@"name":@"b",@"time":@"bc"}}
                                      }};
-  NSMutableArray *parr=[CC_Parser getMapParser:result[@"response"][@"purchaseOrders"] idKey:@"order" keepKey:YES pathMap:result[@"response"][@"paidFeeMap"]];
-  parr=[CC_Parser addMapParser:parr idKey:@"prize" keepKey:NO map:result[@"response"][@"prizeFeeMap"]];
+
+NSMutableArray *parr=[CC_Parser getMapParser:result[@"response"][@"purchaseOrders"] idKey:@"order" keepKey:YES pathMap:result[@"response"][@"paidFeeMap"]];
+parr=[CC_Parser addMapParser:parr idKey:@"prize" keepKey:NO map:result[@"response"][@"prizeFeeMap"]];
 ```
-排序
+##### 排序
 ```
 NSMutableArray *arr=[[NSMutableArray alloc]initWithArray:@[@{@"name":@"张三",@"id":@"xxx"},@{@"name":@"李四",@"id":@"xxx"}]];
 arr=[CC_Array sortChineseArr:arr depthArr:@[@"name"]];
+```
+
+### GCD
+##### 子线程和主线程切换
+```
+NSLog(@"1");
+[ccs gotoThread:^{
+    NSLog(@"2");
+    NSLog(@"3");
+    [ccs gotoMain:^{
+        NSLog(@"4");
+    }];
+}];
+NSLog(@"5");
+```
+##### 延时
+```
+[ccs delay:1.1 block:^{
+
+}];
 ```

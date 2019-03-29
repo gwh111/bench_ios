@@ -329,6 +329,9 @@
     }];
     NSLog(@"5");
     
+    [ccs delay:1.1 block:^{
+        
+    }];
     
     NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
     {//emoj->str
