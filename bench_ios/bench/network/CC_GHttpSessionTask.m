@@ -669,7 +669,7 @@ static dispatch_once_t onceToken;
     }];
 }
 //一次性上传多张图片
--(void)uploadImages:(NSArray *)images url:(id)url params:(id)paramsDic imageScale:(CGFloat)imageScale reConnectTimes:(NSInteger)times finishBlock:(void (^)(NSArray<NSString *> *, NSArray<ResModel *> *))uploadImageBlock{
+-(void)uploadImages:(NSArray *)images url:(id)url params:(id)paramsDic imageScale:(CGFloat)imageScale reConnectTimes:(NSInteger)times finishBlock:(void (^)(NSArray<ResModel *> *, NSArray<ResModel *> *))uploadImageBlock{
     [CC_UploadImagesTool uploadImages:images url:url params:paramsDic imageScale:imageScale reConnectTimes:times finishBlock:uploadImageBlock];
 }
 

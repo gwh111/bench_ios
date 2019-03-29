@@ -20,7 +20,7 @@
 
 @interface CC_HttpTask : NSObject<NSURLSessionDelegate>{
     void (^finishCallbackBlock)(NSString *errorStr, ResModel *model); // 执行完成后回调的block
-    void (^finishUploadImagesCallbackBlock)(NSArray<NSString*> *errorStrArr, NSArray<ResModel*> *modelArr); // 上传图片完成后回调的block
+    void (^finishUploadImagesCallbackBlock)(NSArray<ResModel*> *errorModelArr, NSArray<ResModel*> *successModelArr); // 上传图片完成后回调的block
     id _requestHTTPHeaderFieldDic;
 }
 
@@ -114,7 +114,7 @@
 /**
  上传图片完成回调
  */
-@property(strong) void (^finishUploadImagesCallbackBlock)(NSArray<NSString*> *errorStrArr, NSArray<ResModel*> *modelArr);
+@property(strong) void (^finishUploadImagesCallbackBlock)(NSArray<ResModel*> *errorModelArr, NSArray<ResModel*> *successModelArr);
 
 /**
  *  获取配置回调
@@ -225,7 +225,7 @@
  @param times 上传失败-重新上传次数
  @param uploadImageBlock 回调函数
  */
--(void)uploadImages:(NSArray<UIImage *> *)images url:(id)url params:(id)paramsDic imageScale:(CGFloat)imageScale reConnectTimes:(NSInteger)times finishBlock:(void (^)(NSArray<NSString*> *errorStrArr, NSArray<ResModel*> *modelArr))uploadImageBlock;
+-(void)uploadImages:(NSArray<UIImage *> *)images url:(id)url params:(id)paramsDic imageScale:(CGFloat)imageScale reConnectTimes:(NSInteger)times finishBlock:(void (^)(NSArray<ResModel*> *errorModelArr, NSArray<ResModel*> *successModelArr))uploadImageBlock;
 /**
  拼接URLRequest
 

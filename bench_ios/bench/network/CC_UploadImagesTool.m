@@ -10,7 +10,7 @@
 #import "CC_FormatDic.h"
 
 @implementation CC_UploadImagesTool
-+(void)uploadImages:(NSArray<UIImage *> *)images url:(id)url params:(id)paramsDic imageScale:(CGFloat)imageScale reConnectTimes:(NSInteger)times finishBlock:(void (^)(NSArray<NSString *> *, NSArray<ResModel *> *))uploadImageBlock{
++(void)uploadImages:(NSArray<UIImage *> *)images url:(id)url params:(id)paramsDic imageScale:(CGFloat)imageScale reConnectTimes:(NSInteger)times finishBlock:(void (^)(NSArray<ResModel *> *, NSArray<ResModel *> *))uploadImageBlock{
     
     NSURL *tempUrl;
     if ([url isKindOfClass:[NSURL class]]) {
@@ -80,9 +80,10 @@
             
             [CC_UploadImagesTool requestSingleImageWithSession:session executorDelegate:executorDelegate request:request index:i+1 reConnectTimes:times model:model finishBlock:^(NSString *error, ResModel *resModel) {
                 if (error) {
-                    [errorResultArr addObject:error];
+                    [errorResultArr addObject:resModel];
+                }else{
+                    [resModelResultArr addObject:resModel];
                 }
-                [resModelResultArr addObject:resModel];
                 dispatch_group_leave(dispatchGroup);
             }];
         });
@@ -115,9 +116,12 @@
                 [strongSelf requestSingleImageWithSession:session executorDelegate:executorDelegate request:request index:index reConnectTimes:reTryTimes model:model finishBlock:block];
             }
         }else{
-            NSDictionary *result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            model.resultDic = result;
-            NSLog(@"上传第%d张图片成功-----result:%@", index, result);
+            [model parsingResult:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]];
+            if (model.errorMsgStr) {
+                CCLOG(@"上传第%d张图片失败-----result:%@", index, model.resultDic);
+            }else{
+                CCLOG(@"上传第%d张图片成功-----result:%@", index, model.resultDic);
+            }
             executorDelegate.finishCallbackBlock(model.errorMsgStr, model);
         }
     }];
