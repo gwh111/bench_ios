@@ -25,7 +25,7 @@
 - (void)setText:(NSString *)text;
 
 /**
- *  添加mask到view view=nil时使用window
+ *  添加到view view=nil时使用window
  */
 - (void)startAtView:(UIView * _Nullable)view;
 

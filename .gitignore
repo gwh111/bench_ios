@@ -8,3 +8,5 @@
 *.xcbkptlist
 *.xcuserstate
 *.xcuserstate
+.DS_Store
+bench_ios.xcodeproj/project.xcworkspace/xcuserdata/gwh.xcuserdatad/UserInterfaceState.xcuserstate
