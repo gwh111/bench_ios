@@ -90,7 +90,7 @@
     }
     
     dispatch_group_notify(dispatchGroup, dispatch_get_main_queue(), ^(){
-        NSLog(@"所有图片上传完成-----end");
+        CCLOG(@"所有图片上传完成-----end");
         [session finishTasksAndInvalidate];
         executorDelegate.finishUploadImagesCallbackBlock(errorResultArr, resModelResultArr);
     });
