@@ -27,12 +27,12 @@ You must init base UI frame
 [[CC_UIHelper getInstance]initUIDemoWidth:375 andHeight:750];
 ```
 
-# v1.3.0
+### 模拟器动态布局
 ========
-![img](https://github.com/gwh111/bench_ios/blob/master/casGif.gif)
-![img](https://github.com/gwh111/bench_ios/blob/master/casGif2.gif)
-CC_UIAtom;
-创建可以动态修改的基础控件
+![img](https://github.com/gwh111/bench_ios/blob/master/casGif.gif)  
+![img](https://github.com/gwh111/bench_ios/blob/master/casGif2.gif)  
+CC_UIAtom;  
+创建可以动态修改的基础控件  
 ```
 //需要先初始化布局
 [[CC_UIHelper getInstance]initUIDemoWidth:375 andHeight:667];
@@ -40,202 +40,49 @@ CC_UIAtom;
 [CC_UIAtom initAt:self.view name:@"MainVC_v_figure1" type:CCView finishBlock:^(CC_View *atom) {
 }];
 ```
-
-
-# v1.3.17
-========
-规范枚举
-CC_AutoLabelGroup增加了- (void)updateNumber:(NSUInteger)number;
-新增ccs的+ (NSDictionary *)getBundle;
-/**
-*  存储keychain的字段
-*  在app删除再重新安装后依然可以获取
-*/
-+(void)saveKeychainName:(NSString *)key str:(NSString *)str;
-+(NSString *)getKeychainName:(NSString *)str;
-
-# v1.3.15
-========
-UIButton
-- (void)setccSelected:(BOOL)selected;
-- (void)setBackgroundColor:(UIColor *)backgroundColor forState:(UIControlState)state;
-CC_Logic
-CC_Code
-CC_Share新增安全的存储 使用AES加密
-+ (id)getSafeDefault:(NSString *)key;
-+ (void)saveSafeDefaultKey:(NSString *)key andV:(id)v;
-
-# v1.3.10
-========
-CC_AutoLabelGroup;
-按照字数自动适应的标签合集模块
-CC_CodeClass;
-新增CC_Code
-
-# v1.3.8
-========
-CC_HttpTask;
-打印结果的中文正常显示
-CC_HookTrack;追踪操作路径
-预先willPopOfIndex:       willPushTo:;
-来源catchTrack;
-
-# v1.3.7
-========
-CC_Array;
-增加中文排序
-CC_HttpTask;
-增加额外参数addExtreDic:
-
-
-
-# v1.2.28
-========
-CC_HttpTask;
-设置通用响应结果特殊处理回调逻辑
+### 网络请求
+get和post
 ```
-//添加逻辑
-[[CC_HttpTask getInstance] addResponseLogic:@"PARAMETER_ERROR" logicStr:@"response,error,name=PARAMETER_ERROR" stop:YES popOnce:YES logicBlock:^(NSDictionary *resultDic) {
-//在这里添加处理代码
+//get
+[[CC_HttpTask getInstance]get:@"https://www.baidu.com/" params:nil model:nil finishCallbackBlock:^(NSString *error, ResModel *result) {
+
 }];
-//重置去重
-[[CC_HttpTask getInstance]resetResponseLogicPopOnce:@"PARAMETER_ERROR"];
-```
-CC_CodeClass    colorwithHexString:
-服务端颜色的16进制NSString转成UIColor
+//post
+[[CC_HttpTask getInstance]post:@"https://www.baidu.com/" params:@{@"getDate":@""} model:nil finishCallbackBlock:^(NSString *error, ResModel *result) {
 
-# v1.2.23
-Overview
-========
-network;
-CC_RequestRecordTool
-ResModel 增加requestUrl
-
-# v1.2.14
-Overview
-========
-tool;
-CC_Animation 按钮闪烁动画 点击放大动画
-CC_MusicBox 背景音乐淡入淡出播放 音效播放
-network;
-ResModel 提示只在debug出现 正式环境自由控制
-
-# v1.2.2
-Overview
-========
-```objective-c
-//http头部信息
-[[CC_HttpTask getInstance]setRequestHTTPHeaderFieldDic:
-@{@"appName":@"ljzsmj_ios",
-@"appVersion":@"1.0.3",
-@"appUserAgent":@"e1",
-}];
-//签名的key 一般登录后获取
-[[CC_HttpTask getInstance]setSignKeyStr:@"abc"];
-//额外每个请求要传的参数
-[[CC_HttpTask getInstance]setExtreDic:@{@"key":@"v"}];
-NSURL *url=[NSURL URLWithString:@"http://xxx/service.json?"];
-[[CC_HttpTask getInstance]post:url Params:@{@"service":@"PURCHASE_ORDRE_JOINED_SHOW_CONFIG_QUERY"} model:[[ResModel alloc]init] FinishCallbackBlock:^(NSString *error, ResModel *result) {
-if (error) {
-[CC_Note showAlert:error];
-return ;
-}
-
-CCLOG(@"%@",result.resultDic);
 }];
 ```
-display;
-    ui绘制 未完成
-network;
-    ResModel
-    CC_HttpTask
-    网络请求类
-tool;
-    CC_CodeClass.h
-    topViewController
-    获取当前最上面的controller
+接口统一处理回调
+```
+[[CC_HttpTask getInstance] addResponseLogic:@"PARAMETER_ERROR" logicStr:@"response,error,name=PARAMETER_ERROR" stop:YES popOnce:NO logicBlock:^(NSDictionary *resultDic) {
+    CCLOG(@"%@",@"PARAMETER_ERROR");
 
-# v1.2.1
-Overview
-========
-network;
-    CC_CodeClass.h
-        convert 字典和string转换
-tool;
-    CC_Envirnment 代理检测 网络环境检测
-
-# v1.1.7 v1.1.8 v1.1.9 v1.2.0
-Overview
-========
-PlatformConfig.h
-object;
-    CC_AttributedStr
-display;
-    CC_UIHelper
-
-# v1.1.4 v1.1.5 v1.1.6
-Overview
-========
-object;
-    CC_Button
-
-# v1.1.3
-Overview
-========
-object;
-    CC_Array
-    CC_Notice
-    CC_GCoreDataManager
-    CC_GColor
-
-# v1.1.2
-Overview
-========
-tool;
-    DESTool
-    CC_CodeClass
-display;
-    uiviewExt
-
-# v1.1.1
-Overview
-========
-network;
-object;
-    image
-    button~
-    label+
-tool;
-
-# v1.1.0
-Overview
-========
-network;
-object;
-    image+
-    button+
-tool;
-
-# v1.0.4
-Overview
-========
-
-# 初始化类[未完成 要修改]
-CC_Share
-启动时为user_signKey赋值 使用登陆后返回的md5 key
-# example code
-[[CC_Share getInstance] setUserSignKey:@"123"];
-[[CC_Share getInstance] setHttpRequestWithAppName:@"app" andHTTPMethod:@"POST" andTimeoutInterval:10];
-
-# 网络请求类
-CC_GHttpSessionTask
-resultDic 结果
-resultStr 对于精度丢失的内容 自行解析 可用sbjson
-error 错误
-# example code:
-NSURL *url=[NSURL URLWithString:@"http://api.jczj123.com/client/service.json"];
-NSMutableDictionary *paraDic=[[NSMutableDictionary alloc]init];
-[paraDic setObject:@"1" forKey:@"service"];
-[CC_GHttpSessionTask postSessionWithJsonUrl:url ParamterStr:paraDic Info:nil FinishCallbackBlock:^(NSDictionary *resultDic, NSString *resultStr, NSString *error) {
-
+    //取消这个配置    
+    [[CC_HttpTask getInstance]resetResponseLogicPopOnce:@"PARAMETER_ERROR"];
 }];
+```
+
+### 数据处理
+转化map，将map数据插入数组。  
+```
+NSDictionary *result=@{@"response":
+@{@"purchaseOrders":
+@[
+@{@"name":@"111",@"order":@"1111",@"prize":@"aaa"},
+@{@"name":@"222",@"order":@"2222",@"prize":@"bbb"}],
+
+  @"paidFeeMap":
+@{@"1111":@"100yuan",@"2222":@"120yuan"},
+
+  @"prizeFeeMap":
+@{@"aaa":@{@"name":@"a",@"time":@"ac"},
+  @"bbb":@{@"name":@"b",@"time":@"bc"}}
+                                     }};
+  NSMutableArray *parr=[CC_Parser getMapParser:result[@"response"][@"purchaseOrders"] idKey:@"order" keepKey:YES pathMap:result[@"response"][@"paidFeeMap"]];
+  parr=[CC_Parser addMapParser:parr idKey:@"prize" keepKey:NO map:result[@"response"][@"prizeFeeMap"]];
+```
+排序
+```
+NSMutableArray *arr=[[NSMutableArray alloc]initWithArray:@[@{@"name":@"张三",@"id":@"xxx"},@{@"name":@"李四",@"id":@"xxx"}]];
+arr=[CC_Array sortChineseArr:arr depthArr:@[@"name"]];
+```
