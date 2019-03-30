@@ -41,7 +41,8 @@ CC_UIAtom;
 }];
 ```
 ### 网络请求
-##### get和post
+#### get和post
+解决了打印日志对于Unicode编码不能正常显示中文的问题，只需要将文件导入工程，不需要引用，就能达到打印日志显示Unicode编码中文数据。
 ```
 //get
 [[CC_HttpTask getInstance]get:@"https://www.baidu.com/" params:nil model:nil finishCallbackBlock:^(NSString *error, ResModel *result) {
@@ -52,7 +53,7 @@ CC_UIAtom;
 
 }];
 ```
-##### 接口统一处理回调
+#### 接口统一处理回调
 ```
 [[CC_HttpTask getInstance] addResponseLogic:@"PARAMETER_ERROR" logicStr:@"response,error,name=PARAMETER_ERROR" stop:YES popOnce:NO logicBlock:^(NSDictionary *resultDic) {
     CCLOG(@"%@",@"PARAMETER_ERROR");
@@ -61,7 +62,7 @@ CC_UIAtom;
     [[CC_HttpTask getInstance]resetResponseLogicPopOnce:@"PARAMETER_ERROR"];
 }];
 ```
-##### http请求头设置
+#### http请求头设置
 ```
 [[CC_HttpTask getInstance]setRequestHTTPHeaderFieldDic:
 @{@"appName":@"ljzsmj_ios",
@@ -71,7 +72,7 @@ CC_UIAtom;
 ```
 
 ### 数据处理
-##### 转化map，将map数据插入数组。  
+#### 转化map，将map数据插入数组。  
 ```
 NSDictionary *result=@{@"response":
 @{@"purchaseOrders":
@@ -90,14 +91,24 @@ NSDictionary *result=@{@"response":
 NSMutableArray *parr=[CC_Parser getMapParser:result[@"response"][@"purchaseOrders"] idKey:@"order" keepKey:YES pathMap:result[@"response"][@"paidFeeMap"]];
 parr=[CC_Parser addMapParser:parr idKey:@"prize" keepKey:NO map:result[@"response"][@"prizeFeeMap"]];
 ```
-##### 排序
+#### 排序
 ```
 NSMutableArray *arr=[[NSMutableArray alloc]initWithArray:@[@{@"name":@"张三",@"id":@"xxx"},@{@"name":@"李四",@"id":@"xxx"}]];
 arr=[CC_Array sortChineseArr:arr depthArr:@[@"name"]];
 ```
+#### 解决json数据浮点数精度丢失问题
+修正使用NSJSONSerialization将NSString转换为Dictionary后 有小数部分出现如8.369999999999999问题。  
+```
+/**
+ *  修正使用NSJSONSerialization将NSString转换为Dictionary后 有小数部分出现如8.369999999999999问题
+ 例子:
+ NSString *html = @"{\"71.40\":71.40,\"8.37\":8.37,\"80.40\":80.40,\"188.40\":188.40}";此段html转换成NSMutableDictionary后使用correctNumberLoss处理耗时0.000379秒
+ */
+- (NSMutableDictionary *)correctDecimalLoss:(NSMutableDictionary *)dic;
+```  
 
 ### GCD
-##### 子线程和主线程切换
+#### 子线程和主线程切换
 ```
 NSLog(@"1");
 [ccs gotoThread:^{
@@ -109,7 +120,7 @@ NSLog(@"1");
 }];
 NSLog(@"5");
 ```
-##### 延时
+#### 延时
 ```
 [ccs delay:1.1 block:^{
 
