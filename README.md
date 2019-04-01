@@ -70,6 +70,20 @@ CC_UIAtom;
   @"appUserAgent":@"e1",
   }];
 ```
+#### 多图上传
+```
+/**
+ 上传多张图片
+
+ @param images 图片数组
+ @param url URL
+ @param paramsDic 参数
+ @param imageScale 上传图片缩放比例
+ @param times 上传失败-重新上传次数
+ @param uploadImageBlock 回调函数
+ */
++ (void)uploadImages:(NSArray<UIImage *> *)images url:(id)url params:(id)paramsDic imageScale:(CGFloat)imageScale reConnectTimes:(NSInteger)times finishBlock:(void (^)(NSArray<ResModel*> *errorModelArr, NSArray<ResModel*> *successModelArr))uploadImageBlock;
+```
 
 ### 数据处理
 #### 转化map，将map数据插入数组。  
@@ -125,4 +139,21 @@ NSLog(@"5");
 [ccs delay:1.1 block:^{
 
 }];
+```
+#### 提示封装
+```
+//黑底白字提示
+[CC_Notice show:@"黑底白字提示~"];
+
+//加载中Mask
+[[CC_Mask getInstance]setText:@"加载中"];
+[[CC_Mask getInstance]start];
+//...
+[[CC_Mask getInstance]stop];
+
+//加载中纯文字
+[[CC_Loading getInstance]setText:@"加载中"];
+[[CC_Loading getInstance]start];
+//...
+[[CC_Loading getInstance]stop];
 ```

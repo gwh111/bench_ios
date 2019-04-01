@@ -62,6 +62,21 @@
     [super viewDidLoad];
     self.view.backgroundColor=COLOR_WHITE;
     
+    //黑底白字提示
+    [CC_Notice show:@"黑底白字提示~"];
+    
+    //加载中Mask
+    [[CC_Mask getInstance]setText:@"加载中"];
+    [[CC_Mask getInstance]start];
+    //...
+    [[CC_Mask getInstance]stop];
+    
+    //加载中纯文字
+    [[CC_Loading getInstance]setText:@"加载中"];
+    [[CC_Loading getInstance]start];
+    //...
+    [[CC_Loading getInstance]stop];
+    
     //get
     [[CC_HttpTask getInstance]get:@"https://www.baidu.com/" params:nil model:nil finishCallbackBlock:^(NSString *error, ResModel *result) {
         
