@@ -9,8 +9,46 @@
 #import "CC_Share.h"
 #import "CC_FormatDic.h"
 
+typedef NS_ENUM(NSUInteger, CCCompressionType) {
+    CCCompressionTypeScale,//指定比例压缩
+    CCCompressionTypeSize,//指定大小压缩
+};
+
+@interface CC_UploadImagesTool ()
+
+@property (nonatomic, assign) CCCompressionType compressionType;
+@property (nonatomic, assign) CGFloat scalePercent;//指定压缩比例
+@property (nonatomic, assign) NSUInteger scaleSize;//指定压缩大小
+
+@end
+
 @implementation CC_UploadImagesTool
-+(void)uploadImages:(NSArray<UIImage *> *)images url:(id)url params:(id)paramsDic imageScale:(CGFloat)imageScale reConnectTimes:(NSInteger)times finishBlock:(void (^)(NSArray<ResModel *> *, NSArray<ResModel *> *))uploadImageBlock{
+
+static CC_UploadImagesTool *instance = nil;
+static dispatch_once_t onceToken;
+
++(instancetype)shareInstance{
+    dispatch_once(&onceToken, ^{
+        instance = [[CC_UploadImagesTool alloc] init];
+    });
+    return instance;
+}
+
+-(void)uploadImages:(NSArray<UIImage *> *)images url:(id)url params:(id)paramsDic imageScale:(CGFloat)imageScale reConnectTimes:(NSInteger)times finishBlock:(void (^)(NSArray<ResModel *> *, NSArray<ResModel *> *))uploadImageBlock{
+    
+    self.scalePercent = imageScale;
+    self.compressionType = CCCompressionTypeScale;
+    [self uploadImages:images url:url params:paramsDic reConnectTimes:times finishBlock:uploadImageBlock];
+}
+
+-(void)uploadImages:(NSArray<UIImage *> *)images url:(id)url params:(id)paramsDic imageSize:(NSUInteger)imageSize reConnectTimes:(NSInteger)times finishBlock:(void (^)(NSArray<ResModel *> * _Nonnull, NSArray<ResModel *> * _Nonnull))uploadImageBlock{
+    
+    self.scaleSize = imageSize;
+    self.compressionType = CCCompressionTypeSize;
+    [self uploadImages:images url:url params:paramsDic reConnectTimes:times finishBlock:uploadImageBlock];
+}
+
+-(void)uploadImages:(NSArray<UIImage *> *)images url:(id)url params:(id)paramsDic reConnectTimes:(NSInteger)times finishBlock:(void (^)(NSArray<ResModel *> *, NSArray<ResModel *> *))uploadImageBlock{
     
     NSURL *tempUrl;
     if ([url isKindOfClass:[NSURL class]]) {
@@ -76,9 +114,9 @@
         
         dispatch_group_async(dispatchGroup, dispatchQueue, ^(){
             dispatch_group_enter(dispatchGroup);
-            NSURLRequest* request = [CC_UploadImagesTool recaculateImageDatas:images[i] imageScale:imageScale paramsDic:paramsDic request:urlReq];
+            NSURLRequest* request = [self recaculateImageDatas:images[i] paramsDic:[CC_UploadImagesTool string2Dic:paraString] request:urlReq];
             
-            [CC_UploadImagesTool requestSingleImageWithSession:session executorDelegate:executorDelegate request:request index:i+1 reConnectTimes:times model:model finishBlock:^(NSString *error, ResModel *resModel) {
+            [self requestSingleImageWithSession:session executorDelegate:executorDelegate request:request index:i+1 reConnectTimes:times model:model finishBlock:^(NSString *error, ResModel *resModel) {
                 if (error) {
                     [errorResultArr addObject:resModel];
                 }else{
@@ -96,7 +134,7 @@
     });
 }
 
-+(void)requestSingleImageWithSession:(NSURLSession*)session executorDelegate:(CC_HttpTask *)executorDelegate request:(NSURLRequest*)request index:(int)index reConnectTimes:(NSInteger)reConnectTimes model:(ResModel*)model finishBlock:(void (^)(NSString *, ResModel *))block{
+-(void)requestSingleImageWithSession:(NSURLSession*)session executorDelegate:(CC_HttpTask *)executorDelegate request:(NSURLRequest*)request index:(int)index reConnectTimes:(NSInteger)reConnectTimes model:(ResModel*)model finishBlock:(void (^)(NSString *, ResModel *))block{
     
     executorDelegate.finishCallbackBlock = block; // 绑定执行完成时的block
     
@@ -118,9 +156,9 @@
         }else{
             [model parsingResult:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]];
             if (model.errorMsgStr) {
-                CCLOG(@"上传第%d张图片失败-----result:%@", index, model.resultDic);
+                CCLOG(@"上传第%d张图片失败-----\n requestStr:%@\n result:%@", index, model.requestStr, model.resultDic);
             }else{
-                CCLOG(@"上传第%d张图片成功-----result:%@", index, model.resultDic);
+                CCLOG(@"上传第%d张图片成功-----\n requestStr:%@\n result:%@", index, model.requestStr, model.resultDic);
             }
             executorDelegate.finishCallbackBlock(model.errorMsgStr, model);
         }
@@ -128,7 +166,7 @@
     [task resume];
 }
 
-+(NSURLRequest*)recaculateImageDatas:(UIImage*)image imageScale:(CGFloat)imageScale paramsDic:(NSDictionary*)paramsDic request:(NSMutableURLRequest*)urlReq{
+-(NSURLRequest*)recaculateImageDatas:(UIImage*)image paramsDic:(NSDictionary*)paramsDic request:(NSMutableURLRequest*)urlReq{
     NSString *TWITTERFON_FORM_BOUNDARY = @"AaB03x";
     //分界线 --AaB03x
     NSString *MPboundary=[[NSString alloc]initWithFormat:@"--%@",TWITTERFON_FORM_BOUNDARY];
@@ -155,7 +193,14 @@
     [myRequestData appendData:[body dataUsingEncoding:NSUTF8StringEncoding]];
     
     //要上传的图片--得到图片的data
-    NSData* data = UIImageJPEGRepresentation(image, imageScale);
+    NSData* data;
+    if (_compressionType == CCCompressionTypeScale) {
+        //指定比例
+        data = UIImageJPEGRepresentation(image, _scalePercent);
+    }else{
+        //指定大小
+        data = [CC_UploadImagesTool compressWithMaxLength:_scaleSize*1000*1000 image:image];
+    }
     NSMutableString *imgbody = [[NSMutableString alloc] init];
     //添加分界线，换行
     [imgbody appendFormat:@"%@\r\n",MPboundary];
@@ -188,4 +233,54 @@
     return urlReq;
 }
 
+//把签名后的字符串 xxx=xxx&xxx=xxx&... 转成字典
++(NSDictionary*)string2Dic:(NSString*)string{
+    NSMutableDictionary* muaDic = [[NSMutableDictionary alloc]init];
+    NSArray* arr = [string componentsSeparatedByString:@"&"];
+    for (NSString* KV in arr) {
+        NSArray* KVArr = [KV componentsSeparatedByString:@"="];
+        if (KVArr.count != 2) {
+            continue;
+        }
+        [muaDic setObject:KVArr.lastObject forKey:KVArr.firstObject];
+    }
+    return [muaDic copy];
+}
+
++(NSData *)compressWithMaxLength:(NSUInteger)maxLength image:(UIImage*)image{
+    // Compress by quality
+    CGFloat compression = 1;
+    NSData *data = UIImageJPEGRepresentation(image, compression);
+    if (data.length < maxLength) return data;
+    
+    CGFloat max = 1;
+    CGFloat min = 0;
+    for (int i = 0; i < 6; ++i) {
+        compression = (max + min) / 2;
+        data = UIImageJPEGRepresentation(image, compression);
+        if (data.length < maxLength * 0.9) {
+            min = compression;
+        } else if (data.length > maxLength) {
+            max = compression;
+        } else {
+            break;
+        }
+    }
+    if (data.length < maxLength) return data;
+    UIImage *resultImage = [UIImage imageWithData:data];
+    // Compress by size
+    NSUInteger lastDataLength = 0;
+    while (data.length > maxLength && data.length != lastDataLength) {
+        lastDataLength = data.length;
+        CGFloat ratio = (CGFloat)maxLength / data.length;
+        CGSize size = CGSizeMake((NSUInteger)(resultImage.size.width * sqrtf(ratio)),
+                                 (NSUInteger)(resultImage.size.height * sqrtf(ratio)));
+        UIGraphicsBeginImageContext(size);
+        [resultImage drawInRect:CGRectMake(0, 0, size.width, size.height)];
+        resultImage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        data = UIImageJPEGRepresentation(resultImage, compression);
+    }
+    return data;
+}
 @end

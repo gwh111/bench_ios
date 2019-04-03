@@ -668,11 +668,16 @@ static dispatch_once_t onceToken;
         
     }];
 }
-//一次性上传多张图片
+
+//上传多张图片-指定图片压缩比例
 -(void)uploadImages:(NSArray *)images url:(id)url params:(id)paramsDic imageScale:(CGFloat)imageScale reConnectTimes:(NSInteger)times finishBlock:(void (^)(NSArray<ResModel *> *, NSArray<ResModel *> *))uploadImageBlock{
-    [CC_UploadImagesTool uploadImages:images url:url params:paramsDic imageScale:imageScale reConnectTimes:times finishBlock:uploadImageBlock];
+    [[CC_UploadImagesTool shareInstance] uploadImages:images url:url params:paramsDic imageScale:imageScale reConnectTimes:times finishBlock:uploadImageBlock];
 }
 
+//上传多张图片-指定图片大小 单位 兆
+-(void)uploadImages:(NSArray *)images url:(id)url params:(id)paramsDic imageSize:(NSUInteger)imageSize reConnectTimes:(NSInteger)times finishBlock:(void (^)(NSArray<ResModel *> *, NSArray<ResModel *> *))uploadImageBlock{
+    [[CC_UploadImagesTool shareInstance] uploadImages:images url:url params:paramsDic imageSize:imageSize reConnectTimes:times finishBlock:uploadImageBlock];
+}
 @end
 
 
