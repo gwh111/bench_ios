@@ -62,6 +62,14 @@
     [super viewDidLoad];
     self.view.backgroundColor=COLOR_WHITE;
     
+//    //死锁
+//    NSLog(@"1");
+//    dispatch_sync(dispatch_get_main_queue(), ^{
+//        // 回到主线程进行UI操作
+//        NSLog(@"4");
+//    });
+//    NSLog(@"5");
+    
     //黑底白字提示
     [CC_Notice show:@"黑底白字提示~"];
     
