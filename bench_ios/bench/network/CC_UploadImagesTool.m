@@ -62,6 +62,16 @@ static dispatch_once_t onceToken;
     
     CC_HttpTask *executorDelegate = [[CC_HttpTask alloc] init];
     executorDelegate.finishUploadImagesCallbackBlock = uploadImageBlock; // 绑定执行完成时的block
+    
+    //图片判空 若为空 直接返回错误
+    if (images.count < 1) {
+        ResModel* model=[[ResModel alloc]init];
+        model.serviceStr=paramsDic[@"service"];
+        model.errorMsgStr = @"上传图片为空";
+        executorDelegate.finishUploadImagesCallbackBlock(@[model], @[]);
+        return;
+    }
+    
     NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
     NSURLSession  *session = [NSURLSession sessionWithConfiguration:sessionConfig delegate:executorDelegate delegateQueue:nil];//子线程
     
@@ -114,7 +124,7 @@ static dispatch_once_t onceToken;
         
         dispatch_group_async(dispatchGroup, dispatchQueue, ^(){
             dispatch_group_enter(dispatchGroup);
-            NSURLRequest* request = [self recaculateImageDatas:images[i] paramsDic:[CC_UploadImagesTool string2Dic:paraString] request:urlReq];
+            NSURLRequest* request = [self recaculateImageDatas:images[i] paramsDic:[CC_UploadImagesTool appendSign:paramsDic] request:urlReq];
             
             [self requestSingleImageWithSession:session executorDelegate:executorDelegate request:request index:i+1 reConnectTimes:times model:model finishBlock:^(NSString *error, ResModel *resModel) {
                 if (error) {
@@ -233,17 +243,19 @@ static dispatch_once_t onceToken;
     return urlReq;
 }
 
-//把签名后的字符串 xxx=xxx&xxx=xxx&... 转成字典
-+(NSDictionary*)string2Dic:(NSString*)string{
-    NSMutableDictionary* muaDic = [[NSMutableDictionary alloc]init];
-    NSArray* arr = [string componentsSeparatedByString:@"&"];
-    for (NSString* KV in arr) {
-        NSArray* KVArr = [KV componentsSeparatedByString:@"="];
-        if (KVArr.count != 2) {
-            continue;
-        }
-        [muaDic setObject:KVArr.lastObject forKey:KVArr.firstObject];
-    }
+//把所要传的参数加上签名keyvalue xxx=xxx&xxx=xxx&... 转成字典
++(NSDictionary*)appendSign:(NSMutableDictionary*)muaDic{
+    
+    NSString* signStr = [CC_FormatDic getSignValueWithDic:muaDic andMD5Key:[CC_HttpTask getInstance].signKeyStr];
+//    NSArray* arr = [signStr componentsSeparatedByString:@"&"];
+//    for (NSString* KV in arr) {
+//        NSArray* KVArr = [KV componentsSeparatedByString:@"="];
+//        if (KVArr.count != 2) {
+//            continue;
+//        }
+//        [muaDic setObject:KVArr.lastObject forKey:KVArr.firstObject];
+//    }
+    [muaDic safeSetObject:signStr forKey:@"sign"];
     return [muaDic copy];
 }
 
