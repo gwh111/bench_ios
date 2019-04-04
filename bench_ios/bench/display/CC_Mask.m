@@ -9,7 +9,10 @@
 #import "CC_Mask.h"
 #import "CC_Share.h"
 
-@interface CC_Mask()
+@interface CC_Mask(){
+    
+    NSString *textStr;
+}
 
 @property (nonatomic,strong) UIActivityIndicatorView *activityIndicator;
 @property (nonatomic,strong) UIView *progressView;
@@ -20,6 +23,7 @@
 @end
 
 @implementation CC_Mask
+@synthesize textL;
 
 static CC_Mask *instance = nil;
 static dispatch_once_t onceToken;
@@ -39,6 +43,10 @@ static dispatch_once_t onceToken;
 
 - (void)setCross:(BOOL)cross{
     self.canCross=cross;
+}
+
+- (void)setText:(NSString *)text{
+    textStr=text;
 }
 
 - (void)startAtView:(UIView *)view
@@ -66,6 +74,12 @@ static dispatch_once_t onceToken;
     [showV addSubview:progressView];
     
     _progressView.hidden=NO;
+    if (textStr) {
+        textL.text=textStr;
+        _activityIndicator.top=-[ccui getRH:10];
+    }else{
+        _activityIndicator.top=0;
+    }
 }
 
 - (void)initUI
@@ -82,6 +96,12 @@ static dispatch_once_t onceToken;
     [_activityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhiteLarge];
     [_progressView addSubview:_activityIndicator];
     
+    textL=[[UILabel alloc]init];
+    textL.frame=CGRectMake(0.0f, [ccui getRH:60], [ccui getRH:100], [ccui getRH:40]);
+    textL.font=[ccui getRFS:14];
+    textL.textColor=[UIColor whiteColor];
+    textL.textAlignment=NSTextAlignmentCenter;
+    [_progressView addSubview:textL];
 }
 
 - (void)stop
