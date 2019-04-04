@@ -11,13 +11,13 @@
 
 @interface CC_Loading(){
     UIView *loadingV;
-    UILabel *textLabel;
     NSTimer *aniTimer;
     NSString *loadingTextStr;
 }
 @end
 
 @implementation CC_Loading
+@synthesize textL;
 
 static CC_Loading *instance = nil;
 static dispatch_once_t onceToken;
@@ -40,18 +40,30 @@ static dispatch_once_t onceToken;
     loadingV=[[UIView alloc]init];
     loadingV.backgroundColor=ccRGBA(0, 0, 0, 0);
     
-    textLabel=[[UILabel alloc]initWithFrame:loadingV.frame];
-    textLabel.numberOfLines=0;
-    textLabel.textColor=[UIColor blackColor];
-    textLabel.textAlignment=NSTextAlignmentCenter;
-    textLabel.font=[ccui getRFS:16];
-    [loadingV addSubview:textLabel];
-    textLabel.height=textLabel.height/2;
-    textLabel.bottom=loadingV.bottom;
+    textL=[[UILabel alloc]initWithFrame:loadingV.frame];
+    textL.numberOfLines=0;
+    textL.textColor=[UIColor blackColor];
+    textL.textAlignment=NSTextAlignmentCenter;
+    textL.font=[ccui getRFS:16];
+    [loadingV addSubview:textL];
+    textL.height=textL.height/2;
+    textL.bottom=loadingV.bottom;
+}
+
+- (void)start{
+    [self startAtView:nil];
+}
+
+- (void)setText:(NSString *)text{
+    loadingTextStr=text;
+}
+
+- (void)startAtView:(UIView * _Nullable)view{
+    [self loading:loadingTextStr?loadingTextStr:@"" withAni:YES atView:view textColor:COLOR_BLACK];
 }
 
 - (void)loading:(NSString *)loadingText withAni:(BOOL)ani atView:(UIView *)view textColor:(UIColor *)color{
-    textLabel.textColor=color;
+    textL.textColor=color;
     [self showLoadingWithText:loadingText withAni:ani atView:view];
 }
 
@@ -61,39 +73,45 @@ static dispatch_once_t onceToken;
 
 - (void)showLoadingWithText:(NSString *)loadingText withAni:(BOOL)ani atView:(UIView *)view{
     
-    [view addSubview:loadingV];
+    UIView *showV;
+    if (view) {
+        showV=view;
+    }else{
+        showV=[CC_Code getAView];
+    }
+    [showV addSubview:loadingV];
     
     loadingV.hidden=NO;
-    textLabel.hidden=NO;
+    textL.hidden=NO;
     
     loadingTextStr=loadingText;
-    loadingV.frame=CGRectMake(0, 0, view.frame.size.width, view.frame.size.height);
-    textLabel.frame=loadingV.frame;
-    textLabel.text=loadingText;
+    loadingV.frame=CGRectMake(0, 0, showV.frame.size.width, showV.frame.size.height);
+    textL.frame=loadingV.frame;
+    textL.text=loadingText;
     
     [aniTimer invalidate];
     
     if (ani) {
         aniTimer=[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(shengchengTimer) userInfo:nil repeats:YES];
     }
-    [view addSubview:loadingV];
+    [showV addSubview:loadingV];
 }
 
 - (void)stopLoading{
     loadingV.hidden=YES;
-    textLabel.hidden=YES;
+    textL.hidden=YES;
     [aniTimer invalidate];
 }
 
 - (void)shengchengTimer{
-    if ([textLabel.text hasSuffix:@"..."]) {
-        textLabel.text=loadingTextStr;
-    }else if ([textLabel.text hasSuffix:@".."]){
-        textLabel.text=[NSString stringWithFormat:@"%@...",loadingTextStr];
-    }else if ([textLabel.text hasSuffix:@"."]){
-        textLabel.text=[NSString stringWithFormat:@"%@..",loadingTextStr];
+    if ([textL.text hasSuffix:@"..."]) {
+        textL.text=loadingTextStr;
+    }else if ([textL.text hasSuffix:@".."]){
+        textL.text=[NSString stringWithFormat:@"%@...",loadingTextStr];
+    }else if ([textL.text hasSuffix:@"."]){
+        textL.text=[NSString stringWithFormat:@"%@..",loadingTextStr];
     }else{
-        textLabel.text=[NSString stringWithFormat:@"%@.",loadingTextStr];
+        textL.text=[NSString stringWithFormat:@"%@.",loadingTextStr];
     }
 }
 

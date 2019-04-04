@@ -12,6 +12,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CC_Mask : UIView
 
+/**
+ *  加载文字的label
+ */
+@property (nonatomic,retain) UILabel *textL;
+
 + (instancetype)getInstance;
 
 - (void)start;
@@ -22,6 +27,11 @@ NS_ASSUME_NONNULL_BEGIN
     cross=1 点击可以穿透
  */
 - (void)setCross:(BOOL)cross;
+
+/**
+ *  设置加载文字提示
+ */
+- (void)setText:(NSString *)text;
 
 /**
  *  添加mask到view view=nil时使用window

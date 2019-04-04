@@ -15,7 +15,6 @@
 
 #import <objc/runtime.h>
 #import<SystemConfiguration/CaptiveNetwork.h>
-#import "LoginKit.h"
 
 @interface ViewController (){
     NSArray *nameArr;
@@ -59,34 +58,63 @@
     
 }
 
-- (void)reqqq{
-    [[CC_HttpTask getInstance]get:[NSURL URLWithString:@"http://mapi1.kkbuluo.net/client/service.json?authedUserId=10004001888050707700290980138076&columnId=4001777412645712260000006810&commentByPay=1&content=%E5%91%A8%E4%BA%8C002%0A%20%20%20Word%E7%BC%96%E8%BE%91%EF%BC%8C%E5%A4%8D%E5%88%B6%E5%88%B0%E5%BE%AE%E4%BF%A1%EF%BC%8C%E5%86%8D%E5%A4%8D%E5%88%B6%E5%87%BA%E6%9D%A5%E3%80%82%0A%20%20%20%E5%9C%B0%E7%82%B9%EF%BC%9A%E6%96%97%E5%B1%B1%E7%90%83%E5%9C%BA%0A%20%20%20%E5%9C%BA%E6%AC%A1%EF%BC%9A2018-19%E8%B5%9B%E5%AD%A3%E6%AC%A7%E5%86%A0%E5%B0%8F%E7%BB%84%E8%B5%9B%E7%AC%AC6%E8%BD%AE&from=publishpay_navigation_unpersonalrelease_null_null_null&hiddenContent=%F0%9F%90%B0%E3%80%81ygg&loginKey=USL16a153b37edb4e2da9990c52fa16bc27&objectType=PERSONAL_ARTICLE&oneAuthId=6201807270000122&postChannelId=10004001888050707700290980138076&postChannelType=USER_TOPIC&priceAmount=58&service=SUBJECT_CREATE&stopAfterTime=1&timeUnitType=MINUTE&timestamp=1544600889667&title=%E5%A5%BD%E5%90%A7%E4%B9%9F%E8%A6%81&to=news&transmitToUserTopic=0&sign=97a75ac9b10657a96d73a1ecd42d4da3"] params:@{@"getDate":@""} model:[[ResModel alloc]init] finishCallbackBlock:^(NSString *error, ResModel *result) {
-        
-        if (error) {
-            [self reqqq];
-        }
-    }];
-}
-     
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor=COLOR_WHITE;
     
-    {
-        [[CC_HttpTask getInstance]post:@"http://mapi1.kknew.net/client/service.json?authedUserId=10004001792637545700290980135543&cell=18888888888&loginKey=USL42ef00e0940446b8802bc8a586c76fea&loginPassword=123456&oneAuthId=6201807200000021&selectedDefaultUserToLogin=1&service=ONE_AUTH_LOGIN&timestamp=1553161639633&triggerAction=%5BLoginKit%20loginAtView%3Amask%3Acell%3Apwd%3AuseDefaultUser%3AextraParamDic%3Ablock%3A%5D-%5BMAPI_ONE_AUTH_LOGIN%20requestAtView%3Amask%3Ablock%3A%5D-&sign=fc2d068debc39ed533126f0a80de36f2" params:nil model:nil finishCallbackBlock:^(NSString *error, ResModel *result) {
-            
-            
-        }];
-    }
+//    //死锁
+//    NSLog(@"1");
+//    dispatch_sync(dispatch_get_main_queue(), ^{
+//        // 回到主线程进行UI操作
+//        NSLog(@"4");
+//    });
+//    NSLog(@"5");
+    
+    //黑底白字提示
+    [CC_Notice show:@"黑底白字提示~"];
+    
+    //加载中Mask
+    [[CC_Mask getInstance]setText:@"加载中"];
+    [[CC_Mask getInstance]start];
+    //...
+    [[CC_Mask getInstance]stop];
+    
+    //加载中纯文字
+    [[CC_Loading getInstance]setText:@"加载中"];
+    [[CC_Loading getInstance]start];
+    //...
+    [[CC_Loading getInstance]stop];
+    
+    //get
+    [[CC_HttpTask getInstance]get:@"https://www.baidu.com/" params:nil model:nil finishCallbackBlock:^(NSString *error, ResModel *result) {
+        
+    }];
+    //post
+    [[CC_HttpTask getInstance]post:@"https://www.baidu.com/" params:@{@"getDate":@""} model:nil finishCallbackBlock:^(NSString *error, ResModel *result) {
+        
+    }];
     
     {
-        [[LoginKit getInstance]setUrlStr:@"http://mapi.kkbuluo.net/client/service.json?"];
-        MAPI_ONE_AUTH_LOGIN *req=[[MAPI_ONE_AUTH_LOGIN alloc]initWithCell:@"15000000000" loginPassword:@"123" selectedDefaultUserToLogin:YES];
-        [req requestAtView:self.view mask:YES block:^(NSDictionary *modifiedDic, ResModel *result) {
-            
-        }];
+        NSString *pubkey = @"-----BEGIN PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDDI2bvVLVYrb4B0raZgFP60VXY\ncvRmk9q56QiTmEm9HXlSPq1zyhyPQHGti5FokYJMzNcKm0bwL1q6ioJuD4EFI56D\na+70XdRz1CjQPQE3yXrXXVvOsmq9LsdxTFWsVBTehdCmrapKZVVx6PKl7myh0cfX\nQmyveT/eqyZK1gYjvQIDAQAB\n-----END PUBLIC KEY-----";
+        NSString *privkey = @"-----BEGIN PRIVATE KEY-----\nMIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBAMMjZu9UtVitvgHS\ntpmAU/rRVdhy9GaT2rnpCJOYSb0deVI+rXPKHI9Aca2LkWiRgkzM1wqbRvAvWrqK\ngm4PgQUjnoNr7vRd1HPUKNA9ATfJetddW86yar0ux3FMVaxUFN6F0KatqkplVXHo\n8qXubKHRx9dCbK95P96rJkrWBiO9AgMBAAECgYBO1UKEdYg9pxMX0XSLVtiWf3Na\n2jX6Ksk2Sfp5BhDkIcAdhcy09nXLOZGzNqsrv30QYcCOPGTQK5FPwx0mMYVBRAdo\nOLYp7NzxW/File//169O3ZFpkZ7MF0I2oQcNGTpMCUpaY6xMmxqN22INgi8SHp3w\nVU+2bRMLDXEc/MOmAQJBAP+Sv6JdkrY+7WGuQN5O5PjsB15lOGcr4vcfz4vAQ/uy\nEGYZh6IO2Eu0lW6sw2x6uRg0c6hMiFEJcO89qlH/B10CQQDDdtGrzXWVG457vA27\nkpduDpM6BQWTX6wYV9zRlcYYMFHwAQkE0BTvIYde2il6DKGyzokgI6zQyhgtRJ1x\nL6fhAkB9NvvW4/uWeLw7CHHVuVersZBmqjb5LWJU62v3L2rfbT1lmIqAVr+YT9CK\n2fAhPPtkpYYo5d4/vd1sCY1iAQ4tAkEAm2yPrJzjMn2G/ry57rzRzKGqUChOFrGs\nlm7HF6CQtAs4HC+2jC0peDyg97th37rLmPLB9txnPl50ewpkZuwOAQJBAM/eJnFw\nF5QAcL4CYDbfBKocx82VX/pFXng50T7FODiWbbL4UnxICE0UBFInNNiWJxNEb6jL\n5xd0pcy9O2DOeso=\n-----END PRIVATE KEY-----";
         
-        CCLOG(@"%@",req.cell);
+        NSString *originString = @"hello world!中文";
+        for(int i=0; i<4; i++){
+            originString = [originString stringByAppendingFormat:@" %@", originString];
+        }
+        NSString *encWithPubKey;
+        NSString *decWithPrivKey;
+        NSString *encWithPrivKey;
+        NSString *decWithPublicKey;
+        
+        NSLog(@"Original string(%d): %@", (int)originString.length, originString);
+        
+        // Demo: encrypt with public key
+        encWithPubKey = [CC_RSA encryptStr:originString publicKey:pubkey];
+        NSLog(@"Enctypted with public key: %@", encWithPubKey);
+        // Demo: decrypt with private key
+        decWithPrivKey = [CC_RSA decryptStr:encWithPubKey privateKey:privkey];
+        NSLog(@"Decrypted with private key: %@", decWithPrivKey);
     }
     
     __weak typeof(self) weakSelf = self;
@@ -157,11 +185,6 @@
     [[CC_HttpTask getInstance]getConfigure:^(Confi *result) {
         
     }];
-    
-    [[CC_HttpTask getInstance]getDomainWithReqListNoCache:@[@"http://test-kkbuluo-resource.oss-cn-hangzhou.aliyuncs.com/URL/analysis_url.txt",@"http://dynamic.kkbuluo.net/analysis_url.txt"] block:^(ResModel *result) {
-        
-    }];
-//    return;
     
     //timer
 //    [[CC_TManager getInstance]registerT:@"g1" interval:0.1 block:^{
@@ -257,23 +280,7 @@
     NSString *value=dic[@"71.40"];
     NSLog(@"dic:%@", [dic[@"71.40"] stringValue]);
     
-    
-    //@"http://bench-ios.oss-cn-shanghai.aliyuncs.com/bench.json"
-    [CC_HttpTask getInstance].static_netTestContain=@"KK部落";
-    [[CC_HttpTask getInstance]getConfigure:^(Confi *configure) {
-        
-    }];
-    
-    //@"https://test-caihong-resource.oss-cn-hangzhou.aliyuncs.com/URL/ch_url.txt"
-//    [[CC_HttpTask getInstance]getDomain:@"http://test-kkbuluo-resource.oss-cn-hangzhou.aliyuncs.com/URL/kk_url.txt" block:^(ResModel *result) {
-//        
-//    }];
-//    [[CC_HttpTask getInstance]getDomainWithReqList:@[@"http://dynamic.kkbuluo.net/kk_url.txt",@"http://dynamic.kkbuluo.net/kk_url.txt"] andKey:@"KK" block:^(ResModel *result) {
-//        
-//    }];
-    
-//    NSString *sss=[self filterString3:@"1"];
-    
+
     NSString *regex = @"[^a-zA-Z0-9\u4e00-\u9fa5]";
     NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
     BOOL isMatch = [pred evaluateWithObject:@"1但"];
@@ -345,6 +352,9 @@
     }];
     NSLog(@"5");
     
+    [ccs delay:1.1 block:^{
+        
+    }];
     
     NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
     {//emoj->str
@@ -425,43 +435,6 @@
 //    [[CC_HttpTask getInstance]setExtreDic:@{@"key":@"v"}];
 //    [self requestxxx];
     
-    
-    //https://api.leancloud.cn/1/date
-    //http://mapi1.93leju.net/service.json?service=APP_INITIAL_CONFIG_LOAD&loginKey=&timestamp=1526266427&authedUserId=&sign=03971cacca9b2c1dc90065edea390cb5
-    //http://mapi.kkbuluo.net/client/service.json?getDxGgSp=1&getRfGgSp=1&getSfGgSp=1&getSfcGgSp=1&getSupport=1&hhgg=1&service=JCZQ_SELLABLE_ISSUE_QUERY
-    
-    [[CC_HttpTask getInstance]setRequestHTTPHeaderFieldDic:@{@"appCode":@"chaoyue",@"appName":@"ch_user_ios",@"appVersion":@"100000"}];
-    [[CC_HttpTask getInstance]get:[NSURL URLWithString:@"http://user1-mapi.caihong.net/client/service.json?service=CLIENT_VERSION_UPDATE_QUERY"] params:@{@"getDate":@""} model:[[ResModel alloc]init] finishCallbackBlock:^(NSString *error, ResModel *result) {
-        NSString *dateStr=[CC_Date ccgetDateStr:result.responseDate formatter:result.responseDateFormatStr];
-        NSString *dateStr2=[CC_Date ccgetDateStr:result.responseDate formatter:@"dd MM yyyy HH:mm:ss"];
-        CCLOG(@"dateStr2=%@",dateStr2);
-        CCLOG(@"min=%f",[CC_Date compareDate:[NSDate date] cut:result.responseDate]/60);
-        
-        UIAlertView *alt=[[UIAlertView alloc]initWithTitle:@"tishi" message:result.resultDic[@"response"][@"updateLogMemo"] delegate:nil cancelButtonTitle:@"yes" otherButtonTitles:nil, nil];
-        [alt show];
-//        NSMutableString *tempStr = [NSMutableString stringWithString:dateStr2];
-//        NSRange range = NSMakeRange (10, tempStr.length-10);
-//        [tempStr deleteCharactersInRange:range];
-        
-        CCLOG(@"");
-    }];
-    
-//    [[CC_HttpTask getInstance]get:[NSURL URLWithString:@"https://gwhnewword.oss-cn-shanghai.aliyuncs.com/word4.plist?Expires=1537608258&OSSAccessKeyId=TMP.AQGQr7p95Q4AeiSGE7_Pw3XJCjXSZiFuxdyBkOsPb31cfMwU7QaqA-LOcInaMC4CFQCCO8zDL6QVrMEBWPYo9Rj9NSINBQIVAMGbrF9gU8Jxlf-x1Ges2Ejc1Tju&Signature=h9O8%2F8Z0lOjBmMrZVfsa8NbCeZQ%3D"] params:@{@"getDate":@""} model:[[ResModel alloc]init] finishCallbackBlock:^(NSString *error, ResModel *result) {
-//        
-//        NSData* plistData = [result.resultStr dataUsingEncoding:NSUTF8StringEncoding];
-//        
-////        NSPropertyListFormat format;
-//        NSDictionary* plist = [NSPropertyListSerialization propertyListWithData:plistData options:NSPropertyListReadStreamError format:NSPropertyListImmutable error:nil];
-//        
-//        NSString *documentsDirectory = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
-//        NSString *fileName = [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.plist",@"word4_1"]];
-//        [plist writeToFile:fileName atomically:YES];
-//        
-////        NSLog( @"plist is %@", plist );
-//        
-//        
-//        NSLog(@"1");
-//    }];
 #pragma mark map arr parser
     NSDictionary *result=@{@"response":
   @{@"purchaseOrders":
@@ -498,34 +471,6 @@
     
     
     // Do any additional setup after loading the view, typically from a nib.
-}
-
-- (void)bttt:(CC_Button *)button{
-    CCLOG(@"???");
-}
-
-- (void)requestxxx{
-    NSURL *url=[NSURL URLWithString:@"http://mapi1.93leju.net/service.json?"];
-    
-    [[CC_HttpTask getInstance]post:url params:@{@"service":@"ROOM_USER_SETTLE_QUERY_BY_ROOM"} model:[[ResModel alloc]init] finishCallbackBlock:^(NSString *error, ResModel *result) {
-        if (error) {
-            [CC_Note showAlert:error];
-            return ;
-        }
-        CCLOG(@"%@",result.resultDic);
-    }];
-    
-    {
-        
-        NSURL *url=[NSURL URLWithString:@"http://mapi.93lejudev.net/service.json?service=APP_INITIAL_CONFIG_LOAD&appVersion=1.0.4&appName=ljzsmj_ios"];
-        [[CC_HttpTask getInstance]get:url params:nil model:[[ResModel alloc]init] finishCallbackBlock:^(NSString *error, ResModel *result) {
-            if (error) {
-                [CC_Note showAlert:error];
-                return ;
-            }
-            CCLOG(@"%@",result.resultDic);
-        }];
-    }
 }
 
 //tableView

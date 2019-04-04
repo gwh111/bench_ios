@@ -32,6 +32,14 @@
 }
 
 + (NSMutableString *)getSignFormatStringWithDic:(NSMutableDictionary *)dic andMD5Key:(NSString *)MD5KeyString{
+    return [self getSignFormatStringWithDic:dic andMD5Key:MD5KeyString onlySign:NO];
+}
+
++ (NSMutableString *)getSignValueWithDic:(NSMutableDictionary *)dic andMD5Key:(NSString *)MD5KeyString{
+    return [self getSignFormatStringWithDic:dic andMD5Key:MD5KeyString onlySign:YES];
+}
+
++ (NSMutableString *)getSignFormatStringWithDic:(NSMutableDictionary *)dic andMD5Key:(NSString *)MD5KeyString onlySign:(BOOL)onlySign{
     NSMutableString *formatString=[[NSMutableString alloc]init];
     NSMutableString *urlFormatString=[[NSMutableString alloc]init];
     
@@ -67,6 +75,10 @@
     if (formatString.length>0) {
         NSRange range = NSMakeRange (formatString.length-1, 1);
         [formatString deleteCharactersInRange:range];
+    }
+    
+    if (onlySign) {
+        return [[NSMutableString alloc]initWithString:[CC_MD5Object signString:[NSString stringWithFormat:@"%@%@",MD5KeyString,formatString]]];
     }
     
     if (MD5KeyString) {
