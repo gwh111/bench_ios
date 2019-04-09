@@ -16,6 +16,7 @@
 #import <objc/runtime.h>
 #import<SystemConfiguration/CaptiveNetwork.h>
 
+#import "CC_YCFloatWindow.h"
 @interface ViewController (){
     NSArray *nameArr;
     NSArray *controArr;
@@ -58,10 +59,15 @@
     
 }
 
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor=COLOR_WHITE;
-    
+    [YCFloatWindow yc_addWindowOnTarget:self];
+
 //    //死锁
 //    NSLog(@"1");
 //    dispatch_sync(dispatch_get_main_queue(), ^{
