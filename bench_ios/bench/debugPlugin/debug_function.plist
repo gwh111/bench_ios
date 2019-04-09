@@ -7,8 +7,6 @@
 		<string>vc</string>
 		<key>className</key>
 		<string>RequestRecordViewController</string>
-		<key>isNeedHiddenNoti</key>
-		<string>0</string>
 		<key>title</key>
 		<string>requestRecord</string>
 	</dict>
@@ -17,8 +15,6 @@
 		<string>bt</string>
 		<key>className</key>
 		<string>YCFPSButton</string>
-		<key>isNeedHiddenNoti</key>
-		<string>1</string>
 		<key>title</key>
 		<string>fps-monitor</string>
 	</dict>
@@ -27,8 +23,6 @@
 		<string>notDefine</string>
 		<key>className</key>
 		<string></string>
-		<key>isNeedHiddenNoti</key>
-		<string>1</string>
 		<key>title</key>
 		<string>功能待添加</string>
 	</dict>
