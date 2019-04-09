@@ -7,12 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-//#import "YCTextView.h"
+
 @class YCTextView;
 @interface RequestRecordDetailViewController : UIViewController
 
-@property (nonatomic, strong)YCTextView *urlTV;
-@property (nonatomic, strong)YCTextView *resultTV;
+@property (nonatomic, strong)NSDictionary *resultDic;
 
 @end
 

@@ -28,6 +28,7 @@
 
 - (void)initView {
     
+    self.frame = CGRectMake(0, 100, 80, 30);
     self.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
     self.backgroundColor = [UIColor blackColor];
     self.alpha = 0.7;

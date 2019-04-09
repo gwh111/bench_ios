@@ -19,7 +19,8 @@
     return recordTool;
 }
 
--(BOOL)insertRequestDataWithHHSService:(NSString *)service requestUrl:(NSString *)requestUrl parameters:(NSString *)parameters{
+-(BOOL)insertRequestDataWithHHSService:(NSString *)service requestUrl:(NSString *)requestUrl parameters:(NSString *)parameters resModelDic:(NSDictionary *)dic{
+    
     BOOL isSuccess = NO;
     
     NSString *plistPath = [self pathForPlist];
@@ -28,9 +29,9 @@
         usersDic = [[NSMutableDictionary alloc]init];
     }
     if (service) {
-        [usersDic setObject:@{@"requestUrl":requestUrl, @"parameters":parameters} forKey:service];
+        [usersDic setObject:@{@"requestUrl":requestUrl, @"parameters":parameters, @"resultDic":dic} forKey:service];
     }else if(requestUrl){
-        [usersDic setObject:@{@"requestUrl":requestUrl, @"parameters":parameters} forKey:requestUrl];
+        [usersDic setObject:@{@"requestUrl":requestUrl, @"parameters":parameters, @"resultDic":dic} forKey:requestUrl];
     }
 //    [usersDic setObject:[NSString stringWithFormat:@"%@?%@", requestUrl, parameters] forKey:service];
     isSuccess = [usersDic writeToFile:plistPath atomically:YES];

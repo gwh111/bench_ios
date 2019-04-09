@@ -142,8 +142,7 @@
     
     RequestRecordDetailViewController *detailVC = [[RequestRecordDetailViewController alloc]init];
     NSDictionary *subDic = self.dic[_keysArray[indexPath.row]];
-    detailVC.urlTV.text = subDic[@"requestUrl"];
-    detailVC.resultTV.text = subDic[@"result"];
+    detailVC.resultDic = subDic;
     [self.navigationController pushViewController:detailVC animated:YES];
     
 }

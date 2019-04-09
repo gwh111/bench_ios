@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>type</key>
+		<string>vc</string>
+		<key>className</key>
+		<string>RequestRecordViewController</string>
+		<key>isNeedHiddenNoti</key>
+		<string>0</string>
+		<key>title</key>
+		<string>requestRecord</string>
+	</dict>
+	<dict>
+		<key>type</key>
+		<string>bt</string>
+		<key>className</key>
+		<string>YCFPSButton</string>
+		<key>isNeedHiddenNoti</key>
+		<string>1</string>
+		<key>title</key>
+		<string>fps-monitor</string>
+	</dict>
+	<dict>
+		<key>type</key>
+		<string>notDefine</string>
+		<key>className</key>
+		<string></string>
+		<key>isNeedHiddenNoti</key>
+		<string>1</string>
+		<key>title</key>
+		<string>功能待添加</string>
+	</dict>
+</array>
+</plist>

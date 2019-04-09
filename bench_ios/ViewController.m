@@ -66,6 +66,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor=COLOR_WHITE;
+    
+    [CC_Share getInstance].ccDebug=1;
+    
     [YCFloatWindow yc_addWindowOnTarget:self];
 
 //    //死锁
@@ -308,7 +311,6 @@
         NSLog(@"yes");
     }
     
-    [CC_Share getInstance].ccDebug=1;
     //3D
 //    [CC_3DWindow show];
 #if (ZZ_TARGET_PLATFORM == ZZ_PLATFORM_IOS_IPHONE)

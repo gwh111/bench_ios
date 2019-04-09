@@ -7,25 +7,27 @@
 //
 
 #import "CC_YCListViewController.h"
-#import "CC_RequestRecordViewController.h"
-#import "CC_YCFPSButton.h"
 
 @interface YCListViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic ,strong) UITableView *tableView;
 @property (nonatomic ,strong) NSMutableArray *dataArray;
-@property (nonatomic ,strong) YCFPSButton *fpsButton;
+//@property (nonatomic ,strong) YCFPSButton *fpsButton;
 
 @end
 
 @implementation YCListViewController
 #define SelfWidth [UIScreen mainScreen].bounds.size.width
 #define SelfHeight  [UIScreen mainScreen].bounds.size.height
+{
+    NSMutableDictionary *_indexContainDic;//储存indexPath需要持久化状态的控件
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor grayColor];
     self.view.alpha = 0.7;
+    _indexContainDic = [NSMutableDictionary dictionary];
     [self setUpCollectionView];
 }
 
@@ -67,9 +69,11 @@
         cell.backgroundColor = [UIColor grayColor];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.textLabel.textColor = [UIColor whiteColor];
-        cell.textLabel.text = self.dataArray[indexPath.row];
         cell.textLabel.textAlignment = NSTextAlignmentCenter;
         cell.textLabel.font = [UIFont systemFontOfSize:20];
+        NSDictionary *dic = self.dataArray[indexPath.row];
+        cell.textLabel.text = dic[@"title"];
+
     }
     return cell;
     
@@ -83,21 +87,36 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (indexPath.row == 0) {
-        RequestRecordViewController *vc = [RequestRecordViewController new];
-        UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:vc];
+    NSDictionary *dic = self.dataArray[indexPath.row];
+    NSString *type = dic[@"type"];
+    if ([type isEqualToString:@"vc"]) {
+        //控制器类型
+        NSString *name = dic[@"className"];
+        Class cls = NSClassFromString(name);
+        UIViewController *vc = [[cls alloc]init];
+        UINavigationController *nv = [[UINavigationController alloc]initWithRootViewController:vc];
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self presentViewController:nav animated:YES completion:nil];
+            [self presentViewController:nv animated:YES completion:nil];
         });
-    }else if (indexPath.row == 1){
-        if(_fpsButton&&_fpsButton.hidden){
-            _fpsButton.hidden = NO;
+    }else if ([type isEqualToString:@"bt"]){
+        //按钮类型
+        if (![_indexContainDic valueForKey:@(indexPath.row).stringValue]) {
+            //需要持久化控件还没有创建
+            NSString *name = dic[@"className"];
+            Class cls = NSClassFromString(name);
+            UIButton *btn = [[cls alloc] init];
+            //保存
+            [_indexContainDic setObject:btn forKey:@(indexPath.row).stringValue];
+            //展示
+            btn.hidden = NO;
+            [[UIApplication sharedApplication].delegate.window addSubview:btn];
         }else{
-            _fpsButton.hidden = YES;
+            UIButton *button = [_indexContainDic objectForKey:@(indexPath.row).stringValue];
+            button.hidden = !button.hidden;
         }
-        [[UIApplication sharedApplication].delegate.window addSubview:self.fpsButton];
         [[NSNotificationCenter defaultCenter]postNotificationName:@"yc_HideListWindowNow" object:nil];
     }else{
+        //未定义类型
         [[NSNotificationCenter defaultCenter]postNotificationName:@"yc_HideListWindowNow" object:nil];
     }
 
@@ -114,20 +133,22 @@
 -(NSMutableArray *)dataArray {
     
     if (!_dataArray) {
-        _dataArray = @[@"requestRecord",@"fps-monitor",@"功能待添加"].mutableCopy;
+//        _dataArray = @[@"requestRecord",@"fps-monitor",@"功能待添加"].mutableCopy;
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"debug_function" ofType:@"plist"];
+        _dataArray = [NSArray arrayWithContentsOfFile:path].mutableCopy;
     }
     return _dataArray;
     
 }
 
--(YCFPSButton *)fpsButton {
-    
-    if (!_fpsButton) {
-        _fpsButton = [[YCFPSButton alloc]initWithFrame:CGRectMake(0, 100, 80, 30)];
-    }
-    return _fpsButton;
-    
-}
+//-(YCFPSButton *)fpsButton {
+//
+//    if (!_fpsButton) {
+//        _fpsButton = [[YCFPSButton alloc]initWithFrame:CGRectMake(0, 100, 80, 30)];
+//    }
+//    return _fpsButton;
+//
+//}
 
 
 

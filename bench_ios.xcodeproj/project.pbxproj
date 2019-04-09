@@ -30,6 +30,7 @@
 		84169AB4225C3D2500C6A78E /* CC_YCFloatWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84169AA9225C3D2500C6A78E /* CC_YCFloatWindowController.m */; };
 		84169AB5225C3D2500C6A78E /* CC_YCDraggableButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 84169AAA225C3D2500C6A78E /* CC_YCDraggableButton.m */; };
 		84169AB6225C3D2500C6A78E /* CC_YCFloatWindowSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 84169AAC225C3D2500C6A78E /* CC_YCFloatWindowSingleton.m */; };
+		848EBC71225C947E0077079B /* debug_function.plist in Resources */ = {isa = PBXBuildFile; fileRef = 848EBC70225C947E0077079B /* debug_function.plist */; };
 		D8064C53206A28AF0096F80D /* CC_TextField.m in Sources */ = {isa = PBXBuildFile; fileRef = D8064C52206A28AF0096F80D /* CC_TextField.m */; };
 		D8064C59206A43F50096F80D /* CC_TextView.m in Sources */ = {isa = PBXBuildFile; fileRef = D8064C58206A43F50096F80D /* CC_TextView.m */; };
 		D8195F4F1F29CE6B00C7BADD /* CC_FormatDic.m in Sources */ = {isa = PBXBuildFile; fileRef = D8195F481F29CE6B00C7BADD /* CC_FormatDic.m */; };
@@ -201,6 +202,7 @@
 		84169AAA225C3D2500C6A78E /* CC_YCDraggableButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC_YCDraggableButton.m; sourceTree = "<group>"; };
 		84169AAB225C3D2500C6A78E /* CC_RequestRecordCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_RequestRecordCell.h; sourceTree = "<group>"; };
 		84169AAC225C3D2500C6A78E /* CC_YCFloatWindowSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC_YCFloatWindowSingleton.m; sourceTree = "<group>"; };
+		848EBC70225C947E0077079B /* debug_function.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = debug_function.plist; sourceTree = "<group>"; };
 		D8064C51206A28AF0096F80D /* CC_TextField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_TextField.h; sourceTree = "<group>"; };
 		D8064C52206A28AF0096F80D /* CC_TextField.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC_TextField.m; sourceTree = "<group>"; };
 		D8064C57206A43F50096F80D /* CC_TextView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_TextView.h; sourceTree = "<group>"; };
@@ -550,6 +552,7 @@
 		84169A98225C3D2500C6A78E /* debugPlugin */ = {
 			isa = PBXGroup;
 			children = (
+				848EBC70225C947E0077079B /* debug_function.plist */,
 				84169AA3225C3D2500C6A78E /* CC_YCFPSButton.h */,
 				84169A9B225C3D2500C6A78E /* CC_YCFPSButton.m */,
 				84169AAB225C3D2500C6A78E /* CC_RequestRecordCell.h */,
@@ -1016,6 +1019,7 @@
 				D839260020FDDBE70034D10F /* casGif.gif in Resources */,
 				18B6BD0B1F1F09CA0019391D /* LaunchScreen.storyboard in Resources */,
 				D8B0E4611F501EE400425D06 /* nyyh.jpg in Resources */,
+				848EBC71225C947E0077079B /* debug_function.plist in Resources */,
 				18B6BD081F1F09CA0019391D /* Assets.xcassets in Resources */,
 				D8CA1DF521913F9400CE4889 /* configure in Resources */,
 				D876FE871FB0514B0094C274 /* panda.plist in Resources */,
