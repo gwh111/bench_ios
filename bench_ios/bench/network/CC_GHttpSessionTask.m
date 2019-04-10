@@ -231,13 +231,15 @@ static dispatch_once_t onceToken;
             model.networkError=nil;
         }
         dispatch_sync(dispatch_get_main_queue(), ^{
-            if (model.debug) {
-                [[CCReqRecord getInstance]insertRequestDataWithHHSService:paramsDic[@"service"] requestUrl:tempUrl.absoluteString parameters:paraString];
-            }
+
             if (model.resultDic) {
                 CCLOG(@"%@\n%@",model.requestStr,[[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:model.resultDic options:NSJSONWritingPrettyPrinted error:nil] encoding:NSUTF8StringEncoding]);
             }else{
                 CCLOG(@"%@\n%@",model.requestStr,model.resultStr);
+            }
+            
+            if (model.debug) {
+                [[CCReqRecord getInstance]insertRequestDataWithHHSService:paramsDic[@"service"] requestUrl:tempUrl.absoluteString parameters:paraString resModelDic:[model getClassKVDic]];
             }
             
             NSArray *keyNames=[blockSelf.logicBlockMutDic allKeys];

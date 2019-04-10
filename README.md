@@ -179,3 +179,21 @@ NSLog(@"5");
 //...
 [[CC_Loading getInstance]stop];
 ```
+
+### DEBUG插件
+```
+#import "CC_YCFloatWindow"
+......
+
+/**
+* 
+  可在任意控制器的生命周期方法中添加，尽量避开app启动业务
+*/
+//
+-(void)viewDidAppear:(BOOL)animated {
+
+    [super viewDidAppear:animated];
+    [YCFloatWindow yc_addWindowOnTarget:self];
+
+}
+```
