@@ -536,6 +536,7 @@
 				18B6BD411F20C6660019391D /* CC_Share.m */,
 				D8C511092112F40C00944CB0 /* CC_HookTrack.h */,
 				D8C511082112F40C00944CB0 /* CC_HookTrack.m */,
+				D871BA5A225D9BC80002C1E5 /* debugPluginList(这里添加新模块) */,
 				84169A98225C3D2500C6A78E /* debugPlugin */,
 				D8EC6FCA21241048006ECFE3 /* molecule */,
 				D8C511CC211AE32200944CB0 /* extention */,
@@ -552,15 +553,6 @@
 		84169A98225C3D2500C6A78E /* debugPlugin */ = {
 			isa = PBXGroup;
 			children = (
-				848EBC70225C947E0077079B /* debug_function.plist */,
-				84169AA3225C3D2500C6A78E /* CC_YCFPSButton.h */,
-				84169A9B225C3D2500C6A78E /* CC_YCFPSButton.m */,
-				84169AAB225C3D2500C6A78E /* CC_RequestRecordCell.h */,
-				84169AA2225C3D2500C6A78E /* CC_RequestRecordCell.m */,
-				84169A9E225C3D2500C6A78E /* CC_RequestRecordDetailViewController.h */,
-				84169AA8225C3D2500C6A78E /* CC_RequestRecordDetailViewController.m */,
-				84169AA4225C3D2500C6A78E /* CC_RequestRecordViewController.h */,
-				84169A9A225C3D2500C6A78E /* CC_RequestRecordViewController.m */,
 				84169AA5225C3D2500C6A78E /* CC_YCListViewController.h */,
 				84169A99225C3D2500C6A78E /* CC_YCListViewController.m */,
 				84169AA0225C3D2500C6A78E /* CC_YCListWindow.h */,
@@ -840,6 +832,22 @@
 				D8389DF8206B74D50010A04A /* CC_3DWindow.m */,
 			);
 			path = display;
+			sourceTree = "<group>";
+		};
+		D871BA5A225D9BC80002C1E5 /* debugPluginList(这里添加新模块) */ = {
+			isa = PBXGroup;
+			children = (
+				848EBC70225C947E0077079B /* debug_function.plist */,
+				84169AA3225C3D2500C6A78E /* CC_YCFPSButton.h */,
+				84169A9B225C3D2500C6A78E /* CC_YCFPSButton.m */,
+				84169AAB225C3D2500C6A78E /* CC_RequestRecordCell.h */,
+				84169AA2225C3D2500C6A78E /* CC_RequestRecordCell.m */,
+				84169A9E225C3D2500C6A78E /* CC_RequestRecordDetailViewController.h */,
+				84169AA8225C3D2500C6A78E /* CC_RequestRecordDetailViewController.m */,
+				84169AA4225C3D2500C6A78E /* CC_RequestRecordViewController.h */,
+				84169A9A225C3D2500C6A78E /* CC_RequestRecordViewController.m */,
+			);
+			path = "debugPluginList(这里添加新模块)";
 			sourceTree = "<group>";
 		};
 		D883EEE0200E34790062A6C6 /* test */ = {

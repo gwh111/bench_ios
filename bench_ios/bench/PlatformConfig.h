@@ -5,6 +5,12 @@
 //  Created by gwh on 2017/12/19.
 //
 
+/**
+ *
+ #if TARGET_IPHONE_SIMULATOR
+ [CASStyler defaultStyler].watchFilePath = path;
+ #endif
+ */
 
 #define ZZ_PLATFORM_UNKNOWN            0
 #define ZZ_PLATFORM_ANDROID            1

@@ -23,8 +23,12 @@
     
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithRed:230/255.0 green:230/255.0 blue:230/255.0 alpha:1.0];
-    self.resultTV.text = [self stringFromDic:self.resultDic[@"resultDic"]];
+//    self.resultTV.text = [self stringFromDic:self.resultDic[@"resultDic"]];
 
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc]init];
+    paragraphStyle.lineBreakMode = NSLineBreakByCharWrapping;
+    NSDictionary *attributes = @{NSParagraphStyleAttributeName:paragraphStyle};
+    self.resultTV.attributedText = [[NSAttributedString alloc]initWithString:[self stringFromDic:self.resultDic[@"resultDic"]] attributes:attributes];
 }
 
 - (void)backAction {
@@ -64,7 +68,7 @@
     }
     NSMutableString *str = [NSMutableString string];
     for (int i = 0; i < keysArr.count; i ++) {
-        [str appendString:[NSString stringWithFormat:@"%@ = %@  \n" , keysArr[i],[dic valueForKey:keysArr[i]]]];
+        [str appendString:[NSString stringWithFormat:@"%@ = %@  \n\n" , keysArr[i],[dic valueForKey:keysArr[i]]]];
     }
     return str;
 }
