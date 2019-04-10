@@ -17,6 +17,7 @@
 #import<SystemConfiguration/CaptiveNetwork.h>
 
 #import "CC_YCFloatWindow.h"
+
 @interface ViewController (){
     NSArray *nameArr;
     NSArray *controArr;
@@ -69,7 +70,9 @@
     
     [CC_Share getInstance].ccDebug=1;
     
-    [YCFloatWindow yc_addWindowOnTarget:self];
+#if DEBUG
+    [CC_FloatWindow addWindowOnTarget:self];
+#endif
 
 //    //死锁
 //    NSLog(@"1");

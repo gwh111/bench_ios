@@ -181,19 +181,27 @@ NSLog(@"5");
 ```
 
 ### DEBUG插件
+目前包含历史请求查看  
+<img src="https://github.com/gwh111/bench_ios/blob/master/reqHistory.png" width="320">
 ```
 #import "CC_YCFloatWindow"
 ......
 
-/**
-* 
-  可在任意控制器的生命周期方法中添加，尽量避开app启动业务
-*/
-//
--(void)viewDidAppear:(BOOL)animated {
+//可在任意控制器的生命周期方法中添加，尽量避开app启动业务
+#if DEBUG
+[CC_FloatWindow addWindowOnTarget:self];
+#endif
 
-    [super viewDidAppear:animated];
-    [YCFloatWindow yc_addWindowOnTarget:self];
+```
+#### 3D视图插件
+```
+#import "CC_3DWindow.h"
+......
 
-}
+//展示3D视图绘层
+
+#if DEBUG
+[CC_3DWindow show];
+#endif
+
 ```

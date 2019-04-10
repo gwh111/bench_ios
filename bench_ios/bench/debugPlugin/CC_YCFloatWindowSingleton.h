@@ -13,7 +13,6 @@
 @class YCFloatWindowController;
 @interface YCFloatWindowSingleton : NSObject
 
-@property (nonnull, nonatomic, strong) YCFloatWindowController *floatVC;
 //@property (nullable, nonatomic, copy)CallBack floatWindowCallBack;
 
 - (void)yc_addWindowOnTarget:(nonnull id)target;
