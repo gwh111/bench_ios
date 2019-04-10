@@ -181,14 +181,15 @@ NSLog(@"5");
 ```
 
 ### DEBUG插件
+目前包含历史请求查看
+![img](https://github.com/gwh111/bench_ios/blob/master/reqHistory.png)  
 ```
 #import "CC_YCFloatWindow"
 ......
 
 //可在任意控制器的生命周期方法中添加，尽量避开app启动业务
-
 #if DEBUG
-[CC_FloatWindow addWindowOnTarget:self.view];
+[CC_FloatWindow addWindowOnTarget:self];
 #endif
 
 ```

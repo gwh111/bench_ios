@@ -71,7 +71,7 @@
     [CC_Share getInstance].ccDebug=1;
     
 #if DEBUG
-    [CC_FloatWindow addWindowOnTarget:self.view];
+    [CC_FloatWindow addWindowOnTarget:self];
 #endif
 
 //    //死锁
