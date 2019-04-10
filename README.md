@@ -182,7 +182,7 @@ NSLog(@"5");
 
 ### DEBUG插件
 目前包含历史请求查看  
-<img src="https://github.com/gwh111/bench_ios/blob/master/reqHistory.png" width="200">
+<img src="https://github.com/gwh111/bench_ios/blob/master/reqHistory.png" width="320">
 ```
 #import "CC_YCFloatWindow"
 ......
