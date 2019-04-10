@@ -36,13 +36,11 @@
     
     [self.view addSubview:self.tableView];
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        NSString *plistPath = [[CCReqRecord getInstance]pathForPlist];
-        self.dic = [[NSMutableDictionary alloc]initWithContentsOfFile:plistPath];
-        
-        self.keysArray = _dic.allKeys;
-        [self.tableView reloadData];
-    });
+    NSString *plistPath = [[CCReqRecord getInstance]pathForPlist];
+    self.dic = [[NSMutableDictionary alloc]initWithContentsOfFile:plistPath];
+    
+    self.keysArray = _dic.allKeys;
+    [self.tableView reloadData];
         
 }
 

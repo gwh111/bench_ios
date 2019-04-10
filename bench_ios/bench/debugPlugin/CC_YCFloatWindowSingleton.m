@@ -9,6 +9,8 @@
 #import "CC_YCFloatWindowSingleton.h"
 #import "CC_YCFloatWindowController.h"
 
+static YCFloatWindowController *floatVC=nil;
+
 @implementation YCFloatWindowSingleton
 
 +(instancetype)sharedInstance {
@@ -28,14 +30,14 @@
     dispatch_once(&onceToken, ^{
         if ([target isKindOfClass:[UIViewController class]]) {
             UIViewController *vc = (UIViewController *)target;
-            _floatVC = [[YCFloatWindowController alloc]init];
-            [vc addChildViewController:_floatVC];
-            [vc.view addSubview:_floatVC.view];
-            [_floatVC setRootView];
+            floatVC = [[YCFloatWindowController alloc]init];
+            [vc addChildViewController:floatVC];
+            [vc.view addSubview:floatVC.view];
+            [floatVC setRootView];
         }else if([target isKindOfClass:[UIWindow class]]){
             UIWindow *win = (UIWindow *)target;
-            _floatVC = [[YCFloatWindowController alloc]init];
-            [win addSubview:_floatVC.view];
+            floatVC = [[YCFloatWindowController alloc]init];
+            [win addSubview:floatVC.view];
         }
     });
 }
@@ -49,11 +51,11 @@
 //}
 
 - (void)yc_setWindowSize:(float)size {
-    [_floatVC setWindowSize:size];
+    [floatVC setWindowSize:size];
 }
 
 - (void)yc_setHideWindow:(BOOL)hide {
-    [_floatVC setHideWindow:hide];
+    [floatVC setHideWindow:hide];
 }
 
 @end
