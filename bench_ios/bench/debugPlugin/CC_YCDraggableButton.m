@@ -84,8 +84,8 @@ typedef NS_ENUM(NSInteger, yc_ScreenChangeOrientation) {
     // distances to the four screen edges
     CGFloat left = curPoint.x;
     CGFloat right = IS_IPHONE ? (W - curPoint.x) : (yc_ScreenW - curPoint.x);
-    CGFloat top = curPoint.y;
-    CGFloat bottom = IS_IPHONE ? (H - curPoint.y) : (yc_ScreenH - curPoint.y);
+//    CGFloat top = curPoint.y;
+//    CGFloat bottom = IS_IPHONE ? (H - curPoint.y) : (yc_ScreenH - curPoint.y);
     // find the direction to go
     yc_FloatWindowDirection minDir = yc_FloatWindowLEFT;
     CGFloat minDistance = left;
