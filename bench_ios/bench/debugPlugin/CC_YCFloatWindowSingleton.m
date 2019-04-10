@@ -38,6 +38,10 @@ static YCFloatWindowController *floatVC=nil;
             UIWindow *win = (UIWindow *)target;
             floatVC = [[YCFloatWindowController alloc]init];
             [win addSubview:floatVC.view];
+        }else if([target isKindOfClass:[UIView class]]){
+            UIView *win = (UIView *)target;
+            floatVC = [[YCFloatWindowController alloc]init];
+            [win addSubview:floatVC.view];
         }
     });
 }

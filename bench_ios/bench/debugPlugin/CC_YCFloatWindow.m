@@ -9,9 +9,9 @@
 #import "CC_YCFloatWindow.h"
 #import "CC_YCFloatWindowSingleton.h"
 
-@implementation YCFloatWindow
+@implementation CC_FloatWindow
 
-+ (void)yc_addWindowOnTarget:(nonnull id)target{
++ (void)addWindowOnTarget:(nonnull id)target{
     [[YCFloatWindowSingleton sharedInstance] yc_addWindowOnTarget:target];
 }
 
@@ -19,11 +19,11 @@
 //    [[YCFloatWindowSingleton sharedInstance] yc_addWindowOnTarget:target onClick:callback];
 //}
 
-+ (void)yc_setWindowSize:(float)size {
++ (void)setWindowSize:(float)size {
     [[YCFloatWindowSingleton sharedInstance] yc_setWindowSize:size];
 }
 
-+ (void)yc_setHideWindow:(BOOL)hide {
++ (void)setHideWindow:(BOOL)hide {
     [[YCFloatWindowSingleton sharedInstance] yc_setHideWindow:hide];
 }
 
