@@ -184,7 +184,7 @@ NSLog(@"5");
 目前包含历史请求查看  
 <img src="https://github.com/gwh111/bench_ios/blob/master/reqHistory.png" width="320">
 ```
-#import "CC_YCFloatWindow"
+#import "CC_YCFloatWindow.h"
 ......
 
 //可在任意控制器的生命周期方法中添加，尽量避开app启动业务
