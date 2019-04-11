@@ -28,7 +28,7 @@
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc]init];
     paragraphStyle.lineBreakMode = NSLineBreakByCharWrapping;
     NSDictionary *attributes = @{NSParagraphStyleAttributeName:paragraphStyle};
-    self.resultTV.attributedText = [[NSAttributedString alloc]initWithString:[self stringFromDic:self.resultDic[@"resultDic"]] attributes:attributes];
+    self.resultTV.attributedText = [[NSAttributedString alloc]initWithString:[self stringFromDic:self.resultDic] attributes:attributes];
 }
 
 - (void)backAction {

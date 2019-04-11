@@ -59,7 +59,7 @@
     str1=[str1 getDecimalStrWithMode:NSRoundPlain scale:1];
     CCLOG(@"%@ %@ %@",resultDN,str,str1);
 #pragma mark init
-    //    [CC_Share getInstance].ccDebug=1;
+        [CC_Share getInstance].ccDebug=1;
     //设置基准 效果图的尺寸即可
     [[CC_UIHelper getInstance]initUIDemoWidth:375 andHeight:750];
     NSString *absoluteFilePath=CASAbsoluteFilePath(@"stylesheet.cas");

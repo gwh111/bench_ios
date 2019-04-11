@@ -23,6 +23,7 @@
     
     [self addSubview:self.paramsLabel];
     [self addSubview:self.domainLabel];
+//    [self addSubview:self.localTimeLabel];
     
 }
 
@@ -47,5 +48,16 @@
     return _domainLabel;
     
 }
+
+//-(UILabel *)localTimeLabel {
+//
+//    if (!_localTimeLabel) {
+//        _localTimeLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 70, 375, 20)];
+//        _localTimeLabel.font = [UIFont systemFontOfSize:15];
+//        _localTimeLabel.textColor = [UIColor grayColor];
+//    }
+//    return _localTimeLabel;
+//
+//}
 
 @end
