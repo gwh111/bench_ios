@@ -41,7 +41,7 @@
         usersArr = [[NSMutableArray alloc]init];
     }
     
-    [usersArr addObject:@{@"requestUrl":requestUrl, @"parameters":parameters, @"resultDic":dic}];
+    [usersArr insertObject:@{@"requestUrl":requestUrl, @"parameters":parameters, @"resultDic":dic} atIndex:0];
     
     isSuccess = [usersArr writeToFile:plistPath atomically:YES];
     
