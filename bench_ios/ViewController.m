@@ -79,9 +79,8 @@
     [super viewDidLoad];
     self.view.backgroundColor=COLOR_WHITE;
     
-    [CC_Share getInstance].ccDebug=1;
-    
 #if DEBUG
+    [CC_Share getInstance].ccDebug=1;
     [CC_FloatWindow addWindowOnTarget:self];
 #endif
 

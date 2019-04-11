@@ -10,6 +10,7 @@
 #import "CC_RequestRecordDetailViewController.h"
 #import "CC_RequestRecordTool.h"
 #import "CC_RequestRecordCell.h"
+#import "CC_Notice.h"
 
 @interface RequestRecordViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -179,7 +180,7 @@
                 [strongSelf.dataArray removeObjectAtIndex:indexPath.row];
                 [strongSelf.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
             }else{
-                [CC_Note showAlert:@"delete error" atView:strongSelf.view];
+                [CC_Notice show:@"delete error" atView:strongSelf.view];
             }
         }];
     }
