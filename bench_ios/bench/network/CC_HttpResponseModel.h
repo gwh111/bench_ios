@@ -59,11 +59,18 @@
  *  响应时间显示格式
  */
 @property(nonatomic,retain) NSString *responseDateFormatStr;
+
 /**
  *  响应的时间
  *  Thu, 19 Apr 2018 02:18:39 GMT
  */
 @property(nonatomic,retain) NSDate *responseDate;
+
+/**
+ *  响应的本地时间
+ *
+ */
+@property(nonatomic,retain) NSDate *responseLocalDate;
 
 /**
  *  解析失败

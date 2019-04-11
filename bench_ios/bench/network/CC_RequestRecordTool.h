@@ -43,4 +43,15 @@
 -(NSString *)totalRequestUrls;
 -(NSString *)getTotalStr;
 
+/**
+ 删除plist文件
+ */
+-(void)clearPlistWithcompletion:(void (^)(BOOL isSussecc ,NSError * error))completion;
+
+/**
+ 删除具体某条记录
+ */
+-(void)clearPlistAtIndex:(NSInteger)index Withcompletion:(void (^)(BOOL isSussecc ,NSError * error))completion;
+
+
 @end

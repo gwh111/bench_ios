@@ -239,6 +239,9 @@ static dispatch_once_t onceToken;
             }
             
             if (model.debug) {
+//                NSString *timeStamp = [NSString stringWithFormat:@"%0.f",[[NSDate date] timeIntervalSince1970]];
+//                model.responseLocalDate = timeStamp;
+                model.responseLocalDate = [NSDate date];
                 [[CCReqRecord getInstance]insertRequestDataWithHHSService:paramsDic[@"service"] requestUrl:tempUrl.absoluteString parameters:paraString resModelDic:[model getClassKVDic]];
             }
             

@@ -14,10 +14,9 @@
 @interface RequestRecordViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong)UITableView *tableView;
-@property (nonatomic, strong)NSArray *keysArray;
-@property (nonatomic, strong)NSMutableDictionary *dic;
+@property (nonatomic, strong)NSMutableArray *dataArray;
 @property (nonatomic, strong)UIButton *backBtn;
-
+@property (nonatomic, strong)UIButton *clearBtn;
 @end
 
 @implementation RequestRecordViewController
@@ -34,14 +33,18 @@
 
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:self.backBtn];
     
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:self.clearBtn];
+    
     [self.view addSubview:self.tableView];
     
     NSString *plistPath = [[CCReqRecord getInstance]pathForPlist];
-    self.dic = [[NSMutableDictionary alloc]initWithContentsOfFile:plistPath];
     
-    self.keysArray = _dic.allKeys;
-    [self.tableView reloadData];
-        
+    //文件过大防卡顿
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.dataArray = [[NSMutableArray alloc]initWithContentsOfFile:plistPath];
+        [self.tableView reloadData];
+    });
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -55,6 +58,23 @@
     [self dismissViewControllerAnimated:YES completion:^{
         [[NSNotificationCenter defaultCenter]postNotificationName:@"yc_HideListWindowNow" object:nil];
     }];
+    
+}
+
+- (void)clearAction {
+    
+    //清楚plist文件
+    __weak typeof(self) weakSelf = self;
+    [[CCReqRecord getInstance] clearPlistWithcompletion:^(BOOL isSussecc, NSError *error) {
+        __strong typeof(self) strongSelf = weakSelf;
+        if (isSussecc) {
+            [strongSelf.dataArray removeAllObjects];
+            [strongSelf.tableView reloadData];
+        }else{
+            [CC_Notice show:@"clear error" atView:strongSelf.view];
+        }
+    }];
+    
     
 }
 
@@ -72,22 +92,15 @@
     
 }
 
--(NSArray *)keysArray
-{
+-(UIButton *)clearBtn {
     
-    if (!_keysArray) {
-        _keysArray = [NSMutableArray array];
+    if (!_clearBtn) {
+        _clearBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 85, 40)];
+        [_clearBtn setTitle:@"ClearAll" forState:UIControlStateNormal];
+        [_clearBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+        [_clearBtn addTarget:self action:@selector(clearAction) forControlEvents:UIControlEventTouchUpInside];
     }
-    return _keysArray;
-    
-}
-
--(NSMutableDictionary *)dic {
-    
-    if (!_dic) {
-        _dic = [NSMutableDictionary dictionary];
-    }
-    return _dic;
+    return _clearBtn;
     
 }
 
@@ -111,7 +124,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return _keysArray.count;
+    return _dataArray.count;
     
 }
 
@@ -119,12 +132,10 @@
     
     RequestRecordCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([RequestRecordCell class]) forIndexPath:indexPath];
     if (cell) {
-        cell.domainLabel.text = _keysArray[indexPath.row];
-        if (_keysArray[indexPath.row]) {
-            NSDictionary *subDic = self.dic[_keysArray[indexPath.row]];
-            NSString *params = subDic[@"parameters"];
-            cell.paramsLabel.text = [NSString stringWithFormat:@"%@(%@)",params.length > 0?params:@"no params",subDic[@"requestUrl"]];
-        }
+        NSDictionary *dic = _dataArray[indexPath.row];
+        NSURL *url = [NSURL URLWithString:dic[@"requestUrl"]];
+        cell.domainLabel.text = url.host;
+        cell.paramsLabel.text = [NSString stringWithFormat:@"%@(%@)",dic[@"parameters"]?dic[@"parameters"]:@"no params",dic[@"requestUrl"]];
     }
     return cell;
     
@@ -139,9 +150,44 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     RequestRecordDetailViewController *detailVC = [[RequestRecordDetailViewController alloc]init];
-    NSDictionary *subDic = self.dic[_keysArray[indexPath.row]];
-    detailVC.resultDic = subDic;
+    NSDictionary *subDic = self.dataArray[indexPath.row];
+    detailVC.resultDic = subDic[@"resultDic"];
     [self.navigationController pushViewController:detailVC animated:YES];
+    
+}
+
+-(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    return YES;
+    
+}
+
+-(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    return UITableViewCellEditingStyleDelete;
+    
+}
+
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        //删除操作
+        __weak typeof(self) weakSelf = self;
+        [[CCReqRecord getInstance]clearPlistAtIndex:indexPath.row Withcompletion:^(BOOL isSussecc, NSError *error) {
+            __strong typeof(self) strongSelf = weakSelf;
+            if (isSussecc) {
+                [strongSelf.dataArray removeObjectAtIndex:indexPath.row];
+                [strongSelf.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            }else{
+                [CC_Note showAlert:@"delete error" atView:strongSelf.view];
+            }
+        }];
+    }
+}
+
+-(NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    return @"删除";
     
 }
 
