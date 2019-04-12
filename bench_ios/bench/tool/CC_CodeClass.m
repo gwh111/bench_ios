@@ -88,7 +88,21 @@
 
 @end
 
-@implementation convert
+@implementation CC_Convert
+
++ (NSData *)strToData_utf8:(NSString *)str{
+    return [str dataUsingEncoding:NSUTF8StringEncoding];
+}
+
++ (NSString *)dataToStr_utf8:(NSData *)data{
+    return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+}
+
++ (NSData *)intToData:(int)i{
+    int j=ntohl(i);
+    NSData *data = [NSData dataWithBytes: &j length: sizeof(i)];
+    return data;
+}
 
 + (NSString *)convertToJSONData:(id)infoDict
 {

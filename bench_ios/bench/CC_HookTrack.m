@@ -31,7 +31,7 @@ static dispatch_once_t onceToken;
     NSString *popDetailInfo;
     if (max>3) {
         for (NSInteger i=max-1; i>2; i--) {
-            popDetailInfo=ccstr(@"%@%@-",popDetailInfo?popDetailInfo:@"",[convert parseLabel:[NSThread callStackSymbols][i] start:@"[" end:@"]" includeStartEnd:YES]);
+            popDetailInfo=ccstr(@"%@%@-",popDetailInfo?popDetailInfo:@"",[CC_Convert parseLabel:[NSThread callStackSymbols][i] start:@"[" end:@"]" includeStartEnd:YES]);
         }
         if ([CC_HookTrack getInstance].debug) {
             CCLOG(@"###%@###", popDetailInfo);

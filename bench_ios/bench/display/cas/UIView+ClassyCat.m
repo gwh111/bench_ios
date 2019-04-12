@@ -225,7 +225,7 @@
 }
 
 - (void)setCas_backgroundColor:(NSString *)cas_backgroundColor{
-    self.backgroundColor=[convert colorwithHexString:cas_backgroundColor];
+    self.backgroundColor=[CC_Convert colorwithHexString:cas_backgroundColor];
 #if TARGET_IPHONE_SIMULATOR
     [self updateLayout];
 #endif
@@ -276,7 +276,7 @@
 }
 
 - (void)setCas_textColor:(NSString *)cas_backgroundColor{
-    UIColor *newC=[convert colorwithHexString:cas_backgroundColor];
+    UIColor *newC=[CC_Convert colorwithHexString:cas_backgroundColor];
     if ([self isKindOfClass:[UIButton class]]) {
         UIButton *atom=(UIButton *)self;
         [atom setTitleColor:newC forState:UIControlStateNormal];

@@ -36,7 +36,12 @@ CC_UIAtom;
 ```
 //需要先初始化布局
 [[CC_UIHelper getInstance]initUIDemoWidth:375 andHeight:667];
-//创建一个view
+//引入cas文件y及路径
+NSString *absoluteFilePath=CASAbsoluteFilePath(@"stylesheet.cas");
+[CC_ClassyExtend initSheet:absoluteFilePath];
+//解析并存储布局配置
+[CC_ClassyExtend parseCas];
+//创建一个view 即可在对应的cas文件修改布局 保存后模拟器自动刷新布局
 [CC_UIAtom initAt:self.view name:@"MainVC_v_figure1" type:CCView finishBlock:^(CC_View *atom) {
 }];
 ```
