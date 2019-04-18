@@ -16,6 +16,7 @@
  *  堆栈中所有的控制器名字们
  */
 @property(nonatomic,retain) NSMutableArray *lastVCs;
+
 /**
  *  目前所在控制器名
  */
@@ -26,15 +27,18 @@
  *  意思是接口请求成功后会有控制器进入的动作
  */
 @property(nonatomic,retain) NSString *prePushActionStr;
+
 /**
  *  预制记录
  *  意思是接口请求成功后会有控制器退出的动作
  */
 @property(nonatomic,retain) NSString *prePopActionStr;
+
 /**
  *  记录控制器进出的记录
  */
 @property(nonatomic,retain) NSString *pushPopActionStr;
+
 /**
  *  记录动作点击触发的记录
  */
@@ -48,12 +52,14 @@
  *  需要在接口请求前预制
  */
 + (void)willPushTo:(NSString *)toVC;
+
 /**
  *  index 控制器将后退的层数
  *  这个接口请求成功后 将要后退的层数
  *  需要在接口请求前预制
  */
 + (void)willPopOfIndex:(int)index;
+
 /**
  *  抓取这个请求发起时触发的路径
  */

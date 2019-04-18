@@ -19,7 +19,7 @@ static NSString *base64_encode(NSString *str){
 */
 
 static NSString *base64_encode_data(NSData *data){
-	data = [data base64EncodedDataWithOptions:0];
+    data = [data base64EncodedDataWithOptions:0];
 	NSString *ret = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 	return ret;
 }

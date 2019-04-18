@@ -30,9 +30,14 @@
  */
 + (BOOL)hasChinese:(NSString *)str;
 
-/** 手机号码验证*/
+/**
+ *  手机号码验证
+ */
 + (BOOL)validateMobile:(NSString *)mobileStr;
-/** 邮箱*/
+
+/**
+ *  邮箱
+ */
 + (BOOL)validateEmail:(NSString *)emailStr;
 
 @end

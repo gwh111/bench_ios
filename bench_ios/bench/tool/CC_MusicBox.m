@@ -30,14 +30,20 @@ static dispatch_once_t onceToken;
     if (_forbiddenEffect) {
         return;
     }
-    SystemSoundID soundID;
+    isMusic=0;
     NSString *strSoundFile = [[NSBundle mainBundle] pathForResource:name ofType:type];
     if (!strSoundFile) {
         NSLog(@"strSoundFile=nil");
         return;
     }
-    AudioServicesCreateSystemSoundID((__bridge CFURLRef)[NSURL fileURLWithPath:strSoundFile],&soundID);
-    AudioServicesPlaySystemSound(soundID);
+    NSURL *musicURL = [NSURL fileURLWithPath:strSoundFile];
+    _audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:musicURL error:nil];
+    [_audioPlayer setDelegate:self];
+    if (_defaultVolume>0) {
+        _audioPlayer.volume = _defaultVolume;
+    }
+    [_audioPlayer prepareToPlay];
+    [_audioPlayer play];
 }
 
 - (void)stopMusic{
@@ -53,6 +59,7 @@ static dispatch_once_t onceToken;
         [self soundFadeOut:name type:type];
         return;
     }
+    isMusic=1;
     NSString *musicPath = [[NSBundle mainBundle] pathForResource:name ofType:type];
     if (!musicPath) {
         NSLog(@"musicPath=nil");
@@ -61,7 +68,9 @@ static dispatch_once_t onceToken;
     NSURL *musicURL = [NSURL fileURLWithPath:musicPath];
     _audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:musicURL error:nil];
     [_audioPlayer setDelegate:self];
-    _audioPlayer.volume = 1;
+    if (_defaultVolume>0) {
+        _audioPlayer.volume = _defaultVolume;
+    }
     if (_fade) {
         fadeTimeCount=0;
         _audioPlayer.volume = 0.05;
@@ -104,10 +113,18 @@ static dispatch_once_t onceToken;
 //播放完后
 - (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player
                        successfully:(BOOL)flag{
-    if (_replayTimes>0) {
-        _replayTimes--;
-        [_audioPlayer play];
+    if (isMusic) {
+        if (_musicReplayTimes>0) {
+            _musicReplayTimes--;
+            [_audioPlayer play];
+        }
+    }else{
+        if (_effectReplayTimes>0) {
+            _effectReplayTimes--;
+            [_audioPlayer play];
+        }
     }
+    
 }
 
 @end

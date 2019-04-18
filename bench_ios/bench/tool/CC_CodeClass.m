@@ -98,6 +98,10 @@
     return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 }
 
++ (NSString *)dataToStr_base64:(NSData *)data{
+    return [data base64EncodedStringWithOptions:0];
+}
+
 + (NSData *)intToData:(int)i{
     int j=ntohl(i);
     NSData *data = [NSData dataWithBytes: &j length: sizeof(i)];

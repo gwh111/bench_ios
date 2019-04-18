@@ -63,6 +63,11 @@
 + (NSString *)dataToStr_utf8:(NSData *)data;
 
 /**
+ *  data to string, base64
+ */
++ (NSString *)dataToStr_base64:(NSData *)data;
+
+/**
  *  int转data
  */
 + (NSData *)intToData:(int)i;
@@ -78,10 +83,10 @@
 + (NSDictionary *)dictionaryWithJsonString:(NSString *)jsonString;
 
 /**
- *  服务端颜色的16进制NSString转成UIColor
+ *  颜色的16进制NSString转成UIColor
  */
 + (UIColor *)colorwithHexString:(NSString *)color;
 
-+ (NSString *)parseLabel:(NSString*)str start:(NSString *)startStr end:(NSString *)endStr includeStartEnd:(BOOL)includeStartEnd;
++ (NSString *)parseLabel:(NSString *)str start:(NSString *)startStr end:(NSString *)endStr includeStartEnd:(BOOL)includeStartEnd;
 
 @end
