@@ -58,6 +58,11 @@
 + (NSData *)strToData_utf8:(NSString *)str;
 
 /**
+ *  string to data, base64
+ */
++ (NSData *)strToData_base64:(NSString *)str;
+
+/**
  *  data to string, utf8编码
  */
 + (NSString *)dataToStr_utf8:(NSData *)data;

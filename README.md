@@ -32,14 +32,22 @@ You must init base UI frame
 [[CC_UIHelper getInstance]initUIDemoWidth:375 andHeight:750];
 
 ```
+
+<img src="https://github.com/gwh111/bench_ios/blob/master/ccui说明.jpg" width="640">
+我们默认采用方案B 所以嵌套getRH和getRFS函数来实现缩放，为什么字体不也用getRH呢？因为字体缩放系数和frame的缩放系数不同，会稍微低一些，如果字体用等比缩放会在小设备看上去适合，但在大屏幕由于放大过多有点像老年机。  
+
 ```
 //使用frame时 原bt.top=10;  转换为 bt.top=[ccui getRH:10];  
 [ccui getRH:10];
 //使用font时 原titleL.font=[UIFont systemFontOfSize:14];  转换位 titleL.font=[ccui getRFS:14];  
 [ccui getRFS:14];
 ```  
-通过包一层ccui函数，会对其他尺寸自动缩放适配。  
-原理是如果效果图是iphone6，初始化以iphone6的尺寸为基准，在开发时使用iphone6模拟器调布局，再使用其他尺寸查看，会对布局适当缩放来自动适配。  
+通过包一层ccui函数，会对其他尺寸自动缩放适配。v1.3.78后也可以使用RH()和RF()来减少代码量 如：  
+```
+UILabel *l=[[UILabel alloc]initWithFrame:CGRectMake(0, 0, RH(200), RH(40))];
+l.font=RF(14);
+[self.view addSubview:l];
+```
 
 ### 模拟器动态布局
 ========  

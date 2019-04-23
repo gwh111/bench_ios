@@ -43,10 +43,14 @@
 		D82CBC7621BE611100058044 /* CC_TManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D82CBC7521BE611100058044 /* CC_TManager.m */; };
 		D82F0B9B219533AF006EDF54 /* NSDate+CCCat.m in Sources */ = {isa = PBXBuildFile; fileRef = D82F0B9A219533AF006EDF54 /* NSDate+CCCat.m */; };
 		D8335338205F93F90030AB62 /* CC_HttpResponseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D8335337205F93F90030AB62 /* CC_HttpResponseModel.m */; };
+		D833F2FC226ECC7E00192678 /* testList.plist in Resources */ = {isa = PBXBuildFile; fileRef = D833F2FB226ECC7E00192678 /* testList.plist */; };
+		D833F2FF226EE82100192678 /* testCrashVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D833F2FE226EE82100192678 /* testCrashVC.m */; };
+		D833F302226EEA7C00192678 /* testCommomVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D833F301226EEA7C00192678 /* testCommomVC.m */; };
+		D833F305226EEF8700192678 /* testHttpVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D833F304226EEF8700192678 /* testHttpVC.m */; };
+		D833F308226EF15600192678 /* testTempVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D833F307226EF15600192678 /* testTempVC.m */; };
 		D83507621F309D2700B7461C /* CC_DES.m in Sources */ = {isa = PBXBuildFile; fileRef = D83507611F309D2700B7461C /* CC_DES.m */; };
 		D835077A1F31E2CD00B7461C /* CC_CodeClass.m in Sources */ = {isa = PBXBuildFile; fileRef = D83507791F31E2CD00B7461C /* CC_CodeClass.m */; };
 		D8365DE4205A54CE00357C0F /* testUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8365DE1205A54CD00357C0F /* testUIViewController.m */; };
-		D8365E23205A741D00357C0F /* CC_UIToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = D8365E22205A741D00357C0F /* CC_UIToolView.m */; };
 		D8389DF9206B74D50010A04A /* CC_3DWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = D8389DF8206B74D50010A04A /* CC_3DWindow.m */; };
 		D8389DFC206BA3680010A04A /* CC_LogicClass.m in Sources */ = {isa = PBXBuildFile; fileRef = D8389DFB206BA3680010A04A /* CC_LogicClass.m */; };
 		D839260020FDDBE70034D10F /* casGif.gif in Resources */ = {isa = PBXBuildFile; fileRef = D83925FF20FDDBE70034D10F /* casGif.gif */; };
@@ -226,6 +230,15 @@
 		D82F0B9A219533AF006EDF54 /* NSDate+CCCat.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSDate+CCCat.m"; sourceTree = "<group>"; };
 		D8335336205F93F90030AB62 /* CC_HttpResponseModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_HttpResponseModel.h; sourceTree = "<group>"; };
 		D8335337205F93F90030AB62 /* CC_HttpResponseModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC_HttpResponseModel.m; sourceTree = "<group>"; };
+		D833F2FB226ECC7E00192678 /* testList.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = testList.plist; sourceTree = "<group>"; };
+		D833F2FD226EE82100192678 /* testCrashVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = testCrashVC.h; sourceTree = "<group>"; };
+		D833F2FE226EE82100192678 /* testCrashVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = testCrashVC.m; sourceTree = "<group>"; };
+		D833F300226EEA7C00192678 /* testCommomVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = testCommomVC.h; sourceTree = "<group>"; };
+		D833F301226EEA7C00192678 /* testCommomVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = testCommomVC.m; sourceTree = "<group>"; };
+		D833F303226EEF8700192678 /* testHttpVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = testHttpVC.h; sourceTree = "<group>"; };
+		D833F304226EEF8700192678 /* testHttpVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = testHttpVC.m; sourceTree = "<group>"; };
+		D833F306226EF15600192678 /* testTempVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = testTempVC.h; sourceTree = "<group>"; };
+		D833F307226EF15600192678 /* testTempVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = testTempVC.m; sourceTree = "<group>"; };
 		D83507601F309D2700B7461C /* CC_DES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_DES.h; sourceTree = "<group>"; };
 		D83507611F309D2700B7461C /* CC_DES.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC_DES.m; sourceTree = "<group>"; };
 		D83507781F31E2CD00B7461C /* CC_CodeClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_CodeClass.h; sourceTree = "<group>"; };
@@ -233,8 +246,6 @@
 		D8365DD8205A2E0E00357C0F /* Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
 		D8365DE0205A54CD00357C0F /* testUIViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = testUIViewController.h; sourceTree = "<group>"; };
 		D8365DE1205A54CD00357C0F /* testUIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testUIViewController.m; sourceTree = "<group>"; };
-		D8365E21205A741D00357C0F /* CC_UIToolView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_UIToolView.h; sourceTree = "<group>"; };
-		D8365E22205A741D00357C0F /* CC_UIToolView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC_UIToolView.m; sourceTree = "<group>"; };
 		D8389DF7206B74D50010A04A /* CC_3DWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_3DWindow.h; sourceTree = "<group>"; };
 		D8389DF8206B74D50010A04A /* CC_3DWindow.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC_3DWindow.m; sourceTree = "<group>"; };
 		D8389DFA206BA3680010A04A /* CC_LogicClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_LogicClass.h; sourceTree = "<group>"; };
@@ -630,6 +641,9 @@
 		D82315391F53AEC1006055FB /* testController */ = {
 			isa = PBXGroup;
 			children = (
+				D833F2FB226ECC7E00192678 /* testList.plist */,
+				D833F300226EEA7C00192678 /* testCommomVC.h */,
+				D833F301226EEA7C00192678 /* testCommomVC.m */,
 				D839267820FEE0730034D10F /* cas */,
 				D823153A1F53AED3006055FB /* testColorViewController.h */,
 				D823153B1F53AED3006055FB /* testColorViewController.m */,
@@ -638,6 +652,12 @@
 				D839260220FEDC6F0034D10F /* testCasVC.m */,
 				D8EC6FCE2124154A006ECFE3 /* testAutoLabelGroupVC.h */,
 				D8EC6FCF2124154A006ECFE3 /* testAutoLabelGroupVC.m */,
+				D833F2FD226EE82100192678 /* testCrashVC.h */,
+				D833F2FE226EE82100192678 /* testCrashVC.m */,
+				D833F303226EEF8700192678 /* testHttpVC.h */,
+				D833F304226EEF8700192678 /* testHttpVC.m */,
+				D833F306226EF15600192678 /* testTempVC.h */,
+				D833F307226EF15600192678 /* testTempVC.m */,
 			);
 			path = testController;
 			sourceTree = "<group>";
@@ -826,8 +846,6 @@
 				D8D953FF2216A3DD009B6FD0 /* CC_Mask.m */,
 				D83EBC081FEB5CBC00B94D6F /* CC_UIHelper.h */,
 				D83EBC091FEB5CBC00B94D6F /* CC_UIHelper.m */,
-				D8365E21205A741D00357C0F /* CC_UIToolView.h */,
-				D8365E22205A741D00357C0F /* CC_UIToolView.m */,
 				D8389DF7206B74D50010A04A /* CC_3DWindow.h */,
 				D8389DF8206B74D50010A04A /* CC_3DWindow.m */,
 			);
@@ -1028,6 +1046,7 @@
 				18B6BD0B1F1F09CA0019391D /* LaunchScreen.storyboard in Resources */,
 				D8B0E4611F501EE400425D06 /* nyyh.jpg in Resources */,
 				848EBC71225C947E0077079B /* debug_function.plist in Resources */,
+				D833F2FC226ECC7E00192678 /* testList.plist in Resources */,
 				18B6BD081F1F09CA0019391D /* Assets.xcassets in Resources */,
 				D8CA1DF521913F9400CE4889 /* configure in Resources */,
 				D876FE871FB0514B0094C274 /* panda.plist in Resources */,
@@ -1143,6 +1162,7 @@
 				D839267320FEDFC60034D10F /* CASPropertyDescriptor.m in Sources */,
 				D839265A20FEDFC60034D10F /* NSObject+CASSwizzle.m in Sources */,
 				D839260320FEDC6F0034D10F /* testCasVC.m in Sources */,
+				D833F305226EEF8700192678 /* testHttpVC.m in Sources */,
 				D839266020FEDFC60034D10F /* UIToolbar+CASAdditions.m in Sources */,
 				D839267620FEDFC60034D10F /* CASArgumentDescriptor.m in Sources */,
 				D83EBC021FEB5BA700B94D6F /* CC_AttributedStr.m in Sources */,
@@ -1158,8 +1178,8 @@
 				18B6BD421F20C6660019391D /* CC_Share.m in Sources */,
 				D8389DF9206B74D50010A04A /* CC_3DWindow.m in Sources */,
 				D883EEF9200E37910062A6C6 /* GTMBase64.m in Sources */,
-				D8365E23205A741D00357C0F /* CC_UIToolView.m in Sources */,
 				D839265C20FEDFC60034D10F /* UIBarItem+CASAdditions.m in Sources */,
+				D833F302226EEA7C00192678 /* testCommomVC.m in Sources */,
 				18B6BD461F21A6080019391D /* README.md in Sources */,
 				D83EBC0C1FEB5CBC00B94D6F /* CC_UIHelper.m in Sources */,
 				D839266F20FEDFC60034D10F /* CASStyler.m in Sources */,
@@ -1176,7 +1196,9 @@
 				D82CBC7621BE611100058044 /* CC_TManager.m in Sources */,
 				D8335338205F93F90030AB62 /* CC_HttpResponseModel.m in Sources */,
 				D83507621F309D2700B7461C /* CC_DES.m in Sources */,
+				D833F308226EF15600192678 /* testTempVC.m in Sources */,
 				D8DD97EE20B7BC02000A890D /* CC_MusicBox.m in Sources */,
+				D833F2FF226EE82100192678 /* testCrashVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

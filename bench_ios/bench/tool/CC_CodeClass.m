@@ -91,14 +91,31 @@
 @implementation CC_Convert
 
 + (NSData *)strToData_utf8:(NSString *)str{
+    if (!str) {
+        return nil;
+    }
     return [str dataUsingEncoding:NSUTF8StringEncoding];
 }
 
++ (NSData *)strToData_base64:(NSString *)str{
+    if (!str) {
+        return nil;
+    }
+    NSData *ciphertextdata = [[NSData alloc]initWithBase64EncodedString:str options:NSDataBase64DecodingIgnoreUnknownCharacters];
+    return ciphertextdata;
+}
+
 + (NSString *)dataToStr_utf8:(NSData *)data{
+    if (!data) {
+        return nil;
+    }
     return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 }
 
 + (NSString *)dataToStr_base64:(NSData *)data{
+    if (!data) {
+        return nil;
+    }
     return [data base64EncodedStringWithOptions:0];
 }
 

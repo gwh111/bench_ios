@@ -26,8 +26,9 @@
     [super viewDidLoad];
     self.view.backgroundColor=[UIColor whiteColor];
     
-    UILabel *l=[[UILabel alloc]initWithFrame:CGRectMake(250, 100, 100, 40)];
-    l.backgroundColor=[UIColor yellowColor];
+    
+    UILabel *l=[[UILabel alloc]initWithFrame:CGRectMake(10, 100, 100, 40)];
+    l.backgroundColor=[UIColor brownColor];
     l.text=@"普通label";
     [self.view addSubview:l];
     

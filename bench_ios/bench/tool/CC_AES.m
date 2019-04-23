@@ -15,11 +15,17 @@
 
 //加密
 + (NSData *)encryptWithKey:(NSString *)key iv:(NSString *)iv data:(NSData *)data{
+    if (!data) {
+        return nil;
+    }
     return [self AES128operation:kCCEncrypt key:key iv:iv data:data];
 }
 
 //解密
 + (NSData *)decryptWithKey:(NSString *)key iv:(NSString *)iv data:(NSData *)data{
+    if (!data) {
+        return nil;
+    }
     return [self AES128operation:kCCDecrypt key:key iv:iv data:data];
 }
 
@@ -170,5 +176,7 @@
     }
     return result;
 }
+
+
 
 @end

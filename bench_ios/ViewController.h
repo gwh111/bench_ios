@@ -8,11 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-#import "testColorViewController.h"
-#import "testUIViewController.h"
-#import "testCasVC.h"
-#import "testAutoLabelGroupVC.h"
-
 @interface ViewController : UIViewController
 
 

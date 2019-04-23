@@ -7,7 +7,6 @@
 //
 
 #import "CC_UIHelper.h"
-#import "CC_UIToolView.h"
 #import "CC_Share.h"
 
 @interface CC_UIHelper(){
@@ -31,6 +30,19 @@ static dispatch_once_t onceToken;
 - (void)initUIDemoWidth:(float)width andHeight:(float)height{
     _uiDemoWidth=width;
     _uiDemoHeight=height;
+    
+    _titleFont=RF(18);
+    _titleFontColor=COLOR_BLACK;
+    
+    _contentFont=RF(16);
+    _contentFontColor=ccRGBA(44, 44, 44, 1);
+    
+    _dateFont=RF(12);
+    _dateFontColor=ccRGBA(77, 77, 77, 1);
+    
+    _mainColor=ccRGBA(88, 149, 247, 1);
+    _subColor=ccRGBA(111, 111, 111, 1);
+    
 }
 
 - (float)getUIDemoWith{
@@ -75,12 +87,6 @@ static dispatch_once_t onceToken;
     }
     
     return (int)[_modelsDic allKeys].count;
-}
-
-- (void)initToolV{
-    CC_UIToolView *tool=[[CC_UIToolView alloc]init];
-    UIWindow *window = [[[UIApplication sharedApplication] windows] lastObject];
-    [window addSubview:tool];
 }
 
 @end
