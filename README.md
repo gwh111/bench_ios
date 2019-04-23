@@ -19,13 +19,13 @@ Then, run the following command:
 ```bash
 $ pod install
 ```
+========  
 
-必须初始化布局  
-You must init base UI frame  
 在.pch文件或需要的地方引入  
 ```
 #import "CC_Share.h"
 ```
+必须先初始化布局  
 
 ```
 //需要先初始化布局
@@ -33,7 +33,7 @@ You must init base UI frame
 
 ```
 
-<img src="https://github.com/gwh111/bench_ios/blob/master/ccui说明.jpg" width="640">
+<img src="https://github.com/gwh111/bench_ios/blob/master/ccui说明.jpg" width="440">
 我们默认采用方案B 所以嵌套getRH和getRFS函数来实现缩放，为什么字体不也用getRH呢？因为字体缩放系数和frame的缩放系数不同，会稍微低一些，如果字体用等比缩放会在小设备看上去适合，但在大屏幕由于放大过多有点像老年机。  
 
 ```
