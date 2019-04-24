@@ -31,14 +31,17 @@ static dispatch_once_t onceToken;
     _uiDemoWidth=width;
     _uiDemoHeight=height;
     
+    _bigTitleFont=RF(24);
+    _bigTitleFontColor=COLOR_BLACK;
+    
     _titleFont=RF(18);
-    _titleFontColor=COLOR_BLACK;
+    _titleFontColor=ccRGBA(51, 51, 51, 1);
     
     _contentFont=RF(16);
-    _contentFontColor=ccRGBA(44, 44, 44, 1);
+    _contentFontColor=ccRGBA(102, 102, 102, 1);
     
     _dateFont=RF(12);
-    _dateFontColor=ccRGBA(77, 77, 77, 1);
+    _dateFontColor=ccRGBA(153, 153, 153, 1);
     
     _mainColor=ccRGBA(88, 149, 247, 1);
     _subColor=ccRGBA(111, 111, 111, 1);

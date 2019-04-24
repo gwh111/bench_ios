@@ -12,17 +12,20 @@
 #define RH(f) [ccui getRH:f]
 #define RF(f) [ccui getRFS:f]
 
-#define ccui_titleFont [CC_UIHelper getInstance].titleFont
-#define ccui_titleFontColor [CC_UIHelper getInstance].titleFontColor
+#define UI_BIG_TITLE_FONT [CC_UIHelper getInstance].bigTitleFont
+#define UI_BIG_TITLE_FONT_COLOR [CC_UIHelper getInstance].bigTitleFontColor
 
-#define ccui_contentFont [CC_UIHelper getInstance].contentFont
-#define ccui_contentFontColor [CC_UIHelper getInstance].contentFontColor
+#define UI_TITLE_FONT [CC_UIHelper getInstance].titleFont
+#define UI_TITLE_FONT_COLOR [CC_UIHelper getInstance].titleFontColor
 
-#define ccui_dateFont [CC_UIHelper getInstance].dateFont
-#define ccui_dateFontColor [CC_UIHelper getInstance].dateFontColor
+#define UI_CONTENT_FONT [CC_UIHelper getInstance].contentFont
+#define UI_CONTENT_FONT_COLOR [CC_UIHelper getInstance].contentFontColor
 
-#define ccui_mainColor [CC_UIHelper getInstance].mainColor
-#define ccui_subColor [CC_UIHelper getInstance].subColor
+#define UI_DATE_FONT [CC_UIHelper getInstance].dateFont
+#define UI_DATE_FONT_COLOR [CC_UIHelper getInstance].dateFontColor
+
+#define UI_MAIN_COLOR [CC_UIHelper getInstance].mainColor
+#define UI_SUB_COLOR [CC_UIHelper getInstance].subColor
 
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
@@ -36,6 +39,11 @@
 @property(nonatomic,assign) float uiDemoHeight;
 
 /**
+ *  app大标题的字体
+ */
+@property(nonatomic,retain) UIFont *bigTitleFont;
+
+/**
  *  app常规标题的字体
  */
 @property(nonatomic,retain) UIFont *titleFont;
@@ -46,7 +54,7 @@
 @property(nonatomic,retain) UIFont *contentFont;
 
 /**
- *  app常规时间的字体
+ *  app常规日期的字体
  */
 @property(nonatomic,retain) UIFont *dateFont;
 
@@ -61,6 +69,11 @@
 @property(nonatomic,retain) UIColor *subColor;
 
 /**
+ *  app大标题字体颜色
+ */
+@property(nonatomic,retain) UIColor *bigTitleFontColor;
+
+/**
  *  app常规标题字体颜色
  */
 @property(nonatomic,retain) UIColor *titleFontColor;
@@ -71,7 +84,7 @@
 @property(nonatomic,retain) UIColor *contentFontColor;
 
 /**
- *  app常规时间字体颜色
+ *  app常规日期字体颜色
  */
 @property(nonatomic,retain) UIColor *dateFontColor;
 

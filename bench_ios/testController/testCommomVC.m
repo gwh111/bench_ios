@@ -44,36 +44,42 @@
     [self.view addSubview:l2];
     
     UILabel *l3=[[UILabel alloc]initWithFrame:CGRectMake(RH(10), l2.bottom+step, width, height)];
-    l3.font=ccui_titleFont;
-    l3.textColor=ccui_titleFontColor;
-    l3.text=@"app常规标题的字体大小和颜色";
+    l3.font=UI_BIG_TITLE_FONT;
+    l3.textColor=UI_BIG_TITLE_FONT_COLOR;
+    l3.text=@"app通用默认字体-大标题";
     [self.view addSubview:l3];
     
     UILabel *l4=[[UILabel alloc]initWithFrame:CGRectMake(RH(10), l3.bottom+step, width, height)];
-    l4.font=ccui_contentFont;
-    l4.textColor=ccui_contentFontColor;
-    l4.text=@"app常规内容的字体大小和颜色";
+    l4.font=UI_TITLE_FONT;
+    l4.textColor=UI_TITLE_FONT_COLOR;
+    l4.text=@"app通用默认字体-标题（详情内容）";
     [self.view addSubview:l4];
     
     UILabel *l5=[[UILabel alloc]initWithFrame:CGRectMake(RH(10), l4.bottom+step, width, height)];
-    l5.font=ccui_dateFont;
-    l5.textColor=ccui_dateFontColor;
-    l5.text=@"app常规时间的字体大小和颜色 14:22";
+    l5.font=UI_CONTENT_FONT;
+    l5.textColor=UI_CONTENT_FONT_COLOR;
+    l5.text=@"app通用默认字体-内容";
     [self.view addSubview:l5];
     
     UILabel *l6=[[UILabel alloc]initWithFrame:CGRectMake(RH(10), l5.bottom+step, width, height)];
-    l6.font=ccui_contentFont;
-    l6.textColor=COLOR_WHITE;
-    l6.backgroundColor=ccui_mainColor;
-    l6.text=@"主色调";
+    l6.font=UI_DATE_FONT;
+    l6.textColor=UI_DATE_FONT_COLOR;
+    l6.text=@"app通用默认字体-日期";
     [self.view addSubview:l6];
     
     UILabel *l7=[[UILabel alloc]initWithFrame:CGRectMake(RH(10), l6.bottom+step, width, height)];
-    l7.font=ccui_contentFont;
+    l7.font=UI_CONTENT_FONT;
     l7.textColor=COLOR_WHITE;
-    l7.backgroundColor=ccui_subColor;
-    l7.text=@"辅色调";
+    l7.backgroundColor=UI_MAIN_COLOR;
+    l7.text=@"主色调";
     [self.view addSubview:l7];
+    
+    UILabel *l8=[[UILabel alloc]initWithFrame:CGRectMake(RH(10), l7.bottom+step, width, height)];
+    l8.font=UI_CONTENT_FONT;
+    l8.textColor=COLOR_WHITE;
+    l8.backgroundColor=UI_SUB_COLOR;
+    l8.text=@"辅色调";
+    [self.view addSubview:l8];
 }
 
 /*

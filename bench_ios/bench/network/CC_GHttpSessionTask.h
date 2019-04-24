@@ -225,7 +225,7 @@
  @param times 上传失败-重新上传次数
  @param uploadImageBlock 回调函数
  */
--(void)uploadImages:(NSArray<UIImage *> *)images url:(id)url params:(id)paramsDic imageScale:(CGFloat)imageScale reConnectTimes:(NSInteger)times finishBlock:(void (^)(NSArray<ResModel*> *errorModelArr, NSArray<ResModel*> *successModelArr))uploadImageBlock;
+- (void)uploadImages:(NSArray<UIImage *> *)images url:(id)url params:(id)paramsDic imageScale:(CGFloat)imageScale reConnectTimes:(NSInteger)times finishBlock:(void (^)(NSArray<ResModel*> *errorModelArr, NSArray<ResModel*> *successModelArr))uploadImageBlock;
 
 /**
  上传多张图片-指定图片大小 单位 兆
@@ -237,7 +237,7 @@
  @param times 上传失败-重新上传次数
  @param uploadImageBlock 回调函数
  */
--(void)uploadImages:(NSArray<UIImage *> *)images url:(id)url params:(id)paramsDic imageSize:(NSUInteger)imageSize reConnectTimes:(NSInteger)times finishBlock:(void (^)(NSArray<ResModel*> *errorModelArr, NSArray<ResModel*> *successModelArr))uploadImageBlock;
+- (void)uploadImages:(NSArray<UIImage *> *)images url:(id)url params:(id)paramsDic imageSize:(NSUInteger)imageSize reConnectTimes:(NSInteger)times finishBlock:(void (^)(NSArray<ResModel*> *errorModelArr, NSArray<ResModel*> *successModelArr))uploadImageBlock;
 /**
  拼接URLRequest
 

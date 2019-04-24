@@ -28,8 +28,8 @@ $ pod install
 必须先初始化布局  
 
 ```
-//需要先初始化布局
-[[CC_UIHelper getInstance]initUIDemoWidth:375 andHeight:750];
+//设置基准 效果图的尺寸 比如效果图是iphone6的尺寸
+[[CC_UIHelper getInstance]initUIDemoWidth:375 andHeight:667];
 
 ```
 
