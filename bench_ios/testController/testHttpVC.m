@@ -28,7 +28,7 @@
     }];
 
     //接口统一处理回调 比如对其他地方登陆逻辑处理
-    [[CC_HttpTask getInstance] addResponseLogic:@"PARAMETER_ERROR" logicStr:@"response,error,name=PARAMETER_ERROR" stop:YES popOnce:NO logicBlock:^(NSDictionary *resultDic) {
+    [[CC_HttpTask getInstance] addResponseLogic:@"PARAMETER_ERROR" logicStr:@"response,error,name=PARAMETER_ERROR" stop:YES popOnce:NO logicBlock:^(ResModel *result, void (^finishCallbackBlock)(NSString *error, ResModel *result)) {
         CCLOG(@"%@",@"PARAMETER_ERROR");
         
         [[CC_HttpTask getInstance]resetResponseLogicPopOnce:@"PARAMETER_ERROR"];

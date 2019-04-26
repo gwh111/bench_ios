@@ -86,14 +86,19 @@
             _resultDic=(NSDictionary *)mutDic;
         }
         //服务端返回的错误
-        if ([_resultDic[@"response"][@"success"]intValue]==0) {
+        NSDictionary *responseDic=_resultDic[@"response"];
+        if (!responseDic) {
+            responseDic=_resultDic;
+            _resultDic=@{@"response":responseDic};
+        }
+        if ([responseDic[@"success"]intValue]==0) {
             
-            if (_resultDic[@"response"][@"detailMessage"]) {
-                _errorNameStr=_resultDic[@"response"][@"detailMessage"];
+            if (responseDic[@"detailMessage"]) {
+                _errorNameStr=responseDic[@"detailMessage"];
                 _errorMsgStr=_errorNameStr;
-            }else if (_resultDic[@"response"][@"error"]) {
-                _errorNameStr=_resultDic[@"response"][@"error"][@"name"];
-                _errorMsgStr=_resultDic[@"response"][@"error"][@"message"];
+            }else if (responseDic[@"error"]) {
+                _errorNameStr=responseDic[@"error"][@"name"];
+                _errorMsgStr=responseDic[@"error"][@"message"];
             }else{
                 _errorNameStr=nil;
                 _errorMsgStr=_errorNameStr;

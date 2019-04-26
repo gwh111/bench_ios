@@ -72,6 +72,11 @@
         
     }
     
+    if (urlFormatString.length>0) {
+        NSRange range = NSMakeRange (urlFormatString.length-1, 1);
+        [urlFormatString deleteCharactersInRange:range];
+    }
+    
     if (formatString.length>0) {
         NSRange range = NSMakeRange (formatString.length-1, 1);
         [formatString deleteCharactersInRange:range];

@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CC_HttpResponseModel.h"
 
 @interface CC_ResLModel : NSObject
 
@@ -37,6 +38,6 @@
 /**
  *  统一处理回调
  */
-@property(strong) void (^logicBlock)(NSDictionary *resultDic);
+@property(strong) void (^logicBlock)(ResModel *result, void (^finishCallbackBlock)(NSString *error,ResModel *result));
 
 @end

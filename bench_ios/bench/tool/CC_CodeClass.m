@@ -90,6 +90,13 @@
 
 @implementation CC_Convert
 
++ (NSString *)encodeUrlParameter:(NSString *)originalPara{
+    CFStringRef encodeParaCf = CFURLCreateStringByAddingPercentEscapes(NULL, (__bridge CFStringRef)originalPara, NULL, CFSTR("!*'();:@&=+$,/?%#[]"), kCFStringEncodingUTF8);
+    NSString *encodePara = (__bridge NSString *)(encodeParaCf);
+    CFRelease(encodeParaCf);
+    return encodePara;
+}
+
 + (NSData *)strToData_utf8:(NSString *)str{
     if (!str) {
         return nil;

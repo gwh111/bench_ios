@@ -28,7 +28,10 @@
  *  完整的请求链接
  */
 @property(nonatomic,retain) NSString *requestStr;
-
+/**
+ *  完整的请求内容
+ */
+@property(nonatomic,retain) NSDictionary *requestDic;
 
 /**
  *  响应结果

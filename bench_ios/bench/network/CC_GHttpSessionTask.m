@@ -15,7 +15,9 @@
 #import "Reachability.h"
 #import "CC_UploadImagesTool.h"
 
-@interface CC_HttpTask()
+@interface CC_HttpTask(){
+    BOOL headerEncrypt;//http头部标识
+}
 /**
  *  统一处理回调合集
  */
@@ -172,7 +174,23 @@ static dispatch_once_t onceToken;
             CCLOG(@"_signKeyStr为空");
         }
     }
-    NSString *paraString=[CC_FormatDic getSignFormatStringWithDic:paramsDic andMD5Key:_signKeyStr];
+    
+    model.requestDic=paramsDic;
+    
+    NSString *paraString;
+    if (headerEncrypt) {
+        if ([_encryptDomain isEqualToString:tempUrl.absoluteString]) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+            Class clazz = NSClassFromString(@"CC_HttpEncryption");
+            
+            NSString *ciphertext=[clazz performSelector:@selector(getCiphertext:) withObject:paramsDic];
+            paramsDic=@{@"ciphertext":ciphertext};
+#pragma clang diagnostic pop
+        }
+    }
+    
+    paraString=[CC_FormatDic getSignFormatStringWithDic:paramsDic andMD5Key:_signKeyStr];
     
     NSURLRequest *urlReq;
     if (type==0) {
@@ -229,10 +247,25 @@ static dispatch_once_t onceToken;
             }
             [model parsingResult:resultStr];
             model.networkError=nil;
+            
+            if (blockSelf->headerEncrypt) {
+                if ([blockSelf.encryptDomain isEqualToString:tempUrl.absoluteString]) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+                    Class clazz = NSClassFromString(@"CC_HttpEncryption");
+                    
+                    resultStr=[clazz performSelector:@selector(getDecryptText:) withObject:model.resultDic];
+#pragma clang diagnostic pop
+                    [model parsingResult:resultStr];
+                }
+            }
         }
         dispatch_sync(dispatch_get_main_queue(), ^{
 
             if (model.resultDic) {
+                if (blockSelf->headerEncrypt) {
+                    CCLOG(@"%@",model.requestDic);
+                }
                 CCLOG(@"%@\n%@",model.requestStr,[[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:model.resultDic options:NSJSONWritingPrettyPrinted error:nil] encoding:NSUTF8StringEncoding]);
             }else{
                 CCLOG(@"%@\n%@",model.requestStr,model.resultStr);
@@ -253,7 +286,7 @@ static dispatch_once_t onceToken;
                     //使用更新后的数据
                     CC_ResLModel *newModel=blockSelf.logicBlockMutDic[logicModel.logicNameStr];
                     if (newModel.logicPassed) {
-                        newModel.logicBlock(model.resultDic);
+                        newModel.logicBlock(model,block);
                         if (newModel.logicPassStop) {
                             return ;
                         }
@@ -305,6 +338,11 @@ static dispatch_once_t onceToken;
     return [self requestWithUrl:url andParamters:paramsString andType:1];
 }
 
+#pragma mark 加密必须添加 CC_HttpEncryption文件
+- (void)setEncrypt:(BOOL)encrypt{
+    headerEncrypt=encrypt;
+}
+
 //创建request
 - (NSMutableURLRequest *)requestWithUrl:(NSURL *)url andParamters:(NSString *)paramsString andType:(int)type{
     
@@ -317,6 +355,10 @@ static dispatch_once_t onceToken;
     NSArray *types=@[@"POST",@"GET"];
     [request setHTTPMethod:types[type]];
     [request setTimeoutInterval:_httpTimeoutInterval];
+    
+    if (headerEncrypt) {
+        [request setValue:[NSString stringWithFormat:@"%d",headerEncrypt] forHTTPHeaderField:@"encrypt"];
+    }
     
     if (!_requestHTTPHeaderFieldDic) {
         CCLOG(@"没有设置_requestHTTPHeaderFieldDic");
@@ -354,7 +396,7 @@ static dispatch_once_t onceToken;
     [_logicBlockMutDic setObject:model forKey:logicName];
 }
 
-- (void)addResponseLogic:(NSString *)logicName logicStr:(NSString *)logicStr stop:(BOOL)stop popOnce:(BOOL)popOnce logicBlock:(void (^)(NSDictionary *errorDic))block{
+- (void)addResponseLogic:(NSString *)logicName logicStr:(NSString *)logicStr stop:(BOOL)stop popOnce:(BOOL)popOnce logicBlock:(void (^)(ResModel *result, void (^finishCallbackBlock)(NSString *error,ResModel *result)))block{
     CC_ResLModel *model=[[CC_ResLModel alloc]init];
     model.logicNameStr=logicName;
     model.logicPassStop=stop;

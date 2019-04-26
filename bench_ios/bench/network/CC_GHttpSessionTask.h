@@ -107,6 +107,18 @@
 @property(nonatomic,assign) int updateInBackGround;
 
 /**
+ *  加密请求的code 如每次从本地读取会影响速度 故存到内存之中
+    AESCode是给用户自己使用 每人的AESCode是不同的 即使反编译暴露也是自己的手机
+ */
+@property(nonatomic,retain) NSString *AESCode;
+
+/**
+ *  设置要加密的域名
+ 必须添加 CC_HttpEncryption文件
+ */
+@property(nonatomic,retain) NSString *encryptDomain;
+
+/**
  *  网络请求回调
  */
 @property(strong) void (^finishCallbackBlock)(NSString *error,ResModel *result);
@@ -156,6 +168,13 @@
  */
 - (void)addExtreDic:(NSDictionary *)dic;
 
+#pragma mark 加密必须添加 CC_HttpEncryption文件
+/**
+ *  设置是否加密
+    必须添加 CC_HttpEncryption文件
+ */
+- (void)setEncrypt:(BOOL)encrypt;
+
 /**
  * url NSString 或者 NSURL
  * paramsDic的关键字
@@ -178,11 +197,11 @@
  *  logicBlock 符合条件后的回调，回调的逻辑，需要在appDelegate里配置
  *
  *  例子:
- *  [[CC_HttpTask getInstance] addResponseLogic:@"PARAMETER_ERROR" logicStr:@"response,error,name=PARAMETER_ERROR" stop:YES popOnce:YES logicBlock:^(NSDictionary *resultDic) {
+ *  [[CC_HttpTask getInstance] addResponseLogic:@"PARAMETER_ERROR" logicStr:@"response,error,name=PARAMETER_ERROR" stop:YES popOnce:YES logicBlock:^(ResModel *result) {
     //在这里添加处理代码
     }];
  */
-- (void)addResponseLogic:(NSString *)logicName logicStr:(NSString *)logicStr stop:(BOOL)stop popOnce:(BOOL)popOnce logicBlock:(void (^)(NSDictionary *resultDic))block;
+- (void)addResponseLogic:(NSString *)logicName logicStr:(NSString *)logicStr stop:(BOOL)stop popOnce:(BOOL)popOnce logicBlock:(void (^)(ResModel *result, void (^finishCallbackBlock)(NSString *error,ResModel *result)))block;
 /**
  *  logicName  添加时起的名字
  *  重置只回调一次的设置

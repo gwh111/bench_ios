@@ -53,6 +53,11 @@
 @interface CC_Convert : NSObject
 
 /**
+ *  URL编码 转换!*'();:@&=+$,/?%#[]
+ */
++ (NSString *)encodeUrlParameter:(NSString *)originalPara;
+
+/**
  *  string to data, utf8编码
  */
 + (NSData *)strToData_utf8:(NSString *)str;

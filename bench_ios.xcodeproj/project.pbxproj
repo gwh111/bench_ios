@@ -1002,6 +1002,7 @@
 				TargetAttributes = {
 					18B6BCF71F1F09CA0019391D = {
 						CreatedOnToolsVersion = 8.3.1;
+						DevelopmentTeam = V988GE98EW;
 						ProvisioningStyle = Automatic;
 					};
 					18B6BD101F1F09CA0019391D = {
@@ -1349,7 +1350,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = V988GE98EW;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/bench_ios/Prefix.pch";
 				INFOPLIST_FILE = bench_ios/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8;
@@ -1366,7 +1367,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = V988GE98EW;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/bench_ios/Prefix.pch";
 				INFOPLIST_FILE = bench_ios/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8;
