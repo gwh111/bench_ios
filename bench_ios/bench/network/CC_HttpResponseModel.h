@@ -80,6 +80,11 @@
  */
 @property(nonatomic,assign) int parseFail;
 
+/**
+ *  http头部加密标识
+ */
+@property(nonatomic,assign) BOOL headerEncrypt;
+
 - (void)parsingError:(NSError *)error;
 - (void)parsingResult:(NSString *)resultStr;
 

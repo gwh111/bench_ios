@@ -89,7 +89,9 @@
         NSDictionary *responseDic=_resultDic[@"response"];
         if (!responseDic) {
             responseDic=_resultDic;
-            _resultDic=@{@"response":responseDic};
+            if (_headerEncrypt) {
+                _resultDic=@{@"response":responseDic};
+            }
         }
         if ([responseDic[@"success"]intValue]==0) {
             

@@ -16,7 +16,7 @@
 #import "CC_UploadImagesTool.h"
 
 @interface CC_HttpTask(){
-    BOOL headerEncrypt;//http头部标识
+    
 }
 /**
  *  统一处理回调合集
@@ -121,6 +121,7 @@ static dispatch_once_t onceToken;
         model=[[ResModel alloc]init];
     }
     model.serviceStr=paramsDic[@"service"];
+    model.headerEncrypt=_headerEncrypt;//设置这次请求是否为加密请求
     
     CC_HttpTask *executorDelegate = [[CC_HttpTask alloc] init];
     executorDelegate.finishCallbackBlock = block; // 绑定执行完成时的block
@@ -178,7 +179,7 @@ static dispatch_once_t onceToken;
     model.requestDic=paramsDic;
     
     NSString *paraString;
-    if (headerEncrypt) {
+    if (_headerEncrypt) {
         if ([_encryptDomain isEqualToString:tempUrl.absoluteString]) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"
@@ -248,7 +249,7 @@ static dispatch_once_t onceToken;
             [model parsingResult:resultStr];
             model.networkError=nil;
             
-            if (blockSelf->headerEncrypt) {
+            if (blockSelf->_headerEncrypt) {
                 if ([blockSelf.encryptDomain isEqualToString:tempUrl.absoluteString]) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"
@@ -263,7 +264,7 @@ static dispatch_once_t onceToken;
         dispatch_sync(dispatch_get_main_queue(), ^{
 
             if (model.resultDic) {
-                if (blockSelf->headerEncrypt) {
+                if (blockSelf->_headerEncrypt) {
                     CCLOG(@"%@",model.requestDic);
                 }
                 CCLOG(@"%@\n%@",model.requestStr,[[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:model.resultDic options:NSJSONWritingPrettyPrinted error:nil] encoding:NSUTF8StringEncoding]);
@@ -340,7 +341,7 @@ static dispatch_once_t onceToken;
 
 #pragma mark 加密必须添加 CC_HttpEncryption文件
 - (void)setEncrypt:(BOOL)encrypt{
-    headerEncrypt=encrypt;
+    _headerEncrypt=encrypt;
 }
 
 //创建request
@@ -356,8 +357,8 @@ static dispatch_once_t onceToken;
     [request setHTTPMethod:types[type]];
     [request setTimeoutInterval:_httpTimeoutInterval];
     
-    if (headerEncrypt) {
-        [request setValue:[NSString stringWithFormat:@"%d",headerEncrypt] forHTTPHeaderField:@"encrypt"];
+    if (_headerEncrypt) {
+        [request setValue:[NSString stringWithFormat:@"%d",_headerEncrypt] forHTTPHeaderField:@"encrypt"];
     }
     
     if (!_requestHTTPHeaderFieldDic) {

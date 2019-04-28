@@ -113,6 +113,10 @@
 @property(nonatomic,retain) NSString *AESCode;
 
 /**
+ *  http头部加密标识
+ */
+@property(nonatomic,assign) BOOL headerEncrypt;
+/**
  *  设置要加密的域名
  必须添加 CC_HttpEncryption文件
  */

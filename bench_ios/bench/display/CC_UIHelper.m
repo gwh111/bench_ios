@@ -106,18 +106,24 @@ static dispatch_once_t onceToken;
     return [self getRelativeFont:nil fontSize:fontSize];
 }
 + (UIFont *)getRelativeFont:(NSString *)fontName fontSize:(float)fontSize{
-    if (fontSize<=10) {
-        fontSize=10*[self getW]/[[CC_UIHelper getInstance]getUIDemoWith];
+    float rate=[self getW]/[[CC_UIHelper getInstance]getUIDemoWith];
+    if (fontSize<=10||rate<1) {
+        fontSize=10*rate;
         return [UIFont systemFontOfSize:fontSize];
     }
-    fontSize=10+(fontSize-10)*([self getW]/[[CC_UIHelper getInstance]getUIDemoWith]);
+    fontSize=10+(fontSize-10)*rate;
     if (fontName) {
         return [UIFont fontWithName:fontName size:fontSize];
     }
     return [UIFont systemFontOfSize:fontSize];
 }
 + (UIFont *)getRelativeFont:(NSString *)fontName fontSize:(float)fontSize baseFontSize:(float)baseFontSize{
-    fontSize=baseFontSize+(fontSize-baseFontSize)*([self getW]/[[CC_UIHelper getInstance]getUIDemoWith]);
+    float rate=[self getW]/[[CC_UIHelper getInstance]getUIDemoWith];
+    if (fontSize<=10||rate<1) {
+        fontSize=10*rate;
+        return [UIFont fontWithName:fontName size:fontSize];
+    }
+    fontSize=baseFontSize+(fontSize-baseFontSize)*rate;
     if (fontName) {
         return [UIFont fontWithName:fontName size:fontSize];
     }
