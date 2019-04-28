@@ -72,11 +72,6 @@
         
     }
     
-    if (urlFormatString.length>0) {
-        NSRange range = NSMakeRange (urlFormatString.length-1, 1);
-        [urlFormatString deleteCharactersInRange:range];
-    }
-    
     if (formatString.length>0) {
         NSRange range = NSMakeRange (formatString.length-1, 1);
         [formatString deleteCharactersInRange:range];
@@ -88,6 +83,12 @@
     
     if (MD5KeyString) {
         [urlFormatString appendString:[NSString stringWithFormat:@"sign=%@",[CC_MD5Object signString:[NSString stringWithFormat:@"%@%@",MD5KeyString,formatString]]]];
+    }else{
+        
+        if (urlFormatString.length>0) {
+            NSRange range = NSMakeRange (urlFormatString.length-1, 1);
+            [urlFormatString deleteCharactersInRange:range];
+        }
     }
     
     return urlFormatString;
