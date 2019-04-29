@@ -23,6 +23,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    NSArray *domainArrs = nil;
+    domainArrs = @[@"http://test-kkbuluo-resource.oss-cn-hangzhou.aliyuncs.com/URL/kk_url.txt",@"http://dynamic.kkbuluo.net/kk_url.txt"];
+    
+    [[CC_HttpTask getInstance] getDomainWithReqList:domainArrs andKey:@"KK" block:^(ResModel *result) {
+        
+    }];
     {
         
         //    int i1=[CC_Validate isPureInt:@"123"];

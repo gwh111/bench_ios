@@ -301,6 +301,7 @@ static dispatch_once_t onceToken;
     }
     if (!v) {
         [self saveDefaultKey:key andV:nil];
+        return;
     }
     NSData *data =[v dataUsingEncoding:NSUTF8StringEncoding];
     NSData *aeskey = [aesk dataUsingEncoding:NSUTF8StringEncoding];

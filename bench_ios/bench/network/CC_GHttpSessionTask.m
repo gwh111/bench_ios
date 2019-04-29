@@ -257,7 +257,9 @@ static dispatch_once_t onceToken;
                     
                     resultStr=[clazz performSelector:@selector(getDecryptText:) withObject:model.resultDic];
 #pragma clang diagnostic pop
-                    [model parsingResult:resultStr];
+                    if (resultStr) {
+                        [model parsingResult:resultStr];
+                    }
                 }
             }
         }

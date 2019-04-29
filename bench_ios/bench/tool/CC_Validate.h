@@ -31,6 +31,16 @@
 + (BOOL)hasChinese:(NSString *)str;
 
 /**
+ *  是否从appstore下载的
+ */
++ (BOOL)isInstallFromAppStore;
+
+/**
+ *  是否越狱
+ */
++ (BOOL)isJailBreak;
+
+/**
  *  手机号码验证
  */
 + (BOOL)validateMobile:(NSString *)mobileStr;

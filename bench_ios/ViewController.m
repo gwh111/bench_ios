@@ -44,7 +44,36 @@
     [super viewDidAppear:animated];
 }
 
-
++ (BOOL)isFromJailbrokenChannel
+{
+    NSString *bundleId = [[[NSBundle mainBundle] infoDictionary] objectForKey:(__bridge NSString *)kCFBundleIdentifierKey];
+    if (![bundleId isEqualToString:@"your bundle id"]) {
+        return YES;
+    }
+    //取出embedded.mobileprovision这个描述文件的内容进行判断
+    NSString *mobileProvisionPath = [[NSBundle mainBundle] pathForResource:@"embedded" ofType:@"mobileprovision"];
+    NSData *rawData = [NSData dataWithContentsOfFile:mobileProvisionPath];
+    NSString *rawDataString = [[NSString alloc] initWithData:rawData encoding:NSASCIIStringEncoding];
+    NSRange plistStartRange = [rawDataString rangeOfString:@"<plist"];
+    NSRange plistEndRange = [rawDataString rangeOfString:@"</plist>"];
+    if (plistStartRange.location != NSNotFound && plistEndRange.location != NSNotFound) {
+        NSString *tempPlistString = [rawDataString substringWithRange:NSMakeRange(plistStartRange.location, NSMaxRange(plistEndRange))];
+        NSData *tempPlistData = [tempPlistString dataUsingEncoding:NSUTF8StringEncoding];
+        NSDictionary *plistDic =  [NSPropertyListSerialization propertyListWithData:tempPlistData options:NSPropertyListImmutable format:nil error:nil];
+        
+//        NSArray *applicationIdentifierPrefix = [plistDic getArrayValueForKey:@"ApplicationIdentifierPrefix" defaultValue:nil];
+//        NSDictionary *entitlementsDic = [plistDic getDictionaryValueForKey:@"Entitlements" defaultValue:nil];
+//        NSString *mobileBundleID = [entitlementsDic getStringValueForKey:@"application-identifier" defaultValue:nil];
+//        if (applicationIdentifierPrefix.count > 0 && mobileBundleID != nil) {
+//            if (![mobileBundleID isEqualToString:[NSString stringWithFormat:@"%@.%@",[applicationIdentifierPrefix firstObject],@"your applicationId"]]) {
+//                return YES;
+//            }
+//        }
+    }
+    
+    return NO;
+    
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
