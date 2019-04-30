@@ -107,7 +107,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
 #import "CC_TManager.h"
 #import "CC_Mask.h"
 #import "CC_Loading.h"
-#import "UIView+CCWebImage.h"
 
 @interface CC_Share : NSObject
 
