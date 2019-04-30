@@ -85,6 +85,11 @@
  */
 @property(nonatomic,assign) BOOL headerEncrypt;
 
+/**
+ *  当前请求不加密 即使设置了加密
+ */
+@property(nonatomic,assign) BOOL forbiddenEncrypt;
+
 - (void)parsingError:(NSError *)error;
 - (void)parsingResult:(NSString *)resultStr;
 

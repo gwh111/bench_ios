@@ -79,7 +79,7 @@
     [super viewDidLoad];
     self.view.backgroundColor=COLOR_WHITE;
     
-
+    int isj=[CC_Validate isJailBreak];
     
 #if DEBUG
     [CC_Share getInstance].ccDebug=1;

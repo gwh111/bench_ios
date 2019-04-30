@@ -122,6 +122,9 @@ static dispatch_once_t onceToken;
     }
     model.serviceStr=paramsDic[@"service"];
     model.headerEncrypt=_headerEncrypt;//设置这次请求是否为加密请求
+    if (model.forbiddenEncrypt) {
+        model.headerEncrypt=NO;
+    }
     
     CC_HttpTask *executorDelegate = [[CC_HttpTask alloc] init];
     executorDelegate.finishCallbackBlock = block; // 绑定执行完成时的block
@@ -179,7 +182,7 @@ static dispatch_once_t onceToken;
     model.requestDic=paramsDic;
     
     NSString *paraString;
-    if (_headerEncrypt) {
+    if (_headerEncrypt==YES&&model.forbiddenEncrypt==NO) {
         if ([_encryptDomain isEqualToString:tempUrl.absoluteString]) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"
@@ -249,7 +252,7 @@ static dispatch_once_t onceToken;
             [model parsingResult:resultStr];
             model.networkError=nil;
             
-            if (blockSelf->_headerEncrypt) {
+            if (blockSelf->_headerEncrypt==YES&&model.forbiddenEncrypt==NO) {
                 if ([blockSelf.encryptDomain isEqualToString:tempUrl.absoluteString]) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"
