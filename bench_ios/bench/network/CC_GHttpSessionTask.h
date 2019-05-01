@@ -161,6 +161,11 @@
 @property(nonatomic,retain) NSString *static_configureUrl;
 
 /**
+ *  初始化一些静态变量
+ */
+- (void)initBase;
+
+/**
  *  重写requestHTTPHeaderFieldDic的set和get
  *  类型可以为NSDictionary or NSMutableDictionary
  */

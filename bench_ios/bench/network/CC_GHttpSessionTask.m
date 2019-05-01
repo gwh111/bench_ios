@@ -188,17 +188,20 @@ static dispatch_once_t onceToken;
 #pragma clang diagnostic ignored "-Wundeclared-selector"
             Class clazz = NSClassFromString(@"CC_HttpEncryption");
             
-            NSString *ciphertext=[clazz performSelector:@selector(getCiphertext:) withObject:paramsDic];
+            NSString *ciphertext=[clazz performSelector:@selector(getCiphertext:httpTask:) withObject:paramsDic withObject:self];
             paramsDic=@{@"ciphertext":ciphertext};
 #pragma clang diagnostic pop
         }
     }
-    
-    paraString=[CC_FormatDic getSignFormatStringWithDic:paramsDic andMD5Key:_signKeyStr];
+    if (_headerEncrypt&&model.forbiddenEncrypt==NO) {
+        paraString=[CC_FormatDic getSignFormatStringWithDic:paramsDic andMD5Key:nil];
+    }else{
+        paraString=[CC_FormatDic getSignFormatStringWithDic:paramsDic andMD5Key:_signKeyStr];
+    }
     
     NSURLRequest *urlReq;
     if (type==0) {
-        urlReq=[self postRequestWithUrl:tempUrl andParamters:paraString];
+        urlReq=[self postRequestWithUrl:tempUrl andParamters:paraString model:model];
     }else{
         urlReq=[self getRequestWithUrl:tempUrl andParamters:paraString];
     }
@@ -267,7 +270,7 @@ static dispatch_once_t onceToken;
             }
         }
         dispatch_sync(dispatch_get_main_queue(), ^{
-
+            
             if (model.resultDic) {
                 if (blockSelf->_headerEncrypt) {
                     CCLOG(@"%@",model.requestDic);
@@ -278,8 +281,8 @@ static dispatch_once_t onceToken;
             }
             
             if (model.debug) {
-//                NSString *timeStamp = [NSString stringWithFormat:@"%0.f",[[NSDate date] timeIntervalSince1970]];
-//                model.responseLocalDate = timeStamp;
+                //                NSString *timeStamp = [NSString stringWithFormat:@"%0.f",[[NSDate date] timeIntervalSince1970]];
+                //                model.responseLocalDate = timeStamp;
                 model.responseLocalDate = [NSDate date];
                 [[CCReqRecord getInstance]insertRequestDataWithHHSService:paramsDic[@"service"] requestUrl:tempUrl.absoluteString parameters:paraString resModelDic:[model getClassKVDic]];
             }
@@ -337,11 +340,15 @@ static dispatch_once_t onceToken;
 }
 
 - (NSMutableURLRequest *)postRequestWithUrl:(NSURL *)url andParamters:(NSString *)paramsString{
-    return [self requestWithUrl:url andParamters:paramsString andType:0];
+    return [self requestWithUrl:url andParamters:paramsString andType:0 model:nil];
+}
+
+- (NSMutableURLRequest *)postRequestWithUrl:(NSURL *)url andParamters:(NSString *)paramsString model:(ResModel *)model{
+    return [self requestWithUrl:url andParamters:paramsString andType:0 model:model];
 }
 
 - (NSMutableURLRequest *)getRequestWithUrl:(NSURL *)url andParamters:(NSString *)paramsString{
-    return [self requestWithUrl:url andParamters:paramsString andType:1];
+    return [self requestWithUrl:url andParamters:paramsString andType:1 model:nil];
 }
 
 #pragma mark 加密必须添加 CC_HttpEncryption文件
@@ -350,7 +357,7 @@ static dispatch_once_t onceToken;
 }
 
 //创建request
-- (NSMutableURLRequest *)requestWithUrl:(NSURL *)url andParamters:(NSString *)paramsString andType:(int)type{
+- (NSMutableURLRequest *)requestWithUrl:(NSURL *)url andParamters:(NSString *)paramsString andType:(int)type model:(ResModel *)model{
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]init];
     request.URL=url;
@@ -362,8 +369,10 @@ static dispatch_once_t onceToken;
     [request setHTTPMethod:types[type]];
     [request setTimeoutInterval:_httpTimeoutInterval];
     
-    if (_headerEncrypt) {
-        [request setValue:[NSString stringWithFormat:@"%d",_headerEncrypt] forHTTPHeaderField:@"encrypt"];
+    if (model.forbiddenEncrypt==NO) {
+        if (_headerEncrypt) {
+            [request setValue:[NSString stringWithFormat:@"%d",_headerEncrypt] forHTTPHeaderField:@"encrypt"];
+        }
     }
     
     if (!_requestHTTPHeaderFieldDic) {
@@ -461,7 +470,9 @@ static dispatch_once_t onceToken;
 
 - (void)getDomainNoCache:(NSString *)urlStr block:(void (^)(ResModel *result))block{
     __block CC_HttpTask *blockSelf=self;
-    [[CC_HttpTask getInstance]get:urlStr params:nil model:nil finishCallbackBlock:^(NSString *error, ResModel *result) {
+    ResModel *model=[[ResModel alloc]init];
+    model.forbiddenEncrypt=YES;
+    [[CC_HttpTask getInstance]get:urlStr params:nil model:model finishCallbackBlock:^(NSString *error, ResModel *result) {
         if (error) {
             blockSelf.domainReqListNoCacheIndex++;
             if (blockSelf.domainReqListNoCacheIndex>=blockSelf.domainReqListNoCache.count) {
@@ -507,7 +518,9 @@ static dispatch_once_t onceToken;
     }
     
     __block CC_HttpTask *blockSelf=self;
-    [[CC_HttpTask getInstance]get:urlStr params:nil model:nil finishCallbackBlock:^(NSString *error, ResModel *result) {
+    ResModel *model=[[ResModel alloc]init];
+    model.forbiddenEncrypt=YES;
+    [[CC_HttpTask getInstance]get:urlStr params:nil model:model finishCallbackBlock:^(NSString *error, ResModel *result) {
         if (error) {
             [ccs delay:5 block:^{
                 if (blockSelf.hasSuccessGetDomain==0) {
