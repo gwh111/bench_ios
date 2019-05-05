@@ -135,7 +135,7 @@ static dispatch_once_t onceToken;
     if ([paramsDic isKindOfClass:[NSDictionary class]]) {
         paramsDic=[[NSMutableDictionary alloc]initWithDictionary:paramsDic];
     }
-    if (_forbiddenTimestamp==0) {
+    if (_forbiddenTimestamp==NO||model.forbiddenEncrypt==YES) {
         if (!paramsDic[@"timestamp"]) {
             NSDate *datenow = [NSDate date];
             NSString *timeSp = [NSString stringWithFormat:@"%.0f", [datenow timeIntervalSince1970]*1000];
