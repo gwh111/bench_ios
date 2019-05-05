@@ -21,16 +21,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    CC_Button *button=[[CC_Button alloc]initWithFrame:CGRectMake(RH(10), RH(100), RH(100), RH(50))];
-    [button setBackgroundColor:COLOR_BLACK];
-    [self.view addSubview:button];
-    
-    [button addTappedOnceDelay:.1 withBlock:^(UIButton *button) {
-        
-        CC_WebVC *web=[[CC_WebVC alloc]init];
-        
-        [self.navigationController presentViewController:web animated:YES completion:nil];
-    }];
+    [CC_WebVC presentWeb:@"http://m.china.com.cn/"];
     
 }
 

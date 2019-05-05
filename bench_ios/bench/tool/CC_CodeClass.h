@@ -12,6 +12,11 @@
 @interface CC_Code : NSObject
 
 /**
+ *  获取根控制器
+ */
++ (UINavigationController *)getRootNav;
+
+/**
  *  获取当前控制器
  */
 + (UIViewController *)getCurrentVC;
