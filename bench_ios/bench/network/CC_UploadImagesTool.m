@@ -76,14 +76,12 @@ static dispatch_once_t onceToken;
     NSURLSession  *session = [NSURLSession sessionWithConfiguration:sessionConfig delegate:executorDelegate delegateQueue:nil];//子线程
     
     //组装参数
+    paramsDic = [[NSMutableDictionary alloc]initWithDictionary:paramsDic];
     if ([paramsDic isKindOfClass:[NSDictionary class]]) {
         paramsDic=[[NSMutableDictionary alloc]initWithDictionary:paramsDic];
     }
     if (![paramsDic objectForKey:@"service"]) {
         [paramsDic setObject:@"IMAGE_TEMP_UPLOAD" forKey:@"service"];
-    }
-    if (paramsDic == nil) {
-        paramsDic = [[NSMutableDictionary alloc]init];
     }
     if ([CC_HttpTask getInstance].extreDic) {
         NSArray *keys=[[CC_HttpTask getInstance].extreDic allKeys];
@@ -91,6 +89,16 @@ static dispatch_once_t onceToken;
             [paramsDic setObject:[CC_HttpTask getInstance].extreDic[keys[i]] forKey:keys[i]];
         }
     }
+    
+    NSDate *datenow = [NSDate date];
+    NSString *timeSp = [NSString stringWithFormat:@"%.0f", [datenow timeIntervalSince1970]*1000];
+    [paramsDic setObject:timeSp forKey:@"timestamp"];
+    
+    NSString *paraString=[CC_FormatDic getSignFormatStringWithDic:paramsDic andMD5Key:[CC_HttpTask getInstance].signKeyStr];
+    NSMutableURLRequest *urlReq=[[CC_HttpTask getInstance] postRequestWithUrl:tempUrl andParamters:paraString];
+    
+    NSString *signStr = [CC_FormatDic getSignValueWithDic:paramsDic andMD5Key:[CC_HttpTask getInstance].signKeyStr];
+    [paramsDic setObject:signStr forKey:@"sign"];
     
     //图片请求结果
     __block NSMutableArray* resModelResultArr = [[NSMutableArray alloc]init];
@@ -101,13 +109,6 @@ static dispatch_once_t onceToken;
     dispatch_group_t dispatchGroup = dispatch_group_create();
     
     for (int i = 0; i < images.count; i++) {
-        
-        NSDate *datenow = [NSDate date];
-        NSString *timeSp = [NSString stringWithFormat:@"%.0f", [datenow timeIntervalSince1970]*1000+i];
-        [paramsDic setObject:timeSp forKey:@"timestamp"];
-        
-        NSString *paraString=[CC_FormatDic getSignFormatStringWithDic:paramsDic andMD5Key:[CC_HttpTask getInstance].signKeyStr];
-        NSMutableURLRequest *urlReq=[[CC_HttpTask getInstance] postRequestWithUrl:tempUrl andParamters:paraString];
         
         ResModel* model=[[ResModel alloc]init];
         model.serviceStr=paramsDic[@"service"];
@@ -121,7 +122,7 @@ static dispatch_once_t onceToken;
         
         dispatch_group_async(dispatchGroup, dispatchQueue, ^(){
             dispatch_group_enter(dispatchGroup);
-            NSURLRequest* request = [self recaculateImageDatas:images[i] paramsDic:[CC_UploadImagesTool appendSign:paramsDic] request:urlReq];
+            NSURLRequest* request = [self recaculateImageDatas:images[i] paramsDic:paramsDic request:urlReq];
             
             [self requestSingleImageWithSession:session executorDelegate:executorDelegate request:request index:i+1 reConnectTimes:times model:model finishBlock:^(NSString *error, ResModel *resModel) {
                 if (error) {
@@ -238,22 +239,6 @@ static dispatch_once_t onceToken;
     [urlReq setHTTPBody:myRequestData];
     
     return urlReq;
-}
-
-//把所要传的参数加上签名keyvalue xxx=xxx&xxx=xxx&... 转成字典
-+(NSDictionary*)appendSign:(NSMutableDictionary*)muaDic{
-    
-    NSString* signStr = [CC_FormatDic getSignValueWithDic:muaDic andMD5Key:[CC_HttpTask getInstance].signKeyStr];
-    //    NSArray* arr = [signStr componentsSeparatedByString:@"&"];
-    //    for (NSString* KV in arr) {
-    //        NSArray* KVArr = [KV componentsSeparatedByString:@"="];
-    //        if (KVArr.count != 2) {
-    //            continue;
-    //        }
-    //        [muaDic setObject:KVArr.lastObject forKey:KVArr.firstObject];
-    //    }
-    [muaDic safeSetObject:signStr forKey:@"sign"];
-    return [muaDic copy];
 }
 
 +(NSData *)compressWithMaxLength:(NSUInteger)maxLength image:(UIImage*)image{

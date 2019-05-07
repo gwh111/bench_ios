@@ -269,39 +269,42 @@ static dispatch_once_t onceToken;
                 }
             }
         }
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            
-            if (model.resultDic) {
-                if (blockSelf->_headerEncrypt) {
-                    CCLOG(@"%@",model.requestDic);
-                }
-                CCLOG(@"%@\n%@",model.requestStr,[[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:model.resultDic options:NSJSONWritingPrettyPrinted error:nil] encoding:NSUTF8StringEncoding]);
-            }else{
-                CCLOG(@"%@\n%@",model.requestStr,model.resultStr);
+        
+        if (model.resultDic) {
+            if (blockSelf->_headerEncrypt) {
+                CCLOG(@"%@",model.requestDic);
             }
-            
-            if (model.debug) {
-                //                NSString *timeStamp = [NSString stringWithFormat:@"%0.f",[[NSDate date] timeIntervalSince1970]];
-                //                model.responseLocalDate = timeStamp;
-                model.responseLocalDate = [NSDate date];
-                [[CCReqRecord getInstance]insertRequestDataWithHHSService:paramsDic[@"service"] requestUrl:tempUrl.absoluteString parameters:paraString resModelDic:[model getClassKVDic]];
-            }
-            
-            NSArray *keyNames=[blockSelf.logicBlockMutDic allKeys];
-            for (NSString *name in keyNames) {
-                CC_ResLModel *logicModel=blockSelf.logicBlockMutDic[name];
-                if (logicModel.logicPathArr.count>0) {
-                    [blockSelf reponseLogicPassed:logicModel result:model.resultDic index:0];
-                    //使用更新后的数据
-                    CC_ResLModel *newModel=blockSelf.logicBlockMutDic[logicModel.logicNameStr];
-                    if (newModel.logicPassed) {
+            CCLOG(@"%@\n%@",model.requestStr,[[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:model.resultDic options:NSJSONWritingPrettyPrinted error:nil] encoding:NSUTF8StringEncoding]);
+        }else{
+            CCLOG(@"%@\n%@",model.requestStr,model.resultStr);
+        }
+        
+        if (model.debug) {
+            //                NSString *timeStamp = [NSString stringWithFormat:@"%0.f",[[NSDate date] timeIntervalSince1970]];
+            //                model.responseLocalDate = timeStamp;
+            model.responseLocalDate = [NSDate date];
+            [[CCReqRecord getInstance]insertRequestDataWithHHSService:paramsDic[@"service"] requestUrl:tempUrl.absoluteString parameters:paraString resModelDic:[model getClassKVDic]];
+        }
+        
+        NSArray *keyNames=[blockSelf.logicBlockMutDic allKeys];
+        for (NSString *name in keyNames) {
+            CC_ResLModel *logicModel=blockSelf.logicBlockMutDic[name];
+            if (logicModel.logicPathArr.count>0) {
+                [blockSelf reponseLogicPassed:logicModel result:model.resultDic index:0];
+                //使用更新后的数据
+                CC_ResLModel *newModel=blockSelf.logicBlockMutDic[logicModel.logicNameStr];
+                if (newModel.logicPassed) {
+                    dispatch_sync(dispatch_get_main_queue(), ^{
                         newModel.logicBlock(model,block);
-                        if (newModel.logicPassStop) {
-                            return ;
-                        }
+                    });
+                    if (newModel.logicPassStop) {
+                        return ;
                     }
                 }
             }
+        }
+        
+        dispatch_sync(dispatch_get_main_queue(), ^{
             
             executorDelegate.finishCallbackBlock(model.errorMsgStr, model);
         });
