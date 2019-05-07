@@ -85,22 +85,12 @@ static dispatch_once_t onceToken;
     if (paramsDic == nil) {
         paramsDic = [[NSMutableDictionary alloc]init];
     }
-    if ([CC_HttpTask getInstance].forbiddenTimestamp==0) {
-        if (!paramsDic[@"timestamp"]) {
-            NSDate *datenow = [NSDate date];
-            NSString *timeSp = [NSString stringWithFormat:@"%.0f", [datenow timeIntervalSince1970]*1000];
-            [paramsDic setObject:timeSp forKey:@"timestamp"];
-        }
-    }
     if ([CC_HttpTask getInstance].extreDic) {
         NSArray *keys=[[CC_HttpTask getInstance].extreDic allKeys];
         for (int i=0; i<keys.count; i++) {
             [paramsDic setObject:[CC_HttpTask getInstance].extreDic[keys[i]] forKey:keys[i]];
         }
     }
-    
-    NSString *paraString=[CC_FormatDic getSignFormatStringWithDic:paramsDic andMD5Key:[CC_HttpTask getInstance].signKeyStr];
-    NSMutableURLRequest *urlReq=[[CC_HttpTask getInstance] postRequestWithUrl:tempUrl andParamters:paraString];
     
     //图片请求结果
     __block NSMutableArray* resModelResultArr = [[NSMutableArray alloc]init];
@@ -111,6 +101,13 @@ static dispatch_once_t onceToken;
     dispatch_group_t dispatchGroup = dispatch_group_create();
     
     for (int i = 0; i < images.count; i++) {
+        
+        NSDate *datenow = [NSDate date];
+        NSString *timeSp = [NSString stringWithFormat:@"%.0f", [datenow timeIntervalSince1970]*1000+i];
+        [paramsDic setObject:timeSp forKey:@"timestamp"];
+        
+        NSString *paraString=[CC_FormatDic getSignFormatStringWithDic:paramsDic andMD5Key:[CC_HttpTask getInstance].signKeyStr];
+        NSMutableURLRequest *urlReq=[[CC_HttpTask getInstance] postRequestWithUrl:tempUrl andParamters:paraString];
         
         ResModel* model=[[ResModel alloc]init];
         model.serviceStr=paramsDic[@"service"];
@@ -247,14 +244,14 @@ static dispatch_once_t onceToken;
 +(NSDictionary*)appendSign:(NSMutableDictionary*)muaDic{
     
     NSString* signStr = [CC_FormatDic getSignValueWithDic:muaDic andMD5Key:[CC_HttpTask getInstance].signKeyStr];
-//    NSArray* arr = [signStr componentsSeparatedByString:@"&"];
-//    for (NSString* KV in arr) {
-//        NSArray* KVArr = [KV componentsSeparatedByString:@"="];
-//        if (KVArr.count != 2) {
-//            continue;
-//        }
-//        [muaDic setObject:KVArr.lastObject forKey:KVArr.firstObject];
-//    }
+    //    NSArray* arr = [signStr componentsSeparatedByString:@"&"];
+    //    for (NSString* KV in arr) {
+    //        NSArray* KVArr = [KV componentsSeparatedByString:@"="];
+    //        if (KVArr.count != 2) {
+    //            continue;
+    //        }
+    //        [muaDic setObject:KVArr.lastObject forKey:KVArr.firstObject];
+    //    }
     [muaDic safeSetObject:signStr forKey:@"sign"];
     return [muaDic copy];
 }
