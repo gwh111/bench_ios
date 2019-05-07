@@ -369,7 +369,7 @@ static dispatch_once_t onceToken;
     [request setHTTPMethod:types[type]];
     [request setTimeoutInterval:_httpTimeoutInterval];
     
-    if (model.forbiddenEncrypt==NO) {
+    if (model&&model.forbiddenEncrypt==NO) {
         if (_headerEncrypt) {
             [request setValue:[NSString stringWithFormat:@"%d",_headerEncrypt] forHTTPHeaderField:@"encrypt"];
         }

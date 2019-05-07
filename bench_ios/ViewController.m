@@ -90,7 +90,7 @@
     
     testList=[ccs getPlistDic:@"testList"][@"list"];
     
-    UITableView *tab=[[UITableView alloc]initWithFrame:CGRectMake(0, self.view.height/2, self.view.width, self.view.height/2)];
+    UITableView *tab=[[UITableView alloc]initWithFrame:CGRectMake(0, [ccui getY]+RH(50), self.view.width, self.view.height-[ccui getY]-RH(50))];
     [self.view addSubview:tab];
     tab.delegate=self;
     tab.dataSource=self;

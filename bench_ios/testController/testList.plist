@@ -54,6 +54,12 @@
 		</dict>
 		<dict>
 			<key>title</key>
+			<string>绘制</string>
+			<key>className</key>
+			<string>testDrawVC</string>
+		</dict>
+		<dict>
+			<key>title</key>
 			<string>临时测试</string>
 			<key>className</key>
 			<string>testTempVC</string>

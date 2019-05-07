@@ -10,7 +10,7 @@
 
 @implementation CC_Image
 
-+(UIImage *)scaleImage:(UIImage *)image toKb:(NSInteger)kb{
++ (UIImage *)scaleImage:(UIImage *)image toKb:(NSInteger)kb{
     
     if (!image) {
         return image;
