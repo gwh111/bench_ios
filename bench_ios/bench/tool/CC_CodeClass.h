@@ -58,6 +58,12 @@
 @interface CC_Convert : NSObject
 
 /**
+ *  度和弧度的转化
+ */
++ (float)huDuTodu:(float)du;
++ (float)duToHuDu:(float)huDu;
+
+/**
  *  URL编码 转换!*'();:@&=+$,/?%#[]
  */
 + (NSString *)encodeUrlParameter:(NSString *)originalPara;

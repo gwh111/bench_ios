@@ -95,7 +95,7 @@ static dispatch_once_t onceToken;
     [paramsDic setObject:timeSp forKey:@"timestamp"];
     
     NSString *paraString=[CC_FormatDic getSignFormatStringWithDic:paramsDic andMD5Key:[CC_HttpTask getInstance].signKeyStr];
-    NSMutableURLRequest *urlReq=[[CC_HttpTask getInstance] postRequestWithUrl:tempUrl andParamters:paraString];
+    NSMutableURLRequest *urlReq=[[CC_HttpTask getInstance] requestWithUrl_post:tempUrl andParamters:paraString];
     
     NSString *signStr = [CC_FormatDic getSignValueWithDic:paramsDic andMD5Key:[CC_HttpTask getInstance].signKeyStr];
     [paramsDic setObject:signStr forKey:@"sign"];

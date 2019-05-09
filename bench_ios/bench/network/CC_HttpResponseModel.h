@@ -90,6 +90,11 @@
  */
 @property(nonatomic,assign) BOOL forbiddenEncrypt;
 
+/**
+ *  响应数据不一定是json格式，如果YES，对不是json的数据不报错
+ */
+@property(nonatomic,assign) BOOL forbiddenJSONParseError;
+
 - (void)parsingError:(NSError *)error;
 - (void)parsingResult:(NSString *)resultStr;
 

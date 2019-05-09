@@ -21,6 +21,46 @@ static dispatch_once_t onceToken;
     return userManager;
 }
 
++ (void)getUpdate{
+    NSString *currentVersion=@"1.3.91";
+    //@"http://bench-ios.oss-cn-shanghai.aliyuncs.com/bench.json"
+    NSString *bench_ios_update=[ccs getDefault:@"bench_ios_update"];
+    if (bench_ios_update) {
+        if ([CC_Logic compareV1:bench_ios_update cutV2:currentVersion]>0) {
+            CCLOG(@"bench_ios需要更新%@",bench_ios_update);
+            [ccs delay:3 block:^{
+                [CC_Notice show:ccstr(@"bench_ios需要更新到v%@",bench_ios_update)];
+            }];
+        }
+        return;
+    }
+    CC_HttpTask *tempTask=[[CC_HttpTask alloc]init];
+    tempTask.httpTimeoutInterval=3;
+    ResModel *model=[[ResModel alloc]init];
+    model.forbiddenJSONParseError=YES;
+    [tempTask get:@"http://d.net/" params:nil model:model finishCallbackBlock:^(NSString *error, ResModel *result) {
+        if ([[NSString stringWithFormat:@"%@",result.resultStr] containsString:@"http://d.net"]){
+            
+            [tempTask get:@"http://bench-ios.oss-cn-shanghai.aliyuncs.com/bench.json" params:nil model:nil finishCallbackBlock:^(NSString *error, ResModel *result) {
+                if (error) {
+                    return ;
+                }
+                NSString *version=result.resultDic[@"version"];
+                if ([CC_Logic compareV1:version cutV2:currentVersion]>0) {
+                    CCLOG(@"bench_ios需要更新%@",version);
+                    [ccs delay:3 block:^{
+                        [CC_Notice show:ccstr(@"bench_ios需要更新到v%@",version)];
+                    }];
+                }
+                [ccs saveDefaultKey:@"bench_ios_update" andV:version];
+            }];
+        }else{
+            [ccs saveDefaultKey:@"bench_ios_update" andV:currentVersion];
+        }
+    }];
+    
+}
+
 @end
 
 @implementation ccs

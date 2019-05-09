@@ -28,6 +28,9 @@ static dispatch_once_t onceToken;
 }
 
 - (void)initUIDemoWidth:(float)width andHeight:(float)height{
+    
+    [CC_Share getUpdate];
+    
     _uiDemoWidth=width;
     _uiDemoHeight=height;
     

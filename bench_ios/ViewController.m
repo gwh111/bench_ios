@@ -80,7 +80,6 @@
     self.view.backgroundColor=COLOR_WHITE;
     
     int isj=[CC_Validate isJailBreak];
-    
 #if DEBUG
     [CC_Share getInstance].ccDebug=1;
     [CC_FloatWindow addWindowOnTarget:self];
@@ -95,8 +94,6 @@
     tab.delegate=self;
     tab.dataSource=self;
     tab.backgroundColor=[UIColor whiteColor];
-    
-    
     // Do any additional setup after loading the view, typically from a nib.
 }
 

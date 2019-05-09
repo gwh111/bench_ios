@@ -184,13 +184,19 @@
  */
 - (void)setEncrypt:(BOOL)encrypt;
 
+//paramsDic的关键字 增加 getDate 可以获取时间
 /**
- * url NSString 或者 NSURL
- * paramsDic的关键字
- * getDate 可以获取时间
+ *  post 请求
  */
-- (void)post:(id)url params:(id)paramsDic model:(ResModel *)model finishCallbackBlock:(void (^)(NSString *, ResModel *))block;
-- (void)get:(id)url params:(id)paramsDic model:(ResModel *)model finishCallbackBlock:(void (^)(NSString *, ResModel *))block;
+- (void)post:(id)url params:(id)paramsDic model:(ResModel *)model finishCallbackBlock:(void (^)(NSString *error, ResModel *result))block;
+/**
+ *  get 请求
+ */
+- (void)get:(id)url params:(id)paramsDic model:(ResModel *)model finishCallbackBlock:(void (^)(NSString *error, ResModel *result))block;
+/**
+ *  构建request请求
+ */
+- (void)sendRequest:(NSURLRequest *)request model:(ResModel *)model finishCallbackBlock:(void (^)(NSString *error, ResModel *result))block;
 
 /**
  *  设置通用响应结果特殊处理回调逻辑
@@ -270,9 +276,9 @@
  拼接URLRequest
 
  @param url url
- @param paramsString paramsString description
+ @param paramsStr paramsString description
  @return NSMutableURLRequest
  */
-- (NSMutableURLRequest *)postRequestWithUrl:(NSURL *)url andParamters:(NSString *)paramsString;
+- (NSMutableURLRequest *)requestWithUrl_post:(NSURL *)url andParamters:(NSString *)paramsStr;
 
 @end

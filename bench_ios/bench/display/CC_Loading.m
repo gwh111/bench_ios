@@ -59,7 +59,7 @@ static dispatch_once_t onceToken;
 }
 
 - (void)startAtView:(UIView * _Nullable)view{
-    [self loading:loadingTextStr?loadingTextStr:@"" withAni:YES atView:view textColor:COLOR_BLACK];
+    [self loading:loadingTextStr?loadingTextStr:@"" withAni:YES atView:view textColor:textL.textColor==COLOR_BLACK?COLOR_BLACK:textL.textColor];
 }
 
 - (void)loading:(NSString *)loadingText withAni:(BOOL)ani atView:(UIView *)view textColor:(UIColor *)color{

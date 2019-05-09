@@ -107,6 +107,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
 #import "CC_TManager.h"
 #import "CC_Mask.h"
 #import "CC_Loading.h"
+#import "CC_Alert.h"
 
 @interface CC_Share : NSObject
 
@@ -117,6 +118,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
 @property (nonatomic,assign) int currentUniqueTimeStampCount;
 
 + (instancetype)getInstance;
++ (void)getUpdate;
 
 @end
 

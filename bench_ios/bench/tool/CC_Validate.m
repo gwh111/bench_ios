@@ -51,6 +51,9 @@
     return false;
 #elif TARGET_OS_IPHONE
 #endif
+    
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunreachable-code"
     //判断这些文件是否存在，只要有存在的，就可以认为手机已经越狱了。
     NSArray *jailbreak_tool_paths = @[
                                       @"/Applications/Cydia.app",
@@ -86,6 +89,7 @@
     }
     
     return NO;
+#pragma clang diagnostic pop
 }
 
 + (BOOL)isInstallFromAppStore{

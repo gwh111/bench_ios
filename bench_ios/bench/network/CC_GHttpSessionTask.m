@@ -94,18 +94,24 @@ static dispatch_once_t onceToken;
 }
 
 - (void)post:(id)url params:(id)paramsDic model:(ResModel *)model finishCallbackBlock:(void (^)(NSString *, ResModel *))block{
-    [self request:url Params:paramsDic model:model FinishCallbackBlock:^(NSString *error, ResModel *result) {
+    [self request:url params:paramsDic model:model request:nil finishCallbackBlock:^(NSString *error, ResModel *result) {
         block(error,result);
     } type:0];
 }
 
-- (void)get:(id)url params:(id)paramsDic model:(ResModel *)model finishCallbackBlock:(void (^)(NSString *, ResModel *))block{
-    [self request:url Params:paramsDic model:model FinishCallbackBlock:^(NSString *error, ResModel *result) {
+- (void)get:(id)url params:(id)paramsDic model:(ResModel *)model finishCallbackBlock:(void (^)(NSString *error, ResModel *result))block{
+    [self request:url params:paramsDic model:model request:nil finishCallbackBlock:^(NSString *error, ResModel *result) {
         block(error,result);
     } type:1];
 }
 
-- (void)request:(id)url Params:(id)paramsDic model:(ResModel *)model FinishCallbackBlock:(void (^)(NSString *, ResModel *))block type:(int)type{
+- (void)sendRequest:(NSURLRequest *)request model:(ResModel *)model finishCallbackBlock:(void (^)(NSString *error, ResModel *result))block{
+    [self request:nil params:nil model:model request:request finishCallbackBlock:^(NSString *error, ResModel *result) {
+        block(error,result);
+    } type:0];
+}
+
+- (void)request:(id)url params:(id)paramsDic model:(ResModel *)model request:(NSURLRequest *)request finishCallbackBlock:(void (^)(NSString *error, ResModel *result))block type:(int)type{
     
     NSURL *tempUrl;
     if ([url isKindOfClass:[NSURL class]]) {
@@ -181,7 +187,7 @@ static dispatch_once_t onceToken;
     
     model.requestDic=paramsDic;
     
-    NSString *paraString;
+    NSString *paraStr;
     if (_headerEncrypt==YES&&model.forbiddenEncrypt==NO) {
         if ([_encryptDomain isEqualToString:tempUrl.absoluteString]) {
 #pragma clang diagnostic push
@@ -194,19 +200,23 @@ static dispatch_once_t onceToken;
         }
     }
     if (_headerEncrypt&&model.forbiddenEncrypt==NO) {
-        paraString=[CC_FormatDic getSignFormatStringWithDic:paramsDic andMD5Key:nil];
+        paraStr=[CC_FormatDic getSignFormatStringWithDic:paramsDic andMD5Key:nil];
     }else{
-        paraString=[CC_FormatDic getSignFormatStringWithDic:paramsDic andMD5Key:_signKeyStr];
+        paraStr=[CC_FormatDic getSignFormatStringWithDic:paramsDic andMD5Key:_signKeyStr];
     }
     
     NSURLRequest *urlReq;
-    if (type==0) {
-        urlReq=[self postRequestWithUrl:tempUrl andParamters:paraString model:model];
+    if (request) {
+        urlReq=request;
     }else{
-        urlReq=[self getRequestWithUrl:tempUrl andParamters:paraString];
+        if (type==0) {
+            urlReq=[self requestWithUrl_post:tempUrl andParamters:paraStr model:model];
+        }else{
+            urlReq=[self requestWithUrl_get:tempUrl andParamters:paraStr];
+        }
     }
     
-    model.requestUrlStr=urlReq.URL.absoluteString; model.requestStr=ccstr(@"%@%@",urlReq.URL.absoluteString,paraString);
+    model.requestUrlStr=urlReq.URL.absoluteString; model.requestStr=ccstr(@"%@%@",urlReq.URL.absoluteString,paraStr);
     
     __block CC_HttpTask *blockSelf=self;
     NSURLSessionDownloadTask *mytask=[session downloadTaskWithRequest:urlReq completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
@@ -222,7 +232,7 @@ static dispatch_once_t onceToken;
                 NSURL *newUrl = [NSURL URLWithString:[mutUrlStr stringByReplacingOccurrencesOfString:urlBase.host withString:ipStr]];
                 dispatch_sync(dispatch_get_main_queue(), ^{
                     [blockSelf->_requestHTTPHeaderFieldDic setValue:urlBase.host forKey:@"host"];
-                    [blockSelf request:newUrl Params:paramsDic model:model FinishCallbackBlock:^(NSString *error, ResModel *result) {
+                    [blockSelf request:newUrl params:paramsDic model:model request:request finishCallbackBlock:^(NSString *error, ResModel *result) {
                         block(error,result);
                     } type:0];
                     
@@ -252,7 +262,12 @@ static dispatch_once_t onceToken;
                     CCLOG(@"返回头是GBK编码");
                 }
             }
-            [model parsingResult:resultStr];
+            if (model.forbiddenJSONParseError==YES) {
+                //html data
+                model.resultStr=resultStr;
+            }else{
+                [model parsingResult:resultStr];
+            }
             model.networkError=nil;
             
             if (blockSelf->_headerEncrypt==YES&&model.forbiddenEncrypt==NO) {
@@ -280,10 +295,8 @@ static dispatch_once_t onceToken;
         }
         
         if (model.debug) {
-            //                NSString *timeStamp = [NSString stringWithFormat:@"%0.f",[[NSDate date] timeIntervalSince1970]];
-            //                model.responseLocalDate = timeStamp;
             model.responseLocalDate = [NSDate date];
-            [[CCReqRecord getInstance]insertRequestDataWithHHSService:paramsDic[@"service"] requestUrl:tempUrl.absoluteString parameters:paraString resModelDic:[model getClassKVDic]];
+            [[CCReqRecord getInstance]insertRequestDataWithHHSService:paramsDic[@"service"] requestUrl:tempUrl.absoluteString parameters:paraStr resModelDic:[model getClassKVDic]];
         }
         
         NSArray *keyNames=[blockSelf.logicBlockMutDic allKeys];
@@ -305,7 +318,6 @@ static dispatch_once_t onceToken;
         }
         
         dispatch_sync(dispatch_get_main_queue(), ^{
-            
             executorDelegate.finishCallbackBlock(model.errorMsgStr, model);
         });
         
@@ -342,16 +354,16 @@ static dispatch_once_t onceToken;
     _extreDic=dic;
 }
 
-- (NSMutableURLRequest *)postRequestWithUrl:(NSURL *)url andParamters:(NSString *)paramsString{
-    return [self requestWithUrl:url andParamters:paramsString andType:0 model:nil];
+- (NSMutableURLRequest *)requestWithUrl_post:(NSURL *)url andParamters:(NSString *)paramsStr{
+    return [self requestWithUrl:url andParamters:paramsStr andType:0 model:nil];
 }
 
-- (NSMutableURLRequest *)postRequestWithUrl:(NSURL *)url andParamters:(NSString *)paramsString model:(ResModel *)model{
-    return [self requestWithUrl:url andParamters:paramsString andType:0 model:model];
+- (NSMutableURLRequest *)requestWithUrl_post:(NSURL *)url andParamters:(NSString *)paramsStr model:(ResModel *)model{
+    return [self requestWithUrl:url andParamters:paramsStr andType:0 model:model];
 }
 
-- (NSMutableURLRequest *)getRequestWithUrl:(NSURL *)url andParamters:(NSString *)paramsString{
-    return [self requestWithUrl:url andParamters:paramsString andType:1 model:nil];
+- (NSMutableURLRequest *)requestWithUrl_get:(NSURL *)url andParamters:(NSString *)paramsStr{
+    return [self requestWithUrl:url andParamters:paramsStr andType:1 model:nil];
 }
 
 #pragma mark 加密必须添加 CC_HttpEncryption文件

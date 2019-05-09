@@ -113,6 +113,17 @@
 
 @implementation CC_Convert
 
++ (float)duToHuDu:(float)du{
+    if (du==0) {
+        return 0;
+    }
+    return M_PI/(180/du);
+}
+
++ (float)huDuTodu:(float)huDu{
+    return huDu*180/M_PI;
+}
+
 + (NSString *)encodeUrlParameter:(NSString *)originalPara{
     CFStringRef encodeParaCf = CFURLCreateStringByAddingPercentEscapes(NULL, (__bridge CFStringRef)originalPara, NULL, CFSTR("!*'();:@&=+$,/?%#[]"), kCFStringEncodingUTF8);
     NSString *encodePara = (__bridge NSString *)(encodeParaCf);
