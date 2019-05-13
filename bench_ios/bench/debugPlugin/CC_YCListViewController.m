@@ -133,8 +133,7 @@
 -(NSMutableArray *)dataArray {
     
     if (!_dataArray) {
-//        _dataArray = @[@"requestRecord",@"fps-monitor",@"功能待添加"].mutableCopy;
-        NSString *path = [[NSBundle mainBundle] pathForResource:@"debug_function" ofType:@"plist"];
+        NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"debug_function" ofType:@"plist"];
         _dataArray = [NSArray arrayWithContentsOfFile:path].mutableCopy;
     }
     return _dataArray;
