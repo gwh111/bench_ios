@@ -23,12 +23,13 @@
     
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithRed:230/255.0 green:230/255.0 blue:230/255.0 alpha:1.0];
-//    self.resultTV.text = [self stringFromDic:self.resultDic[@"resultDic"]];
 
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc]init];
     paragraphStyle.lineBreakMode = NSLineBreakByCharWrapping;
     NSDictionary *attributes = @{NSParagraphStyleAttributeName:paragraphStyle};
     self.resultTV.attributedText = [[NSAttributedString alloc]initWithString:[self stringFromDic:self.resultDic] attributes:attributes];
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:self.backBtn];
 }
 
 - (void)backAction {
@@ -40,7 +41,7 @@
 -(YCTextView *)resultTV {
     
     if (!_resultTV) {
-        _resultTV = [[YCTextView alloc]initWithFrame:CGRectMake(10, 100, SelfWidth - 20, SelfHeight - 200)];
+        _resultTV = [[YCTextView alloc]initWithFrame:CGRectMake(10, 20, SelfWidth - 20, SelfHeight - 200)];
         _resultTV.editable = NO;
         [self.view addSubview:_resultTV];
         
@@ -53,7 +54,7 @@
     if (!_backBtn) {
         _backBtn = [[UIButton alloc]initWithFrame:CGRectMake(15, 30, 60, 40)];
         [_backBtn setTitle:@"back" forState:UIControlStateNormal];
-        [_backBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [_backBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
         [_backBtn addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
     }
     return _backBtn;
