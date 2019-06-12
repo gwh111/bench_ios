@@ -11,7 +11,18 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@interface CC_WebImgProgressView : UIView
+
+@property (nonatomic, assign) CGFloat progress;
+
+@end
+
 @interface UIView (CCWebImage)
+
+//是否展示进度条
+@property (nonatomic, assign) BOOL showProgressView;
+//进度条view
+@property (nonatomic, strong) CC_WebImgProgressView* progressV;
 
 #pragma mark - 设置图片操作
 
@@ -40,7 +51,15 @@ NS_ASSUME_NONNULL_BEGIN
  */
 -(void)cc_setImageWithURL:(NSURL*)url placeholderImage:(nullable UIImage *)placeholder processBlock:(nullable CC_WebImageProgressBlock)processBlock completed:(nullable CC_WebImageCompletionBlock)completedBlock;
 
-
+/**
+ 加载图片，带占位图，带进度条（扇形），带完成回调
+ 
+ @param url URL
+ @param placeholder 占位图
+ @param showProgressView 进度条是否展示
+ @param completedBlock 完成回调
+ */
+-(void)cc_setImageWithURL:(NSURL*)url placeholderImage:(nullable UIImage *)placeholder showProgressView:(BOOL)showProgressView completed:(nullable CC_WebImageCompletionBlock)completedBlock;
 
 #pragma mark - Operation操作
 

@@ -76,7 +76,6 @@
         }
     }];
     
-    
 }
 
 #pragma mark - setter/getter
@@ -136,7 +135,16 @@
         NSDictionary *dic = _dataArray[indexPath.row];
         NSURL *url = [NSURL URLWithString:dic[@"requestUrl"]];
         cell.domainLabel.text = url.host;
-        cell.paramsLabel.text = [NSString stringWithFormat:@"%@(%@)",dic[@"parameters"]?dic[@"parameters"]:@"no params",dic[@"requestUrl"]];
+        cell.paramsLabel.text = [NSString stringWithFormat:@"%@",dic[@"resultDic"][@"_serviceStr"]?dic[@"resultDic"][@"_serviceStr"] : @"not find serviceStr"];
+        cell.timeLabel.text = [NSString stringWithFormat:@"%@",dic[@"resultDic"][@"_responseLocalDate"]?dic[@"resultDic"][@"_responseLocalDate"]:@"no time record"];
+        __weak typeof(self)weakSelf = self;
+        cell.block = ^{
+            __strong typeof(self) strongSelf = weakSelf;
+            RequestRecordDetailViewController *detailVC = [[RequestRecordDetailViewController alloc]init];
+            NSDictionary *subDic = self.dataArray[indexPath.row];
+            detailVC.resultDic = subDic[@"resultDic"];
+            [strongSelf.navigationController pushViewController:detailVC animated:YES];
+        };
     }
     return cell;
     
@@ -144,18 +152,18 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    return 80;
+    return 100;
     
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    RequestRecordDetailViewController *detailVC = [[RequestRecordDetailViewController alloc]init];
-    NSDictionary *subDic = self.dataArray[indexPath.row];
-    detailVC.resultDic = subDic[@"resultDic"];
-    [self.navigationController pushViewController:detailVC animated:YES];
-    
-}
+//-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+//
+//    RequestRecordDetailViewController *detailVC = [[RequestRecordDetailViewController alloc]init];
+//    NSDictionary *subDic = self.dataArray[indexPath.row];
+//    detailVC.resultDic = subDic[@"resultDic"];
+//    [self.navigationController pushViewController:detailVC animated:YES];
+//
+//}
 
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     

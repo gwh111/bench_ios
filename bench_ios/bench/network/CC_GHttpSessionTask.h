@@ -38,9 +38,9 @@
 @property(nonatomic,assign) BOOL forbiddenTimestamp;
 
 /**
- *  不传埋点路径操作数据
+ *  传埋点路径操作数据
  */
-@property(nonatomic,assign) BOOL forbiddenSendHookTrack;
+@property(nonatomic,assign) BOOL sendHookTrack;
 
 /**
  *  获取 根据response里返回的http头部的时间 即服务端相应发送时间

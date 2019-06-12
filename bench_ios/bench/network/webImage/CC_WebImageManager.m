@@ -111,9 +111,6 @@ blockFunc(__VA_ARGS__);              \
                     [image drawInRect:rect];
                     transformImage = UIGraphicsGetImageFromCurrentImageContext();
                     UIGraphicsEndImageContext();
-                    
-//                    BOOL imageWasTransformed = ![transformImage isEqual:image];
-//                    cacheData = imageWasTransformed ? nil : data;
                 }
                 
                 [strongSelf.imageCache storeImage:transformImage imageData:cacheData forKey:url.absoluteString completion:nil];

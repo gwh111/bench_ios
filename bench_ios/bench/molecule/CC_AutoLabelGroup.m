@@ -16,6 +16,9 @@
     float iH;
     float mg;
     CCAutoLabelAlignmentType altype;
+    
+    NSArray *tempNameArr;
+    NSArray *tempSelectArr;
 }
 @end
 
@@ -43,7 +46,23 @@ static int baseTag=100;
     altype=type;
 }
 
+- (void)clearSelect{
+    NSMutableArray *mutArr=[[NSMutableArray alloc]init];
+    for (int i=0; i<tempSelectArr.count; i++) {
+        [mutArr addObject:@"0"];
+    }
+    [self updateLabels:tempNameArr selected:mutArr];
+}
+
+- (void)updateSelect:(BOOL)select atIndex:(int)index{
+    NSMutableArray *mutArr=[[NSMutableArray alloc]initWithArray:tempSelectArr];
+    [mutArr replaceObjectAtIndex:index withObject:@(select)];
+    [self updateLabels:tempNameArr selected:mutArr];
+}
+
 - (void)updateLabels:(NSArray *)tempArr selected:(NSArray *)selected{
+    tempNameArr=tempArr;
+    tempSelectArr=selected;
     [self updateLabels:tempArr selected:selected number:0];
 }
 
@@ -74,6 +93,7 @@ static int baseTag=100;
         }else{
             leftBt=[[CC_Button alloc]init];
         }
+        leftBt.forbiddenEnlargeTapFrame=YES;
         leftBt.cs_dictBackgroundColor=_sampleBt.cs_dictBackgroundColor;
         leftBt.height=iH;
         [self addSubview:leftBt];
@@ -82,7 +102,7 @@ static int baseTag=100;
             leftBt.selected=[selected[i] intValue];
             [leftBt setccSelected:[selected[i] intValue]];
         }
-        [leftBt setTitle:tempArr[i] forState:UIControlStateNormal];
+        [leftBt setTitle:[NSString stringWithFormat:@"%@",tempArr[i]] forState:UIControlStateNormal];
         [leftBt.titleLabel sizeToFit];
         float w=leftBt.titleLabel.width+mg;
         if (number>0) {
@@ -116,9 +136,13 @@ static int baseTag=100;
         leftBt.width=w;
         x=x+w;
         [leftBt addTappedOnceDelay:.1 withBlock:^(UIButton *button) {
-            [self.delegate buttonTappedIndex:i button:button];
+            if ([self.delegate respondsToSelector:@selector(autoLabelGroup:btTappedAtIndex:withBt:)]) {
+                [self.delegate autoLabelGroup:self btTappedAtIndex:i withBt:button];
+            }
         }];
-        [self.delegate buttonInitFinish:leftBt];
+        if ([self.delegate respondsToSelector:@selector(autoLabelGroup:btFinishInit:)]) {
+            [self.delegate autoLabelGroup:self btFinishInit:leftBt];
+        }
     }
     
     if (altype==CCAutoLabelAlignmentTypeCenter) {
@@ -130,6 +154,9 @@ static int baseTag=100;
     }
     
     self.height=y+iH+sY;
+    if ([self.delegate respondsToSelector:@selector(autoLabelGroupUpdateFinish:)]) {
+        [self.delegate autoLabelGroupUpdateFinish:self];
+    }
 }
 
 @end

@@ -152,7 +152,7 @@
     }else if ([model isKindOfClass:[CC_ImageView class]]) {
         newName=[NSString stringWithFormat:@"imageView_%@",name];
     }
-    NSString *path=[ccs saveLocalDic:mutDic toPath:@"/model" name:newName];
+    NSString *path=[ccs saveLocalFile:mutDic withPath:[NSString stringWithFormat:@"model/%@",newName] andType:@"plist"];
     CCLOG(@"modelpath:%@",path);
     
     return path;

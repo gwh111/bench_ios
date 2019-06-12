@@ -19,6 +19,10 @@
 #define SelfWidth [UIScreen mainScreen].bounds.size.width
 #define SelfHeight  [UIScreen mainScreen].bounds.size.height
 
+#define NAV_BAR_HEIGHT (44.f)
+#define STATUS_BAR_HEIGHT (CGRectGetHeight([UIApplication sharedApplication].statusBarFrame))
+#define STATUS_AND_NAV_BAR_HEIGHT (STATUS_BAR_HEIGHT + NAV_BAR_HEIGHT)
+
 - (void)viewDidLoad {
     
     [super viewDidLoad];
@@ -29,6 +33,9 @@
     paragraphStyle.lineBreakMode = NSLineBreakByCharWrapping;
     NSDictionary *attributes = @{NSParagraphStyleAttributeName:paragraphStyle};
     self.resultTV.attributedText = [[NSAttributedString alloc]initWithString:[self stringFromDic:self.resultDic] attributes:attributes];
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:self.backBtn];
+
 }
 
 - (void)backAction {
@@ -40,7 +47,7 @@
 -(YCTextView *)resultTV {
     
     if (!_resultTV) {
-        _resultTV = [[YCTextView alloc]initWithFrame:CGRectMake(10, 100, SelfWidth - 20, SelfHeight - 200)];
+        _resultTV = [[YCTextView alloc]initWithFrame:CGRectMake(10, STATUS_AND_NAV_BAR_HEIGHT + 10, SelfWidth - 20, SelfHeight - 200)];
         _resultTV.editable = NO;
         [self.view addSubview:_resultTV];
         
@@ -53,7 +60,7 @@
     if (!_backBtn) {
         _backBtn = [[UIButton alloc]initWithFrame:CGRectMake(15, 30, 60, 40)];
         [_backBtn setTitle:@"back" forState:UIControlStateNormal];
-        [_backBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [_backBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
         [_backBtn addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
     }
     return _backBtn;

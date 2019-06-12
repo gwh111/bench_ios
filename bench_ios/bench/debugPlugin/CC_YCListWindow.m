@@ -18,7 +18,7 @@
 -(instancetype)initWithFrame:(CGRect)frame {
     
     if (self = [super initWithFrame:frame]) {
-        self.windowLevel = 2002 - 1;//normal0 statusbar1000 alert2000
+        self.windowLevel = UIWindowLevelStatusBar - 1;//normal0 statusbar1000 alert2000
         self.layer.masksToBounds = YES;
         [self initVC];
         [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(backViewClicked) name:@"yc_HideListWindowNow" object:nil];

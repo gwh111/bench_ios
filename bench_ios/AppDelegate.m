@@ -18,10 +18,12 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
     
+    // Override point for customization after application launch.
+    NSString *uuid=[ccs getKeychainUUID];
 #pragma mark init
     [CC_Share getInstance].ccDebug=1;
+    [CC_Share getInstance].acceptEventInterval=0.1;
     //设置基准 效果图的尺寸即可
     [[CC_UIHelper getInstance]initUIDemoWidth:375 andHeight:667];
     
@@ -30,6 +32,7 @@
     [CC_ClassyExtend initSheet:absoluteFilePath];
     [CC_ClassyExtend parseCas];
     
+    NSLog(@"path=%@",[NSString stringWithFormat:@"%@", NSHomeDirectory()]);
 //    [UIApplication hookUIApplication];
 //    [UIViewController hookUIViewController];
 //    [UINavigationController hookUINavigationController_push];

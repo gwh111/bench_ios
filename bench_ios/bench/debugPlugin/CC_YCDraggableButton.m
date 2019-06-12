@@ -21,6 +21,10 @@
 #define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
 #define IS_PAD (UI_USER_INTERFACE_IDIOM()== UIUserInterfaceIdiomPad)
 
+#define NAV_BAR_HEIGHT (44.f)
+#define STATUS_BAR_HEIGHT (CGRectGetHeight([UIApplication sharedApplication].statusBarFrame))
+#define STATUS_AND_NAV_BAR_HEIGHT (STATUS_BAR_HEIGHT + NAV_BAR_HEIGHT)
+
 //横竖屏问题
 typedef NS_ENUM(NSInteger ,yc_FloatWindowDirection) {
     yc_FloatWindowLEFT,
@@ -52,7 +56,11 @@ typedef NS_ENUM(NSInteger, yc_ScreenChangeOrientation) {
     UITouch *touch = [touches anyObject];
     CGPoint curPoint = [touch locationInView:_rootView];
     if(IS_IPHONE) curPoint = [self ConvertDir:curPoint];
-    self.superview.center = curPoint;
+    if (_rootView.frame.origin.y > 1.0) {
+        self.superview.center = CGPointMake(curPoint.x, curPoint.y + STATUS_AND_NAV_BAR_HEIGHT);
+    }else{
+        self.superview.center = curPoint;
+    }
     
 }
 

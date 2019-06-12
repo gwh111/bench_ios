@@ -27,6 +27,14 @@
     
 }
 
+- (void)dealloc
+{
+    [webV removeObserver:self forKeyPath:@"title"];
+    [webV removeObserver:self forKeyPath:@"estimatedProgress"];
+    [webV removeObserver:self forKeyPath:@"URL"];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 + (void)presentWeb:(NSString *)urlStr{
     CC_WebVC *web=[[CC_WebVC alloc]init];
     web.urlStr=urlStr;
@@ -38,7 +46,7 @@
     float barH=[ccui getRH:45];
     
     WKWebViewConfiguration *config=[[WKWebViewConfiguration alloc] init];
-    webV=[[WKWebView alloc]initWithFrame:CGRectMake([ccui getX], [ccui getY]+barH, [ccui getW], [ccui getH]-barH) configuration:config];
+    webV=[[WKWebView alloc]initWithFrame:CGRectMake([ccui getX], [ccui getSY]+barH, [ccui getW], [ccui getSH]-barH) configuration:config];
     [self.view addSubview:webV];
     
     webV.UIDelegate = self;
@@ -57,9 +65,9 @@
     progressV.backgroundColor=[UIColor colorWithRed:62/255.0f green:188/255.0f blue:202/255.0f alpha:1];
     [self.view addSubview:progressV];
     
-    NSArray *names=@[@"关闭"];
+    NSArray *names=@[@"X"];
     for (int i=0; i<names.count; i++) {
-        CC_Button *bt=[[CC_Button alloc]initWithFrame:CGRectMake([ccui getRH:75]*i, [ccui getY], [ccui getRH:75], barH)];
+        CC_Button *bt=[[CC_Button alloc]initWithFrame:CGRectMake([ccui getRH:75]*i, [ccui getSY], barH, barH)];
         [bt setTitle:names[i] forState:UIControlStateNormal];
         [bt setTitleColor:COLOR_BLACK forState:UIControlStateNormal];
         [self.view addSubview:bt];

@@ -14,6 +14,7 @@
 
 @property(strong) void (^tappedBlock)(UIButton *button);
 @property(nonatomic,assign) float delayTime;
+@property(nonatomic,assign) int forbiddenEnlargeTapFrame;
 
 /**
  *  根据模型name取得模型

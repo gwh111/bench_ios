@@ -125,7 +125,7 @@
 }
 
 + (NSString *)encodeUrlParameter:(NSString *)originalPara{
-    CFStringRef encodeParaCf = CFURLCreateStringByAddingPercentEscapes(NULL, (__bridge CFStringRef)originalPara, NULL, CFSTR("!*'();:@&=+$,/?%#[]"), kCFStringEncodingUTF8);
+    CFStringRef encodeParaCf=CFURLCreateStringByAddingPercentEscapes(NULL, (__bridge CFStringRef)originalPara, NULL, CFSTR("!*'();:@&=+$,/?%#[]"), kCFStringEncodingUTF8);
     NSString *encodePara = (__bridge NSString *)(encodeParaCf);
     CFRelease(encodeParaCf);
     return encodePara;
@@ -142,7 +142,7 @@
     if (!str) {
         return nil;
     }
-    NSData *ciphertextdata = [[NSData alloc]initWithBase64EncodedString:str options:NSDataBase64DecodingIgnoreUnknownCharacters];
+    NSData *ciphertextdata=[[NSData alloc]initWithBase64EncodedString:str options:NSDataBase64DecodingIgnoreUnknownCharacters];
     return ciphertextdata;
 }
 
@@ -150,7 +150,7 @@
     if (!data) {
         return nil;
     }
-    return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    return [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
 }
 
 + (NSString *)dataToStr_base64:(NSData *)data{
@@ -166,57 +166,51 @@
     return data;
 }
 
-+ (NSString *)convertToJSONData:(id)infoDict
-{
-    if (!infoDict) {
++ (NSString *)convertToJSONData:(id)object{
+    if (!object) {
         return @"";
     }
-    if ([infoDict isKindOfClass:[NSString class]]) {
-        return infoDict;
+    if ([object isKindOfClass:[NSString class]]) {
+        return object;
     }
     NSError *error;
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:infoDict
-                                                       options:NSJSONWritingPrettyPrinted // Pass 0 if you don't care about the readability of the generated string
-                                                         error:&error];
+    NSData *jsonData=[NSJSONSerialization dataWithJSONObject:object
+    options:NSJSONWritingPrettyPrinted // Pass 0 if you don't care about the readability of the generated string
+    error:&error];
     
-    NSString *jsonString = @"";
+    NSString *jsonStr=@"";
     
-    if (! jsonData)
-    {
-        NSLog(@"Got an error: %@", error);
-    }else
-    {
-        jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    if (!jsonData){
+        NSLog(@"Got an error: %@",error);
+    }else{
+        jsonStr=[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     }
     
-    jsonString = [jsonString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];  //去除掉首尾的空白字符和换行字符
+    jsonStr=[jsonStr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];  //去除掉首尾的空白字符和换行字符
     
-    [jsonString stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    [jsonStr stringByReplacingOccurrencesOfString:@"\n" withString:@""];
     
-    return jsonString;
+    return jsonStr;
 }
 
-+ (NSDictionary *)dictionaryWithJsonString:(NSString *)jsonString
-{
++ (id)dictionaryWithJsonString:(NSString *)jsonString{
     if (jsonString == nil) {
         return nil;
     }
     
     NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
     NSError *err;
-    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData
+    id object = [NSJSONSerialization JSONObjectWithData:jsonData
                                                         options:NSJSONReadingMutableContainers
                                                           error:&err];
-    if(err)
-    {
+    if(err){
         NSLog(@"json解析失败：%@",err);
         return nil;
     }
-    return dic;
+    return object;
 }
 
-+ (UIColor *)colorwithHexString:(NSString *)color
-{
++ (UIColor *)colorwithHexString:(NSString *)color{
     NSString *cString = [[color stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
     
     // String should be 6 or 8 characters
@@ -274,5 +268,56 @@
     }
     return text;
 }
+
+#pragma mark math
++ (float)getRPoint1:(CGPoint)point1 point2:(CGPoint)point2{
+    float p=sqrt(pow((point1.x-point2.x), 2)+pow((point1.y-point2.y), 2));
+    return p;
+}
+
++ (float)getDuPoint1:(CGPoint)point1 point2:(CGPoint)point2{
+    point1=CGPointMake(point1.x, -point1.y);
+    point2=CGPointMake(point2.x, -point2.y);
+    if (point1.x-point2.x==0) {
+        if (point1.y-point2.y>0) {
+            return 90;
+        }
+        return 270;
+    }
+    if (point1.y-point2.y==0) {
+        if (point1.x-point2.x>0) {
+            return 0;
+        }
+        return 180;
+    }
+    float dy=(point1.y-point2.y);
+    float dx=(point1.x-point2.x);
+    if (dy>0&&dx>0) {
+        float p_ang=atan(dy/dx);
+        return [CC_Convert huDuTodu:p_ang];
+    }else if (dy>0&&dx<0){
+        float p_ang=atan(dy/-dx);
+        return 180-[CC_Convert huDuTodu:p_ang];
+    }else if (dy<0&&dx<0){
+        float p_ang=atan(dy/dx);
+        return [CC_Convert huDuTodu:p_ang]+180;
+    }else{
+        float p_ang=atan(-dy/dx);
+        return 360-[CC_Convert huDuTodu:p_ang];
+    }
+    
+}
+
++ (CGPoint)getPointR:(float)r du:(float)du{
+    
+    float cos=cosf([CC_Convert duToHuDu:du+1]);
+    float sin=sinf([CC_Convert duToHuDu:du+1]);
+    float x=r*cos;
+    float y=r*sin;
+    CGPoint p=CGPointMake(x, -y);
+    
+    return p;
+}
+
 
 @end

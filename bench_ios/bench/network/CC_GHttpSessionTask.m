@@ -42,7 +42,7 @@ static dispatch_once_t onceToken;
 
 - (void)initBase{
     _httpTimeoutInterval=10;
-    _forbiddenSendHookTrack=1;
+    _sendHookTrack=0;
     _static_domainTestKey=@"/client/service.json?service=TEST";
     _static_pingThirdWebUrl=@"http://www.baidu.com";
     _static_netTestUrl=@"http://d.net/";
@@ -121,7 +121,6 @@ static dispatch_once_t onceToken;
     }else{
         CCLOG(@"url 不合法");
     }
-    [CC_HookTrack catchTrack];
     
     if (!model) {
         model=[[ResModel alloc]init];
@@ -155,7 +154,7 @@ static dispatch_once_t onceToken;
         }
     }
     
-    if (_forbiddenSendHookTrack==0) {
+    if (_sendHookTrack==YES) {
         //添加埋点追踪
         NSString *pushPop=[CC_HookTrack getInstance].pushPopActionStr;
         if (pushPop) {
@@ -295,7 +294,11 @@ static dispatch_once_t onceToken;
         }
         
         if (model.debug) {
-            model.responseLocalDate = [NSDate date];
+            NSDate *date = [NSDate date];
+            NSTimeZone *zone = [NSTimeZone systemTimeZone];
+            NSInteger interval = [zone secondsFromGMTForDate: date];
+            NSDate *localeDate = [date dateByAddingTimeInterval: interval];
+            model.responseLocalDate = localeDate;
             [[CCReqRecord getInstance]insertRequestDataWithHHSService:paramsDic[@"service"] requestUrl:tempUrl.absoluteString parameters:paraStr resModelDic:[model getClassKVDic]];
         }
         
@@ -752,12 +755,12 @@ static dispatch_once_t onceToken;
 
 //上传多张图片-指定图片压缩比例
 -(void)uploadImages:(NSArray *)images url:(id)url params:(id)paramsDic imageScale:(CGFloat)imageScale reConnectTimes:(NSInteger)times finishBlock:(void (^)(NSArray<ResModel *> *, NSArray<ResModel *> *))uploadImageBlock{
-    [[CC_UploadImagesTool shareInstance] uploadImages:images url:url params:paramsDic imageScale:imageScale reConnectTimes:times finishBlock:uploadImageBlock];
+    [[CC_UploadImagesTool shareInstance] uploadImages:images url:url params:paramsDic imageScale:imageScale reConnectTimes:times task:self finishBlock:uploadImageBlock];
 }
 
 //上传多张图片-指定图片大小 单位 兆
 -(void)uploadImages:(NSArray *)images url:(id)url params:(id)paramsDic imageSize:(NSUInteger)imageSize reConnectTimes:(NSInteger)times finishBlock:(void (^)(NSArray<ResModel *> *, NSArray<ResModel *> *))uploadImageBlock{
-    [[CC_UploadImagesTool shareInstance] uploadImages:images url:url params:paramsDic imageSize:imageSize reConnectTimes:times finishBlock:uploadImageBlock];
+    [[CC_UploadImagesTool shareInstance] uploadImages:images url:url params:paramsDic imageSize:imageSize reConnectTimes:times task:self finishBlock:uploadImageBlock];
 }
 @end
 

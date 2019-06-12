@@ -11,6 +11,17 @@
 
 @implementation CC_Notice
 
+static CC_Notice *instance = nil;
+static dispatch_once_t onceToken;
+
++ (instancetype)getInstance
+{
+    dispatch_once(&onceToken, ^{
+        instance = [[CC_Notice alloc] init];
+    });
+    return instance;
+}
+
 + (void)show:(NSString *)noticeStr{
     [self showNoticeStr:noticeStr atView:nil delay:0];
 }
@@ -48,7 +59,7 @@
     
     label.width=CC_SCREEN_WIDTH-[ccui getRH:40];
     [label sizeToFit];
-    label.bottom=CC_SCREEN_HEIGHT/2;
+    label.bottom=CC_SCREEN_HEIGHT/2+[CC_Notice getInstance].yOffset;
     label.left=CC_SCREEN_WIDTH/2-label.width/2;
     
     //adjust

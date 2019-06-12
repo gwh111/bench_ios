@@ -14,6 +14,8 @@
     
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         [self initView];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hitAction)];
+        [self addGestureRecognizer:tap];
     }
     return self;
     
@@ -23,8 +25,8 @@
     
     [self addSubview:self.paramsLabel];
     [self addSubview:self.domainLabel];
-//    [self addSubview:self.localTimeLabel];
-    
+    [self addSubview:self.timeLabel];
+
 }
 
 -(UILabel *)paramsLabel {
@@ -49,15 +51,19 @@
     
 }
 
-//-(UILabel *)localTimeLabel {
-//
-//    if (!_localTimeLabel) {
-//        _localTimeLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 70, 375, 20)];
-//        _localTimeLabel.font = [UIFont systemFontOfSize:15];
-//        _localTimeLabel.textColor = [UIColor grayColor];
-//    }
-//    return _localTimeLabel;
-//
-//}
+-(UILabel *)timeLabel {
+    
+    if (!_timeLabel) {
+        _timeLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 65, 375, 20)];
+        _timeLabel.textColor = [UIColor grayColor];
+        _timeLabel.font = [UIFont systemFontOfSize:15];
+    }
+    return _timeLabel;
+
+}
+
+-(void)hitAction {
+    self.block();
+}
 
 @end

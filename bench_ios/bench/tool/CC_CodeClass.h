@@ -96,12 +96,12 @@
 /**
  *  JSON转NSString
  */
-+ (NSString *)convertToJSONData:(id)infoDict;
++ (NSString *)convertToJSONData:(id)object;
 
 /**
- *  NSString转NSDictionary(JSON)
+ *  NSString转NSDictionary、NSArray(JSON)
  */
-+ (NSDictionary *)dictionaryWithJsonString:(NSString *)jsonString;
++ (id)dictionaryWithJsonString:(NSString *)jsonString;
 
 /**
  *  颜色的16进制NSString转成UIColor
@@ -109,5 +109,20 @@
 + (UIColor *)colorwithHexString:(NSString *)color;
 
 + (NSString *)parseLabel:(NSString *)str start:(NSString *)startStr end:(NSString *)endStr includeStartEnd:(BOOL)includeStartEnd;
+
+/**
+ *  根据两点坐标计算距离
+ */
++ (float)getRPoint1:(CGPoint)point1 point2:(CGPoint)point2;
+
+/**
+ *  根据两点坐标计算连线和x轴角度
+ */
++ (float)getDuPoint1:(CGPoint)point1 point2:(CGPoint)point2;
+
+/**
+ *  根据角度和长度获得新坐标位置。相对于(0,0)点
+ */
++ (CGPoint)getPointR:(float)r du:(float)du;
 
 @end

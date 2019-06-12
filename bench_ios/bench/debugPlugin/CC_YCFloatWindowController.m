@@ -54,7 +54,7 @@
     // 2.floating window
     _window = [[UIWindow alloc]init];
     _window.frame = CGRectMake(0, 100, floatWindowSize, floatWindowSize);
-    _window.windowLevel = 2002;//normal0 statusbar1000 alert2000
+    _window.windowLevel = UIWindowLevelStatusBar - 2;//normal0 statusbar1000 alert2000
     _window.backgroundColor = [UIColor clearColor];
     _window.layer.cornerRadius = floatWindowSize/2;
     _window.layer.masksToBounds = YES;

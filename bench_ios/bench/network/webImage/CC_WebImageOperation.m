@@ -128,31 +128,11 @@ static NSString *const kImageCompletionCallback = @"kImageCompletionCallback";
     NSURLSessionAuthChallengeDisposition disposition = NSURLSessionAuthChallengePerformDefaultHandling;
     __block NSURLCredential *credential = nil;
     
-//    if ([challenge.protectionSpace.authenticationMethod isEqualToString:NSURLAuthenticationMethodServerTrust]) {
-//        if (!(self.options & SDWebImageDownloaderAllowInvalidSSLCertificates)) {
-//            disposition = NSURLSessionAuthChallengePerformDefaultHandling;
-//        } else {
-            credential = [NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust];
-            disposition = NSURLSessionAuthChallengeUseCredential;
-//        }
-//    }
-//    else {
-//        if (challenge.previousFailureCount == 0) {
-//            if (self.credential) {
-//                credential = self.credential;
-//                disposition = NSURLSessionAuthChallengeUseCredential;
-//            } else {
-//                disposition = NSURLSessionAuthChallengeCancelAuthenticationChallenge;
-//            }
-//        } else {
-//            disposition = NSURLSessionAuthChallengeCancelAuthenticationChallenge;
-//        }
-//    }
-    
+    credential = [NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust];
+    disposition = NSURLSessionAuthChallengeUseCredential;
     if (completionHandler) {
         completionHandler(disposition, credential);
     }
-//    completionHandler(NSURLSessionAuthChallengeUseCredential, [NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust]);
 }
 - (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveResponse:(NSURLResponse *)response completionHandler:(void (^)(NSURLSessionResponseDisposition))completionHandler {
     NSInteger expectedSize = (NSInteger)response.expectedContentLength;

@@ -41,12 +41,12 @@
     
 }
 
-- (void)buttonInitFinish:(UIButton *)button{
+- (void)autoLabelGroup:(CC_AutoLabelGroup *)group btFinishInit:(UIButton *)button{
     [CC_Code setRadius:4 view:button];
     [CC_Code setLineColor:COLOR_WHITE width:1 view:button];
 }
 
-- (void)buttonTappedIndex:(int)index button:(UIButton *)button{
+- (void)autoLabelGroup:(CC_AutoLabelGroup *)group btTappedAtIndex:(int)index withBt:(UIButton *)button{
     if (index==0) {
         [group updateLabels:@[@"s大萨达d",@"该数据库",@"请问是的骨的灰盒",@"而我则是",@"功夫鸡排行sfew",@"功夫鸡排第三方行"] selected:@[@(1),@(1),@(0),@(0),@(0),@(1)]];
     }else if (index==1){
@@ -54,7 +54,6 @@
     }else{
         [group updateLabels:@[@"萨达",@"该数据库问是的骨的",] selected:@[@(1),@(1)]];
     }
-    
 }
 
 @end

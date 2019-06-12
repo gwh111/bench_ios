@@ -8,8 +8,6 @@
 
 #import "CC_WebImageConfig.h"
 #import "CC_WebImageManager.h"
-#import "CC_WebImageManager.h"
-#import "CC_WebImageConfig.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

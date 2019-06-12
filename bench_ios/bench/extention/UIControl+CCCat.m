@@ -7,6 +7,7 @@
 
 #import "UIControl+CCCat.h"
 #import <objc/runtime.h>
+#import "CC_Share.h"
 
 @implementation UIControl (CCCat)
 
@@ -53,7 +54,11 @@ static const char *UIControl_acceptEventTime = "UIControl_acceptEventTime";
     }
     
     if (self.cs_acceptEventInterval==0) {
-        self.cs_acceptEventInterval=1;
+        if ([CC_Share getInstance].acceptEventInterval>0) {
+            self.cs_acceptEventInterval=[CC_Share getInstance].acceptEventInterval;
+        }else{
+            self.cs_acceptEventInterval=0.5;
+        }
     }
     if ([NSDate date].timeIntervalSince1970 - self.cs_acceptEventTime < self.cs_acceptEventInterval) {
         

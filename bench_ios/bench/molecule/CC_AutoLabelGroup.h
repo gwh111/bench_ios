@@ -9,9 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "CC_Share.h"
 
+@class CC_AutoLabelGroup;
 @protocol CC_AutoLabelGroupDelegate <NSObject>
-- (void)buttonInitFinish:(UIButton *)button;
-- (void)buttonTappedIndex:(int)index button:(UIButton *)button;
+- (void)autoLabelGroup:(CC_AutoLabelGroup *)group btFinishInit:(UIButton *)bt;
+- (void)autoLabelGroup:(CC_AutoLabelGroup *)group btTappedAtIndex:(int)index withBt:(UIButton *)bt;
+- (void)autoLabelGroupUpdateFinish:(CC_AutoLabelGroup *)group;
 @end
 
 /**
@@ -29,7 +31,7 @@ typedef enum : NSUInteger {
  *  单元按钮属性 每个单元按照这个为样本
  */
 @property(nonatomic,strong) CC_Button *sampleBt;
-@property (nonatomic, weak) id <CC_AutoLabelGroupDelegate> delegate;
+@property(nonatomic,strong) id <CC_AutoLabelGroupDelegate>delegate;
 
 /**
  *  初始化类型
@@ -56,5 +58,15 @@ typedef enum : NSUInteger {
  *  selected 选中状态数组
  */
 - (void)updateLabels:(NSArray *)tempArr selected:(NSArray *)selected;
+
+/**
+ *  清空选中
+ */
+- (void)clearSelect;
+
+/**
+ *  更新选中
+ */
+- (void)updateSelect:(BOOL)select atIndex:(int)index;
 
 @end

@@ -9,6 +9,17 @@
 #define CC_SCREEN_WIDTH ([UIScreen mainScreen].bounds.size.width)
 #define CC_SCREEN_HEIGHT ([UIScreen mainScreen].bounds.size.height)
 
+//导航栏 状态栏
+#define CC_NAV_BAR_HEIGHT (44.f)
+#define CC_STATUS_BAR_HEIGHT (CGRectGetHeight([UIApplication sharedApplication].statusBarFrame))
+#define CC_STATUS_AND_NAV_BAR_HEIGHT (CC_STATUS_BAR_HEIGHT + CC_NAV_BAR_HEIGHT)
+//iPhoneX
+#define CC_iPhoneX (MAX(CC_SCREEN_WIDTH, CC_SCREEN_HEIGHT) >= 812)
+// tabBar高度
+#define CC_TAB_BAR_HEIGHT (CC_iPhoneX ? (49.f+34.f) : 49.f)
+// home indicator
+#define CC_HOME_INDICATOR_HEIGHT (CC_iPhoneX ? 34.f : 0.f)
+
 #define RH(f) [ccui getRH:f]
 #define RF(f) [ccui getRFS:f]
 
@@ -106,6 +117,7 @@
  * [[CC_UIHelper getInstance]initUIDemoWidth:375 andHeight:568];
  */
 - (void)initUIDemoWidth:(float)width andHeight:(float)height;
+
 - (float)getUIDemoWith;
 - (float)getUIDemoHeight;
 
@@ -128,6 +140,15 @@
  *  写成动态方法方便后期出现新设备随时更改
  */
 @interface ccui : NSObject
+
+/**
+ *  获取规范字体
+ */
++ (UIFont *)getUIFontWithType:(NSString *)type;
+/**
+ *  使用其他自定义字体
+ */
++ (UIFont *)getUIFontWithName:(NSString *)name type:(NSString *)type;
 
 /**
  *  oc代码获取的状态栏高度

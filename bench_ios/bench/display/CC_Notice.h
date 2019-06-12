@@ -10,6 +10,10 @@
 
 @interface CC_Notice : UIView
 
+@property (nonatomic,assign) float yOffset;
+
++ (instancetype)getInstance;
+
 /**
  *  自动根据noticeStr长度调整消失时间
  */

@@ -18,8 +18,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)presentWeb:(NSString *)urlStr;
 
-- (void)initUI;
-
 @end
 
 NS_ASSUME_NONNULL_END

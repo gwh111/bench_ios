@@ -54,15 +54,27 @@
 		</dict>
 		<dict>
 			<key>title</key>
-			<string>绘制</string>
+			<string>绘制制作</string>
 			<key>className</key>
 			<string>testDrawVC</string>
+		</dict>
+		<dict>
+			<key>title</key>
+			<string>绘制播放</string>
+			<key>className</key>
+			<string>CC_SpriteTestVC</string>
 		</dict>
 		<dict>
 			<key>title</key>
 			<string>临时测试</string>
 			<key>className</key>
 			<string>testTempVC</string>
+		</dict>
+		<dict>
+			<key>title</key>
+			<string>服务器地址动态切换</string>
+			<key>className</key>
+			<string>testServerURLVC</string>
 		</dict>
 	</array>
 </dict>

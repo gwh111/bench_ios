@@ -35,6 +35,14 @@
 #define COLOR_WHITE [UIColor colorWithRed:255.0f/255.0f green:255.0f/255.0f blue:255.0f/255.0f alpha:1]
 #define COLOR_CLEAR [UIColor colorWithRed:0/255.0f green:0/255.0f blue:0/255.0f alpha:0]
 
+#define COLOR_LIGHT_GREEN [UIColor colorWithRed:107/255.0f green:221/255.0f blue:123/255.0f alpha:1]
+#define COLOR_LIGHT_BLUE [UIColor colorWithRed:62/255.0f green:188/255.0f blue:202/255.0f alpha:1]
+#define COLOR_LIGHT_ORANGE [UIColor colorWithRed:223/255.0f green:142/255.0f blue:57/255.0f alpha:1]
+#define COLOR_LIGHT_PURPLE [UIColor colorWithRed:211/255.0f green:53/255.0f blue:226/255.0f alpha:1]
+#define COLOR_LIGHT_RED [UIColor colorWithRed:247/255.0f green:126/255.0f blue:129/255.0f alpha:1]
+#define COLOR_LIGHT_YELLOW [UIColor colorWithRed:255/255.0f green:251/255.0f blue:152/255.0f alpha:1]
+#define COLOR_LIGHT_PINK [UIColor colorWithRed:255/255.0f green:174/255.0f blue:233/255.0f alpha:1]
+
 #define ccRGBA(r,g,b,a) [UIColor colorWithRed:r/255.0f green:g/255.0f blue:b/255.0f alpha:a]
 #define ccRGBHex(rgbValue) [UIColor \
 colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \
@@ -99,6 +107,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
 #import "NSDictionary+CCCat.h"
 #import "NSObject+CCCat.h"
 #import "NSDate+CCCat.h"
+#import "UIView+CCCat.h"
 
 #import "UIApplication+CCHook.h"
 #import "UIViewController+CCHook.h"
@@ -116,6 +125,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
 
 @property (nonatomic,retain) NSString *currentUniqueTimeStamp;
 @property (nonatomic,assign) int currentUniqueTimeStampCount;
+
+@property (nonatomic,assign) float acceptEventInterval;
 
 + (instancetype)getInstance;
 + (void)getUpdate;
@@ -168,7 +179,17 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
 /**
  *  获取项目中一个文件的文本
  */
-+ (NSString *)getFileStr:(NSString *)name type:(NSString *)type;
++ (NSString *)getFileWithPath:(NSString *)name andType:(NSString *)type;
+
+/**
+ *  获取沙盒中一个文件的文本
+ */
++ (NSString *)getLocalFileWithPath:(NSString *)name andType:(NSString *)type;
+
+/**
+ *  获取沙盒中一个文件夹的文件
+ */
++ (NSArray *)getLocalFileListWithDocumentName:(NSString *)name withType:(NSString *)type;
 
 /**
  *  直接获取工程中的plist
@@ -199,9 +220,9 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
  */
 + (NSString *)saveLocalKeyNamed:(NSString *)name andKey:(NSString *)key andValue:(id)value;
 /**
- *  保存NSDictionary到沙盒
+ *  保存文件到沙盒
  */
-+ (NSString *)saveLocalDic:(NSDictionary *)dic toPath:(NSString *)path name:(NSString *)name;
++ (NSString *)saveLocalFile:(id)data withPath:(NSString *)name andType:(NSString *)type;
 
 /**
  *  获取NSUserDefaults

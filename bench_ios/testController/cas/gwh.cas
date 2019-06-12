@@ -4,6 +4,7 @@ marginLeft 32
 width 114
 height 16
 backgroundImage "casGif.gif"
+cas_json "aaa1"
 }
 
 CC_View.MainVC_v_figure1{

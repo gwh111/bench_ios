@@ -99,6 +99,55 @@ static dispatch_once_t onceToken;
 
 @implementation ccui
 
++ (UIFont *)getUIFontWithType:(NSString *)type{
+    return [self getUIFontWithName:nil type:type];
+}
+
++ (UIFont *)getUIFontWithName:(NSString *)name type:(NSString *)type{
+    if ([type isEqualToString:@"超大标题"]) {
+        if (name) {
+            return [ccui getRelativeFont:name fontSize:34];
+        }
+        return [ccui getRelativeFont:@"Helvetica-Bold" fontSize:34];
+    }else if ([type isEqualToString:@"较大标题"]) {
+        if (name) {
+            return [ccui getRelativeFont:name fontSize:22];
+        }
+        return [ccui getRelativeFont:@"Helvetica-Bold" fontSize:22];
+    }else if ([type isEqualToString:@"标题栏标题"]) {
+        if (name) {
+            return [ccui getRelativeFont:name fontSize:18];
+        }
+        return [ccui getRelativeFont:@"Helvetica-Bold" fontSize:18];
+    }else if ([name isEqualToString:@"正常标题"]) {
+        if (name) {
+            return [ccui getRelativeFont:name fontSize:16];
+        }
+        return RF(16);
+    }else if ([name isEqualToString:@"昵称文本"]||[name isEqualToString:@"长文文本"]) {
+        if (name) {
+            return [ccui getRelativeFont:name fontSize:15];
+        }
+        return RF(15);
+    }else if ([name isEqualToString:@"普通文本"]) {
+        if (name) {
+            return [ccui getRelativeFont:name fontSize:14];
+        }
+        return RF(14);
+    }else if ([name isEqualToString:@"说明文本"]) {
+        if (name) {
+            return [ccui getRelativeFont:name fontSize:12];
+        }
+        return RF(12);
+    }else if ([name isEqualToString:@"次要文本"]) {
+        if (name) {
+            return [ccui getRelativeFont:name fontSize:11];
+        }
+        return RF(11);
+    }
+    return RF(16);
+}
+
 + (float)getStatusH{
     //获取状态栏的rect
     CGRect statusRect = [[UIApplication sharedApplication] statusBarFrame];
@@ -109,12 +158,18 @@ static dispatch_once_t onceToken;
     return [self getRelativeFont:nil fontSize:fontSize];
 }
 + (UIFont *)getRelativeFont:(NSString *)fontName fontSize:(float)fontSize{
-    float rate=[self getW]/[[CC_UIHelper getInstance]getUIDemoWith];
-    if (fontSize<=10||rate<1) {
-        fontSize=10*rate;
-        return [UIFont systemFontOfSize:fontSize];
+    if (CC_SCREEN_WIDTH<375) {
+        fontSize=fontSize-2;
+    }else if (CC_SCREEN_WIDTH==375){
+        fontSize=fontSize;
+    }else{
+        float rate=[self getW]/[[CC_UIHelper getInstance]getUIDemoWith];
+        if (fontSize<=10) {
+            fontSize=10*rate;
+            return [UIFont fontWithName:fontName size:fontSize];
+        }
+        fontSize=10+(fontSize-10)*rate;
     }
-    fontSize=10+(fontSize-10)*rate;
     if (fontName) {
         return [UIFont fontWithName:fontName size:fontSize];
     }
@@ -122,7 +177,7 @@ static dispatch_once_t onceToken;
 }
 + (UIFont *)getRelativeFont:(NSString *)fontName fontSize:(float)fontSize baseFontSize:(float)baseFontSize{
     float rate=[self getW]/[[CC_UIHelper getInstance]getUIDemoWith];
-    if (fontSize<=10||rate<1) {
+    if (fontSize<=10) {
         fontSize=10*rate;
         return [UIFont fontWithName:fontName size:fontSize];
     }
@@ -152,21 +207,16 @@ static dispatch_once_t onceToken;
 }
 
 + (float)getRelativeHeight:(float)height{
-    if ([CC_UIHelper getInstance].uiDemoHeight!=CC_SCREEN_HEIGHT) {
-//        if ([CC_Share getInstance].ccDebug) {
-//            CCLOG(@"不是有效相对height");
-//        }
-    }
     return (int)(height*[self getW]/[[CC_UIHelper getInstance] getUIDemoWith]);
 }
 
 + (CGRect)adjustRelativeRect:(UIView *)obj withFrameArr:(NSArray *)arr{
     if (arr.count<4) {
-        NSLog(@"arr.count<4");
+        CCLOG(@"arr.count<4");
         return CGRectNull;
     }
     if (arr.count>4) {
-        NSLog(@"arr.count>4");
+        CCLOG(@"arr.count>4");
     }
     float x=[self getW]*[arr[0]floatValue]/[[CC_UIHelper getInstance] getUIDemoWith];
     float y=[self getH]*[arr[1]floatValue]/[[CC_UIHelper getInstance] getUIDemoHeight];

@@ -19,6 +19,7 @@ typedef NS_ENUM(NSUInteger, CCCompressionType) {
 @property (nonatomic, assign) CCCompressionType compressionType;
 @property (nonatomic, assign) CGFloat scalePercent;//指定压缩比例
 @property (nonatomic, assign) NSUInteger scaleSize;//指定压缩大小
+@property (nonatomic, strong) CC_HttpTask* task;
 
 @end
 
@@ -34,15 +35,15 @@ static dispatch_once_t onceToken;
     return instance;
 }
 
--(void)uploadImages:(NSArray<UIImage *> *)images url:(id)url params:(id)paramsDic imageScale:(CGFloat)imageScale reConnectTimes:(NSInteger)times finishBlock:(void (^)(NSArray<ResModel *> *, NSArray<ResModel *> *))uploadImageBlock{
-    
+-(void)uploadImages:(NSArray<UIImage *> *)images url:(id)url params:(id)paramsDic imageScale:(CGFloat)imageScale reConnectTimes:(NSInteger)times task:(CC_HttpTask*)task finishBlock:(void (^)(NSArray<ResModel *> *, NSArray<ResModel *> *))uploadImageBlock{
+    self.task = task;
     self.scalePercent = imageScale;
     self.compressionType = CCCompressionTypeScale;
     [self uploadImages:images url:url params:paramsDic reConnectTimes:times finishBlock:uploadImageBlock];
 }
 
--(void)uploadImages:(NSArray<UIImage *> *)images url:(id)url params:(id)paramsDic imageSize:(NSUInteger)imageSize reConnectTimes:(NSInteger)times finishBlock:(void (^)(NSArray<ResModel *> * _Nonnull, NSArray<ResModel *> * _Nonnull))uploadImageBlock{
-    
+-(void)uploadImages:(NSArray<UIImage *> *)images url:(id)url params:(id)paramsDic imageSize:(NSUInteger)imageSize reConnectTimes:(NSInteger)times task:(CC_HttpTask*)task finishBlock:(void (^)(NSArray<ResModel *> * _Nonnull, NSArray<ResModel *> * _Nonnull))uploadImageBlock{
+    self.task = task;
     self.scaleSize = imageSize;
     self.compressionType = CCCompressionTypeSize;
     [self uploadImages:images url:url params:paramsDic reConnectTimes:times finishBlock:uploadImageBlock];
@@ -58,7 +59,6 @@ static dispatch_once_t onceToken;
     }else{
         CCLOG(@"url 不合法");
     }
-    [CC_HookTrack catchTrack];
     
     CC_HttpTask *executorDelegate = [[CC_HttpTask alloc] init];
     executorDelegate.finishUploadImagesCallbackBlock = uploadImageBlock; // 绑定执行完成时的block
@@ -83,10 +83,10 @@ static dispatch_once_t onceToken;
     if (![paramsDic objectForKey:@"service"]) {
         [paramsDic setObject:@"IMAGE_TEMP_UPLOAD" forKey:@"service"];
     }
-    if ([CC_HttpTask getInstance].extreDic) {
-        NSArray *keys=[[CC_HttpTask getInstance].extreDic allKeys];
+    if (self.task.extreDic) {
+        NSArray *keys=[self.task.extreDic allKeys];
         for (int i=0; i<keys.count; i++) {
-            [paramsDic setObject:[CC_HttpTask getInstance].extreDic[keys[i]] forKey:keys[i]];
+            [paramsDic setObject:self.task.extreDic[keys[i]] forKey:keys[i]];
         }
     }
     
@@ -94,10 +94,10 @@ static dispatch_once_t onceToken;
     NSString *timeSp = [NSString stringWithFormat:@"%.0f", [datenow timeIntervalSince1970]*1000];
     [paramsDic setObject:timeSp forKey:@"timestamp"];
     
-    NSString *paraString=[CC_FormatDic getSignFormatStringWithDic:paramsDic andMD5Key:[CC_HttpTask getInstance].signKeyStr];
-    NSMutableURLRequest *urlReq=[[CC_HttpTask getInstance] requestWithUrl_post:tempUrl andParamters:paraString];
+    NSString *paraString=[CC_FormatDic getSignFormatStringWithDic:paramsDic andMD5Key:self.task.signKeyStr];
+    NSMutableURLRequest *urlReq=[self.task requestWithUrl_post:tempUrl andParamters:paraString];
     
-    NSString *signStr = [CC_FormatDic getSignValueWithDic:paramsDic andMD5Key:[CC_HttpTask getInstance].signKeyStr];
+    NSString *signStr = [CC_FormatDic getSignValueWithDic:paramsDic andMD5Key:self.task.signKeyStr];
     [paramsDic setObject:signStr forKey:@"sign"];
     
     //图片请求结果
@@ -112,7 +112,7 @@ static dispatch_once_t onceToken;
         
         ResModel* model=[[ResModel alloc]init];
         model.serviceStr=paramsDic[@"service"];
-        if (![CC_HttpTask getInstance].signKeyStr) {
+        if (!self.task.signKeyStr) {
             if (model.debug) {
                 CCLOG(@"_signKeyStr为空");
             }

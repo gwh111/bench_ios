@@ -8,7 +8,7 @@
 
 #import "CC_YCListViewController.h"
 
-@interface YCListViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface YCListViewController ()<UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate>
 
 @property (nonatomic ,strong) UITableView *tableView;
 @property (nonatomic ,strong) NSMutableArray *dataArray;
@@ -19,6 +19,7 @@
 @implementation YCListViewController
 #define SelfWidth [UIScreen mainScreen].bounds.size.width
 #define SelfHeight  [UIScreen mainScreen].bounds.size.height
+
 {
     NSMutableDictionary *_indexContainDic;//储存indexPath需要持久化状态的控件
 }
@@ -28,7 +29,15 @@
     self.view.backgroundColor = [UIColor grayColor];
     self.view.alpha = 0.7;
     _indexContainDic = [NSMutableDictionary dictionary];
+    [self setHideAction];
     [self setUpCollectionView];
+}
+
+- (void)setHideAction {
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hideAction)];
+    tap.delegate = self;
+    self.view.userInteractionEnabled = YES;
+    [self.view addGestureRecognizer:tap];
 }
 
 - (void)setUpCollectionView {
@@ -39,7 +48,7 @@
 -(UITableView *)tableView {
     
     if (!_tableView) {
-        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(80, 260, SelfWidth - 160, SelfHeight - 520) style:UITableViewStyleGrouped];
+        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(80, 260, SelfWidth - 160, self.dataArray.count * 60) style:UITableViewStylePlain];
         _tableView.backgroundColor = [UIColor grayColor];
         _tableView.alpha = 0.8;
         _tableView.delegate = self;
@@ -95,6 +104,7 @@
         Class cls = NSClassFromString(name);
         UIViewController *vc = [[cls alloc]init];
         UINavigationController *nv = [[UINavigationController alloc]initWithRootViewController:vc];
+        nv.navigationBar.translucent = YES;
         dispatch_async(dispatch_get_main_queue(), ^{
             [self presentViewController:nv animated:YES completion:nil];
         });
@@ -122,10 +132,15 @@
 
 }
 
--(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-
+- (void)hideAction {
     [[NSNotificationCenter defaultCenter]postNotificationName:@"yc_HideListWindowNow" object:nil];
-    
+}
+
+-(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+    if ([NSStringFromClass([touch.view class]) isEqualToString:@"UITableViewCellContentView"]) {
+        return NO;
+    }
+    return YES;
 }
 
 #pragma mark - setter/getter
@@ -133,23 +148,11 @@
 -(NSMutableArray *)dataArray {
     
     if (!_dataArray) {
-//        _dataArray = @[@"requestRecord",@"fps-monitor",@"功能待添加"].mutableCopy;
-        NSString *path = [[NSBundle mainBundle] pathForResource:@"debug_function" ofType:@"plist"];
+        NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"debug_function" ofType:@"plist"];
         _dataArray = [NSArray arrayWithContentsOfFile:path].mutableCopy;
     }
     return _dataArray;
     
 }
-
-//-(YCFPSButton *)fpsButton {
-//
-//    if (!_fpsButton) {
-//        _fpsButton = [[YCFPSButton alloc]initWithFrame:CGRectMake(0, 100, 80, 30)];
-//    }
-//    return _fpsButton;
-//
-//}
-
-
 
 @end

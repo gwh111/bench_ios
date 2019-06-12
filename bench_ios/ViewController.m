@@ -82,7 +82,7 @@
     int isj=[CC_Validate isJailBreak];
 #if DEBUG
     [CC_Share getInstance].ccDebug=1;
-    [CC_FloatWindow addWindowOnTarget:self];
+//    [CC_FloatWindow addWindowOnTarget:self];
 #endif
 
 #pragma mark demo测试控制器
@@ -140,7 +140,6 @@
         return;
     }
     UIViewController *vc = [[cls alloc]init];
-    vc.view.backgroundColor=COLOR_WHITE;
     [self.navigationController pushViewController:vc animated:YES];
     
 }
