@@ -1,6 +1,6 @@
 # bench_ios
-bench for ios
 <img src="https://github.com/gwh111/bench_ios/blob/master/bench_ios/icon.png" width="140">
+bench for ios
 
 ### Podfile
 
@@ -24,7 +24,7 @@ $ pod install
 
 解析文章https://blog.csdn.net/gwh111/article/details/100700830
 
-在.pch文件或需要的地方引入
+使用只需一步，在.pch文件或需要的地方引入
 
 ```
 import "ccs.h"
@@ -50,7 +50,7 @@ CCBUILDTAG=0
 ```
 
 之后只需修改project - info里的configurations来区分线上、主干和分支。
-<img src="https://github.com/gwh111/bench_ios/blob/master/bench_ios/resources/WX20190830-181405@2x.png" width="440">
+<img src="https://github.com/gwh111/bench_ios/blob/master/resources/WX20190830-181405%402x.png" width="440">
 
 ```
 //我们传入动态域名的地址来获取正确的配置域名：
