@@ -42,9 +42,11 @@ static NSString *KEY_MALLOC_SIZE = @"malloc_size";
 - (void)run {
     // 巡查周期
     float interval = 10.0;
-    if (DEBUG) {
-        interval = 5;
-    }
+#if DEBUG
+    interval = 5;
+#else
+    
+#endif
     NSTimer *timer = [NSTimer timerWithTimeInterval:interval target:self selector:@selector(monitorPatrol) userInfo:nil repeats:YES];
     [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
     [[NSRunLoop currentRunLoop] run];

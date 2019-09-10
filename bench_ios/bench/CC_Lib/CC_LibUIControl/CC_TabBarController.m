@@ -178,7 +178,7 @@
     } else if (badgeNumber > 99) {
         [tabBarItem setBadgeValue:@"99+"];
     } else {
-        [tabBarItem setBadgeValue:[NSString stringWithFormat:@"%ld",badgeNumber]];
+        [tabBarItem setBadgeValue:[NSString stringWithFormat:@"%lu",(unsigned long)badgeNumber]];
     }
 }
 

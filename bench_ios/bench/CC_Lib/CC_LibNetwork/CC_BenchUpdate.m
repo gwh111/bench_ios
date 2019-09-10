@@ -14,10 +14,12 @@
 @implementation CC_BenchUpdate
 
 + (void)checkUpdate {
-    if (!DEBUG) {
-        // 减轻服务压力 debug才检查
-        return;
-    }
+#if DEBUG
+    
+#else
+    // 减轻服务压力 debug才检查
+//    return;
+#endif
     // 检查内网
     HttpModel *model = [CC_Base.shared cc_init:HttpModel.class];
     model.forbiddenJSONParseError = YES;

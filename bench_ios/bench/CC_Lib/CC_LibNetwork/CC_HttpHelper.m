@@ -76,11 +76,11 @@ static NSString *DOMAIN_DEFAULT_KEY = @"cc_domainDic";
         if ([result.resultStr containsString:BENCH_IOS_NET_TEST_CONTAIN]) {
             // net environment
             if (CCBUILDTAG2 < 0) {
-                if (DEBUG && domainReqList.count > 1) {
+#if DEBUG
+                if (domainReqList.count > 1) {
                     tag = 1;
-                }else{
-                    tag = 0;
                 }
+#endif
             }else{
                 tag = CCBUILDTAG2;
             }
@@ -133,11 +133,11 @@ static NSString *DOMAIN_DEFAULT_KEY = @"cc_domainDic";
             if ([result.resultStr containsString:BENCH_IOS_NET_TEST_CONTAIN]) {
                 // net environment
                 if (CCBUILDTAG2 < 0) {
-                    if (DEBUG && domainReqGroupList.count > 1) {
+                #if DEBUG
+                    if (domainReqGroupList.count > 1) {
                         tag = 1;
-                    }else{
-                        tag = 0;
                     }
+                #endif
                 }else{
                     tag = CCBUILDTAG2;
                 }
