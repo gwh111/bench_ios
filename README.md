@@ -49,7 +49,7 @@ CCBUILDTAG=0
 ```
 
 之后只需修改project - info里的configurations来区分线上、主干和分支。
-<img src="https://github.com/gwh111/bench_ios/blob/master/resources/WX20190830-181405%402x.png" width="440">
+<img src="https://github.com/gwh111/bench_ios/blob/master/resources/WX20190830-181405%402x.png" width="840">
 
 ```
 //我们传入动态域名的地址来获取正确的配置域名：
