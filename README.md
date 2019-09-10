@@ -1,6 +1,5 @@
 # bench_ios
 <img src="https://github.com/gwh111/bench_ios/blob/master/bench_ios/icon.png" width="140">
-bench for ios
 
 ### Podfile
 
