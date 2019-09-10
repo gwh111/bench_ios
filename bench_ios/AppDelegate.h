@@ -1,17 +1,14 @@
 //
 //  AppDelegate.h
-//  bench_ios
+//  testbenchios
 //
-//  Created by apple on 2017/7/19.
-//  Copyright © 2017年 apple. All rights reserved.
+//  Created by gwh on 2019/7/26.
+//  Copyright © 2019 gwh. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "CC_AppDelegate.h"
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
-
-@property (strong, nonatomic) UIWindow *window;
-
+@interface AppDelegate : CC_AppDelegate
 
 @end
 

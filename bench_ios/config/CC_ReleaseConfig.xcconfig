@@ -1,0 +1,14 @@
+//
+//  CC_ReleaseConfig.xcconfig
+//  bench_ios
+//
+//  Created by gwh on 2019/8/29.
+//  Copyright © 2019 Liuyi. All rights reserved.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+CCBUILDTAG=0
+
+#include "CC_CommonConfig.xcconfig"

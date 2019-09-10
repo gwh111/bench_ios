@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CC_Share.h"
 
 @class CC_AutoLabelGroup;
 @protocol CC_AutoLabelGroupDelegate <NSObject>
@@ -31,7 +30,7 @@ typedef enum : NSUInteger {
  *  单元按钮属性 每个单元按照这个为样本
  */
 @property(nonatomic,strong) CC_Button *sampleBt;
-@property(nonatomic,strong) id <CC_AutoLabelGroupDelegate>delegate;
+@property(nonatomic,assign) id <CC_AutoLabelGroupDelegate>delegate;
 
 /**
  *  初始化类型

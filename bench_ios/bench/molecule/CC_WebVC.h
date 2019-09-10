@@ -14,9 +14,12 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CC_WebVC : UIViewController
 
 @property(nonatomic,retain) WKWebView *webV;
+
 @property(nonatomic,retain) NSString *urlStr;
+@property(nonatomic,retain) NSString *htmlContent;
 
 + (void)presentWeb:(NSString *)urlStr;
++ (void)presentWebWithHtml:(NSString *)htmlContent;
 
 @end
 

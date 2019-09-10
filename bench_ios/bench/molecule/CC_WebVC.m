@@ -42,6 +42,13 @@
     [[CC_Code getRootNav] presentViewController:web animated:YES completion:nil];
 }
 
++ (void)presentWebWithHtml:(NSString *)htmlContent{
+    CC_WebVC *web=[[CC_WebVC alloc]init];
+    web.htmlContent=htmlContent;
+    [web initUI];
+    [[CC_Code getRootNav] presentViewController:web animated:YES completion:nil];
+}
+
 - (void)initUI{
     float barH=[ccui getRH:45];
     
@@ -53,8 +60,12 @@
     webV.navigationDelegate=self;
     webV.allowsBackForwardNavigationGestures = YES;
     
-    NSMutableURLRequest *request =[NSMutableURLRequest requestWithURL:[NSURL URLWithString:_urlStr]];
-    [webV loadRequest:request];
+    if (_urlStr) {
+        NSMutableURLRequest *request =[NSMutableURLRequest requestWithURL:[NSURL URLWithString:_urlStr]];
+        [webV loadRequest:request];
+    }else if (_htmlContent){
+        [webV loadHTMLString:_htmlContent baseURL:nil];
+    }
     
     [webV addObserver:self forKeyPath:@"title" options:NSKeyValueObservingOptionNew context:NULL];
     [webV addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionNew context:NULL];

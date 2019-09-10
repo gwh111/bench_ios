@@ -1,7 +1,8 @@
 # bench_ios
 bench for ios
+<img src="https://github.com/gwh111/bench_ios/blob/master/bench_ios/icon.png" width="140">
 
-#### Podfile
+### Podfile
 
 To integrate bench_ios into your Xcode project using CocoaPods, specify it in your `Podfile`:
 
@@ -21,90 +22,718 @@ $ pod install
 ```
 ========  
 
-在.pch文件或需要的地方引入  
-```
-#import "CC_Share.h"
-```
-必须先初始化布局  
+解析文章https://blog.csdn.net/gwh111/article/details/100700830
+
+在.pch文件或需要的地方引入
 
 ```
-//设置基准 效果图的尺寸 比如效果图是iphone6的尺寸
-[[CC_UIHelper getInstance]initUIDemoWidth:375 andHeight:667];
+import "ccs.h"
+```
+模式是核心，工具是基础的扩展
+
+# 模式类使用方法
+
+## config使用方法
+新建一个CC_CommonConfig.xcconfig文件，在里面写上
 
 ```
-
-<img src="https://github.com/gwh111/bench_ios/blob/master/ccui说明.jpg" width="440">
-我们默认采用方案B 所以嵌套getRH和getRFS函数来实现缩放，为什么字体不也用getRH呢？因为字体缩放系数和frame的缩放系数不同，会稍微低一些，如果字体用等比缩放会在小设备看上去适合，但在大屏幕由于放大过多有点像老年机。  
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) CCBUILDTAG='$(CCBUILDTAG)'
+```
+新建发布
 
 ```
-//使用frame时 原bt.top=10;  转换为 bt.top=[ccui getRH:10];  
-[ccui getRH:10];
-//使用font时 原titleL.font=[UIFont systemFontOfSize:14];  转换位 titleL.font=[ccui getRFS:14];  
-[ccui getRFS:14];
-```  
-通过包一层ccui函数，会对其他尺寸自动缩放适配。v1.3.78后也可以使用RH()和RF()来减少代码量 如：  
+（CC_ReleaseConfig.xcconfig）、 主干（CC_TrunkConfig.xcconfig）、分支1（CC_Branch1Config.xcconfig）等.xcconfig文件，在里面写上tag值和导入'CC_CommonConfig.xcconfig'文件，release=0，trunk=1，branch1=2 ...
 ```
-UILabel *l=[[UILabel alloc]initWithFrame:CGRectMake(0, 0, RH(200), RH(40))];
-l.font=RF(14);
-[self.view addSubview:l];
+```
+CCBUILDTAG=0
+#include "CC_CommonConfig.xcconfig"
 ```
 
-### 模拟器动态布局
-========  
-<img src="https://github.com/gwh111/bench_ios/blob/master/casGif.gif" width="640">
-<img src="https://github.com/gwh111/bench_ios/blob/master/casGif2.gif" width="640">  
-<!--![img](https://github.com/gwh111/bench_ios/blob/master/casGif.gif)  -->
-<!--![img](https://github.com/gwh111/bench_ios/blob/master/casGif2.gif)  -->
-[解析文章](https://blog.csdn.net/gwh111/article/details/81094304)  
-CC_UIAtom 创建可以动态修改的基础控件  
+之后只需修改project - info里的configurations来区分线上、主干和分支。
+<img src="https://github.com/gwh111/bench_ios/blob/master/bench_ios/resources/WX20190830-181405@2x.png" width="440">
+
 ```
-//需要先初始化布局
-[[CC_UIHelper getInstance]initUIDemoWidth:375 andHeight:667];
-//引入cas文件y及路径
-NSString *absoluteFilePath=CASAbsoluteFilePath(@"stylesheet.cas");
-[CC_ClassyExtend initSheet:absoluteFilePath];
-//解析并存储布局配置
-[CC_ClassyExtend parseCas];
-//创建一个view 即可在对应的cas文件修改布局 保存后模拟器自动刷新布局
-[CC_UIAtom initAt:self.view name:@"MainVC_v_figure1" type:CCView finishBlock:^(CC_View *atom) {
+//我们传入动态域名的地址来获取正确的配置域名：
+[ccs configureDomainWithReqGroupList:@[@[线上地址1,线上地址2...], @[主干地址1,主干地址2...], @[分支1地址1,分支1地址2...] ...] andKey:@"eh_doctor_api" cache:NO pingTest:YES block:^(HttpModel *result) {
+    //从result获取域名
 }];
 ```
-### CC_HttpTask网络请求
-#### get和post
-解决了打印日志对于Unicode编码不能正常显示中文的问题，只需要将文件导入工程，不需要引用，就能达到打印日志显示Unicode编码中文数据。
-```
-//get
-[[CC_HttpTask getInstance]get:@"https://www.baidu.com/" params:nil model:nil finishCallbackBlock:^(NSString *error, ResModel *result) {
 
-}];
-//post
-[[CC_HttpTask getInstance]post:@"https://www.baidu.com/" params:@{@"getDate":@""} model:nil finishCallbackBlock:^(NSString *error, ResModel *result) {
+## ccs调度中心介绍
+ccs有最高调度权限，没有管理权限。管理由各个模块各自管理，分布式架构，ccs可以获取访问权限。
 
-}];
-```
-#### 接口统一处理回调
-比如对其他地方登陆逻辑处理  
-```
-[[CC_HttpTask getInstance] addResponseLogic:@"PARAMETER_ERROR" logicStr:@"response,error,name=PARAMETER_ERROR" stop:YES popOnce:NO logicBlock:^(NSDictionary *resultDic) {
-    CCLOG(@"%@",@"PARAMETER_ERROR");
+使用者只需按需调用上层，具体的实现不需要关心，如果需要添加未实现方法或者现有方法不能满足，可以联系维护bench小伙伴
 
-    //取消这个配置    
-    [[CC_HttpTask getInstance]resetResponseLogicPopOnce:@"PARAMETER_ERROR"];
+## AppDelegate使用方法
+main函数入口
+
+```
+#import <UIKit/UIKit.h>
+
+int main(int argc, char * argv[]) {
+    @autoreleasepool {
+        return UIApplicationMain(argc, argv, nil, @"CC_AppDelegate");
+    }
+}
+```
+
+新建AppDelegate继承CC_AppDelegate获得控制权限，CC_AppDelegate之后也会分发代理函数给子模块。
+
+```
+#import "CC_AppDelegate.h"
+
+@interface AppDelegate : CC_AppDelegate
+
+@end
+```
+```
+#import "AppDelegate.h"
+
+@interface AppDelegate ()
+
+@end
+
+@implementation AppDelegate
+
++ (void)load{
+    [ccs registerAppDelegate:self];
+}
+
+- (void)cc_willInit {
+    // 配置函数 在此函数中添加初始化配置
+    [ccs configureAppStandard:@{
+                                YL_SUBTITLE_FONT  :RF(13),
+                                YL_SUBTITLE_COLOR :UIColor.whiteColor
+                                }];
+    
+    CCLOG(@"%@",APP_STANDARD(YL_SUBTITLE_FONT));
+    
+    //入口单页面
+//    [self cc_init:HomeVC.class withNavigationBarHidden:YES block:^{
+//        [self launch];
+//    }];
+    
+    //入口TabBar
+    [self cc_init:TestTabBarController.class withNavigationBarHidden:YES block:^{
+        [self launch];
+    }];
+}
+
+#pragma mark life circle
+- (BOOL)cc_application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    //当程序载入后执行，应用程序启动入口
+    return YES;
+}
+
+- (void)cc_applicationWillResignActive:(UIApplication *)application {
+      //应用程序将要进入非活动状态，即将进入后台
+}
+
+- (void)cc_applicationDidEnterBackground:(UIApplication *)application {
+     //应用程序已经进入后台运行
+}
+
+- (void)cc_applicationWillEnterForeground:(UIApplication *)application {
+     //应用程序将要进入活动状态，即将进入前台运行
+}
+
+- (void)cc_applicationDidBecomeActive:(UIApplication *)application {
+     //应用程序已进入前台，处于活动状态
+}
+
+- (void)cc_applicationWillTerminate:(UIApplication *)application {
+    //应用程序将要退出，通常用于保存数据和一些退出前的清理工作
+}
+
+@end
+```
+## TabBarController使用方法
+```
+#import "TestTabBarController.h"
+#import "HomeVC.h"
+#import "ccs.h"
+
+@interface TestTabBarController ()
+
+@end
+
+@implementation TestTabBarController
+
+- (void)cc_viewDidLoad {
+    self.view.backgroundColor = UIColor.whiteColor;
+    // 纯图片 tabbar
+    //    [self cc_initWithClasses:@[HomeVC.class,UIViewController.class]
+    //                      images:@[@"tabbar_mine_high",@"tabbar_mine_high"]
+    //              selectedImages:@[@"tabbar_mine_high",@"tabbar_mine_high"]];
+    // 图片 + 文字 tabbar
+    [self cc_initWithClasses:@[HomeVC.class,UIViewController.class]
+                      titles:@[@"首页",@"首页"]
+                      images:@[@"tabbar_mine_high",@"tabbar_mine_high"]
+              selectedImages:@[@"tabbar_mine_high",@"tabbar_mine_high"]
+                  titleColor:UIColor.blackColor
+          selectedTitleColor:UIColor.blueColor];
+    
+    //    [self cc_addTabBarItemWithClass:UIViewController.class
+    //                              image:@"tabbar_mine_high"
+    //                      selectedImage:@"tabbar_mine_high"
+    //                              index:2];
+    
+    [self cc_addTabBarItemWithClass:UIViewController.class
+                              title:@"我的"
+                              image:@"tabbar_mine_high"
+                      selectedImage:@"tabbar_mine_high"
+                              index:2];
+    
+    [self cc_updateBadgeNumber:200 atIndex:2];
+}
+```
+## ViewController使用方法
+
+ViewController继承CC_ViewController，cc_baseView进行自定义绘制。针对ViewController业务复杂，存在ABC多个模块时，继承CC_Controller委托代理进行业务拆分，模块共享。
+
+原来模板新建 ViewController .h文件
+
+```
+#import <UIKit/UIKit.h>
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface TestViewController : UIViewController
+
+@end
+
+NS_ASSUME_NONNULL_END
+```
+新模板新建 ViewController .h文件
+
+```
+#import "CC_ViewController.h"
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface TestNewViewController : CC_ViewController
+
+@end
+
+NS_ASSUME_NONNULL_END
+```
+原来模板新建 ViewController .m文件
+
+```
+#import "TestViewController.h"
+
+@interface TestViewController ()
+
+@end
+
+@implementation TestViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+@end
+```
+新模板新建 ViewController .m文件
+
+```
+#import "TestNewViewController.h"
+
+@interface TestNewViewController ()
+
+@end
+
+@implementation TestNewViewController
+
+- (void)cc_viewWillLoad {
+    // Do any additional setup after loading the view.
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+@end
+```
+包含哪些方法可以具体查看
+
+```
+#import <UIKit/UIKit.h>
+#import "CC_Foundation.h"
+#import "CC_View.h"
+#import "CC_Controller.h"
+
+@class CC_View,CC_Controller;
+
+@interface CC_ViewController : UIViewController
+
+@property (nonatomic,retain) CC_View *cc_baseView;
+@property (nonatomic,retain) NSMutableArray *cc_controllers;
+
+// Configuration function, adds configuration to this function
+// 配置函数 在此函数中添加配置
+- (void)cc_viewWillLoad;
+- (void)cc_registerController:(Class)class;
+
+// Function used in controller
+// 功能函数 在控制器使用
+- (void)cc_addSubview:(id)view;
+- (CC_View *)cc_viewWithName:(NSString *)name;
+- (void)cc_removeViewWithName:(NSString *)name;
+- (CC_Controller *)cc_controllerWithName:(NSString *)name;
+
+// Trigger function, triggering after the condition of trigger function is reached
+// 触发函数 条件达到后触发
+- (void)cc_viewDidLoad;
+- (void)cc_viewWillAppear;
+- (void)cc_viewWillDisappear;
+- (void)cc_didReceiveMemoryWarning;
+- (void)cc_dealloc;
+```
+## Controller使用方法
+需要拆分的模块继承CC_Controller实现自身代理。控制器初始化注册代理类，实现代理方法。
+CC_Controller通过start()函数初始化，我们在CC_Controller中方便地提供了代理，通过代理分发回调到CC_ViewController来交互，传统方法需要声明代理，以及响应判断。
+
+将原来要写的代码：
+
+```
+// 属性声明
+@property(nonatomic,assign) id <CC_LabelGroupDelegate>delegate;
+ 
+// 代理
+if ([self.delegate respondsToSelector:@selector(labelGroup:initWithButton:)]) {
+    [self.delegate labelGroup:self initWithButton:button];
+}
+```
+
+变成直接代理：
+
+```
+#import "CC_Foundation.h"
+#import "ccs.h"
+
+NS_ASSUME_NONNULL_BEGIN
+
+@protocol TestControllerDelegate
+
+- (void)methd2withA:(NSString *)a b:(NSArray *)b;
+
+@end
+
+@interface TestController : CC_Controller
+
+@end
+
+NS_ASSUME_NONNULL_END
+```
+```
+#import "TestController.h"
+
+@implementation TestController
+
+- (void)cc_start {
+    // 初始化配置
+    self.cc_name = @"test1";
+    [ccs delay:2 block:^{
+        // 初始化配置完成
+        [self.cc_delegate cc_performSelector:@selector(methd2withA:b:) params:@"",@""];
+    }];
+}
+
+@end
+```
+在对应的CC_ViewController中便可接收到此方法
+
+```
+#import "TestViewController.h"
+#import "TestController.h"
+#import "ccs.h"
+
+@interface TestViewController ()
+
+@end
+
+@implementation TestViewController
+
+- (void)methd2withA:(NSString *)a b:(NSArray *)b{
+    // TestController里的协议
+    CCLOG(@"callback methd2withA");
+}
+
+- (void)cc_viewWillLoad {
+    //  注册完可直接实现TestController里的协议'methd2withA:b:'
+    [self cc_registerController:TestController.class];
+}
+
+- (void)cc_viewDidLoad {
+}
+```
+
+## Model使用方法
+继承CC_Model添加自定义变量，同时支持replaced Key From Property Name
+
+```
+@interface Test_model : CC_Model
+
+@property (nonatomic, copy) NSString *str1;
+
+@property (nonatomic, copy) NSString *str2;
+
+@end
+```
+
+```
+@implementation Test_model
+
+- (void)cc_update
+{
+    CCLOG(@"update Test_model key value %@",self.cc_modelDic);
+}
+
+@end
+```
+
+```
+Test_model *modelObj = [ccs model:[Test_model class]];
+[modelObj cc_setProperty:@{@"str1":@"xin",@"str2":@"yi"}];
+[modelObj cc_update];
+
+//replace Property name 
+[modelObj cc_setProperty:@{@"str1":@"xin",@"id":@"b"} modelKVDic:@{@"str2":@"id"}];
+[modelObj cc_update];
+```
+## UIKit使用方法
+
+```
+UILabel *label = [[UILabel alloc] init];
+label.text = @"mylabel";
+label.frame = CGRectMake(RH(10),RH(100),RH(100),RH(100));
+label.backgroundColor = HEXA(@"FFD700", 1);
+```
+```
+//省去变量名，通过链式返回对象扩展书写
+ccs.label
+.cc_name(@"mylabel")
+.cc_frame(RH(10),RH(100),RH(100),RH(100))
+.cc_backgroundColor(HEXA(@"FFD700", 1));
+```
+### Alert
+```
+//系统弹窗 
+- (void)test_Alert
+{
+    [ccs showAltOn:self title:@"haha" msg:@"你猜" bts:@[@"取消",@"确定"] block:^(int index, NSString *name) {
+        CCLOG(@"showAlert index = %d btn name = %@",index,name);
+    }];
+
+    [ccs showTextFieldAltOn:self title:@"haha" msg:@"你猜" placeholder:@"猜不着" bts:@[@"取消",@"确定",@"ok"] block:^(int index, NSString *name, NSString *text) {
+        CCLOG(@"showTextFieldsAlert index = %d btn name = %@",index,name);
+    }];
+
+    [ccs showTextFieldsAltOn:self title:@"haha" msg:@"你猜" placeholders:@[@"猜",@"不",@"着"] bts:@[@"取消",@"确定",@"ok"] block:^(int index, NSString *name, NSArray *texts) {
+        CCLOG(@"showTextFieldsAlert index = %d btn name = %@ textFields text array = %@",index,name,texts);
+    }];
+}
+```
+### app标准使用方法
+```
+//App Font And Color Standard
+#define HEADLINE_FONT     @"HEADLINE_FONT"
+#define HEADLINE_COLOR    @"HEADLINE_COLOR"
+#define TITLE_FONT        @"TITLE_FONT"
+#define TITLE_COLOR       @"TITLE_COLOR"
+#define CONTENT_FONT      @"CONTENT_FONT"
+#define CONTENT_COLOR     @"CONTENT_COLOR"
+#define DATE_FONT         @"DATE_FONT"
+#define DATE_COLOR        @"DATE_COLOR"
+#define MASTER_COLOR      @"MASTER_COLOR"
+#define AUXILIARY_COLOR   @"AUXILIARY_COLOR"
+
+//针对工程添加自定义标准 如医疗项目
+#define YL_SUBTITLE_FONT     @"YL_SUBTITLE_FONT"
+#define YL_SUBTITLE_COLOR    @"YL_SUBTITLE_COLOR"
+
+[ccs configureAppStandard:@{
+                            YL_SUBTITLE_FONT  :RF(13),
+                            YL_SUBTITLE_COLOR :UIColor.whiteColor
+                            }];
+    
+CCLOG(@"%@",APP_STANDARD(YL_SUBTITLE_FONT));
+```
+### 自动适配使用方法
+```
+所有布局的数字包一层RH()函数，如 CGRectMake(0, 0, RH(200), RH(40)
+float x = RH(30)
+font = RF(14);
+```
+### textBind使用方法
+```
+//数据和视图绑定
+// 绑定string
+NSString *str = [ccs string:@"abc%@%d",@"a",34];
+// 方法三
+ccs.label
+.cc_name(@"mylabel")
+.cc_frame(RH(10),RH(100),RH(100),RH(100))
+.cc_backgroundColor(HEXA(@"FFD700", 1))
+.cc_textColor(HEXA(@"9B30FF", 1))
+.cc_bindText(str)
+.cc_addToView(self)
+.cc_tappedInterval(0.1,^(id view) {
+    // 改变labele内的富文本
+    NSMutableAttributedString *att = [ccs mutAttributedString];
+    [att cc_appendAttStr:@"abc" color:COLOR_LIGHT_ORANGE];
+    [att cc_appendAttStr:@"123" color:[UIColor greenColor] font:RF(22)];
+    CC_Label *v = view;
+    v.attributedText = att;
+    // 延时5秒后退出控制器
+    [ccs delay:5 block:^{
+        [ccs popViewController];
+    }];
+});
+
+// 3秒后更新string view跟踪变化
+[ccs delay:3 block:^{
+    // 无需获取控件，更新数据源自动更新视图控件
+    [str cc_update:@"cvb"];
 }];
 ```
-#### http请求头设置
+
+如果我们在控制器的另一个函数中要获取控件对象，我们可以声明它为全局变量或者属性：
+
 ```
-[[CC_HttpTask getInstance]setRequestHTTPHeaderFieldDic:
-@{@"appName":@"ljzsmj_ios",
-  @"appVersion":@"1.0.3",
-  @"appUserAgent":@"e1",
-  }];
+@interface TestViewController () {
+    UILabel *label;
+}
+@end
 ```
-#### 多图上传
+或者使用viewWithTag()来取对象，但用tag会很不方便，如果要直观还需将tag声明成static，所以我们提供了viewWithName()的函数来取对象：
+
+```
+- (void)funtionB {
+    id v = [self cc_viewWithName:@"abc"];
+}
+```
+## 单例使用方法
+
+```
++ (instancetype)shared{
+return [ccs registerSharedInstance:self];
+}
+```
+```
++ (instancetype)shared {
+    return [ccs registerSharedInstance:self block:^{
+        //do something init
+    }];
+}
+```
+
+## 共享数据使用方法
+```
+// data sharing, shared data in app, such as update a model in controller A when you are in controller B
+// app共享的数据存储 如在控制器B更新控制器A里的model
+//+ (id)shared:(NSString *)key;
+//+ (id)removeShared:(NSString *)key;
+//+ (id)setShared:(NSString *)key obj:(id)obj;
+//+ (id)resetShared:(NSString *)key obj:(id)obj;
+
+[ccs setShared:@"name" obj:@"xinyi"];
+id obj = [ccs shared:@"name"];
+```
+
+## 多线程使用方法
+```
+#pragma mark CC_CoreThread
++ (void)gotoThread:(void (^)(void))block;
++ (void)gotoMain:(void (^)(void))block;
++ (void)delay:(double)delayInSeconds block:(void (^)(void))block;
++ (void)threadGroup:(NSUInteger)taskCount block:(void(^)(NSUInteger taskIndex, BOOL finish))block;
++ (void)threadBlockFinish:(id)sema;
++ (void)threadBlockGroup:(NSUInteger)taskCount block:(void(^)(NSUInteger taskIndex, BOOL finish, id sema))block;
++ (void)threadBlockSequence:(NSUInteger)taskCount block:(void(^)(NSUInteger taskIndex, BOOL finish, id sema))block;
+
++ (void)delay:(double)delayInSeconds key:(NSString *)key block:(void (^)(void))block;
++ (void)delayStop:(NSString *)key;
+```
+```
+#import "TestThread.h"
+
+@implementation TestThread
+
++ (void)start{
+    
+    // 一组异步任务 在多个线程执行
+    if ((1)) {
+        CCLOG(@"cc_group %@",[NSThread currentThread]);
+        [ccs threadGroup:3 block:^(NSUInteger taskIndex, BOOL finish) {
+            if (taskIndex==0) {
+                CCLOG(@"cc_group 0 finish %d %@",finish,[NSThread currentThread]);
+            }else if (taskIndex==1){
+                CCLOG(@"cc_group 1 finish %d %@",finish,[NSThread currentThread]);
+            }else if (taskIndex==2){
+                CCLOG(@"cc_group 2 finish %d %@",finish,[NSThread currentThread]);
+            }else{
+                CCLOG(@"cc_group 3 finish %d %@",finish,[NSThread currentThread]);
+            }
+        }];
+    }
+    
+    // 异步完成一组有异步回调的函数后执行下一个函数
+    if ((1)) {
+        CCLOG(@"cc_blockGroup %@",[NSThread currentThread]);
+        [ccs threadBlockGroup:2 block:^(NSUInteger taskIndex, BOOL finish, id sema) {
+            if (taskIndex==0) {
+                CCLOG(@"cc_blockGroup 0 %@",[NSThread currentThread]);
+                [ccs delay:10 block:^{
+                    [ccs threadBlockFinish:sema];
+                }];
+            }else if (taskIndex==1){
+                CCLOG(@"cc_blockGroup 1 %@",[NSThread currentThread]);
+                [ccs delay:2 block:^{
+                    [ccs threadBlockFinish:sema];
+                }];
+            }
+            if (finish) {
+                CCLOG(@"cc_blockGroup finish %@",[NSThread currentThread]);
+            }
+        }];
+    }
+    
+    // 顺序执行一组有异步回调的函数后执行下一个函数
+    if ((0)) {
+        CCLOG(@"cc_blockSequence %@",[NSThread currentThread]);
+        [ccs threadBlockSequence:2 block:^(NSUInteger taskIndex, BOOL finish, id  _Nonnull sema) {
+            if (taskIndex==0) {
+                CCLOG(@"cc_blockSequence 0 %@",[NSThread currentThread]);
+                [ccs delay:5 block:^{
+                    [ccs threadBlockFinish:sema];;
+                }];
+            } else if (taskIndex==1) {
+                CCLOG(@"cc_blockSequence 1 %@",[NSThread currentThread]);
+                [ccs delay:2 block:^{
+                    [ccs threadBlockFinish:sema];;
+                }];
+            }
+            if (finish) {
+                CCLOG(@"cc_blockSequence finish %@",[NSThread currentThread]);
+            }
+        }];
+
+    }
+    
+}
+
+@end
+```
+## 定时器使用方法
+```
+#pragma mark CC_CoreTimer
++ (void)timerRegister:(NSString *)name interval:(float)interval block:(void (^)(void))block;
++ (void)timerCancel:(NSString *)name;
+
++ (NSString *)uniqueNowTimestamp;
++ (NSString *)nowTimeTimestamp;
+```
+```
+- (void)test_foundationCoreTimer
+{
+    //CoreTimer
+    [ccs timerRegister:@"testTimer1" interval:1 block:^{
+        CCLOG(@"CoreTimer block 1 ");
+    }];
+    [ccs timerRegister:@"testTimer2" interval:2 block:^{
+        CCLOG(@"CoreTimer block 2 ");
+    }];
+    [ccs timerRegister:@"testTimer3" interval:5 block:^{
+        CCLOG(@"CoreTimer block 3 ");
+    }];
+    
+    [ccs timerCancel:@"testTimer2"];
+    
+    CCLOG(@"CoreTimer uniqueNowTimestamp %@",[ccs uniqueNowTimestamp]);
+    CCLOG(@"CoreTimer nowTimeTimestamp %@",[ccs nowTimeTimestamp]);
+}
+```
+
+## 组件化生命周期分发使用方法
+
+
+## 组件化分类使用方法
+
+
+# 工具类使用方法
+
+## Monitor使用方法
+```
+目前CC_Monitor的几大功能是：
+1、监控app本身和组件的生命周期（包括耗时和内存）。
+2、监控app运行时的异常（包括耗时、内存和异常）。
+#pragma mark monitor
+// 启动监控 默认开启
++ (void)openLaunchMonitor:(BOOL)open;
+// 启动监控日志 默认开启
++ (void)openLaunchMonitorLog:(BOOL)open;
+// 定期检查 默认开启
++ (void)openPatrolMonitor:(BOOL)open;
+// 定期检查日志 默认关闭
++ (void)openPatrolMonitorLog:(BOOL)open;
+```
+## 网络请求使用方法
+```
+// CC_CommonConfig.xcconfig
+// CC_ReleaseConfig.xcconfig
+// CC_TrunkConfig.xcconfig
+// CC_Branch1Config.xcconfig
+// ...
+// GCC_PREPROCESSOR_DEFINITIONS = $(inherited) CCBUILDTAG='$(CCBUILDTAG)'
+// CCBUILDTAG=0
+// #include "CC_CommonConfig.xcconfig"
+/** @[@[线上地址1,线上地址2...], @[主干地址1,主干地址2...], @[分支1地址1,分支1地址2...] ...] */
+// + (void)configureDomainWithReqGroupList:(NSArray *)domainReqList andKey:(NSString *)domainReqKey cache:(BOOL)cache pingTest:(BOOL)pingTest block:(void (^)(HttpModel *result))block;
+
+//network config
+[ccs configureDomainWithReqGroupList:@[@[@"http://sssynout-eh-resource.oss-cn-hangzhou.aliyuncs.com/URL/eh_url.txt", @"http://dynamic.kkjk123.com/eh_url.txt"],@[@"http://test-onlinetreat.oss-cn-hangzhou.aliyuncs.com/URL/eh_url.txt", @"http://dynamic.onlinetreat.net/eh_url.txt"]]
+                                  andKey:@"eh_doctor_api"
+                                   cache:NO
+                                pingTest:YES
+                                   block:^(HttpModel *result) {
+
+                                       HttpModel *model = [[HttpModel alloc]init];
+                                       model.forbiddenJSONParseError = YES;
+                                       [ccs.httpTask get:@"https://www.jianshu.com/p/a1ec0db3c710" params:nil model:model finishBlock:^(NSString *error, HttpModel *result) {
+
+                                       }];
+
+                                   }];
+```
+### http请求使用方法
+```
+- (void)post:(id)url params:(id)paramsDic model:(HttpModel *)model finishBlock:(void (^)(NSString *error, HttpModel *result))block;
+
+- (void)get:(id)url params:(id)paramsDic model:(HttpModel *)model finishBlock:(void (^)(NSString *error, HttpModel *result))block;
+```
+### 图片上传使用方法
 ```
 /**
  上传多张图片-指定图片压缩比例
-
  @param images 图片数组
  @param url URL
  @param paramsDic 参数
@@ -112,11 +741,15 @@ NSString *absoluteFilePath=CASAbsoluteFilePath(@"stylesheet.cas");
  @param times 上传失败-重新上传次数
  @param uploadImageBlock 回调函数
  */
--(void)uploadImages:(NSArray<UIImage *> *)images url:(id)url params:(id)paramsDic imageScale:(CGFloat)imageScale reConnectTimes:(NSInteger)times finishBlock:(void (^)(NSArray<ResModel*> *errorModelArr, NSArray<ResModel*> *successModelArr))uploadImageBlock;
+- (void)imageUpload:(NSArray<id> *)images
+                url:(id)url
+             params:(id)paramsDic
+         imageScale:(CGFloat)imageScale
+     reConnectTimes:(NSInteger)times
+        finishBlock:(void (^)(NSArray<HttpModel*> *errorModelArr, NSArray<HttpModel*> *successModelArr))uploadImageBlock;
 
 /**
  上传多张图片-指定图片大小 单位 兆
-
  @param images 图片数组
  @param url URL
  @param paramsDic 参数
@@ -124,418 +757,118 @@ NSString *absoluteFilePath=CASAbsoluteFilePath(@"stylesheet.cas");
  @param times 上传失败-重新上传次数
  @param uploadImageBlock 回调函数
  */
--(void)uploadImages:(NSArray<UIImage *> *)images url:(id)url params:(id)paramsDic imageSize:(NSUInteger)imageSize reConnectTimes:(NSInteger)times finishBlock:(void (^)(NSArray<ResModel*> *errorModelArr, NSArray<ResModel*> *successModelArr))uploadImageBlock;
+- (void)imageUpload:(NSArray<id> *)images
+                url:(id)url
+             params:(id)paramsDic
+          imageSize:(NSUInteger)imageSize
+     reConnectTimes:(NSInteger)times
+        finishBlock:(void (^)(NSArray<HttpModel*> *errorModelArr, NSArray<HttpModel*> *successModelArr))uploadImageBlock;
+        
 ```
+### 文件上传使用方法
+### 下载图片使用方法
+### 加密使用方法
 
-### 数据处理
-#### CC_Parser转化map，将map数据插入数组。  
-```
-/**
- * 将map的数据移置list中
- *
- * NSMutableArray *parr=[CC_Parser getMapParser:result[@"response"][@"purchaseOrders"] idKey:@"order" keepKey:YES pathMap:result[@"response"][@"paidFeeMap"]];
- * parr=[CC_Parser addMapParser:parr idKey:@"prize" keepKey:NO map:result[@"response"][@"prizeFeeMap"]];
- *
- * pathArr 需要获取的list路径 如result[@"response"][@"purchaseOrders"]
- * idKey 要取的map字段key 如purchseNo
- * keepKey 是否保留原字段 如purchseNo 本身含有意义要保留 会在key最后添加_map区分" 如xxxid 本身没有意义，为了取值而生成的id不保留 被map相应id的数据替换
- * mapPath 要取的map的路径 如result[@"response"][@"paidFeeMap"] map中可以是nsstring 也可以是nsdictionary
- */
-+ (NSMutableArray *)getMapParser:(NSArray *)pathArr idKey:(NSString *)idKey keepKey:(BOOL)keepKey pathMap:(NSDictionary *)pathMap;
-
-/**
- * 将map的数据移置list中 多个map时添加
- */
-+ (NSMutableArray *)addMapParser:(NSMutableArray *)pathArr idKey:(NSString *)idKey keepKey:(BOOL)keepKey map:(NSDictionary *)getMap;
-
-/**
- *  冒泡排序
- *  desc=1 降序
-    key=nil 直接对mutArr取值排序
- */
-+ (NSMutableArray *)sortMutArr:(NSMutableArray *)mutArr byKey:(NSString *)key desc:(int)desc;
-```
+## 数据存储使用方法
+CC_Lib/CC_LibStorage 具体使用见Test_LibViewController
+> CC_KeyChainStore 钥匙串存储
+> CC_DefaultStore  NSUserDefaults
+> CC_BundleStore  NSBundle
+> CC_SandboxStore 沙盒 Documents 存储
+> CC_GCoreDataManager
 
 ```
-NSDictionary *result=@{@"response":
-@{@"purchaseOrders":
-@[
-@{@"name":@"111",@"order":@"1111",@"prize":@"aaa"},
-@{@"name":@"222",@"order":@"2222",@"prize":@"bbb"}],
+#pragma mark CC_LibStorage
+//KeyChainStore
++ (NSString *)keychainKey:(NSString *)name;
++ (void)saveKeychainKey:(NSString *)key value:(NSString *)value;
++ (NSString *)keychainUUID;
 
-  @"paidFeeMap":
-@{@"1111":@"100yuan",@"2222":@"120yuan"},
+//NSUserDefaults
++ (id)defaultKey:(NSString *)key;
++ (void)saveDefaultKey:(NSString *)key value:(id)value;
 
-  @"prizeFeeMap":
-@{@"aaa":@{@"name":@"a",@"time":@"ac"},
-  @"bbb":@{@"name":@"b",@"time":@"bc"}}
-                                     }};
++ (id)safeDefaultKey:(NSString *)key;
++ (void)saveSafeDefaultKey:(NSString *)key value:(id)value;
 
-NSMutableArray *parr=[CC_Parser getMapParser:result[@"response"][@"purchaseOrders"] idKey:@"order" keepKey:YES pathMap:result[@"response"][@"paidFeeMap"]];
-parr=[CC_Parser addMapParser:parr idKey:@"prize" keepKey:NO map:result[@"response"][@"prizeFeeMap"]];
-```
-#### CC_Array排序
-```
-/**
- *  中文的排序
- *  proMutArr 需要排序的数组
- *  depthArr 字典深度的路径数组
- *  如排序一层中文 如@[@"张三",@"李四"];
-    depthArr=nil;
- *  如排序嵌套字典的数组 如@[@{@"name":@"张三",@"id":@"xxx"},@{@"name":@"李四",@"id":@"xxx"}];
-    depthArr=@[@"name"];
- */
-+ (NSMutableArray *)sortChineseArr:(NSMutableArray *)sortMutArr depthArr:(NSArray *)depthArr;
+//NSBundle
++ (NSString *)appName;
++ (NSString *)appBid;
++ (NSString *)appVersion;
++ (NSString *)appBundleVersion;
++ (NSDictionary *)appBundle;
 
-/**
- * 从小到大排序
- */
-+ (NSArray *)arrayAscending:(NSArray *)arr;
++ (NSArray *)bundleFileNamesWithPath:(NSString *)name type:(NSString *)type;
++ (NSData *)bundleFileWithPath:(NSString *)name type:(NSString *)type;
++ (NSDictionary *)bundlePlistWithPath:(NSString *)name;
 
-/**
- * 从大到小排序
- */
-+ (NSArray *)arrayDescending:(NSArray *)arr;
++ (BOOL)copyBunldFileToSandboxToPath:(NSString *)name type:(NSString *)type;
++ (BOOL)copyBunldPlistToSandboxToPath:(NSString *)name;
+
+//沙盒 Documents 存储
++ (NSString *)sandboxPath;
++ (NSArray *)sandboxDirectoryFilesWithPath:(NSString *)name type:(NSString *)type;
+
++ (NSData *)sandboxFileWithPath:(NSString *)name type:(NSString *)type;
++ (NSDictionary *)sandboxPlistWithPath:(NSString *)name;
+
++ (BOOL)deleteSandboxFileWithName:(NSString *)name;
++ (BOOL)saveToSandboxWithData:(id)data toPath:(NSString *)name type:(NSString *)type;
 ```
 
+## 音频使用方法
+
+## 动画使用方法
 ```
-NSMutableArray *arr=[[NSMutableArray alloc]initWithArray:@[@{@"name":@"张三",@"id":@"xxx"},@{@"name":@"李四",@"id":@"xxx"}]];
-arr=[CC_Array sortChineseArr:arr depthArr:@[@"name"]];
+// 不停闪烁
+// [noteTextV.layer addAnimation:[CC_Animation cc_flickerForever:.5] forKey:nil];
++ (CABasicAnimation *)cc_flickerForever:(float)time;
+
+// 按钮点击放大动画
+// [CC_Animation cc_buttonTapEnlarge:checkBt];
++ (void)cc_buttonTapEnlarge:(CC_Button *)button;
 ```
-#### NSMutableDictionary解决json数据浮点数精度丢失问题
-修正使用NSJSONSerialization将NSString转换为Dictionary后 有小数部分出现如8.369999999999999问题。  
-```
-/**
- *  修正使用NSJSONSerialization将NSString转换为Dictionary后 有小数部分出现如8.369999999999999问题
- 例子:
- NSString *html = @"{\"71.40\":71.40,\"8.37\":8.37,\"80.40\":80.40,\"188.40\":188.40}";此段html转换成NSMutableDictionary后使用correctNumberLoss处理耗时0.000379秒
- */
-- (NSMutableDictionary *)correctDecimalLoss:(NSMutableDictionary *)dic;
-```  
-#### CC_Logic版本号的对比
-```
-/**
- *  版本号对比 如1.3.1 比 1.4.2版本低 返回-1
- *  1 v1>v2
- *  0 v1=v2
- * -1 v1<v2
- */
-+ (int)compareV1:(NSString *)v1 cutV2:(NSString *)v2;
-```
+## 函数使用方法
 
-### CC_HookTrack无感知埋点统计
-[解析文章](https://blog.csdn.net/gwh111/article/details/81479040)  
-```
-//CC_HookTrack 路径跟踪开启 app启动时开启一次
-[CC_HookTrack catchTrack];
-//获取此时刻调用的前三个方法名
-NSString *actions=[CC_HookTrack getInstance].triggerActionStr;
-//目前所在控制器名
-NSString *currentVCStr=[CC_HookTrack getInstance].currentVCStr;
-//堆栈中所有的控制器名字们
-NSArray *lastVCs=[CC_HookTrack getInstance].lastVCs;
-//记录控制器进出的记录 ViewController1-pushTo-ViewController2
-NSString *pushPopActionStr=[CC_HookTrack getInstance].pushPopActionStr;
-```
+CC_Lib/CC_Function 具体使用见Test_FunctionViewController
 
-### CC_Date日期的比较
-```
-/**
- *  NSString转NSDate
- */
-+ (NSDate *)ccgetDate:(NSString *)dateStr formatter:(NSString *)formatterStr;
-
-/**
- *  NSDate转NSString
- */
-+ (NSString *)ccgetDateStr:(NSDate *)date formatter:(NSString *)formatterStr;
-
-/**
- *  比较时间间隔
-    <0 date1 在date2 之前
-    >0 date1 在date2 之后
- */
-+ (NSTimeInterval)compareDate:(NSDate *)date1 cut:(NSDate *)date2;
-```
-
-### CC_Convert格式的转换
-```
-/**
- *  string to data, utf8编码
- */
-+ (NSData *)strToData_utf8:(NSString *)str;
-
-/**
- *  data to string, utf8编码
- */
-+ (NSString *)dataToStr_utf8:(NSData *)data;
-
-/**
- *  data to string, base64
- */
-+ (NSString *)dataToStr_base64:(NSData *)data;
-
-/**
- *  int转data
- */
-+ (NSData *)intToData:(int)i;
-
-/**
- *  JSON转NSString
- */
-+ (NSString *)convertToJSONData:(id)infoDict;
-
-/**
- *  NSString转NSDictionary(JSON)
- */
-+ (NSDictionary *)dictionaryWithJsonString:(NSString *)jsonString;
-
-/**
- *  颜色的16进制NSString转成UIColor
- */
-+ (UIColor *)colorwithHexString:(NSString *)color;
-```
-
-### CC_Code常用代码封装
-```
-/**
- *  获取当前控制器
- */
-+ (UIViewController *)getCurrentVC;
-
-/**
- *  获取最上层window
- */
-+ (UIWindow *)getLastWindow;
-
-/**
- *  获取当前可以展示的view
-    先取CurrentVC.view 如果没有 取LastWindow
- */
-+ (UIView *)getAView;
-
-/**
- *  设置圆角
- */
-+ (void)setRadius:(float)radius view:(UIView *)view;
-
-/**
- *  设置阴影
- */
-+ (void)setShadow:(UIColor *)color view:(UIView *)view;
-+ (void)setShadow:(UIColor *)color view:(UIView *)view offset:(CGSize)size opacity:(float)opacity;
-
-/**
- *  设置描边
- */
-+ (void)setLineColor:(UIColor *)color width:(float)width view:(UIView *)view;
-```
-
-### CC_Validate一些规则的验证
-```
-/**
- *  纯数字
- */
-+ (BOOL)isPureInt:(NSString *)str;
-
-/**
- *  纯字母
- */
-+ (BOOL)isPureLetter:(NSString *)str;
-
-/**
- *  只有数字字母和中文
- */
-+ (BOOL)isMatchNumberWordChinese:(NSString *)str;
-
-/**
- *  有中文
- */
-+ (BOOL)hasChinese:(NSString *)str;
-
-/**
- *  手机号码验证
- */
-+ (BOOL)validateMobile:(NSString *)mobileStr;
-
-/**
- *  邮箱
- */
-+ (BOOL)validateEmail:(NSString *)emailStr;
-```
-
-### 常用加密解密
-#### CC_DES
-```
-/*字符串加密
- *参数
- *plainText : 加密明文
- *key        : 密钥 64位
- */
-+ (NSString *)encryptUseDES:(NSString *)plainText key:(NSString *)key;
-
-//解密
-+ (NSString *)decryptUseDES:(NSString *)cipherText key:(NSString *)key;
-```
-#### CC_AES
-```
-/**
- *  CBC模式使用偏移量
-    https://www.jianshu.com/p/2e68a91d4681
- */
-+ (NSData *)encryptWithKey:(NSString *)key iv:(NSString *)iv data:(NSData *)data;
-+ (NSData *)decryptWithKey:(NSString *)key iv:(NSString *)iv data:(NSData *)data;
-/**
- *  没有偏移量
- */
-+ (NSData *)encryptData:(NSData *)data key:(NSData *)key;
-+ (NSData *)decryptData:(NSData *)data key:(NSData *)key;
-```
-#### CC_RSA
-```
-/**
- *  公钥加密
-    NSString格式
- */
-+ (NSString *)encryptStr:(NSString *)str publicKey:(NSString *)pubKey;
-
-/**
- *  公钥加密
-    NSData格式
- */
-+ (NSData *)encryptData:(NSData *)data publicKey:(NSString *)pubKey;
-
-/**
- *  私钥加密
-    NSString格式
- */
-+ (NSString *)encryptStr:(NSString *)str privateKey:(NSString *)privKey;
-
-/**
- *  私钥加密
-    NSData格式
- */
-+ (NSData *)encryptData:(NSData *)data privateKey:(NSString *)privKey;
-
-/**
- *  公钥解密
-    NSString格式
- */
-+ (NSString *)decryptStr:(NSString *)str publicKey:(NSString *)pubKey;
-
-/**
- *  公钥解密
-    NSData格式
- */
-+ (NSData *)decryptData:(NSData *)data publicKey:(NSString *)pubKey;
-
-/**
- *  私钥解密
-    NSString格式
- */
-+ (NSString *)decryptStr:(NSString *)str privateKey:(NSString *)privKey;
-
-/**
- *  私钥解密
-    NSData格式
- */
-+ (NSData *)decryptData:(NSData *)data privateKey:(NSString *)privKey;
-```
-
-### ccs快速开发
-使用ccs快速调用基本方法，可实现如获取版本号、获取沙盒文件、获取加密的userdefault等一系列功能，具体可查看CC_Share.h文件。  
-在.pch文件或需要的地方引入  
-```
-#import "CC_Share.h"
-```
-#### 子线程和主线程切换
-```
-NSLog(@"1");
-[ccs gotoThread:^{
-    NSLog(@"2");
-    NSLog(@"3");
-    [ccs gotoMain:^{
-        NSLog(@"4");
-    }];
-}];
-NSLog(@"5");
-```
-#### 延时
-```
-[ccs delay:1.1 block:^{
-
-}];
-```
-#### CC_Notice（黑底白字）、CC_Mask（可视遮罩）、CC_Loading（隐藏遮罩）提示封装
-```
-//黑底白字提示
-[CC_Notice show:@"黑底白字提示~"];
-
-//加载中Mask
-[[CC_Mask getInstance]setText:@"加载中"];
-[[CC_Mask getInstance]start];
-//...
-[[CC_Mask getInstance]stop];
-
-//加载中纯文字
-[[CC_Loading getInstance]setText:@"加载中"];
-[[CC_Loading getInstance]start];
-//...
-[[CC_Loading getInstance]stop];
-```
-
-### CC_MusicBox音乐和音效
-```
-/**
- * 淡入淡出
- * 使背景音乐过渡不突兀 当切换场景时检查是否有背景音乐在播放 如果有将它淡出 然后将新的背景音乐淡入 起到平滑作用
- */
-@property(nonatomic,assign) BOOL fade;
-
-/**
- *  音效循环次数
- */
-@property(nonatomic,assign) int effectReplayTimes;
-
-/**
- *  音乐循环次数
- */
-@property(nonatomic,assign) int musicReplayTimes;
-
-/**
- *  设置最大音量
-    注意：如不设置 最大音量为手机设置的音量
- */
-@property(nonatomic,assign) float defaultVolume;
-
-- (void)stopMusic;
-- (void)playMusic:(NSString *)name type:(NSString *)type;
-- (void)playEffect:(NSString *)name type:(NSString *)type;
-```
-
-### DEBUG插件
-目前包含历史请求查看  
-<img src="https://github.com/gwh111/bench_ios/blob/master/reqHistory.png" width="320">
-```
-#import "CC_YCFloatWindow.h"
-......
-
-//可在任意控制器的生命周期方法中添加，尽量避开app启动业务
-#if DEBUG
-[CC_Share getInstance].ccDebug=1;
-[CC_FloatWindow addWindowOnTarget:self];
-#endif
+>  CC_Function 常用工具函数
+> CC_String CC_Array  CC_Dictionary CC_Data CC_Date CC_Object相关类方法
 
 ```
-#### 3D视图插件
+#pragma mark CC_Function
++ (NSData *)function_dataWithInt:(int)i;
+
++ (BOOL)function_isEmpty:(id)obj;
++ (BOOL)function_isInstallFromAppStore;
++ (BOOL)function_isJailBreak;
+
++ (int)function_compareVersion:(NSString *)v1 cutVersion:(NSString *)v2;
+
++ (NSString *)function_stringWithJson:(id)object;
++ (NSString *)function_formatDate:(NSString *)date nowDate:(NSString *)nowDate;
++ (NSString *)function_formatDate:(NSString *)date nowDate:(NSString *)nowDate formatArr:(NSArray *)formatArr;
+
++ (NSString *)function_replaceHtmlLabel:(NSString *)htmlStr labelName:(NSString *)labelName toLabelName:(NSString *)toLabelName trimSpace:(BOOL)trimSpace;
++ (NSArray *)function_getHtmlLabel:(NSString *)htmlStr start:(NSString *)startStr end:(NSString *)endStr includeStartEnd:(BOOL)includeStartEnd;
+
++ (NSMutableString *)function_MD5SignWithDic:(NSMutableDictionary *)dic andMD5Key:(NSString *)MD5KeyString;
++ (NSMutableString *)function_MD5SignValueWithDic:(NSMutableDictionary *)dic andMD5Key:(NSString *)MD5KeyString;
+
++ (NSMutableArray *)function_sortChineseArr:(NSMutableArray *)sortMutArr depthArr:(NSArray *)depthArr;
++ (NSMutableArray *)function_sortMutArr:(NSMutableArray *)mutArr byKey:(NSString *)key desc:(int)desc;
++ (NSMutableArray *)function_mapParser:(NSArray *)pathArr idKey:(NSString *)idKey keepKey:(BOOL)keepKey pathMap:(NSDictionary *)pathMap;
++ (NSMutableArray *)function_addMapParser:(NSMutableArray *)pathArr idKey:(NSString *)idKey keepKey:(BOOL)keepKey map:(NSDictionary *)getMap;
+
++ (NSTimeInterval)function_compareDate:(id)date1 cut:(id)date2;
+
++ (NSData *)function_archivedDataWithObject:(id)object;
+
++ (UIImage *)function_imageWithColor:(UIColor*)color width:(CGFloat)width height:(CGFloat)height;
+
++ (id)function_unarchivedObjectWithData:(id)data;
++ (id)function_copyObject:(id)object;
++ (id)function_jsonWithString:(NSString *)jsonString;
 ```
-#import "CC_3DWindow.h"
-......
 
-//展示3D视图绘层
 
-#if DEBUG
-[CC_3DWindow show];
-#endif
-
-```

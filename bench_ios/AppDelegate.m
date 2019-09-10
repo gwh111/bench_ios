@@ -1,14 +1,22 @@
 //
 //  AppDelegate.m
-//  bench_ios
+//  testbenchios
 //
-//  Created by apple on 2017/7/19.
-//  Copyright © 2017年 apple. All rights reserved.
+//  Created by gwh on 2019/7/26.
+//  Copyright © 2019 gwh. All rights reserved.
 //
 
 #import "AppDelegate.h"
+#import "ccs.h"
+#import "TestViewController1.h"
+#import "HomeVC.h"
+#import "TestTabBarController.h"
 
-#import "ViewController.h"
+// 在pch或指定位置导入组件化分类
+#import "ccs+APNs.h"
+
+#define YL_SUBTITLE_FONT     @"YL_SUBTITLE_FONT"
+#define YL_SUBTITLE_COLOR    @"YL_SUBTITLE_COLOR"
 
 @interface AppDelegate ()
 
@@ -16,64 +24,46 @@
 
 @implementation AppDelegate
 
++ (void)load{
+    [ccs registerAppDelegate:self];
+}
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+- (void)cc_willInit{
     
-    // Override point for customization after application launch.
-    NSString *uuid=[ccs getKeychainUUID];
-#pragma mark init
-    [CC_Share getInstance].ccDebug=1;
-    [CC_Share getInstance].acceptEventInterval=0.1;
-    //设置基准 效果图的尺寸即可
-    [[CC_UIHelper getInstance]initUIDemoWidth:375 andHeight:667];
+    [ccs configureAppStandard:@{
+                                YL_SUBTITLE_FONT  :RF(13),
+                                YL_SUBTITLE_COLOR :UIColor.whiteColor
+                                }];
     
-#pragma mark 初始化sheet
-    NSString *absoluteFilePath=CASAbsoluteFilePath(@"stylesheet.cas");
-    [CC_ClassyExtend initSheet:absoluteFilePath];
-    [CC_ClassyExtend parseCas];
+    // 组件化方法 调用推送库
+    [ccs APNs_updateTokenToServerWithDomainUrl:[NSURL URLWithString:@"http://xxx.com"] authedUserId:@"123456" pushMessageBlock:^(NSDictionary * _Nonnull messageDic, BOOL lanchFromRemote) {
+        
+    }];
     
-    NSLog(@"path=%@",[NSString stringWithFormat:@"%@", NSHomeDirectory()]);
-//    [UIApplication hookUIApplication];
-//    [UIViewController hookUIViewController];
-//    [UINavigationController hookUINavigationController_push];
-//    [UINavigationController hookUINavigationController_pop];
+    CCLOG(@"%@",APP_STANDARD(YL_SUBTITLE_FONT));
     
-    ViewController *appStartController=[[ViewController alloc]init];
-    UINavigationController *navController =[[UINavigationController alloc] initWithRootViewController:appStartController];
-//    navController.navigationBarHidden=YES;
-    self.window.rootViewController=navController;
+    //入口单页面
+    [self cc_init:HomeVC.class withNavigationBarHidden:NO block:^{
+        [self launch];
+    }];
     
-    [self.window makeKeyAndVisible];
+    //入口TabBar
+//    [self cc_init:TestTabBarController.class withNavigationBarHidden:YES block:^{
+//        [self launch];
+//    }];
     
+}
+
+- (void)launch{
+    
+}
+
+- (BOOL)cc_application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
     return YES;
 }
 
-
-- (void)applicationWillResignActive:(UIApplication *)application {
-    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-    // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
+- (void)cc_applicationWillResignActive:(UIApplication *)application{
+    
 }
-
-
-- (void)applicationDidEnterBackground:(UIApplication *)application {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-}
-
-
-- (void)applicationWillEnterForeground:(UIApplication *)application {
-    // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
-}
-
-
-- (void)applicationDidBecomeActive:(UIApplication *)application {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-}
-
-
-- (void)applicationWillTerminate:(UIApplication *)application {
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-}
-
 
 @end

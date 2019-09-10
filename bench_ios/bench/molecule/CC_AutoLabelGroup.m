@@ -89,18 +89,16 @@ static int baseTag=100;
         
         CC_Button *leftBt;
         if (_sampleBt) {
-            leftBt=[ccs copyThis:_sampleBt];
+            leftBt=[ccs function_copyObject:_sampleBt];
         }else{
             leftBt=[[CC_Button alloc]init];
         }
         leftBt.forbiddenEnlargeTapFrame=YES;
-        leftBt.cs_dictBackgroundColor=_sampleBt.cs_dictBackgroundColor;
         leftBt.height=iH;
         [self addSubview:leftBt];
         leftBt.tag=baseTag+i;
         if (selected) {
             leftBt.selected=[selected[i] intValue];
-            [leftBt setccSelected:[selected[i] intValue]];
         }
         [leftBt setTitle:[NSString stringWithFormat:@"%@",tempArr[i]] forState:UIControlStateNormal];
         [leftBt.titleLabel sizeToFit];
@@ -135,7 +133,7 @@ static int baseTag=100;
         leftBt.top=y;
         leftBt.width=w;
         x=x+w;
-        [leftBt addTappedOnceDelay:.1 withBlock:^(UIButton *button) {
+        [leftBt cc_tappedInterval:.1 block:^(UIButton *button) {
             if ([self.delegate respondsToSelector:@selector(autoLabelGroup:btTappedAtIndex:withBt:)]) {
                 [self.delegate autoLabelGroup:self btTappedAtIndex:i withBt:button];
             }
