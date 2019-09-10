@@ -42,7 +42,6 @@
     
     [imgv test];
     
-    CC_Color *c1=[[CC_Color alloc]init];
     [CC_Color colorWithWhite:1 alpha:2];
     
     id t1=[ccs model:[TestModel class]];
@@ -63,10 +62,6 @@
     vc1.tests1=@"";
     [ccs pushViewController:vc1];
     
-    
-    NSMutableArray *arr=@[@"abc"].mutableCopy;
-//    arr=[ccs get_shared:@"ab" obj:arr];
-    
     CC_Button *bt;
     [bt setTitle:@"" forState:UIControlStateNormal];
     
@@ -81,7 +76,7 @@
         [self cc_removeViewWithName:@"abc"];
     });
     
-    CC_View *v2 = ccs.View;
+    CC_View *v2 = ccs.view;
     {typeof(v2) item = v2;
         item.cc_addToView(self.view)
             .cc_name(@"name")

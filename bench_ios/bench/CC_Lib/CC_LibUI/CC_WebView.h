@@ -13,7 +13,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-
 @interface CC_WebView : WKWebView
 
 #pragma mark clase "CC_WebView" property extention

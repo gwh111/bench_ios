@@ -13,31 +13,8 @@
 
 @interface CC_TextView : UITextView
 
-- (__kindof CC_TextView *(^)(NSString *))cc_text;
-- (__kindof CC_TextView *(^)(UIFont *))cc_font;
-- (__kindof CC_TextView *(^)(UIColor *))cc_textColor;
-- (__kindof CC_TextView *(^)(NSRange))cc_selectedRange;
-- (__kindof CC_TextView *(^)(BOOL))cc_editable;
-- (__kindof CC_TextView *(^)(BOOL))cc_selectable;
-- (__kindof CC_TextView *(^)(UIDataDetectorTypes))cc_dataDetectorTypes;
-- (__kindof CC_TextView *(^)(NSTextAlignment))cc_textAlignment;
-
-@end
-
-@interface CC_TextView (CCActions)
-
-- (void)bindText:(NSString *)text;
-- (void)bindAttText:(NSAttributedString *)attText;
-
-@end
-
-@interface CC_TextView (Deprecated)
-
-- (CC_TextView *(^)(id<UITextViewDelegate>))cc_delegate;
-
-- (CC_TextView *(^)(NSString *))cc_bindText;
-- (CC_TextView *(^)(NSAttributedString *))cc_bindAttText;
-
+#pragma mark clase "CC_TextView" property extention
+// UIView property
 - (CC_TextView *(^)(NSString *))cc_name;
 - (CC_TextView *(^)(CGFloat,CGFloat,CGFloat,CGFloat))cc_frame;
 - (CC_TextView *(^)(CGFloat,CGFloat))cc_size;
@@ -57,5 +34,23 @@
 - (CC_TextView *(^)(UIColor *))cc_borderColor;
 - (CC_TextView *(^)(BOOL))cc_userInteractionEnabled;
 - (CC_TextView *(^)(id))cc_addToView;
+
+// UITextView property
+- (CC_TextView *(^)(NSString *))cc_text;
+- (CC_TextView *(^)(UIFont *))cc_font;
+- (CC_TextView *(^)(UIColor *))cc_textColor;
+- (CC_TextView *(^)(NSRange))cc_selectedRange;
+- (CC_TextView *(^)(BOOL))cc_editable;
+- (CC_TextView *(^)(BOOL))cc_selectable;
+- (CC_TextView *(^)(UIDataDetectorTypes))cc_dataDetectorTypes;
+- (CC_TextView *(^)(NSTextAlignment))cc_textAlignment;
+- (CC_TextView *(^)(id<UITextViewDelegate>))cc_delegate;
+
+- (CC_TextView *(^)(NSString *))cc_bindText;
+- (CC_TextView *(^)(NSAttributedString *))cc_bindAttText;
+
+#pragma mark function
+- (void)bindText:(NSString *)text;
+- (void)bindAttText:(NSAttributedString *)attText;
 
 @end

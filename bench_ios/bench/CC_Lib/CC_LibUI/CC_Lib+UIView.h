@@ -15,6 +15,8 @@
 #import "CC_Color.h"
 #import "CC_CoreUI.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface UIView (CC_Lib)
 
 @property (nonatomic, retain) NSString *name;
@@ -77,7 +79,7 @@
 // @param badge msg number
 - (void)cc_updateBadge:(NSString *)badge;
 - (void)cc_updateBadgeBackgroundColor:(UIColor *)backgroundColor;
-- (void)cc_updateBadgeTextColor:(UIColor*)textColor;
+- (void)cc_updateBadgeTextColor:(UIColor *)textColor;
 
 - (void)cc_setShadow:(UIColor *)color;
 - (void)cc_setShadow:(UIColor *)color offset:(CGSize)size opacity:(float)opacity;
@@ -89,3 +91,5 @@
 - (UIWindow *)cc_lastWindow;
 
 @end
+
+NS_ASSUME_NONNULL_END

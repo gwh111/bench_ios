@@ -54,16 +54,15 @@
     [webV addObserver:self forKeyPath:@"title" options:NSKeyValueObservingOptionNew context:@"ccWebviewController"];
     [webV addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionNew context:@"ccWebviewController"];
     [webV addObserver:self forKeyPath:@"URL" options:NSKeyValueObservingOptionNew context:@"ccWebviewController"];
-    
+
     progressView = [CC_Base.shared cc_init:CC_View.class];
     progressView
     .cc_addToView(self.view)
     .cc_frame(0, webV.top, 0, 1)
     .cc_backgroundColor(RGBA(62, 255.0, 202, 1));
-    
+
     NSArray *names = @[@"X"];
-    
-    WS(weakSelf)
+
     for (int i = 0; i < names.count; i++) {
         CC_Button *button = [CC_Base.shared cc_init:CC_Button.class];
         button
@@ -75,7 +74,7 @@
             [[CC_NavigationController shared]cc_popViewController];
         });
     }
-    
+
     titleLabel = [CC_Base.shared cc_init:CC_Label.class];
     titleLabel
     .cc_textAlignment(NSTextAlignmentCenter)

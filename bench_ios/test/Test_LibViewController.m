@@ -62,6 +62,7 @@
     
     NSData *bundleData = [ccs bundleFileWithPath:@"IMG_3058" type:@"JPG"];
     UIImageView *image = [[UIImageView alloc] initWithImage:[UIImage imageWithData:bundleData]];
+    CCLOG(@" image %@",image);
     
     NSDictionary *bundleDict = [ccs bundlePlistWithPath:@"testList"];
     CCLOG(@" bundlePlistWithPath %@",bundleDict);

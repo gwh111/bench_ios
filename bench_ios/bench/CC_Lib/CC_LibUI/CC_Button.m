@@ -8,88 +8,13 @@
 
 #import "CC_Button.h"
 
-@interface CC_Button () {
-    BOOL _hasBind;
+@interface CC_Button(){
+    BOOL hasBind;
 }
-
 @end
 
 @implementation CC_Button
 @synthesize forbiddenEnlargeTapFrame;
-
-- (__kindof CC_Button *(^)(UIFont *))cc_font{
-    return ^(UIFont *font){
-        self.titleLabel.font = font;
-        return self;
-    };
-}
-
-- (__kindof CC_Button *(^)(UIColor *))cc_textColor{
-    return ^(UIColor *textColor){
-        self.titleLabel.textColor = textColor;
-        return self;
-    };
-}
-
-#pragma mark private function
-- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent*)event{
-    if (forbiddenEnlargeTapFrame) {
-        return [super pointInside:point withEvent:event];
-    }
-    
-    CGRect bounds = self.bounds;
-    float v = [[CC_CoreUI shared]relativeHeight:44];
-    if (self.width >= v && self.height >= v) {
-        return [super pointInside:point withEvent:event];
-    }else if (self.width >= v && self.height < v){
-        bounds = CGRectInset(bounds, 0, -(v - self.height)/2.0);
-    }else if (self.width < v && self.height >= v){
-        bounds = CGRectInset(bounds,-(v - self.width)/2.0,0);
-    }else if (self.width < v && self.height < v){
-        bounds = CGRectInset(bounds,-(v-self.width)/2.0,-(v-self.height)/2.0);
-    }
-    return CGRectContainsPoint(bounds, point);
-}
-
-- (void)dealloc{
-    if (_hasBind == NO) {
-        return;
-    }
-    
-    // unbind text address from object address
-    NSString *objAddress = [NSString stringWithFormat:@"%p",self];
-    NSString *bindAddress = [CC_Base.shared cc_shared:objAddress];
-    [CC_Base.shared cc_setShared:objAddress obj:nil];
-    [CC_Base.shared cc_setBind:bindAddress value:nil];
-}
-
-@end
-
-@implementation CC_Button (CCActions)
-
-- (void)bindText:(NSString *)text state:(UIControlState)state{
-    _hasBind = YES;
-    // bind text address to object address
-    NSString *textAddress = [NSString stringWithFormat:@"%p",text];
-    NSString *objAddress = [NSString stringWithFormat:@"%p",self];
-    [CC_Base.shared cc_setBind:textAddress value:objAddress];
-    [CC_Base.shared cc_setShared:objAddress obj:textAddress];
-    [self setTitle:text forState:state];
-}
-
-- (void)bindAttText:(NSAttributedString *)attText state:(UIControlState)state{
-    _hasBind=YES;
-    // bind attText address to object address
-    NSString *textAddress = [NSString stringWithFormat:@"%p",attText];
-    NSString *objAddress = [NSString stringWithFormat:@"%p",self];
-    [CC_Base.shared cc_setBind:textAddress value:objAddress];
-    [CC_Base.shared cc_setShared:objAddress obj:textAddress];
-    [self setAttributedTitle:attText forState:state];
-}
-
-@end
-
-@implementation CC_Button (Deprecated)
 
 #pragma mark clase "CC_Button" property extention
 // UIView property
@@ -208,6 +133,20 @@
     };
 }
 
+- (CC_Button *(^)(UIFont *))cc_font{
+    return ^(UIFont *font){
+        self.titleLabel.font = font;
+        return self;
+    };
+}
+
+- (CC_Button *(^)(UIColor *))cc_textColor{
+    return ^(UIColor *textColor){
+        self.titleLabel.textColor = textColor;
+        return self;
+    };
+}
+
 - (CC_Button *(^)(NSString *, UIControlState))cc_bindText{
     return ^(NSString *text, UIControlState state){
         [self bindText:text state:state];
@@ -220,6 +159,57 @@
         [self bindAttText:attText state:state];
         return self;
     };
+}
+
+#pragma mark function
+- (void)bindText:(NSString *)text state:(UIControlState)state{
+    hasBind = YES;
+    // bind text address to object address
+    NSString *textAddress = [NSString stringWithFormat:@"%p",text];
+    NSString *objAddress = [NSString stringWithFormat:@"%p",self];
+    [CC_Base.shared cc_setBind:textAddress value:objAddress];
+    [CC_Base.shared cc_setShared:objAddress obj:textAddress];
+    [self setTitle:text forState:state];
+}
+
+- (void)bindAttText:(NSAttributedString *)attText state:(UIControlState)state{
+    hasBind=YES;
+    // bind attText address to object address
+    NSString *textAddress = [NSString stringWithFormat:@"%p",attText];
+    NSString *objAddress = [NSString stringWithFormat:@"%p",self];
+    [CC_Base.shared cc_setBind:textAddress value:objAddress];
+    [CC_Base.shared cc_setShared:objAddress obj:textAddress];
+    [self setAttributedTitle:attText forState:state];
+}
+
+#pragma mark private function
+- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent*)event{
+    if (forbiddenEnlargeTapFrame) {
+        return [super pointInside:point withEvent:event];
+    }
+    CGRect bounds = self.bounds;
+    float v = [[CC_CoreUI shared]relativeHeight:44];
+    if (self.width>=v && self.height>=v) {
+        return [super pointInside:point withEvent:event];
+    }else if (self.width>=v && self.height<v){
+        bounds = CGRectInset(bounds, 0, -(v-self.height)/2.0);
+    }else if (self.width<v && self.height>=v){
+        bounds = CGRectInset(bounds,-(v-self.width)/2.0,0);
+    }else if (self.width<v && self.height<v){
+        bounds = CGRectInset(bounds,-(v-self.width)/2.0,-(v-self.height)/2.0);
+    }
+    return CGRectContainsPoint(bounds, point);
+}
+
+- (void)dealloc{
+    if (hasBind == NO) {
+        return;
+    }
+    // unbind text address from object address
+    NSString *objAddress = [NSString stringWithFormat:@"%p",self];
+    NSString *bindAddress = [CC_Base.shared cc_shared:objAddress];
+    [CC_Base.shared cc_setShared:objAddress obj:nil];
+    [CC_Base.shared cc_setBind:bindAddress value:nil];
 }
 
 @end

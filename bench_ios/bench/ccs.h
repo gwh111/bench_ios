@@ -36,7 +36,7 @@
 + (void)configureDomainWithReqGroupList:(NSArray *)domainReqList andKey:(NSString *)domainReqKey cache:(BOOL)cache pingTest:(BOOL)pingTest block:(void (^)(HttpModel *result))block;
 
 // 直接配置域名
-+ (void)configureDomainWithReqList:(NSArray *)domainReqList block:(void (^)(HttpModel *result))block;
+- (void)configureDomainWithReqList:(NSArray *)domainReqList block:(void (^)(HttpModel *result))block;
 
 #pragma mark monitor
 // 启动监控 默认开启
@@ -136,7 +136,9 @@
 + (CC_Image *)image:(NSString *)imageName;
 
 + (CC_Mask *)mask;
-
++ (void)maskStart;
++ (void)maskStartAtView:(UIView *)view;
++ (void)maskStop;
 
 + (CC_Notice *)notice;
 + (void)showNotice:(NSString *)str;
@@ -159,6 +161,8 @@
 + (id)viewController:(Class)class;
 + (id)controller:(Class)class;
 
++ (NSString *)deviceName;
+
 #pragma mark action
 + (void)pushViewController:(id)vc;
 // push to viewController && remove current viewController
@@ -172,19 +176,16 @@
 + (CC_HttpHelper *)httpHelper;
 
 #pragma mark CC_LibStorage
-// keychain
 + (NSString *)keychainKey:(NSString *)name;
 + (void)saveKeychainKey:(NSString *)key value:(NSString *)value;
 + (NSString *)keychainUUID;
 
-// NSUserDefaults
 + (id)defaultKey:(NSString *)key;
 + (void)saveDefaultKey:(NSString *)key value:(id)value;
 
 + (id)safeDefaultKey:(NSString *)key;
 + (void)saveSafeDefaultKey:(NSString *)key value:(id)value;
 
-// NSBundle
 + (NSString *)appName;
 + (NSString *)appBid;
 + (NSString *)appVersion;
@@ -198,7 +199,6 @@
 + (BOOL)copyBunldFileToSandboxToPath:(NSString *)name type:(NSString *)type;
 + (BOOL)copyBunldPlistToSandboxToPath:(NSString *)name;
 
-// 沙盒 Documents 
 + (NSString *)sandboxPath;
 + (NSArray *)sandboxDirectoryFilesWithPath:(NSString *)name type:(NSString *)type;
 
@@ -279,103 +279,3 @@
 
 @end
 
-#define CCUIPackage(VAR) typeof(VAR) item = VAR;
-#define CCView       CC_View *anView = [CC_Base.shared cc_init:CC_View.class]; CCUIPackage(anView)
-#define CCLabel      CC_Label *oneLabel = [CC_Base.shared cc_init:CC_Label.class]; CCUIPackage(oneLabel)
-#define CCButton     CC_Button *[CC_Base.shared cc_init:CC_Button.class] CCUIPackage()
-#define CCTextView   CCUIPackage((CC_TextView *)[CC_Base.shared cc_init:CC_TextView.class])
-#define CCTextField  CCUIPackage((CC_TextField *)[CC_Base.shared cc_init:CC_TextField.class])
-#define CCImageView  CCUIPackage((CC_ImageView *)[CC_Base.shared cc_init:CC_ImageView.class])
-#define CCScrollView CCUIPackage((CC_ScrollView *)[CC_Base.shared cc_init:CC_ScrollView.class])
-#define CCTableView  CCUIPackage((CC_TableView *)[CC_Base.shared cc_init:CC_TableView.class])
-#define CCWebView    CCUIPackage((CC_WebView *)[CC_Base.shared cc_init:CC_WebView.class])
-
-
-@interface ccs (CCUI)
-
-///-------------------------------
-/// @name View object Provider
-///-------------------------------
-
-/**
- Usage:
- 
- CC_View *someView = ccs.View;
- 
- {typeof(someView) item = someView;
-    item.cc_addToView(viewController.view)
-        .cc_name(@"someName")
-        .cc_frame(RH(10),RH(100),RH(100),RH(100))
-        .cc_backgroundColor(UIColor.whiteColor);
- 
-    [item cc_tappedInterval:3 block:^(id view) {
-        [self cc_removeViewWithName:@"abc"];
-    }];
- }
- 
- CC_View *v1=ccs.view;
- v1
- .cc_addToView(self.view)
- .cc_name(@"someName")
- .cc_frame(RH(10),RH(100),RH(100),RH(100))
- .cc_backgroundColor(UIColor.whiteColor)
- .cc_tappedInterval(3, ^(id view){
-    [self cc_removeViewWithName:@"someName"];
- });
- 
- before
- UIView *someView = [[[UIView alloc] initWithFrame:CGRectMake(RH(10),RH(100),RH(100),RH(100))];
- 
- [viewController.view addSubview:someView];
- someView.backgroundColor = UIColor.whiteColor;
- someView.name = @"someName";
- 
- [someView cc_tappedInterval:3 block:^(id view) {
-    [self cc_removeViewWithName:@"abc"];
- }];
- 
- */
-
-+ (CC_View *)View;
-
-+ (CC_Label *)Label;
-
-+ (CC_Button *)Button;
-
-+ (CC_TextView *)TextView;
-
-+ (CC_TextField *)TextField;
-
-+ (CC_ImageView *)ImageView;
-
-+ (CC_ScrollView *)ScrollView;
-
-+ (CC_TableView *)TableView;
-
-+ (CC_WebView *)WebView;
-
-///-------------------------------
-/// @name Custom
-///-------------------------------
-+ (__kindof CC_View *)ViewWithClass:(Class)cls;
-+ (__kindof CC_Label *)LabelWithClass:(Class)cls;
-+ (__kindof CC_Button *)ButtonWithClass:(Class)cls;
-+ (__kindof CC_TextView *)TextViewWtihClass:(Class)cls;
-+ (__kindof CC_TextField *)TextFieldWtihClass:(Class)cls;
-+ (__kindof CC_ImageView *)ImageViewWtihClass:(Class)cls;
-+ (__kindof CC_ScrollView *)ScrollViewWithClass:(Class)cls;
-+ (__kindof CC_TableView *)TableViewWithClass:(Class)cls;
-
-@end
-
-@interface ccs (CCUIExt)
-
-/// Mask
-+ (CC_Mask *)Mask;
-+ (void)maskStart;
-+ (void)maskStartAtView:(UIView *)view;
-+ (void)maskStop;
-
-+ (CC_LabelGroup *)LabelGroup;
-
-@end

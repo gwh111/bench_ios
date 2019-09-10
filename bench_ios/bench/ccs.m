@@ -24,7 +24,7 @@
     [cc_message cc_instance:CC_HttpHelper.shared method:@selector(domainWithReqGroupList:andKey:cache:pingTest:block:) params:domainReqList,domainReqKey,[CC_Int value:cache],[CC_Int value:pingTest],block];
 }
 
-+ (void)configureDomainWithReqList:(NSArray *)domainReqList block:(void (^)(HttpModel *result))block{
+- (void)configureDomainWithReqList:(NSArray *)domainReqList block:(void (^)(HttpModel *result))block{
     [cc_message cc_instance:CC_HttpHelper.shared method:@selector(domainWithReqList:block:) params:domainReqList,block];
 }
 

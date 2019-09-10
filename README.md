@@ -54,7 +54,7 @@ CCBUILDTAG=0
 ```
 //我们传入动态域名的地址来获取正确的配置域名：
 [ccs configureDomainWithReqGroupList:@[@[线上地址1,线上地址2...], @[主干地址1,主干地址2...], @[分支1地址1,分支1地址2...] ...] andKey:@"eh_doctor_api" cache:NO pingTest:YES block:^(HttpModel *result) {
-    //从result获取域名
+//从result获取域名
 }];
 ```
 
@@ -70,9 +70,9 @@ main函数入口
 #import <UIKit/UIKit.h>
 
 int main(int argc, char * argv[]) {
-    @autoreleasepool {
-        return UIApplicationMain(argc, argv, nil, @"CC_AppDelegate");
-    }
+@autoreleasepool {
+return UIApplicationMain(argc, argv, nil, @"CC_AppDelegate");
+}
 }
 ```
 
@@ -95,53 +95,53 @@ int main(int argc, char * argv[]) {
 @implementation AppDelegate
 
 + (void)load{
-    [ccs registerAppDelegate:self];
+[ccs registerAppDelegate:self];
 }
 
 - (void)cc_willInit {
-    // 配置函数 在此函数中添加初始化配置
-    [ccs configureAppStandard:@{
-                                YL_SUBTITLE_FONT  :RF(13),
-                                YL_SUBTITLE_COLOR :UIColor.whiteColor
-                                }];
-    
-    CCLOG(@"%@",APP_STANDARD(YL_SUBTITLE_FONT));
-    
-    //入口单页面
+// 配置函数 在此函数中添加初始化配置
+[ccs configureAppStandard:@{
+YL_SUBTITLE_FONT  :RF(13),
+YL_SUBTITLE_COLOR :UIColor.whiteColor
+}];
+
+CCLOG(@"%@",APP_STANDARD(YL_SUBTITLE_FONT));
+
+//入口单页面
 //    [self cc_init:HomeVC.class withNavigationBarHidden:YES block:^{
 //        [self launch];
 //    }];
-    
-    //入口TabBar
-    [self cc_init:TestTabBarController.class withNavigationBarHidden:YES block:^{
-        [self launch];
-    }];
+
+//入口TabBar
+[self cc_init:TestTabBarController.class withNavigationBarHidden:YES block:^{
+[self launch];
+}];
 }
 
 #pragma mark life circle
 - (BOOL)cc_application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    //当程序载入后执行，应用程序启动入口
-    return YES;
+//当程序载入后执行，应用程序启动入口
+return YES;
 }
 
 - (void)cc_applicationWillResignActive:(UIApplication *)application {
-      //应用程序将要进入非活动状态，即将进入后台
+//应用程序将要进入非活动状态，即将进入后台
 }
 
 - (void)cc_applicationDidEnterBackground:(UIApplication *)application {
-     //应用程序已经进入后台运行
+//应用程序已经进入后台运行
 }
 
 - (void)cc_applicationWillEnterForeground:(UIApplication *)application {
-     //应用程序将要进入活动状态，即将进入前台运行
+//应用程序将要进入活动状态，即将进入前台运行
 }
 
 - (void)cc_applicationDidBecomeActive:(UIApplication *)application {
-     //应用程序已进入前台，处于活动状态
+//应用程序已进入前台，处于活动状态
 }
 
 - (void)cc_applicationWillTerminate:(UIApplication *)application {
-    //应用程序将要退出，通常用于保存数据和一些退出前的清理工作
+//应用程序将要退出，通常用于保存数据和一些退出前的清理工作
 }
 
 @end
@@ -159,31 +159,31 @@ int main(int argc, char * argv[]) {
 @implementation TestTabBarController
 
 - (void)cc_viewDidLoad {
-    self.view.backgroundColor = UIColor.whiteColor;
-    // 纯图片 tabbar
-    //    [self cc_initWithClasses:@[HomeVC.class,UIViewController.class]
-    //                      images:@[@"tabbar_mine_high",@"tabbar_mine_high"]
-    //              selectedImages:@[@"tabbar_mine_high",@"tabbar_mine_high"]];
-    // 图片 + 文字 tabbar
-    [self cc_initWithClasses:@[HomeVC.class,UIViewController.class]
-                      titles:@[@"首页",@"首页"]
-                      images:@[@"tabbar_mine_high",@"tabbar_mine_high"]
-              selectedImages:@[@"tabbar_mine_high",@"tabbar_mine_high"]
-                  titleColor:UIColor.blackColor
-          selectedTitleColor:UIColor.blueColor];
-    
-    //    [self cc_addTabBarItemWithClass:UIViewController.class
-    //                              image:@"tabbar_mine_high"
-    //                      selectedImage:@"tabbar_mine_high"
-    //                              index:2];
-    
-    [self cc_addTabBarItemWithClass:UIViewController.class
-                              title:@"我的"
-                              image:@"tabbar_mine_high"
-                      selectedImage:@"tabbar_mine_high"
-                              index:2];
-    
-    [self cc_updateBadgeNumber:200 atIndex:2];
+self.view.backgroundColor = UIColor.whiteColor;
+// 纯图片 tabbar
+//    [self cc_initWithClasses:@[HomeVC.class,UIViewController.class]
+//                      images:@[@"tabbar_mine_high",@"tabbar_mine_high"]
+//              selectedImages:@[@"tabbar_mine_high",@"tabbar_mine_high"]];
+// 图片 + 文字 tabbar
+[self cc_initWithClasses:@[HomeVC.class,UIViewController.class]
+titles:@[@"首页",@"首页"]
+images:@[@"tabbar_mine_high",@"tabbar_mine_high"]
+selectedImages:@[@"tabbar_mine_high",@"tabbar_mine_high"]
+titleColor:UIColor.blackColor
+selectedTitleColor:UIColor.blueColor];
+
+//    [self cc_addTabBarItemWithClass:UIViewController.class
+//                              image:@"tabbar_mine_high"
+//                      selectedImage:@"tabbar_mine_high"
+//                              index:2];
+
+[self cc_addTabBarItemWithClass:UIViewController.class
+title:@"我的"
+image:@"tabbar_mine_high"
+selectedImage:@"tabbar_mine_high"
+index:2];
+
+[self cc_updateBadgeNumber:200 atIndex:2];
 }
 ```
 ## ViewController使用方法
@@ -228,8 +228,8 @@ NS_ASSUME_NONNULL_END
 @implementation TestViewController
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
+[super viewDidLoad];
+// Do any additional setup after loading the view.
 }
 
 /*
@@ -237,8 +237,8 @@ NS_ASSUME_NONNULL_END
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+// Get the new view controller using [segue destinationViewController].
+// Pass the selected object to the new view controller.
 }
 */
 
@@ -256,7 +256,7 @@ NS_ASSUME_NONNULL_END
 @implementation TestNewViewController
 
 - (void)cc_viewWillLoad {
-    // Do any additional setup after loading the view.
+// Do any additional setup after loading the view.
 }
 
 /*
@@ -264,8 +264,8 @@ NS_ASSUME_NONNULL_END
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+// Get the new view controller using [segue destinationViewController].
+// Pass the selected object to the new view controller.
 }
 */
 
@@ -315,10 +315,10 @@ CC_Controller通过start()函数初始化，我们在CC_Controller中方便地�
 ```
 // 属性声明
 @property(nonatomic,assign) id <CC_LabelGroupDelegate>delegate;
- 
+
 // 代理
 if ([self.delegate respondsToSelector:@selector(labelGroup:initWithButton:)]) {
-    [self.delegate labelGroup:self initWithButton:button];
+[self.delegate labelGroup:self initWithButton:button];
 }
 ```
 
@@ -348,12 +348,12 @@ NS_ASSUME_NONNULL_END
 @implementation TestController
 
 - (void)cc_start {
-    // 初始化配置
-    self.cc_name = @"test1";
-    [ccs delay:2 block:^{
-        // 初始化配置完成
-        [self.cc_delegate cc_performSelector:@selector(methd2withA:b:) params:@"",@""];
-    }];
+// 初始化配置
+self.cc_name = @"test1";
+[ccs delay:2 block:^{
+// 初始化配置完成
+[self.cc_delegate cc_performSelector:@selector(methd2withA:b:) params:@"",@""];
+}];
 }
 
 @end
@@ -372,13 +372,13 @@ NS_ASSUME_NONNULL_END
 @implementation TestViewController
 
 - (void)methd2withA:(NSString *)a b:(NSArray *)b{
-    // TestController里的协议
-    CCLOG(@"callback methd2withA");
+// TestController里的协议
+CCLOG(@"callback methd2withA");
 }
 
 - (void)cc_viewWillLoad {
-    //  注册完可直接实现TestController里的协议'methd2withA:b:'
-    [self cc_registerController:TestController.class];
+//  注册完可直接实现TestController里的协议'methd2withA:b:'
+[self cc_registerController:TestController.class];
 }
 
 - (void)cc_viewDidLoad {
@@ -403,7 +403,7 @@ NS_ASSUME_NONNULL_END
 
 - (void)cc_update
 {
-    CCLOG(@"update Test_model key value %@",self.cc_modelDic);
+CCLOG(@"update Test_model key value %@",self.cc_modelDic);
 }
 
 @end
@@ -438,17 +438,17 @@ ccs.label
 //系统弹窗 
 - (void)test_Alert
 {
-    [ccs showAltOn:self title:@"haha" msg:@"你猜" bts:@[@"取消",@"确定"] block:^(int index, NSString *name) {
-        CCLOG(@"showAlert index = %d btn name = %@",index,name);
-    }];
+[ccs showAltOn:self title:@"haha" msg:@"你猜" bts:@[@"取消",@"确定"] block:^(int index, NSString *name) {
+CCLOG(@"showAlert index = %d btn name = %@",index,name);
+}];
 
-    [ccs showTextFieldAltOn:self title:@"haha" msg:@"你猜" placeholder:@"猜不着" bts:@[@"取消",@"确定",@"ok"] block:^(int index, NSString *name, NSString *text) {
-        CCLOG(@"showTextFieldsAlert index = %d btn name = %@",index,name);
-    }];
+[ccs showTextFieldAltOn:self title:@"haha" msg:@"你猜" placeholder:@"猜不着" bts:@[@"取消",@"确定",@"ok"] block:^(int index, NSString *name, NSString *text) {
+CCLOG(@"showTextFieldsAlert index = %d btn name = %@",index,name);
+}];
 
-    [ccs showTextFieldsAltOn:self title:@"haha" msg:@"你猜" placeholders:@[@"猜",@"不",@"着"] bts:@[@"取消",@"确定",@"ok"] block:^(int index, NSString *name, NSArray *texts) {
-        CCLOG(@"showTextFieldsAlert index = %d btn name = %@ textFields text array = %@",index,name,texts);
-    }];
+[ccs showTextFieldsAltOn:self title:@"haha" msg:@"你猜" placeholders:@[@"猜",@"不",@"着"] bts:@[@"取消",@"确定",@"ok"] block:^(int index, NSString *name, NSArray *texts) {
+CCLOG(@"showTextFieldsAlert index = %d btn name = %@ textFields text array = %@",index,name,texts);
+}];
 }
 ```
 ### app标准使用方法
@@ -470,10 +470,10 @@ ccs.label
 #define YL_SUBTITLE_COLOR    @"YL_SUBTITLE_COLOR"
 
 [ccs configureAppStandard:@{
-                            YL_SUBTITLE_FONT  :RF(13),
-                            YL_SUBTITLE_COLOR :UIColor.whiteColor
-                            }];
-    
+YL_SUBTITLE_FONT  :RF(13),
+YL_SUBTITLE_COLOR :UIColor.whiteColor
+}];
+
 CCLOG(@"%@",APP_STANDARD(YL_SUBTITLE_FONT));
 ```
 ### 自动适配使用方法
@@ -496,22 +496,22 @@ ccs.label
 .cc_bindText(str)
 .cc_addToView(self)
 .cc_tappedInterval(0.1,^(id view) {
-    // 改变labele内的富文本
-    NSMutableAttributedString *att = [ccs mutAttributedString];
-    [att cc_appendAttStr:@"abc" color:COLOR_LIGHT_ORANGE];
-    [att cc_appendAttStr:@"123" color:[UIColor greenColor] font:RF(22)];
-    CC_Label *v = view;
-    v.attributedText = att;
-    // 延时5秒后退出控制器
-    [ccs delay:5 block:^{
-        [ccs popViewController];
-    }];
+// 改变labele内的富文本
+NSMutableAttributedString *att = [ccs mutAttributedString];
+[att cc_appendAttStr:@"abc" color:COLOR_LIGHT_ORANGE];
+[att cc_appendAttStr:@"123" color:[UIColor greenColor] font:RF(22)];
+CC_Label *v = view;
+v.attributedText = att;
+// 延时5秒后退出控制器
+[ccs delay:5 block:^{
+[ccs popViewController];
+}];
 });
 
 // 3秒后更新string view跟踪变化
 [ccs delay:3 block:^{
-    // 无需获取控件，更新数据源自动更新视图控件
-    [str cc_update:@"cvb"];
+// 无需获取控件，更新数据源自动更新视图控件
+[str cc_update:@"cvb"];
 }];
 ```
 
@@ -519,7 +519,7 @@ ccs.label
 
 ```
 @interface TestViewController () {
-    UILabel *label;
+UILabel *label;
 }
 @end
 ```
@@ -527,7 +527,7 @@ ccs.label
 
 ```
 - (void)funtionB {
-    id v = [self cc_viewWithName:@"abc"];
+id v = [self cc_viewWithName:@"abc"];
 }
 ```
 ## 单例使用方法
@@ -539,9 +539,9 @@ return [ccs registerSharedInstance:self];
 ```
 ```
 + (instancetype)shared {
-    return [ccs registerSharedInstance:self block:^{
-        //do something init
-    }];
+return [ccs registerSharedInstance:self block:^{
+//do something init
+}];
 }
 ```
 
@@ -578,66 +578,66 @@ id obj = [ccs shared:@"name"];
 @implementation TestThread
 
 + (void)start{
-    
-    // 一组异步任务 在多个线程执行
-    if ((1)) {
-        CCLOG(@"cc_group %@",[NSThread currentThread]);
-        [ccs threadGroup:3 block:^(NSUInteger taskIndex, BOOL finish) {
-            if (taskIndex==0) {
-                CCLOG(@"cc_group 0 finish %d %@",finish,[NSThread currentThread]);
-            }else if (taskIndex==1){
-                CCLOG(@"cc_group 1 finish %d %@",finish,[NSThread currentThread]);
-            }else if (taskIndex==2){
-                CCLOG(@"cc_group 2 finish %d %@",finish,[NSThread currentThread]);
-            }else{
-                CCLOG(@"cc_group 3 finish %d %@",finish,[NSThread currentThread]);
-            }
-        }];
-    }
-    
-    // 异步完成一组有异步回调的函数后执行下一个函数
-    if ((1)) {
-        CCLOG(@"cc_blockGroup %@",[NSThread currentThread]);
-        [ccs threadBlockGroup:2 block:^(NSUInteger taskIndex, BOOL finish, id sema) {
-            if (taskIndex==0) {
-                CCLOG(@"cc_blockGroup 0 %@",[NSThread currentThread]);
-                [ccs delay:10 block:^{
-                    [ccs threadBlockFinish:sema];
-                }];
-            }else if (taskIndex==1){
-                CCLOG(@"cc_blockGroup 1 %@",[NSThread currentThread]);
-                [ccs delay:2 block:^{
-                    [ccs threadBlockFinish:sema];
-                }];
-            }
-            if (finish) {
-                CCLOG(@"cc_blockGroup finish %@",[NSThread currentThread]);
-            }
-        }];
-    }
-    
-    // 顺序执行一组有异步回调的函数后执行下一个函数
-    if ((0)) {
-        CCLOG(@"cc_blockSequence %@",[NSThread currentThread]);
-        [ccs threadBlockSequence:2 block:^(NSUInteger taskIndex, BOOL finish, id  _Nonnull sema) {
-            if (taskIndex==0) {
-                CCLOG(@"cc_blockSequence 0 %@",[NSThread currentThread]);
-                [ccs delay:5 block:^{
-                    [ccs threadBlockFinish:sema];;
-                }];
-            } else if (taskIndex==1) {
-                CCLOG(@"cc_blockSequence 1 %@",[NSThread currentThread]);
-                [ccs delay:2 block:^{
-                    [ccs threadBlockFinish:sema];;
-                }];
-            }
-            if (finish) {
-                CCLOG(@"cc_blockSequence finish %@",[NSThread currentThread]);
-            }
-        }];
 
-    }
-    
+// 一组异步任务 在多个线程执行
+if ((1)) {
+CCLOG(@"cc_group %@",[NSThread currentThread]);
+[ccs threadGroup:3 block:^(NSUInteger taskIndex, BOOL finish) {
+if (taskIndex==0) {
+CCLOG(@"cc_group 0 finish %d %@",finish,[NSThread currentThread]);
+}else if (taskIndex==1){
+CCLOG(@"cc_group 1 finish %d %@",finish,[NSThread currentThread]);
+}else if (taskIndex==2){
+CCLOG(@"cc_group 2 finish %d %@",finish,[NSThread currentThread]);
+}else{
+CCLOG(@"cc_group 3 finish %d %@",finish,[NSThread currentThread]);
+}
+}];
+}
+
+// 异步完成一组有异步回调的函数后执行下一个函数
+if ((1)) {
+CCLOG(@"cc_blockGroup %@",[NSThread currentThread]);
+[ccs threadBlockGroup:2 block:^(NSUInteger taskIndex, BOOL finish, id sema) {
+if (taskIndex==0) {
+CCLOG(@"cc_blockGroup 0 %@",[NSThread currentThread]);
+[ccs delay:10 block:^{
+[ccs threadBlockFinish:sema];
+}];
+}else if (taskIndex==1){
+CCLOG(@"cc_blockGroup 1 %@",[NSThread currentThread]);
+[ccs delay:2 block:^{
+[ccs threadBlockFinish:sema];
+}];
+}
+if (finish) {
+CCLOG(@"cc_blockGroup finish %@",[NSThread currentThread]);
+}
+}];
+}
+
+// 顺序执行一组有异步回调的函数后执行下一个函数
+if ((0)) {
+CCLOG(@"cc_blockSequence %@",[NSThread currentThread]);
+[ccs threadBlockSequence:2 block:^(NSUInteger taskIndex, BOOL finish, id  _Nonnull sema) {
+if (taskIndex==0) {
+CCLOG(@"cc_blockSequence 0 %@",[NSThread currentThread]);
+[ccs delay:5 block:^{
+[ccs threadBlockFinish:sema];;
+}];
+} else if (taskIndex==1) {
+CCLOG(@"cc_blockSequence 1 %@",[NSThread currentThread]);
+[ccs delay:2 block:^{
+[ccs threadBlockFinish:sema];;
+}];
+}
+if (finish) {
+CCLOG(@"cc_blockSequence finish %@",[NSThread currentThread]);
+}
+}];
+
+}
+
 }
 
 @end
@@ -654,21 +654,21 @@ id obj = [ccs shared:@"name"];
 ```
 - (void)test_foundationCoreTimer
 {
-    //CoreTimer
-    [ccs timerRegister:@"testTimer1" interval:1 block:^{
-        CCLOG(@"CoreTimer block 1 ");
-    }];
-    [ccs timerRegister:@"testTimer2" interval:2 block:^{
-        CCLOG(@"CoreTimer block 2 ");
-    }];
-    [ccs timerRegister:@"testTimer3" interval:5 block:^{
-        CCLOG(@"CoreTimer block 3 ");
-    }];
-    
-    [ccs timerCancel:@"testTimer2"];
-    
-    CCLOG(@"CoreTimer uniqueNowTimestamp %@",[ccs uniqueNowTimestamp]);
-    CCLOG(@"CoreTimer nowTimeTimestamp %@",[ccs nowTimeTimestamp]);
+//CoreTimer
+[ccs timerRegister:@"testTimer1" interval:1 block:^{
+CCLOG(@"CoreTimer block 1 ");
+}];
+[ccs timerRegister:@"testTimer2" interval:2 block:^{
+CCLOG(@"CoreTimer block 2 ");
+}];
+[ccs timerRegister:@"testTimer3" interval:5 block:^{
+CCLOG(@"CoreTimer block 3 ");
+}];
+
+[ccs timerCancel:@"testTimer2"];
+
+CCLOG(@"CoreTimer uniqueNowTimestamp %@",[ccs uniqueNowTimestamp]);
+CCLOG(@"CoreTimer nowTimeTimestamp %@",[ccs nowTimeTimestamp]);
 }
 ```
 
@@ -710,18 +710,18 @@ id obj = [ccs shared:@"name"];
 
 //network config
 [ccs configureDomainWithReqGroupList:@[@[@"http://sssynout-eh-resource.oss-cn-hangzhou.aliyuncs.com/URL/eh_url.txt", @"http://dynamic.kkjk123.com/eh_url.txt"],@[@"http://test-onlinetreat.oss-cn-hangzhou.aliyuncs.com/URL/eh_url.txt", @"http://dynamic.onlinetreat.net/eh_url.txt"]]
-                                  andKey:@"eh_doctor_api"
-                                   cache:NO
-                                pingTest:YES
-                                   block:^(HttpModel *result) {
+andKey:@"eh_doctor_api"
+cache:NO
+pingTest:YES
+block:^(HttpModel *result) {
 
-                                       HttpModel *model = [[HttpModel alloc]init];
-                                       model.forbiddenJSONParseError = YES;
-                                       [ccs.httpTask get:@"https://www.jianshu.com/p/a1ec0db3c710" params:nil model:model finishBlock:^(NSString *error, HttpModel *result) {
+HttpModel *model = [[HttpModel alloc]init];
+model.forbiddenJSONParseError = YES;
+[ccs.httpTask get:@"https://www.jianshu.com/p/a1ec0db3c710" params:nil model:model finishBlock:^(NSString *error, HttpModel *result) {
 
-                                       }];
+}];
 
-                                   }];
+}];
 ```
 ### http请求使用方法
 ```
@@ -732,37 +732,37 @@ id obj = [ccs shared:@"name"];
 ### 图片上传使用方法
 ```
 /**
- 上传多张图片-指定图片压缩比例
- @param images 图片数组
- @param url URL
- @param paramsDic 参数
- @param imageScale 上传图片缩放比例
- @param times 上传失败-重新上传次数
- @param uploadImageBlock 回调函数
- */
+上传多张图片-指定图片压缩比例
+@param images 图片数组
+@param url URL
+@param paramsDic 参数
+@param imageScale 上传图片缩放比例
+@param times 上传失败-重新上传次数
+@param uploadImageBlock 回调函数
+*/
 - (void)imageUpload:(NSArray<id> *)images
-                url:(id)url
-             params:(id)paramsDic
-         imageScale:(CGFloat)imageScale
-     reConnectTimes:(NSInteger)times
-        finishBlock:(void (^)(NSArray<HttpModel*> *errorModelArr, NSArray<HttpModel*> *successModelArr))uploadImageBlock;
+url:(id)url
+params:(id)paramsDic
+imageScale:(CGFloat)imageScale
+reConnectTimes:(NSInteger)times
+finishBlock:(void (^)(NSArray<HttpModel*> *errorModelArr, NSArray<HttpModel*> *successModelArr))uploadImageBlock;
 
 /**
- 上传多张图片-指定图片大小 单位 兆
- @param images 图片数组
- @param url URL
- @param paramsDic 参数
- @param imageSize 指定图片大小 单位 兆
- @param times 上传失败-重新上传次数
- @param uploadImageBlock 回调函数
- */
+上传多张图片-指定图片大小 单位 兆
+@param images 图片数组
+@param url URL
+@param paramsDic 参数
+@param imageSize 指定图片大小 单位 兆
+@param times 上传失败-重新上传次数
+@param uploadImageBlock 回调函数
+*/
 - (void)imageUpload:(NSArray<id> *)images
-                url:(id)url
-             params:(id)paramsDic
-          imageSize:(NSUInteger)imageSize
-     reConnectTimes:(NSInteger)times
-        finishBlock:(void (^)(NSArray<HttpModel*> *errorModelArr, NSArray<HttpModel*> *successModelArr))uploadImageBlock;
-        
+url:(id)url
+params:(id)paramsDic
+imageSize:(NSUInteger)imageSize
+reConnectTimes:(NSInteger)times
+finishBlock:(void (^)(NSArray<HttpModel*> *errorModelArr, NSArray<HttpModel*> *successModelArr))uploadImageBlock;
+
 ```
 ### 文件上传使用方法
 ### 下载图片使用方法

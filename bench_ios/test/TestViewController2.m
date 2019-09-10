@@ -64,7 +64,7 @@
     NSString *str = [ccs string:@"abc%@%d",@"a",34];
     // 方法三
     
-    CC_Label *l = ccs.Label;
+    CC_Label *l = ccs.label;
     {typeof(l) item = l;
         item.cc_textColor(HEXA(@"9B30FF", 1))
             .cc_name(@"mylabel")
@@ -89,7 +89,7 @@
     }
     
     
-    ccs.Label
+    ccs.label
         .cc_textColor(HEXA(@"9B30FF", 1))
         .cc_name(@"mylabel")
         .cc_frame(RH(10),RH(100),RH(100),RH(100))

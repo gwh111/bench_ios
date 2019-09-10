@@ -216,12 +216,11 @@ typedef CC_Label *badgeLabel;
 - (void)checkBadgeLabel {
     if (!self.badgeLabel) {
         self.badgeLabel = [[CC_Label alloc]init];
-        {typeof (self.badgeLabel) item = self.badgeLabel;
-            item.cc_font([[CC_CoreUI shared]relativeFont:11])
-                .cc_textAlignment(NSTextAlignmentCenter)
-                .cc_backgroundColor([UIColor cc_rgbA:255 green:89 blue:59 alpha:1])
-                .cc_addToView(self);
-        }
+        self.badgeLabel
+        .cc_backgroundColor([UIColor cc_rgbA:255 green:89 blue:59 alpha:1])
+        .cc_font([[CC_CoreUI shared]relativeFont:11])
+        .cc_textAlignment(NSTextAlignmentCenter)
+        .cc_addToView(self);
     }
 }
 

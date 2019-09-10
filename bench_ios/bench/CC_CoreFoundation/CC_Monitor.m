@@ -10,6 +10,7 @@
 #import "CC_CoreBase.h"
 #import "CC_Base.h"
 #import "CC_Array.h"
+#import "CC_CoreMacro.h"
 
 #include <malloc/malloc.h>
 

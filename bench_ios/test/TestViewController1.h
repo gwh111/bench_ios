@@ -10,7 +10,5 @@
 
 @interface TestViewController1 : CC_ViewController
 
-- (double)myMethodWith:(double)number andBOOL:(BOOL) someBool andStr:(NSString *)str andClass:(Class)class;
-
 @end
 

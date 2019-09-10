@@ -85,12 +85,11 @@
     [progressView addSubview:activityIndicator];
     
     textL = [CC_Base.shared cc_init:CC_Label.class];
-    textL
+    textL.cc_addToView(progressView)
+    .cc_frame(0.0f, RH(60), RH(100), RH(40))
     .cc_font(RF(14))
     .cc_textColor(UIColor.whiteColor)
-    .cc_textAlignment(NSTextAlignmentCenter)
-    .cc_addToView(progressView)
-    .cc_frame(0.0f, RH(60), RH(100), RH(40));
+    .cc_textAlignment(NSTextAlignmentCenter);
 }
 
 - (void)stop {

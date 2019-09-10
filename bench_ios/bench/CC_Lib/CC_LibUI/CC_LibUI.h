@@ -9,10 +9,6 @@
 #ifndef CC_LibUI_h
 #define CC_LibUI_h
 
-#import "UIView+CCUI.h"
-#import "UIButton+CCUI.h"
-#import "UIControl+CCUI.h"
-
 #import "CC_Color.h"
 #import "CC_View.h"
 #import "CC_Label.h"

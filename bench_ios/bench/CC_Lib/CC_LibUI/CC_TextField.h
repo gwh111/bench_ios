@@ -13,33 +13,6 @@
 
 @interface CC_TextField : UITextField
 
-- (__kindof CC_TextField *(^)(NSString *))cc_text;
-- (__kindof CC_TextField *(^)(NSAttributedString *))cc_attributedText;
-- (__kindof CC_TextField *(^)(UIColor *))cc_textColor;
-- (__kindof CC_TextField *(^)(UIFont *))cc_font;
-- (__kindof CC_TextField *(^)(NSTextAlignment))cc_textAlignment;
-- (__kindof CC_TextField *(^)(UITextBorderStyle))cc_borderStyle;
-- (__kindof CC_TextField *(^)(NSString *))cc_placeholder;
-- (__kindof CC_TextField *(^)(NSAttributedString *))cc_attributedPlaceholder;
-- (__kindof CC_TextField *(^)(BOOL))cc_clearsOnBeginEditing;
-- (__kindof CC_TextField *(^)(BOOL))cc_adjustsFontSizeToFitWidth;
-- (__kindof CC_TextField *(^)(UIImage *))cc_background;
-
-@end
-
-@interface CC_TextField (CCActions)
-
-- (void)bindText:(NSString *)text;
-- (void)bindAttText:(NSAttributedString *)attText;
-
-@end
-
-@interface CC_TextField (Deprecated)
-
-- (CC_TextField *(^)(id<UITextFieldDelegate>))cc_delegate;
-- (CC_TextField *(^)(NSString *))cc_bindText;
-- (CC_TextField *(^)(NSAttributedString *))cc_bindAttText;
-
 #pragma mark clase "CC_TextField" property extention
 // UIView property
 - (CC_TextField *(^)(NSString *))cc_name;
@@ -61,5 +34,26 @@
 - (CC_TextField *(^)(UIColor *))cc_borderColor;
 - (CC_TextField *(^)(BOOL))cc_userInteractionEnabled;
 - (CC_TextField *(^)(id))cc_addToView;
+
+// UITextField property
+- (CC_TextField *(^)(NSString *))cc_text;
+- (CC_TextField *(^)(NSAttributedString *))cc_attributedText;
+- (CC_TextField *(^)(UIColor *))cc_textColor;
+- (CC_TextField *(^)(UIFont *))cc_font;
+- (CC_TextField *(^)(NSTextAlignment))cc_textAlignment;
+- (CC_TextField *(^)(UITextBorderStyle))cc_borderStyle;
+- (CC_TextField *(^)(NSString *))cc_placeholder;
+- (CC_TextField *(^)(NSAttributedString *))cc_attributedPlaceholder;
+- (CC_TextField *(^)(BOOL))cc_clearsOnBeginEditing;
+- (CC_TextField *(^)(BOOL))cc_adjustsFontSizeToFitWidth;
+- (CC_TextField *(^)(UIImage *))cc_background;
+- (CC_TextField *(^)(id<UITextFieldDelegate>))cc_delegate;
+
+- (CC_TextField *(^)(NSString *))cc_bindText;
+- (CC_TextField *(^)(NSAttributedString *))cc_bindAttText;
+
+#pragma mark function
+- (void)bindText:(NSString *)text;
+- (void)bindAttText:(NSAttributedString *)attText;
 
 @end

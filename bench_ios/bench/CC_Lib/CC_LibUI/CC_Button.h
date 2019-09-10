@@ -8,36 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "CC_Foundation.h"
-
 #import "CC_Lib+UIView.h"
 #import "CC_Lib+UIButton.h"
 
 @interface CC_Button : UIButton
 
-/**
- default button will enlarge tap frame
- 默认会扩大按钮的点击范围 */
-@property(nonatomic,assign) int forbiddenEnlargeTapFrame;
-
-- (__kindof CC_Button *(^)(UIFont *))cc_font;
-- (__kindof CC_Button *(^)(UIColor *))cc_textColor;
-
-@end
-
-@interface CC_Button (CCActions)
-
-- (void)bindText:(NSString *)text state:(UIControlState)state;
-- (void)bindAttText:(NSAttributedString *)attText state:(UIControlState)state;
-
-@end
-
-@interface CC_Button (Deprecated)
-
 #pragma mark clase "CC_Button" property extention
-
-- (CC_Button *(^)(NSString *, UIControlState))cc_bindText;
-- (CC_Button *(^)(NSAttributedString *, UIControlState))cc_bindAttText;
-
 // UIView property
 - (CC_Button *(^)(NSString *))cc_name;
 - (CC_Button *(^)(CGFloat,CGFloat,CGFloat,CGFloat))cc_frame;
@@ -59,11 +35,25 @@
 - (CC_Button *(^)(BOOL))cc_userInteractionEnabled;
 - (CC_Button *(^)(id))cc_addToView;
 
+// UIButton property
 - (CC_Button *(^)(NSString *, UIControlState))cc_setTitleForState;
 - (CC_Button *(^)(UIColor *, UIControlState))cc_setTitleColorForState;
 - (CC_Button *(^)(UIColor *, UIControlState))cc_setTitleShadowColorForState;
 - (CC_Button *(^)(UIImage *, UIControlState))cc_setImageForState;
 - (CC_Button *(^)(UIImage *, UIControlState))cc_setBackgroundImageForState;
 - (CC_Button *(^)(NSAttributedString *, UIControlState))cc_setAttributedTitleForState;
+
+- (CC_Button *(^)(UIFont *))cc_font;
+- (CC_Button *(^)(UIColor *))cc_textColor;
+- (CC_Button *(^)(NSString *, UIControlState))cc_bindText;
+- (CC_Button *(^)(NSAttributedString *, UIControlState))cc_bindAttText;
+
+#pragma mark function
+- (void)bindText:(NSString *)text state:(UIControlState)state;
+- (void)bindAttText:(NSAttributedString *)attText state:(UIControlState)state;
+
+/** default button will enlarge tap frame
+    默认会扩大按钮的点击范围 */
+@property(nonatomic,assign) int forbiddenEnlargeTapFrame;
 
 @end
