@@ -37,10 +37,6 @@ static dispatch_once_t onceToken;
 }
 
 + (void)cc_willInit {
-    CC_CoreBase.shared.cc_sharedAppDelegate = [[NSMutableDictionary alloc]init];
-    CC_CoreBase.shared.sharedInstanceDic = [[NSMutableDictionary alloc]init];
-    CC_CoreBase.shared.sharedObjDic = [[NSMutableDictionary alloc]init];
-    CC_CoreBase.shared.sharedObjBindDic = [[NSMutableDictionary alloc]init];
     
 #if DEBUG
     [CC_Base shared].cc_debug = YES;
