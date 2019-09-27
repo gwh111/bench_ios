@@ -11,8 +11,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-#define HEXA(hex,a) [UIColor cc_hexA:hex alpha:a]
+#define HEXA(COLOR,A) ({ \
+char *color = #COLOR;\
+NSString *colorString = [NSString stringWithUTF8String:color]; \
+[UIColor cc_hexA:colorString alpha:A]; \
+})
+#define HEX(COLOR) HEXA(COLOR,1.0)
 #define RGBA(r,g,b,a) [UIColor cc_rgbA:r green:g blue:b alpha:a]
+#define RGB(r,g,b) [UIColor cc_rgbA:r green:g blue:b alpha:1]
 
 @interface UIColor (CC_Lib)
 
