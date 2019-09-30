@@ -76,11 +76,11 @@ static NSString *DOMAIN_DEFAULT_KEY = @"cc_domainDic";
         if ([result.resultStr containsString:BENCH_IOS_NET_TEST_CONTAIN]) {
             // net environment
             if (CCBUILDTAG2 < 0) {
-#if DEBUG
-                if (domainReqList.count > 1) {
+                if (DEBUG && domainReqList.count > 1) {
                     tag = 1;
+                }else{
+                    tag = 0;
                 }
-#endif
             }else{
                 tag = CCBUILDTAG2;
             }
@@ -133,18 +133,18 @@ static NSString *DOMAIN_DEFAULT_KEY = @"cc_domainDic";
             if ([result.resultStr containsString:BENCH_IOS_NET_TEST_CONTAIN]) {
                 // net environment
                 if (CCBUILDTAG2 < 0) {
-                #if DEBUG
-                    if (domainReqGroupList.count > 1) {
+                    if (DEBUG && domainReqGroupList.count > 1) {
                         tag = 1;
+                    }else{
+                        tag = 0;
                     }
-                #endif
                 }else{
                     tag = CCBUILDTAG2;
                 }
             }else{
                 tag = 0;
             }
-            self->tempDomainReqList = domainReqGroupList[tag];
+            tempDomainReqList = domainReqGroupList[tag];
             [CC_DefaultStore cc_saveDefault:DOMAIN_TAG_KEY value:@(tag)];
             if (tag > 0) {
                 [CC_BenchUpdate checkUpdate];
@@ -220,7 +220,7 @@ static NSString *DOMAIN_DEFAULT_KEY = @"cc_domainDic";
 - (NSMutableURLRequest *)requestWithUrl:(NSURL *)url andParamters:(NSString *)paramsString model:(HttpModel *)model configure:(CC_HttpConfig *)configure type:(CCHttpTaskType)type {
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]init];
     request.URL = url;
-    if (type == CCHttpTaskTypeRequest) {
+    if (type != CCHttpTaskTypeRequest) {
         request.HTTPBody = [paramsString dataUsingEncoding:NSUTF8StringEncoding];
     }
     if (type == CCHttpTaskTypeGet) {
@@ -267,7 +267,7 @@ static NSString *DOMAIN_DEFAULT_KEY = @"cc_domainDic";
     model.forbiddenEncrypt = YES;
     [CC_HttpTask.shared get:urlStr params:nil model:model finishBlock:^(NSString *error, HttpModel *result) {
         if (error) {
-            if (self->tempReqCount % 5 == 0) {
+            if (tempReqCount % 5 == 0) {
                 //几秒后提示 是网络没有打开的提示还是网络打开了但是域名请求失败的提示
                 if ([self isNetworkReachable]) {
                     [CC_Notice.shared showNotice:@"域名请求失败"];
@@ -276,10 +276,10 @@ static NSString *DOMAIN_DEFAULT_KEY = @"cc_domainDic";
                 }
             }
             //多个备用域名请求链接
-            self->tempReqCount++;
-            self->tempReqIndex++;
-            if (self->tempReqIndex >= self->tempDomainReqList.count) {
-                self->tempReqIndex = 0;
+            tempReqCount++;
+            tempReqIndex++;
+            if (tempReqIndex >= tempDomainReqList.count) {
+                tempReqIndex = 0;
             }
             [CC_CoreThread.shared cc_delay:0.5 block:^{
                 [self getDomain];
@@ -288,13 +288,13 @@ static NSString *DOMAIN_DEFAULT_KEY = @"cc_domainDic";
         }
         
         // 成功获取域名请求
-        NSString *domanKey = result.resultDic[self->tempDomainReqKey];
+        NSString *domanKey = result.resultDic[tempDomainReqKey];
         if (!domanKey) {
             if (!updateInBackGround) {
                 [CC_Notice.shared showNotice:@"域名获取失败"];
             }
         }
-        if (!self->tempPingTest) {
+        if (!tempPingTest) {
             // 不需要校验
             [self finishResult:result updateInBackGround:updateInBackGround];
             return;
@@ -306,10 +306,10 @@ static NSString *DOMAIN_DEFAULT_KEY = @"cc_domainDic";
                 if (!updateInBackGround) {
                     [CC_Notice.shared showNotice:@"服务器开小差了"];
                 }
-                self->tempReqCount++;
-                self->tempReqIndex++;
-                if (self->tempReqIndex >= self->tempDomainReqList.count) {
-                    self->tempReqIndex = 0;
+                tempReqCount++;
+                tempReqIndex++;
+                if (tempReqIndex >= tempDomainReqList.count) {
+                    tempReqIndex = 0;
                 }
                 [CC_CoreThread.shared cc_delay:0.5 block:^{
                     [self getDomain];

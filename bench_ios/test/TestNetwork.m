@@ -13,7 +13,7 @@
 + (void)start {
     HttpModel *model = [[HttpModel alloc]init];
     model.forbiddenJSONParseError = YES;
-    [ccs.httpTask get:@"https://www.jianshu.com/p/a1ec0db3c710" params:nil model:model finishBlock:^(NSString *error, HttpModel *result) {
+    [ccs.httpTask get:@"https://blog.csdn.net/gwh111/article/details/100700830" params:@{@"key":@"value"} model:model finishBlock:^(NSString *error, HttpModel *result) {
         
     }];
     

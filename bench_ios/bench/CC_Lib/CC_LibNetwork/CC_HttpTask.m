@@ -36,6 +36,7 @@ static NSString *static_netTestContain = @"http://d.net/";
 
 - (void)start {
     //初始化默认配置
+    configure = [CC_Base.shared cc_init:CC_HttpConfig.class];
     [configure start];
 }
 
@@ -96,9 +97,9 @@ static NSString *static_netTestContain = @"http://d.net/";
     if (request) {
         urlReq = request;
     } else {
-        urlReq = [[CC_HttpHelper shared] requestWithUrl:model.requestDomain andParamters:model.requestParamsStr model:model configure:configure type:type];
+        urlReq = [CC_HttpHelper.shared requestWithUrl:model.requestDomain andParamters:model.requestParamsStr model:model configure:configure type:type];
     }
-    model.requestUrl=[NSString stringWithFormat:@"%@%@",urlReq.URL.absoluteString,model.requestParamsStr];
+    model.requestUrl = [NSString stringWithFormat:@"%@?%@",urlReq.URL.absoluteString,model.requestParamsStr];
     
     NSURLSessionDownloadTask *mytask = [session downloadTaskWithRequest:urlReq completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         
@@ -128,7 +129,9 @@ static NSString *static_netTestContain = @"http://d.net/";
         model.responseDate = [dateStr cc_convertToDate];
         
         if (error) {
-            [model parsingError:error];
+            if (error.code!=53) {
+                [model parsingError:error];
+            }
         } else {
             NSString *resultStr = [NSString stringWithContentsOfURL:location encoding:NSUTF8StringEncoding error:&error];
             if (!resultStr) {
@@ -178,7 +181,6 @@ static NSString *static_netTestContain = @"http://d.net/";
             NSInteger interval = [zone secondsFromGMTForDate:date];
             NSDate *localDate = [date dateByAddingTimeInterval:interval];
             model.responseLocalDate = localDate;
-//            [[CCReqRecord getInstance]insertRequestDataWithHHSService:paramsDic[@"service"] requestUrl:tempUrl.absoluteString parameters:paraStr resModelDic:[model cc_getClassKVDic]];
         }
         NSArray *keyNames = [CC_HttpTask.shared.configure.logicBlockMap allKeys];
         for (NSString *name in keyNames) {
@@ -282,6 +284,29 @@ static NSString *static_netTestContain = @"http://d.net/";
 - (void)imageUpload:(NSArray *)images url:(id)url params:(id)paramsDic imageSize:(NSUInteger)imageSize reConnectTimes:(NSInteger)times finishBlock:(void (^)(NSArray<HttpModel *> *, NSArray<HttpModel *> *))uploadImageBlock {
     [[CC_Base.shared cc_init:CC_ImageUploadTask.class] uploadImages:images url:url params:paramsDic imageSize:imageSize reConnectTimes:times configure:configure finishBlock:uploadImageBlock];
 }
+
+#pragma mark - 文件上传下载进度回调接口
+
+- (void)uploadFileWithPath:(NSString *)filepath
+                    params:(id)paramsDic
+                  progress:(void(^)(double progress))progress
+             finishHandler:(void(^)(NSString *error, NSDictionary *result))finishHandler{
+}
+
+- (void)downloadDataWithUrl:(NSString *)urlStr
+                   progress:(void(^)(double progress))progress
+              finishHandler:(void (^)(NSError *error, NSDictionary *result))finishHandler{
+}
+
+- (void)uploadFileData:(NSData *)data
+              fileName:(NSString *)name
+                   url:(NSURL *)url
+              mimeType:(NSString *)mimeType
+                params:(id)paramsDic
+              progress:(void (^)(double))progress
+         finishHandler:(void (^)(NSString *error, NSDictionary *result))finishHandler{
+}
+
 
 @end
 
