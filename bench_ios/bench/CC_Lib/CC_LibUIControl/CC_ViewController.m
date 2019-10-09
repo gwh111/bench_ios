@@ -15,7 +15,7 @@
 @end
 
 @implementation CC_ViewController
-@synthesize cc_baseView,cc_controllers;
+@synthesize cc_displayView,cc_controllers;
 // Auto property synthesis will not synthesize property 'view'; it will be implemented by its superclass, use @dynamic to acknowledge intention
 // 添加 @dynamic告诉编译器这个属性是动态的,动态的意思是等你编译的时候就知道了它只在本类合成;
 //@dynamic view;
@@ -37,26 +37,26 @@
 }
 
 - (void)cc_addSubview:(id)view {
-    [cc_baseView addSubview:view];
+    [cc_displayView addSubview:view];
 }
 
 - (void)cc_removeViewWithName:(NSString *)name {
-    UIView *view = [cc_baseView cc_viewWithName:name];
+    UIView *view = [cc_displayView cc_viewWithName:name];
     if (view) {
         [view removeFromSuperview];
     }
 }
 
 - (CC_View *)cc_viewWithName:(NSString *)name {
-    return [cc_baseView cc_viewWithName:name];
+    return [cc_displayView cc_viewWithName:name];
 }
 
 - (void)cc_viewWillLoad {}
 
 - (void)super_cc_viewWillLoad {
-    cc_baseView = [CC_Base.shared cc_init:CC_View.class];
-    cc_baseView.frame = self.view.frame;
-    [self.view addSubview:cc_baseView];
+    cc_displayView = [CC_Base.shared cc_init:CC_View.class];
+    cc_displayView.frame = self.view.frame;
+    [self.view addSubview:cc_displayView];
     
     cc_controllers = [CC_Base.shared cc_init:NSMutableArray.class];
 }

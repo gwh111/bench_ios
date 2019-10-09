@@ -16,7 +16,7 @@
 @implementation Test_FundationViewController
 
 - (void)cc_viewWillLoad {
-    self.cc_baseView.cc_backgroundColor(UIColor.whiteColor);
+    self.cc_displayView.cc_backgroundColor(UIColor.whiteColor);
     self.title = @"Test_FunctionViewController";
     
     [self test_foundationModel];

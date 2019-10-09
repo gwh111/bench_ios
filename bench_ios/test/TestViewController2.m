@@ -39,8 +39,8 @@
     UILabel *label = [[UILabel alloc]init];
     label.name = @"label1";
     label.frame=CGRectMake(0, 0, 0, 0);
-    label.backgroundColor = HEXA(#FFD700, 1);
-    label.textColor = HEXA(@"9B30FF", 1);
+    label.backgroundColor = HEX(#FFD700);
+    label.textColor = HEX(#9B30FF);
     [label cc_tappedInterval:0.1 block:^(id view) {
         CCLOG(@"abc");
     }];
@@ -66,10 +66,10 @@
     
     CC_Label *l = ccs.label;
     {typeof(l) item = l;
-        item.cc_textColor(HEXA(9B30FF, 1))
+        item.cc_textColor(HEX(9B30FF))
             .cc_name(@"mylabel")
             .cc_frame(RH(10),RH(100),RH(100),RH(100))
-        .cc_backgroundColor(HEXA(#FFD700, 1))
+        .cc_backgroundColor(HEX(#FFD700))
             .cc_addToView(self.view);
         
         [item bindText:str];

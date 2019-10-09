@@ -17,7 +17,7 @@
 @implementation Test_LibUIViewController
 
 - (void)cc_viewWillLoad {
-    self.cc_baseView.cc_backgroundColor(UIColor.whiteColor);
+    self.cc_displayView.cc_backgroundColor(UIColor.whiteColor);
     self.title = @"Test_LibUIViewController";
     
 //    [self test_Alert];
@@ -55,7 +55,7 @@
     //toast
 //    [ccs showNotice:@"haha"];
 //    [ccs showNotice:@"haha" atView:self.cc_baseView];
-    [ccs showNotice:@"haha" atView:self.cc_baseView delay:4];
+    [ccs showNotice:@"haha" atView:self.cc_displayView delay:4];
 }
 
 - (void)test_labelGroup
@@ -73,7 +73,7 @@
     
     [_group updateLabels:@[@"ha",@"haha",@"hahaha",@"hahahaha",@"hahahahaha"] selected:@[@(1),@(0),@(1),@(0),@(0)]];
     
-    [self.cc_baseView addSubview:_group];
+    [self.cc_displayView addSubview:_group];
     
 }
 

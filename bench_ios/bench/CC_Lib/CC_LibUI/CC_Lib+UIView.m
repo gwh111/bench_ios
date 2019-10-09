@@ -107,7 +107,7 @@ typedef CC_Label *badgeLabel;
 
 - (nullable __kindof id)cc_viewWithNameOnVC:(NSString *)name{
     CC_ViewController *vc = (CC_ViewController *)[self cc_viewController];
-    return [vc.cc_baseView cc_viewWithName:name];
+    return [vc.cc_displayView cc_viewWithName:name];
 }
 
 - (void)cc_tappedInterval:(float)interval block:(void (^)(id view))block{
@@ -324,7 +324,7 @@ typedef CC_Label *badgeLabel;
     return ^(NSString *name) {
 #if DEBUG
         CC_ViewController *vc = (CC_ViewController *)[self cc_viewController];
-        if ([vc.cc_baseView cc_viewWithName:name]) {
+        if ([vc.cc_displayView cc_viewWithName:name]) {
             CCLOGAssert("already has '%@'",name);
         }
 #endif

@@ -14,7 +14,7 @@
 
 @interface CC_ViewController : UIViewController
 
-@property (nonatomic,retain) CC_View *cc_baseView;
+@property (nonatomic,retain) CC_View *cc_displayView;
 @property (nonatomic,retain) NSMutableArray *cc_controllers;
 
 // Configuration function, adds configuration to this function
