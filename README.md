@@ -32,31 +32,6 @@ import "ccs.h"
 
 # 模式类使用方法
 
-## config使用方法
-新建一个CC_CommonConfig.xcconfig文件，在里面写上
-
-```
-GCC_PREPROCESSOR_DEFINITIONS = $(inherited) CCBUILDTAG='$(CCBUILDTAG)'
-```
-新建发布
-
-```
-（CC_ReleaseConfig.xcconfig）、 主干（CC_TrunkConfig.xcconfig）、分支1（CC_Branch1Config.xcconfig）等.xcconfig文件，在里面写上tag值和导入'CC_CommonConfig.xcconfig'文件，release=0，trunk=1，branch1=2 ...
-```
-```
-CCBUILDTAG=0
-#include "CC_CommonConfig.xcconfig"
-```
-
-之后只需修改project - info里的configurations来区分线上、主干和分支。
-<img src="https://github.com/gwh111/bench_ios/blob/master/resources/WX20190830-181405%402x.png" width="840">
-
-```
-//我们传入动态域名的地址来获取正确的配置域名：
-[ccs configureDomainWithReqGroupList:@[@[线上地址1,线上地址2...], @[主干地址1,主干地址2...], @[分支1地址1,分支1地址2...] ...] andKey:@"eh_doctor_api" cache:NO pingTest:YES block:^(HttpModel *result) {
-//从result获取域名
-}];
-```
 
 ## ccs调度中心介绍
 ccs有最高调度权限，没有管理权限。管理由各个模块各自管理，分布式架构，ccs可以获取访问权限。
@@ -873,4 +848,30 @@ CC_Lib/CC_Function 具体使用见Test_FunctionViewController
 + (id)function_jsonWithString:(NSString *)jsonString;
 ```
 
+## config使用方法
+使用动态域名方案。
+动态域名方案-将服务接口请求地址集合放在一个json文件里，上传到阿里云或者服务器，app拿到这个文件再获取域名，可以用于域名修改要发包的情况。
+新建一个CC_CommonConfig.xcconfig文件，在里面写上
 
+```
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) CCBUILDTAG='$(CCBUILDTAG)'
+```
+新建发布
+
+```
+（CC_ReleaseConfig.xcconfig）、 主干（CC_TrunkConfig.xcconfig）、分支1（CC_Branch1Config.xcconfig）等.xcconfig文件，在里面写上tag值和导入'CC_CommonConfig.xcconfig'文件，release=0，trunk=1，branch1=2 ...
+```
+```
+CCBUILDTAG=0
+#include "CC_CommonConfig.xcconfig"
+```
+
+之后只需修改project - info里的configurations来区分线上、主干和分支。
+<img src="https://github.com/gwh111/bench_ios/blob/master/resources/WX20190830-181405%402x.png" width="840">
+
+```
+//我们传入动态域名的地址来获取正确的配置域名：
+[ccs configureDomainWithReqGroupList:@[@[线上地址1,线上地址2...], @[主干地址1,主干地址2...], @[分支1地址1,分支1地址2...] ...] andKey:@"eh_doctor_api" cache:NO pingTest:YES block:^(HttpModel *result) {
+//从result获取域名
+}];
+```
