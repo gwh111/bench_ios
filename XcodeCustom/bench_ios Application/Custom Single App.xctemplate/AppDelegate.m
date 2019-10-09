@@ -1,15 +1,30 @@
-//___FILEHEADER___
+//
+//  AppDelegate.m
+//  ___PROJECTNAME___
+//
+//  Created by ___FULLUSERNAME___ on ___DATE___.
+//  Copyright ___YEAR___ ___ORGANIZATIONNAME___. All rights reserved.
+//
 
-#import "___FILEBASENAME___.h"
+#import "AppDelegate.h"
+#import "ViewController.h"
 
-@interface ___FILEBASENAMEASIDENTIFIER___ ()
+@interface AppDelegate ()
 
 @end
 
-@implementation ___FILEBASENAMEASIDENTIFIER___
+@implementation AppDelegate
+
++ (void)load {
+    [ccs registerAppDelegate:self];
+}
 
 - (void)cc_willInit {
-
+    
+    //入口页面
+    [self cc_initViewController:ViewController.class withNavigationBarHidden:NO block:^{
+        CCLOG(@"ViewController finish");
+    }];
 }
 
 - (BOOL)cc_application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {

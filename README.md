@@ -40,6 +40,7 @@ ccs有最高调度权限，没有管理权限。管理由各个模块各自管�
 
 ### 模板使用
 参考XcodeCustom文件夹下README.md
+包括工程模板和类模板
 
 ## AppDelegate使用方法
 main函数入口
