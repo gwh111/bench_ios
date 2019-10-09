@@ -17,6 +17,14 @@
         
     }];
     
+    //修改configure
+    CC_HttpConfig *configure = ccs.httpTask.configure;
+    configure.signKeyStr = @"xxx";
+    
+    ccs.httpTask.configure = configure;
+    
+    CC_HttpTask *c = [ccs init:CC_HttpTask.class];
+    
 //    [ccs.imageView cc_setImageWithURL:[NSURL URLWithString:@""]];
 }
 

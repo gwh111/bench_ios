@@ -220,7 +220,11 @@ static NSString *DOMAIN_DEFAULT_KEY = @"cc_domainDic";
 - (NSMutableURLRequest *)requestWithUrl:(NSURL *)url andParamters:(NSString *)paramsString model:(HttpModel *)model configure:(CC_HttpConfig *)configure type:(CCHttpTaskType)type {
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]init];
     request.URL = url;
-    if (type != CCHttpTaskTypeRequest) {
+    if (type == CCHttpTaskTypeGet) {
+        if (paramsString) {
+            request.URL = [NSURL URLWithString:[NSString stringWithFormat:@"%@?%@",url.absoluteString,paramsString]];
+        }
+    }else if (type != CCHttpTaskTypeRequest) {
         request.HTTPBody = [paramsString dataUsingEncoding:NSUTF8StringEncoding];
     }
     if (type == CCHttpTaskTypeGet) {

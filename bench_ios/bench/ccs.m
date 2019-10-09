@@ -428,7 +428,9 @@
 
 #pragma mark CC_CoreFoundation
 + (id)init:(Class)class{
-    return [CC_Base.shared cc_init:class];
+    id object = [CC_Base.shared cc_init:class];
+    [cc_message cc_instance:object method:@selector(start)];
+    return object;
 }
 
 + (void)registerAppDelegate:(id)module{
