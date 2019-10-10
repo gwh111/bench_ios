@@ -7,7 +7,7 @@
 
 #import "UIScrollView+CCUI.h"
 #import "UIView+CCUI.h"
-#import "UIResponder+CC.h"
+#import "CC_Lib+UIResponder.h"
 #import "CC_CoreUI.h"
 #import <objc/message.h>
 

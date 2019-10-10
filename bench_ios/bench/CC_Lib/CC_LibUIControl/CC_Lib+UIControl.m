@@ -51,7 +51,7 @@ typedef NSTimeInterval acceptEventTime;
     NSArray *touchArr = [event.allTouches allObjects];
     if (touchArr.count > 0) {
         UITouch *touch = touchArr[0];
-        int p = touch.phase;
+        UITouchPhase p = touch.phase;
         if (p != UITouchPhaseEnded){
             [self cc_sendAction:action to:target forEvent:event];
             return;

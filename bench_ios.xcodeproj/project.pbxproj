@@ -38,7 +38,6 @@
 		6D4B62C023263DA300EE2CAF /* UITextView+CCUI.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D4B62BF23263DA300EE2CAF /* UITextView+CCUI.m */; };
 		6D4B62C32326500E00EE2CAF /* UIScrollView+CCUI.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D4B62C22326500E00EE2CAF /* UIScrollView+CCUI.m */; };
 		6D4B62C6232654BD00EE2CAF /* UIImageView+CCUI.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D4B62C5232654BD00EE2CAF /* UIImageView+CCUI.m */; };
-		6D4B62C92326836600EE2CAF /* UIResponder+CC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D4B62C82326836600EE2CAF /* UIResponder+CC.m */; };
 		6D4B62D92327802C00EE2CAF /* UIImage+CC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D4B62D82327802C00EE2CAF /* UIImage+CC.m */; };
 		6D4B62DC232780BD00EE2CAF /* UIColor+CC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D4B62DB232780BD00EE2CAF /* UIColor+CC.m */; };
 		6D4B62E023278B6600EE2CAF /* UITextField+CCUI.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D4B62DF23278B6600EE2CAF /* UITextField+CCUI.m */; };
@@ -70,8 +69,8 @@
 		D84DC91F232662A500CF83C8 /* TestTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = D84DC91E232662A500CF83C8 /* TestTabBarController.m */; };
 		D84DC92E23275AD800CF83C8 /* AppDelegate_APNs.m in Sources */ = {isa = PBXBuildFile; fileRef = D84DC92C23275AD800CF83C8 /* AppDelegate_APNs.m */; };
 		D84DC9952328D42600CF83C8 /* CC_NavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = D84DC9942328D42600CF83C8 /* CC_NavigationBar.m */; };
-		D84DC9972328DB3500CF83C8 /* bench_ios.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D84DC9962328DB3500CF83C8 /* bench_ios.bundle */; };
 		D84DC99A2328DE6400CF83C8 /* CC_NavigationBarConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = D84DC9992328DE6400CF83C8 /* CC_NavigationBarConfig.m */; };
+		D86A7A1A234F291000A732DD /* bench_ios.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D86A7A19234F291000A732DD /* bench_ios.bundle */; };
 		D87A2778233BB6A6005B7343 /* testjson.json in Resources */ = {isa = PBXBuildFile; fileRef = D87A2777233BB6A6005B7343 /* testjson.json */; };
 		D8A06EF7230F9999006BDF31 /* CC_Double.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A06E12230F9999006BDF31 /* CC_Double.m */; };
 		D8A06EF8230F9999006BDF31 /* CC_Message.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A06E17230F9999006BDF31 /* CC_Message.m */; };
@@ -228,8 +227,6 @@
 		6D4B62C22326500E00EE2CAF /* UIScrollView+CCUI.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+CCUI.m"; sourceTree = "<group>"; };
 		6D4B62C4232654BD00EE2CAF /* UIImageView+CCUI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImageView+CCUI.h"; sourceTree = "<group>"; };
 		6D4B62C5232654BD00EE2CAF /* UIImageView+CCUI.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+CCUI.m"; sourceTree = "<group>"; };
-		6D4B62C72326836600EE2CAF /* UIResponder+CC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIResponder+CC.h"; sourceTree = "<group>"; };
-		6D4B62C82326836600EE2CAF /* UIResponder+CC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIResponder+CC.m"; sourceTree = "<group>"; };
 		6D4B62D72327802C00EE2CAF /* UIImage+CC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+CC.h"; sourceTree = "<group>"; };
 		6D4B62D82327802C00EE2CAF /* UIImage+CC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+CC.m"; sourceTree = "<group>"; };
 		6D4B62DA232780BD00EE2CAF /* UIColor+CC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+CC.h"; sourceTree = "<group>"; };
@@ -295,9 +292,9 @@
 		D84DC92D23275AD800CF83C8 /* AppDelegate_APNs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate_APNs.h; sourceTree = "<group>"; };
 		D84DC9932328D42600CF83C8 /* CC_NavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_NavigationBar.h; sourceTree = "<group>"; };
 		D84DC9942328D42600CF83C8 /* CC_NavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC_NavigationBar.m; sourceTree = "<group>"; };
-		D84DC9962328DB3500CF83C8 /* bench_ios.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = bench_ios.bundle; sourceTree = "<group>"; };
 		D84DC9982328DE6400CF83C8 /* CC_NavigationBarConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_NavigationBarConfig.h; sourceTree = "<group>"; };
 		D84DC9992328DE6400CF83C8 /* CC_NavigationBarConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC_NavigationBarConfig.m; sourceTree = "<group>"; };
+		D86A7A19234F291000A732DD /* bench_ios.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = bench_ios.bundle; sourceTree = "<group>"; };
 		D87A2777233BB6A6005B7343 /* testjson.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = testjson.json; sourceTree = "<group>"; };
 		D8A06E0B230F9999006BDF31 /* CC_CoreMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_CoreMacro.h; sourceTree = "<group>"; };
 		D8A06E0D230F9999006BDF31 /* CC_LibKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_LibKit.h; sourceTree = "<group>"; };
@@ -511,6 +508,7 @@
 				18B6BD451F21A6080019391D /* README.md */,
 				D842D26F22AF955F00816CB0 /* updateList.md */,
 				18B6BD471F21A8560019391D /* bench_ios.podspec */,
+				D86A7A19234F291000A732DD /* bench_ios.bundle */,
 				D843B7B72317BE80003CC955 /* config */,
 				D8A06E0A230F9999006BDF31 /* bench */,
 				18B6BCFE1F1F09CA0019391D /* AppDelegate.h */,
@@ -561,8 +559,6 @@
 		1F06873D2325F55900875FCC /* Categroy */ = {
 			isa = PBXGroup;
 			children = (
-				6D4B62C72326836600EE2CAF /* UIResponder+CC.h */,
-				6D4B62C82326836600EE2CAF /* UIResponder+CC.m */,
 				6D4B62D72327802C00EE2CAF /* UIImage+CC.h */,
 				6D4B62D82327802C00EE2CAF /* UIImage+CC.m */,
 				6D4B62DA232780BD00EE2CAF /* UIColor+CC.h */,
@@ -737,7 +733,6 @@
 				D8A06E20230F9999006BDF31 /* ccs.h */,
 				D8A06EE2230F9999006BDF31 /* ccs.m */,
 				D8A06E10230F9999006BDF31 /* CC_Macro.h */,
-				D84DC9962328DB3500CF83C8 /* bench_ios.bundle */,
 				D8A06E0C230F9999006BDF31 /* CC_Kit */,
 				D8A06E42230F9999006BDF31 /* CC_Lib */,
 				D8A06E21230F9999006BDF31 /* CC_Function */,
@@ -1132,8 +1127,8 @@
 				D843B7C22317FE21003CC955 /* icon.png in Resources */,
 				18B6BD481F21A8560019391D /* bench_ios.podspec in Resources */,
 				D87A2778233BB6A6005B7343 /* testjson.json in Resources */,
+				D86A7A1A234F291000A732DD /* bench_ios.bundle in Resources */,
 				D842D27022AF955F00816CB0 /* updateList.md in Resources */,
-				D84DC9972328DB3500CF83C8 /* bench_ios.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1250,7 +1245,6 @@
 				D8A06F4C230F9999006BDF31 /* CC_Lib+NSArray.m in Sources */,
 				D8A06F1C230F9999006BDF31 /* CC_View.m in Sources */,
 				D8A06F0D230F9999006BDF31 /* Reachability.m in Sources */,
-				6D4B62C92326836600EE2CAF /* UIResponder+CC.m in Sources */,
 				D8A06F13230F9999006BDF31 /* CC_Image.m in Sources */,
 				D8A06F52230F9999006BDF31 /* CC_Lib+NSDictionary.m in Sources */,
 				D8A06F68230F99B7006BDF31 /* TestCoreFoundation.m in Sources */,

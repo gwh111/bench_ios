@@ -11,7 +11,6 @@
 
 #import "UIColor+CC.h"
 #import "UIImage+CC.h"
-#import "UIResponder+CC.h"
 
 #import "UIView+CCUI.h"
 #import "UIControl+CCUI.h"

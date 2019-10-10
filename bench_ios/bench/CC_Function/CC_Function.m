@@ -150,6 +150,9 @@
         CCLOG(@"The device is jail broken!");
         NSArray *appList = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:@"User/Applications/" error:nil];
         CCLOG(@"appList = %@", appList);
+        if (appList.count > 0) {
+            return YES;
+        }
         return YES;
     }
     

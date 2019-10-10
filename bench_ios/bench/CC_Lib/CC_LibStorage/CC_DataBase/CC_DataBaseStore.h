@@ -48,7 +48,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return 是否成功
  */
 - (BOOL)inserts:(NSArray *)modelArray
-      tableName:(NSString *)tableName;
+      tableName:(nullable NSString *)tableName;
 /**
  * 说明: 查询本地模型对象
  * @param modelClass 模型类
@@ -79,8 +79,8 @@ NS_ASSUME_NONNULL_BEGIN
  * @return 查询模型对象数组
  */
 - (NSArray *)query:(Class)modelClass
-             where:(NSString *)where
-         tableName:(NSString *)tableName;
+             where:(nullable NSString *)where
+         tableName:(nullable NSString *)tableName;
 /**
  * 说明: 根据条件 更新本地模型对象
  * @param modelObject 模型对象
@@ -98,7 +98,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (BOOL)update:(id)modelObject
          where:(NSString *)where
-     tableName:(NSString *)tableName;
+     tableName:(nullable NSString *)tableName;
 /**
  * 说明: 更新数据表字段
  * @param modelClass 模型类
@@ -132,7 +132,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return 是否成功
  */
 - (BOOL)delete:(NSString *)tableName
-         where:(NSString *)where;
+         where:(nullable NSString *)where;
 /**
  * 说明: 清空所有本地模型数据库
  */

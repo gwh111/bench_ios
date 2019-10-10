@@ -22,7 +22,7 @@
     // 必须明确知道地址对应的对象是否存在，否则在ARC中是不安全的
     
     address = [address hasPrefix:@"0x"]?address:[@"0x" stringByAppendingString:address];
-    uintptr_t hex = strtoull(address.UTF8String, NULL, 0);
+    unsigned long long hex = strtoull(address.UTF8String, NULL, 0);
     id gotcha = (__bridge id)(void *)hex;
     if ([gotcha isKindOfClass:[UILabel class]]) {
         UILabel *obj = gotcha;

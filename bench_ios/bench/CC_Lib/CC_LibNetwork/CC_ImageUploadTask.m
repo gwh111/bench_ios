@@ -65,10 +65,10 @@ typedef NS_ENUM(NSUInteger, CCCompressionType) {
     }
     
     [CC_CoreThread.shared cc_blockGroup:images.count block:^(NSUInteger taskIndex, BOOL finish, id sema) {
-        HttpModel *model = [CC_HttpHelper.shared commonModel:nil url:url params:paramsDic configure:tempConfigure type:CCHttpTaskTypeImage];
+        HttpModel *model = [CC_HttpHelper.shared commonModel:nil url:url params:paramsDic configure:self->tempConfigure type:CCHttpTaskTypeImage];
         model.forbiddenEncrypt = YES;
         
-        NSMutableURLRequest *urlReq = [CC_HttpHelper.shared requestWithUrl:model.requestDomain andParamters:model.requestParamsStr model:model configure:tempConfigure type:CCHttpTaskTypeImage];
+        NSMutableURLRequest *urlReq = [CC_HttpHelper.shared requestWithUrl:model.requestDomain andParamters:model.requestParamsStr model:model configure:self->tempConfigure type:CCHttpTaskTypeImage];
         urlReq = [self recaculateImageDatas:images[taskIndex] paramsDic:paramsDic request:urlReq];
         
         [self requestSingleImageWithSession:session executorDelegate:executorDelegate request:urlReq index:taskIndex+1 reConnectTimes:times model:model finishBlock:^(NSString *error, HttpModel *resModel) {

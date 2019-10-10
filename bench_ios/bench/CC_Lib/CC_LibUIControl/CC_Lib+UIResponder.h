@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface UIResponder (CC_Lib)
 
 + (id)cc_currentFirstResponder;
+- (void)findFirstResponder:(id)sender;
 
 @end
 

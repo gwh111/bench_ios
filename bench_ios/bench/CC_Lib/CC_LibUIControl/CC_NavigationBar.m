@@ -40,6 +40,9 @@ static NSString *KEY_BACK_ICON = @"gray_navBack_arrow_icon@3x";
             NSBundle* myBundle = [NSBundle bundleWithPath:myBundlePath];
             backImage = [UIImage imageWithContentsOfFile:[myBundle pathForResource:KEY_BACK_ICON ofType:@"png"]];
         }
+        if (!backImage) {
+            backImage = [UIImage imageNamed:KEY_BACK_ICON];
+        }
         self.backgroundColor = RGBA(246, 63, 63,1);
         _backButton = [CC_Button buttonWithType:UIButtonTypeCustom];
         [_backButton setImage:backImage forState:UIControlStateNormal];

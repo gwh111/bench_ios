@@ -162,12 +162,11 @@
     } else if (badgeNumber > 99) {
         [tabBarItem setBadgeValue:@"99+"];
     } else {
-        [tabBarItem setBadgeValue:[NSString stringWithFormat:@"%ld",badgeNumber]];
+        [tabBarItem setBadgeValue:[NSString stringWithFormat:@"%d",(int)badgeNumber]];
     }
 }
 
-#pragma mark kit function
-
+#pragma kit function
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self super_cc_viewWillLoad];
