@@ -1,15 +1,15 @@
 //
-//  UIImage+CCLib.m
-//  testbenchios
+//  UIImage+CC.m
+//  bench_ios
 //
-//  Created by gwh on 2019/8/6.
-//  Copyright © 2019 gwh. All rights reserved.
+//  Created by ml on 2019/9/10.
 //
 
-#import "CC_Lib+UIImage.h"
+#import "UIImage+CC.h"
 #import "CC_Macro.h"
+#import "CC_Foundation.h"
 
-@implementation UIImage (CC_Lib)
+@implementation UIImage (CC)
 
 - (UIImage *)cc_scaleToKb:(NSInteger)kb{
     if (kb < 1) {

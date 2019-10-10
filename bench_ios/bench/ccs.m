@@ -24,8 +24,15 @@
     [cc_message cc_instance:CC_HttpHelper.shared method:@selector(domainWithReqGroupList:andKey:cache:pingTest:block:) params:domainReqList,domainReqKey,[CC_Int value:cache],[CC_Int value:pingTest],block];
 }
 
-- (void)configureDomainWithReqList:(NSArray *)domainReqList block:(void (^)(HttpModel *result))block{
++ (void)configureDomainWithReqList:(NSArray *)domainReqList block:(void (^)(HttpModel *result))block {
     [cc_message cc_instance:CC_HttpHelper.shared method:@selector(domainWithReqList:block:) params:domainReqList,block];
+}
+
++ (void)configureNavigationBarWithTitleFont:(UIFont *)font
+                                 titleColor:(UIColor *)titleColor
+                            backgroundColor:(UIColor *)backgroundColor
+                            backgroundImage:(UIImage *)backgroundImage {
+    [cc_message cc_instance:CC_NavigationController.shared method:@selector(cc_initNavigationBarWithTitleFont:titleColor:backgroundColor:backgroundImage:) params:font,titleColor,backgroundColor,backgroundImage];
 }
 
 + (void)openLaunchMonitor:(BOOL)open {
@@ -118,8 +125,8 @@
     return [[NSMutableDictionary alloc]initWithDictionary:dic];
 }
 
-+ (id)model:(Class)class{
-    return [CC_Base.shared cc_init:class];
++ (id)model:(Class)aClass{
+    return [CC_Base.shared cc_init:aClass];
 }
 
 #pragma mark CC_UIKit
@@ -171,136 +178,12 @@
     return [cc_message cc_class:[UIColor class] method:@selector(cc_rgbA:green:blue:alpha:) params:Float(red),Float(blue),Float(green),Float(alpha)];
 }
 
-+ (CC_View *)view {
-    return [CC_Base.shared cc_init:CC_View.class];
-}
-+ (id)view:(Class)class {
-    return [CC_Base.shared cc_init:class];
-}
-
-+ (CC_Label *)label {
-    return [CC_Base.shared cc_init:CC_Label.class];;
-}
-+ (id)label:(Class)class {
-    return [CC_Base.shared cc_init:class];
-}
-
-+ (CC_Button *)button {
-    return [CC_Base.shared cc_init:CC_Button.class];
-}
-+ (id)button:(Class)class {
-    return [CC_Base.shared cc_init:class];
-}
-
-+ (CC_TextView *)textView {
-    return [CC_Base.shared cc_init:CC_TextView.class];
-}
-+ (id)textView:(Class)class {
-    return [CC_Base.shared cc_init:class];
-}
-
-+ (CC_TextField *)textField {
-    return [CC_Base.shared cc_init:CC_TextField.class];
-}
-+ (id)textField:(Class)class {
-    return [CC_Base.shared cc_init:class];
-}
-
-+ (CC_ImageView *)imageView {
-    return [CC_Base.shared cc_init:CC_ImageView.class];
-}
-+ (id)imageView:(Class)class {
-    return [CC_Base.shared cc_init:class];
-}
-
-+ (CC_ScrollView *)scrollView {
-    return [CC_Base.shared cc_init:CC_ScrollView.class];
-}
-+ (id)scrollView:(Class)class {
-    return [CC_Base.shared cc_init:class];
-}
-
-+ (CC_TableView *)tableView {
-    return [CC_Base.shared cc_init:CC_TableView.class];
-}
-+ (id)tableView:(Class)class {
-    return [CC_Base.shared cc_init:class];
-}
-
-+ (CC_Image *)image:(NSString *)imageName {
-    return (CC_Image *)[UIImage imageNamed:imageName];
-}
-
-+ (CC_TextAttachment *)textAttachment {
-    return [CC_Base.shared cc_init:CC_TextAttachment.class];
-}
-
-+ (NSAttributedString *)attributedString {
-    return [CC_Base.shared cc_init:NSAttributedString.class];
-}
-
-+ (NSMutableAttributedString *)mutAttributedString {
-    return [CC_Base.shared cc_init:NSMutableAttributedString.class];
-}
-
-+ (CC_Mask *)mask {
-    return CC_Mask.shared;
-}
-
-+ (void)maskStart {
-    [CC_Mask.shared start];
-}
-
-+ (void)maskStartAtView:(UIView *)view {
-    [CC_Mask.shared startAtView:view];
-}
-
-+ (void)maskStop {
-    return [CC_Mask.shared stop];
-}
-
-+ (CC_Notice *)notice {
-    return CC_Notice.shared;
-}
-
-+ (void)showNotice:(NSString *)str {
-    [cc_message cc_instance:CC_Notice.shared method:@selector(showNotice:) params:str];
-}
-
-+ (void)showNotice:(NSString *)str atView:(UIView *)view {
-    [cc_message cc_instance:CC_Notice.shared method:@selector(showNotice:atView:) params:str,view];
-}
-
-+ (void)showNotice:(NSString *)str atView:(UIView *)view delay:(int)delay {
-    [cc_message cc_instance:CC_Notice.shared method:@selector(showNotice:atView:delay:) params:str,view,Int(delay)];
-}
-
-+ (void)showAltOn:(UIViewController *)controller title:(NSString *)title msg:(NSString *)msg bts:(NSArray *)bts block:(void (^)(int index, NSString *name))block {
-    [cc_message cc_class:CC_Alert.class method:@selector(showAltOn:title:msg:bts:block:) params:controller,title,msg,bts,block];
-}
-
-+ (void)showTextFieldAltOn:(UIViewController *)controller title:(NSString *)title msg:(NSString *)msg placeholder:(NSString *)placeholder bts:(NSArray *)bts block:(void (^)(int index, NSString *name, NSString *text))block {
-    [cc_message cc_class:CC_Alert.class method:@selector(showTextFieldAltOn:title:msg:placeholder:bts:block:) params:controller,title,msg,placeholder,bts,block];
-}
-
-+ (void)showTextFieldsAltOn:(UIViewController *)controller title:(NSString *)title msg:(NSString *)msg placeholders:(NSArray *)placeholders bts:(NSArray *)bts block:(void (^)(int index, NSString *name, NSArray *texts))block {
-    [cc_message cc_class:CC_Alert.class method:@selector(showTextFieldsAltOn:title:msg:placeholders:bts:block:) params:controller,title,msg,placeholders,bts,block];
-}
-
-+ (CC_LabelGroup *)labelGroup {
-    return [CC_Base.shared cc_init:CC_LabelGroup.class];
-}
-
-+ (id)viewController:(Class)class {
-    return [CC_Base.shared cc_init:class];
-}
-
-+ (id)controller:(Class)class {
-    return [CC_Base.shared cc_init:class];
-}
-
 + (NSString *)deviceName {
     return [cc_message cc_class:CC_Device.class method:@selector(cc_deviceName)];
+}
+
++ (id)getAView {
+    return [cc_message cc_instance:CC_CoreUI.shared method:@selector(getAView) params:nil];
 }
 
 #pragma mark action
@@ -316,8 +199,8 @@
     [cc_message cc_instance:CC_NavigationController.shared method:@selector(cc_popViewController)];
 }
 
-+ (void)popToViewController:(Class)class {
-    [cc_message cc_instance:CC_NavigationController.shared method:@selector(cc_popToViewController:)params:class];
++ (void)popToViewController:(Class)aClass {
+    [cc_message cc_instance:CC_NavigationController.shared method:@selector(cc_popToViewController:)params:aClass];
 }
 
 + (void)pushWebViewControllerWithUrl:(NSString *)urlStr {
@@ -333,8 +216,15 @@
     return CC_HttpHelper.shared;
 }
 
++ (CC_HttpEncryption *)httpEncryption{
+    return CC_HttpEncryption.new;
+}
+
++ (CC_HttpConfig *)httpConfig{
+    return CC_HttpConfig.new;
+}
 #pragma mark CC_LibStore
-+ (NSString *)keychainKey:(NSString *)name{
++ (NSString *)keychainValueForKey:(NSString *)name{
     return [cc_message cc_class:CC_KeyChainStore.class method:@selector(cc_keychainWithName:) params:name];
 }
 
@@ -346,7 +236,7 @@
     return [cc_message cc_class:CC_KeyChainStore.class method:@selector(cc_keychainUUID)];
 }
 
-+ (id)defaultKey:(NSString *)key{
++ (id)defaultValueForKey:(NSString *)key{
     return [cc_message cc_class:CC_DefaultStore.class method:@selector(cc_default:) params:key];
 }
 
@@ -354,7 +244,7 @@
     [cc_message cc_class:CC_DefaultStore.class method:@selector(cc_saveDefault:value:) params:key,value];
 }
 
-+ (id)safeDefaultKey:(NSString *)key{
++ (id)safeDefaultValueForKey:(NSString *)key{
     return [cc_message cc_class:CC_DefaultStore.class method:@selector(cc_safeDefault:) params:key];
 }
 
@@ -426,9 +316,12 @@
     return [[cc_message cc_class:CC_SandboxStore.class method:@selector(cc_saveToSandboxWithData:toPath:type:) params:name,type,type]boolValue];
 }
 
++ (CC_DataBaseStore *)dataBaseStore {
+    return [CC_DataBaseStore shared];
+}
 #pragma mark CC_CoreFoundation
-+ (id)init:(Class)class{
-    id object = [CC_Base.shared cc_init:class];
++ (id)init:(Class)aClass{
+    id object = [CC_Base.shared cc_init:aClass];
     [cc_message cc_instance:object method:@selector(start)];
     return object;
 }
@@ -445,7 +338,7 @@
     return [CC_Base.shared cc_registerSharedInstance:shared block:block];
 }
 
-+ (id)shared:(NSString *)key{
++ (id)sharedValueForKey:(NSString *)key{
     return [CC_Base.shared cc_shared:key];
 }
 
@@ -610,6 +503,8 @@
 
 @implementation ccs (CCUI)
 
+// MARK: - CCUI Framework Provider -
+
 + (CC_View *)View {
     return [CC_Base.shared cc_init:CC_View.class];
 }
@@ -642,8 +537,97 @@
     return [CC_Base.shared cc_init:CC_TableView.class];
 }
 
++ (CC_TableView *)TableViewWithStyle:(UITableViewStyle)style {
+    id obj = [cc_message cc_instance:CC_TableView.class method:@selector(alloc)];
+    return [obj initWithFrame:CGRectZero style:style];
+}
+
++ (CC_CollectionView *)CollectionView {
+    id obj = [cc_message cc_instance:CC_CollectionView.class method:@selector(alloc)];
+    UICollectionViewFlowLayout *layout = UICollectionViewFlowLayout.new;
+    CC_CollectionView *collection = [obj initWithFrame:CGRectZero collectionViewLayout:layout];
+    collection.cc_flowLayout = layout;
+    return collection;
+}
+
++ (CC_CollectionView *)CollectionViewWithLayout:(UICollectionViewLayout *)layout {
+    id obj = [cc_message cc_instance:CC_CollectionView.class method:@selector(alloc)];
+    CC_CollectionView *collection = [obj initWithFrame:CGRectZero collectionViewLayout:layout];
+    return collection;
+}
+
 + (CC_WebView *)WebView {
     return [CC_Base.shared cc_init:CC_WebView.class];
+}
+
++ (CC_LabelGroup *)LabelGroup {
+    return [CC_Base.shared cc_init:CC_LabelGroup.class];
+}
+
++ (CC_Image *)image:(NSString *)imageName {
+    return (CC_Image *)[CC_Image imageNamed:imageName];
+}
+
++ (CC_TextAttachment *)textAttachment {
+    return [CC_Base.shared cc_init:CC_TextAttachment.class];
+}
+
++ (NSAttributedString *)attributedString {
+    return [CC_Base.shared cc_init:NSAttributedString.class];
+}
+
++ (NSMutableAttributedString *)mutableAttributedString {
+    return [CC_Base.shared cc_init:NSMutableAttributedString.class];
+}
+
+// MARK: - CCUI Custom -
+
++ (id)anObject:(__unsafe_unretained Class)cls {
+    return [CC_Base.shared cc_init:cls];
+}
+
++ (CC_Mask *)Mask {
+    return CC_Mask.shared;
+}
+
++ (void)maskStart {
+    [CC_Mask.shared start];
+}
+
++ (void)maskStartAtView:(UIView *)view {
+    [CC_Mask.shared startAtView:view];
+}
+
++ (void)maskStop {
+    return [CC_Mask.shared stop];
+}
+
++ (CC_Notice *)Notice {
+    return CC_Notice.shared;
+}
+
++ (void)showNotice:(NSString *)str {
+    [cc_message cc_instance:CC_Notice.shared method:@selector(showNotice:) params:str];
+}
+
++ (void)showNotice:(NSString *)str atView:(UIView *)view {
+    [cc_message cc_instance:CC_Notice.shared method:@selector(showNotice:atView:) params:str,view];
+}
+
++ (void)showNotice:(NSString *)str atView:(UIView *)view delay:(int)delay {
+    [cc_message cc_instance:CC_Notice.shared method:@selector(showNotice:atView:delay:) params:str,view,Int(delay)];
+}
+
++ (void)showAltOn:(UIViewController *)controller title:(NSString *)title msg:(NSString *)msg bts:(NSArray *)bts block:(void (^)(int index, NSString *name))block {
+    [cc_message cc_class:CC_Alert.class method:@selector(showAltOn:title:msg:bts:block:) params:controller,title,msg,bts,block];
+}
+
++ (void)showTextFieldAltOn:(UIViewController *)controller title:(NSString *)title msg:(NSString *)msg placeholder:(NSString *)placeholder bts:(NSArray *)bts block:(void (^)(int index, NSString *name, NSString *text))block {
+    [cc_message cc_class:CC_Alert.class method:@selector(showTextFieldAltOn:title:msg:placeholder:bts:block:) params:controller,title,msg,placeholder,bts,block];
+}
+
++ (void)showTextFieldsAltOn:(UIViewController *)controller title:(NSString *)title msg:(NSString *)msg placeholders:(NSArray *)placeholders bts:(NSArray *)bts block:(void (^)(int index, NSString *name, NSArray *texts))block {
+    [cc_message cc_class:CC_Alert.class method:@selector(showTextFieldsAltOn:title:msg:placeholders:bts:block:) params:controller,title,msg,placeholders,bts,block];
 }
 
 @end

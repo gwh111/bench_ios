@@ -1,13 +1,11 @@
 //
 //  UIColor+CC.h
-//  testbenchios
+//  bench_ios
 //
-//  Created by gwh on 2019/8/1.
-//  Copyright © 2019 gwh. All rights reserved.
+//  Created by ml on 2019/9/10.
 //
 
 #import <UIKit/UIKit.h>
-#import "CC_Foundation.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -20,7 +18,7 @@ NSString *colorString = [NSString stringWithUTF8String:color]; \
 #define RGBA(r,g,b,a) [UIColor cc_rgbA:r green:g blue:b alpha:a]
 #define RGB(r,g,b) [UIColor cc_rgbA:r green:g blue:b alpha:1]
 
-@interface UIColor (CC_Lib)
+@interface UIColor (CC)
 
 + (UIColor *)cc_hexA:(NSString *)hex alpha:(float)alpha;
 + (UIColor *)cc_rgbA:(float)red green:(float)green blue:(float)blue alpha:(float)alpha;

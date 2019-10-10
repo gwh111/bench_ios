@@ -52,6 +52,8 @@
     str1=[str1 getDecimalStrWithMode:NSRoundPlain scale:1]; */
 - (NSString *)cc_convertToDecimalStr:(NSRoundingMode)roundingMode scale:(short)scale;
 
+- (NSString *)cc_removeSuffixZero:(NSString *)numberStr;
+
 #pragma mark is
 - (BOOL)cc_isPureInt;
 

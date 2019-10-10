@@ -1,14 +1,13 @@
 //
 //  UIColor+CC.m
-//  testbenchios
+//  bench_ios
 //
-//  Created by gwh on 2019/8/1.
-//  Copyright © 2019 gwh. All rights reserved.
+//  Created by ml on 2019/9/10.
 //
 
-#import "CC_Lib+UIColor.h"
+#import "UIColor+CC.h"
 
-@implementation UIColor (CC_Lib)
+@implementation UIColor (CC)
 
 + (UIColor *)cc_hexA:(NSString *)hex alpha:(float)alpha{
     hex = [hex stringByReplacingOccurrencesOfString:@"#" withString:@""];

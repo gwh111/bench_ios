@@ -12,6 +12,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CC_HttpEncryption : NSObject
+//加密域名
+@property (nonatomic, copy) NSString *encryptDomain;
 
 // 准备阶段 需要放在所有接口请求前 在回调后才是准备完毕
 // 会有生成AES key、拉取RSA public key、更新服务端秘钥等操作

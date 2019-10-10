@@ -15,5 +15,6 @@
 #import "CC_LibAnimation.h"
 #import "CC_LibStorage.h"
 #import "CC_LibSecurity.h"
+#import "CC_HttpEncryption.h"
 
 #endif /* CC_Lib_h */

@@ -11,7 +11,7 @@
 
 @implementation CC_Float
 
-+ (CC_Float *)value:(double)value{
++ (CC_Float *)value:(double)value {
     CC_Float *d = [CC_Base.shared cc_init:[CC_Float class]];
     d.value = value;
     return d;

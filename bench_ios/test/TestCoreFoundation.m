@@ -19,7 +19,7 @@
         [ccs setShared:@"userName" obj:@"a"];
 //        [ccs setShared:@"userName" obj:@"a"];// assert
         [ccs resetShared:@"userName" obj:@"a"];
-        CCLOG(@"%@",[ccs shared:@"userName"]);
+        CCLOG(@"%@",[ccs sharedValueForKey:@"userName"]);
     }
 }
 

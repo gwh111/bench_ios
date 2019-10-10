@@ -27,28 +27,32 @@
     
     // Foundation
 //    [CC_Base cc_willInit];
-    [[CC_NavigationController shared]cc_willInit];
+    [CC_NavigationController.shared cc_willInit];
     
     // Lib
-    [[CC_HttpTask shared]start];
-    [[CC_CoreUI shared]start];
+    [CC_HttpTask.shared start];
+    [CC_CoreUI.shared start];
 }
 
-- (void)cc_init:(Class)class withNavigationBarHidden:(BOOL)hidden block:(void (^)(void))block {
-    if ([class isSubclassOfClass:UITabBarController.class]) {
-        [CC_AppDelegate shared].window.rootViewController = [CC_Base.shared cc_init:class];
-        block();
-        return;
+- (void)cc_initViewController:(Class)aClass withNavigationBarHidden:(BOOL)hidden block:(void (^)(void))block {
+    id controller = [CC_Base.shared cc_init:aClass];
+    if ([controller isKindOfClass:CC_ViewController.class]) {
+        CC_ViewController *viewController =controller;
+        viewController.cc_navigationBarHidden = hidden;
     }
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:[CC_Base.shared cc_init:class]];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:controller];
     [CC_NavigationController shared].cc_UINav = navController;
-    [CC_NavigationController shared].cc_UINav.navigationBarHidden = hidden;
+    [CC_NavigationController shared].cc_UINav.navigationBarHidden = YES;
     [CC_AppDelegate shared].window.rootViewController = [CC_NavigationController shared].cc_UINav;
     block();
 }
 
-- (void)cc_init:(Class)class block:(void (^)(void))block {
-    [self cc_init:class withNavigationBarHidden:YES block:block];
+- (void)cc_initViewController:(Class)aClass block:(void (^)(void))block {
+    [self cc_initViewController:aClass withNavigationBarHidden:YES block:block];
+}
+
+- (void)cc_initTabbarViewController:(Class)aClass block:(void (^)(void))block {
+    [self cc_initViewController:aClass withNavigationBarHidden:YES block:block];
 }
 
 #pragma mark life circle

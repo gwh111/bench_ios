@@ -21,7 +21,7 @@
 + (void)cc_willInit;
 
 // Init object for 'class'
-- (id)cc_init:(Class)class;
+- (id)cc_init:(Class)aClass;
 
 // For moduler register a lifecycle/runloop.
 - (void)cc_registerAppDelegate:(id)module;
@@ -31,6 +31,7 @@
 - (id)cc_registerSharedInstance:(id)shared block:(void(^)(void))block;
 
 // Get shared object as key-value.
+// Flyweight 享元模式
 - (id)cc_shared:(NSString *)key;
 - (id)cc_removeShared:(NSString *)key;
 // Cannot overlap shared object, use 'resetShared' to overlap.

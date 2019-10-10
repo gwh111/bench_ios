@@ -34,6 +34,17 @@
 
 @implementation NSMutableDictionary(CC_Lib)
 
+- (void)safeSetObject:(id)obj forKey:(NSString *)aKey {
+    if (!aKey) {
+        return;
+    }
+    if (!obj) {
+        [self removeObjectForKey:aKey];
+        return;
+    }
+    [self setObject:obj forKey:aKey];
+}
+
 - (void)cc_setKey:(NSString *)aKey value:(id)value{
     if (!aKey) {
         return;

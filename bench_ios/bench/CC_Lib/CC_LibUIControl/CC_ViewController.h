@@ -9,18 +9,24 @@
 #import <UIKit/UIKit.h>
 #import "CC_Foundation.h"
 #import "CC_Controller.h"
+#import "CC_NavigationBar.h"
 
 @class CC_View,CC_Controller;
 
 @interface CC_ViewController : UIViewController
 
-@property (nonatomic,retain) CC_View *cc_displayView;
-@property (nonatomic,retain) NSMutableArray *cc_controllers;
+@property (nonatomic, strong) id parent;
+@property (nonatomic, assign) BOOL cc_navigationBarHidden;
+@property (nonatomic, retain) CC_View *cc_displayView;
+@property (nonatomic, retain) NSMutableArray *cc_controllers;
+@property (nonatomic, retain) CC_NavigationBar *cc_navigationBar;
 
 // Configuration function, adds configuration to this function
 // 配置函数 在此函数中添加配置
 - (void)cc_viewWillLoad;
 - (void)cc_registerController:(CC_Controller *)controller;
+// 居中标题
+@property (nonatomic,retain) NSString *cc_title;
 
 // Function used in controller
 // 功能函数 在控制器使用

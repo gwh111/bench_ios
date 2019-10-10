@@ -1,47 +1,32 @@
 //
 //  CC_ImageView.h
-//  bench_ios
+//  CCUILib
 //
-//  Created by gwh on 2018/10/19.
-//  Copyright © 2018 apple. All rights reserved.
+//  Created by ml on 2019/9/2.
+//  Copyright © 2019 Liuyi. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-#import "CC_Foundation.h"
-#import "CC_Lib+UIView.h"
-#import "CC_Lib+UIImageView.h"
+#import "CCUIScaffold.h"
+#import "UIColor+CC.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CC_ImageView : UIImageView
+#define IMG_HOLDER_COLOR(WIDTH,HEIGHT,COLOR) [UIColor cc_imageWithColor:COLOR width:WIDTH height:HEIGHT]
+#define IMG_HOLDER(WIDTH,HEIGHT) IMG_HOLDER_COLOR(WIDTH,HEIGHT,UIColor.groupTableViewBackgroundColor)
 
-#pragma mark clase "CC_ImageView" property extention
-// UIView property
-- (CC_ImageView *(^)(NSString *))cc_name;
-- (CC_ImageView *(^)(CGFloat,CGFloat,CGFloat,CGFloat))cc_frame;
-- (CC_ImageView *(^)(CGFloat,CGFloat))cc_size;
-- (CC_ImageView *(^)(CGFloat))cc_width;
-- (CC_ImageView *(^)(CGFloat))cc_height;
+@interface CC_ImageView : UIImageView <CC_ImageView>
 
-- (CC_ImageView *(^)(CGFloat,CGFloat))cc_center;
-- (CC_ImageView *(^)(CGFloat))cc_centerX;
-- (CC_ImageView *(^)(CGFloat))cc_centerY;
-- (CC_ImageView *(^)(CGFloat))cc_top;
-- (CC_ImageView *(^)(CGFloat))cc_bottom;
-- (CC_ImageView *(^)(CGFloat))cc_left;
-- (CC_ImageView *(^)(CGFloat))cc_right;
-- (CC_ImageView *(^)(UIColor *))cc_backgroundColor;
-- (CC_ImageView *(^)(CGFloat))cc_cornerRadius;
-- (CC_ImageView *(^)(CGFloat))cc_borderWidth;
-- (CC_ImageView *(^)(UIColor *))cc_borderColor;
-- (CC_ImageView *(^)(BOOL))cc_userInteractionEnabled;
-- (CC_ImageView *(^)(id))cc_addToView;
+/// param 图片路径 Assets.xcassets / Bundle
+- (__kindof CC_ImageView *(^)(NSString *))cc_imageNamed;
 
-// UIImageView property
-- (CC_ImageView *(^)(UIImage *))cc_image;
-- (CC_ImageView *(^)(NSArray<UIImage *> *))cc_animationImages;
-- (CC_ImageView *(^)(NSTimeInterval))cc_animationDuration;
-- (CC_ImageView *(^)(NSInteger))cc_animationRepeatCount;
+/// param 图片路径 网络图片
+/// param 占位图
+- (__kindof CC_ImageView *(^)(NSString *,UIImage *))cc_imageURL;
+
+@end
+
+@interface CC_ImageView (CCActions)
 
 @end
 

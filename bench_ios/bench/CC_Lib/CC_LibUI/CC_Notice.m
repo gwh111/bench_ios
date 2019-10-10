@@ -8,6 +8,8 @@
 
 #import "CC_Notice.h"
 #import "CC_NavigationController.h"
+#import "CC_CoreUI.h"
+#import "UIColor+CC.h"
 
 @implementation CC_Notice
 

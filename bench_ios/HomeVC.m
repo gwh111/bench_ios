@@ -18,13 +18,18 @@
 @implementation HomeVC
 
 - (void)cc_viewWillLoad{
+    self.cc_title = @"首页";
     testList = [ccs bundlePlistWithPath:@"testList"][@"list"];
 }
 
-- (void)cc_viewDidLoad{
-    ccs.tableView
+- (void)cc_viewDidLoad {
+    self.view.backgroundColor = UIColor.whiteColor;
+    
+//    self.cc_navigationBarHidden = YES;
+    ccs.TableView
     .cc_addToView(self)
-    .cc_frame(0, ccs.y, ccs.width, ccs.safeHeight)
+//    .cc_frame(0, STATUS_AND_NAV_BAR_HEIGHT, ccs.width, ccs.safeHeight - TABBAR_BAR_HEIGHT)
+    .cc_frame(0, 0, WIDTH(), self.cc_displayView.height)
     .cc_delegate(self)
     .cc_dataSource(self)
     .cc_backgroundColor(UIColor.whiteColor);
@@ -56,6 +61,7 @@
         }
     }
     cell.textLabel.text = [testList objectAtIndex:indexPath.section][@"title"];
+    
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
@@ -71,7 +77,7 @@
         return;
     }
     if ([cls isSubclassOfClass:[UIViewController class]]) {
-        [ccs pushViewController:[ccs viewController:cls]];
+        [ccs pushViewController:[ccs anObject:cls]];
     }else{
         [cc_message cc_class:cls method:@selector(start)];
     }

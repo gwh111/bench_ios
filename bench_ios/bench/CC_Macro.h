@@ -17,11 +17,4 @@
 #define COLOR_LIGHT_YELLOW [UIColor colorWithRed:255/255.0f green:251/255.0f blue:152/255.0f alpha:1]
 #define COLOR_LIGHT_PINK [UIColor colorWithRed:255/255.0f green:174/255.0f blue:233/255.0f alpha:1]
 
-//iPhoneX
-#define CC_iPhoneX (MAX(CC_SCREEN_WIDTH, CC_SCREEN_HEIGHT) >= 812)
-// tabBar高度
-#define CC_TAB_BAR_HEIGHT (CC_iPhoneX ? (49.f+34.f) : 49.f)
-// home indicator
-#define CC_HOME_INDICATOR_HEIGHT (CC_iPhoneX ? 34.f : 0.f)
-
 #endif /* CC_Macro_h */

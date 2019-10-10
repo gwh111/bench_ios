@@ -22,7 +22,7 @@
     //                      images:@[@"tabbar_mine_high",@"tabbar_mine_high"]
     //              selectedImages:@[@"tabbar_mine_high",@"tabbar_mine_high"]];
     // 图片 + 文字 tabbar
-    [self cc_initWithClasses:@[HomeVC.class,UIViewController.class]
+    [self cc_initWithClasses:@[HomeVC.class,HomeVC.class]
                       titles:@[@"首页",@"首页"]
                       images:@[@"tabbar_mine_high",@"tabbar_mine_high"]
               selectedImages:@[@"tabbar_mine_high",@"tabbar_mine_high"]
@@ -34,7 +34,7 @@
     //                      selectedImage:@"tabbar_mine_high"
     //                              index:2];
     
-    [self cc_addTabBarItemWithClass:UIViewController.class
+    [self cc_addTabBarItemWithClass:CC_ViewController.class
                               title:@"我的"
                               image:@"tabbar_mine_high"
                       selectedImage:@"tabbar_mine_high"

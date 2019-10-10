@@ -18,7 +18,7 @@
     
 #else
     // 减轻服务压力 debug才检查
-//    return;
+    return;
 #endif
     // 检查内网
     HttpModel *model = [CC_Base.shared cc_init:HttpModel.class];

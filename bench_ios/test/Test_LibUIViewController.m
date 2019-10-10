@@ -18,7 +18,7 @@
 
 - (void)cc_viewWillLoad {
     self.cc_displayView.cc_backgroundColor(UIColor.whiteColor);
-    self.title = @"Test_LibUIViewController";
+    self.cc_title = @"Test_LibUIViewController";
     
 //    [self test_Alert];
 //    [self test_mask];
@@ -60,8 +60,7 @@
 
 - (void)test_labelGroup
 {
-    
-    _group = [[CC_LabelGroup alloc]initWithFrame:CGRectMake(0, 100, 100, 100)];
+    _group = [ccs LabelGroup];
     _group.backgroundColor = UIColor.blueColor;
     [_group updateType:CCLabelAlignmentTypeCenter
                  width:WIDTH()

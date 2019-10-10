@@ -63,13 +63,17 @@ typedef NSMutableDictionary<NSString *, id<CC_WebImageOperationDelegate>> CC_Web
     __weak typeof(self) weakSelf = self;
     id<CC_WebImageOperationDelegate> operation = [[CC_WebImageManager shared] loadImageWithURL:url progress:processBlock completed:^(UIImage * _Nullable image, NSError * _Nullable error, BOOL finished) {
         if (error) {
+#if DEBUG
             [CC_Notice.shared showNotice:error.description];
+#endif
         } else if (image) {
             //设置下载完的图片
             [weakSelf internalSetImage:image];
         } else {
             if (finished) {
+#if DEBUG
                 [CC_Notice.shared showNotice:@"Error:image is nil"];
+#endif
             }
         }
         SAFE_CALL_BLOCK(completedBlock, image, error, finished);
@@ -78,6 +82,13 @@ typedef NSMutableDictionary<NSString *, id<CC_WebImageOperationDelegate>> CC_Web
     [self setOperation:operation forKey:NSStringFromClass([self class])];
 }
 - (void)cc_setImageWithURL:(NSURL *)url placeholderImage:(nullable UIImage *)placeholder showProgressView:(BOOL)showProgressView completed:(nullable CC_WebImageCompletionBlock)completedBlock{
+    
+    UIImageView *imgV = [UIImageView new];
+    imgV.showProgressView = YES;
+    [imgV cc_setImageWithURL:[NSURL URLWithString:@"imageUrl"] placeholderImage:[UIImage imageNamed:@"placeholder"] showProgressView:YES completed:^(UIImage * _Nullable image, NSError * _Nullable error, BOOL finished) {
+        //完成回调
+        
+    }];
     
     self.progressV = [[CC_WebImgProgressView alloc]initWithFrame:CGRectMake(self.width/2.0-RH(12.0f), self.height/2.0-RH(12.0f), RH(24.0f), RH(24.0f))];
     [self addSubview:self.progressV];

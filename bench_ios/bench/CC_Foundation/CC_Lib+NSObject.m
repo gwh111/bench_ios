@@ -78,10 +78,72 @@
         // 取出成员变量类型
         Ivar ivar = *(ivars + i);
         NSString *name = [NSString stringWithFormat:@"%s",ivar_getTypeEncoding(ivar)];
+        name = [name stringByReplacingOccurrencesOfString:@"@" withString:@""];
+        name = [name stringByReplacingOccurrencesOfString:@"\"" withString:@""];
         [mutArr addObject:name];
     }
     free(ivars);
     return mutArr;
+}
+
+- (void)cc_encode:(NSCoder *)encoder
+{
+    Class superClass = class_getSuperclass(self.class);
+    if (superClass != nil && superClass != [NSObject class] && superClass != NSClassFromString(@"CC_Model")) {
+        NSObject * superObject = superClass.new;
+        [superClass cc_enumeratePropertyNameUsingBlock:^(NSString *propertyName, NSUInteger index, BOOL *stop) {
+            [superObject setValue:[self valueForKey:propertyName] forKey:propertyName];
+        }];
+        [superObject cc_encode:encoder];
+    }
+    [self.class cc_enumeratePropertyNameUsingBlock:^(NSString *propertyName, NSUInteger index, BOOL *stop) {
+        id value = [self valueForKey:propertyName];
+        if (value == nil) return ;
+        [encoder encodeObject:value forKey:propertyName];
+    }];
+}
+
+- (void)cc_decode:(NSCoder *)decoder
+{
+    Class superClass = class_getSuperclass(self.class);
+    if (superClass != nil && superClass != [NSObject class] && superClass != NSClassFromString(@"CC_Model")) {
+        NSObject * superObject = superClass.new;
+        [superObject cc_decode:decoder];
+        [superClass cc_enumeratePropertyNameUsingBlock:^(NSString *propertyName, NSUInteger index, BOOL *stop) {
+            [self setValue:[superObject valueForKey:propertyName] forKey:propertyName];
+        }];
+    }
+    [self.class cc_enumeratePropertyAttributesUsingBlock:^(NSString *propertyName, objc_property_t property, NSUInteger index, BOOL *stop) {
+        id value = [decoder decodeObjectForKey:propertyName];
+        if (value == nil) return;
+        [self setValue:value forKey:propertyName];
+    }];
+}
+
++ (void)cc_enumeratePropertyNameUsingBlock:(void (NS_NOESCAPE ^)(NSString * propertyName, NSUInteger index, BOOL * stop))block {
+    unsigned int propertyCount = 0;
+    BOOL stop = NO;
+    objc_property_t * properties = class_copyPropertyList(self, &propertyCount);
+    for (unsigned int i = 0; i < propertyCount; i++) {
+        objc_property_t property = properties[i];
+        const char * name = property_getName(property);
+        block([NSString stringWithUTF8String:name],i,&stop);
+        if (stop) break;
+    }
+    free(properties);
+}
+
++ (void)cc_enumeratePropertyAttributesUsingBlock:(void (NS_NOESCAPE ^)(NSString * propertyName,objc_property_t property, NSUInteger index, BOOL * stop))block {
+    unsigned int propertyCount = 0;
+    BOOL stop = NO;
+    objc_property_t * properties = class_copyPropertyList(self, &propertyCount);
+    for (unsigned int i = 0; i < propertyCount; i++) {
+        objc_property_t property = properties[i];
+        const char * name = property_getName(property);
+        block([NSString stringWithUTF8String:name],property,i,&stop);
+        if (stop) break;
+    }
+    free(properties);
 }
 
 @end

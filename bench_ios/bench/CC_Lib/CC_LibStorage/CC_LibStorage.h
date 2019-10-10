@@ -12,4 +12,5 @@
 #import "CC_BundleStore.h"
 #import "CC_SandboxStore.h"
 #import "CC_KeyChainStore.h"
+#import "CC_DataBaseStore.h"
 

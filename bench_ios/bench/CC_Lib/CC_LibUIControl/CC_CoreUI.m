@@ -7,7 +7,8 @@
 //
 
 #import "CC_CoreUI.h"
-#import "CC_Lib+UIColor.h"
+#import "UIColor+CC.h"
+#import "CC_NavigationController.h"
 
 @interface CC_CoreUI(){
     NSMutableDictionary *fontMutDic;
@@ -15,7 +16,7 @@
 
 @end
 @implementation CC_CoreUI
-@synthesize uiDemoWidth,uiDemoHeight,uiNavBarHeight;
+@synthesize uiDemoWidth,uiDemoHeight,uiNavBarHeight,uiTabBarHeight;
 
 + (instancetype)shared {
     return [CC_Base.shared cc_registerSharedInstance:self block:^{
@@ -29,7 +30,8 @@
     uiDemoHeight = 568;
     
     uiNavBarHeight = [self relativeHeight:44];
-
+    uiTabBarHeight = IPHONE_X ? (49 + 34) : 49;
+    
     NSDictionary *defaultFontDic = @{HEADLINE_FONT  :RF(24),
                                      HEADLINE_COLOR :UIColor.blackColor,
                                      TITLE_FONT     :RF(18),
@@ -64,7 +66,7 @@
     }else{
         float rate = [self width]/uiDemoWidth;
         if (fontSize <= 10) {
-            fontSize = 10 * rate;
+            fontSize = fontSize * rate;
             return [UIFont fontWithName:fontName size:fontSize];
         }
         fontSize = 10 + (fontSize - 10) * rate;
@@ -82,10 +84,7 @@
 - (float)statusBarHeight {
     CGRect statusRect = [[UIApplication sharedApplication] statusBarFrame];
     if (statusRect.size.height == 0) {
-        if ([self width] >= 812) {
-            return 44;
-        }
-        return 20;
+        return IPHONE_X ? 44 : 20;
     }
     return statusRect.size.height;
 }
@@ -107,10 +106,26 @@
 }
 
 - (float)safeHeight {
-    if ([self width] >= 812) {
-        return [self height] - [self y] - 44;
+    return [self height] - [self y] - [self statusBarHeight];
+}
+
+- (id)getAView {
+    UIView *showV = CC_NavigationController.shared.cc_UINav.view;
+    if (!showV) {
+        showV = [self getLastWindow];
     }
-    return [self height] - [self y];
+    return showV;
+}
+
+- (UIWindow *)getLastWindow {
+    NSArray *windows = [UIApplication sharedApplication].windows;
+    for(UIWindow *window in [windows reverseObjectEnumerator]) {
+        if ([window isKindOfClass:[UIWindow class]] &&
+            CGRectEqualToRect(window.bounds, [UIScreen mainScreen].bounds)&&window.hidden==NO){
+            return window;
+        }
+    }
+    return [UIApplication sharedApplication].keyWindow;
 }
 
 @end

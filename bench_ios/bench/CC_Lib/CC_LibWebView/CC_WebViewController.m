@@ -7,6 +7,9 @@
 //
 
 #import "CC_WebViewController.h"
+#import "CC_View.h"
+#import "UIColor+CC.h"
+#import "CC_Label.h"
 
 @interface CC_WebViewController ()<WKUIDelegate,WKNavigationDelegate>{
     CC_View *progressView;
@@ -23,6 +26,7 @@
 
 - (void)cc_viewDidLoad {
     self.view.backgroundColor = UIColor.whiteColor;
+    self.cc_navigationBar.backButton.hidden = YES;
     [self initUI];
 }
 
@@ -39,7 +43,7 @@
     webV = [CC_Base.shared cc_init:CC_WebView.class];
     webV
     .cc_frame(0, STATUS_AND_NAV_BAR_HEIGHT, WIDTH(), SAFE_HEIGHT()-NAV_BAR_HEIGHT)
-    .cc_addToView(self)
+    .cc_addToView(self.view)
     .cc_UIDelegate(self)
     .cc_navigationDelegate(self)
     .cc_allowsBackForwardNavigationGestures(YES);
@@ -54,27 +58,28 @@
     [webV addObserver:self forKeyPath:@"title" options:NSKeyValueObservingOptionNew context:@"ccWebviewController"];
     [webV addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionNew context:@"ccWebviewController"];
     [webV addObserver:self forKeyPath:@"URL" options:NSKeyValueObservingOptionNew context:@"ccWebviewController"];
-
+    
     progressView = [CC_Base.shared cc_init:CC_View.class];
     progressView
     .cc_addToView(self.view)
     .cc_frame(0, webV.top, 0, 1)
     .cc_backgroundColor(RGBA(62, 255.0, 202, 1));
-
+    
     NSArray *names = @[@"X"];
-
+    
+    // WS(weakSelf)
     for (int i = 0; i < names.count; i++) {
-        CC_Button *button = [CC_Base.shared cc_init:CC_Button.class];
-        button
+        CC_Button *button = ((CC_Button *)[CC_Base.shared cc_init:CC_Button.class])
         .cc_addToView(self.view)
         .cc_frame(RH(75)*i, Y(), NAV_BAR_HEIGHT, NAV_BAR_HEIGHT)
         .cc_setTitleForState(names[i], UIControlStateNormal)
-        .cc_setTitleColorForState(UIColor.blackColor, UIControlStateNormal)
-        .cc_tapped(^(id view){
+        .cc_setTitleColorForState(UIColor.blackColor, UIControlStateNormal);
+        
+        [button cc_tappedInterval:0.1 withBlock:^(id  _Nonnull view) {
             [[CC_NavigationController shared]cc_popViewController];
-        });
+        }];
     }
-
+    
     titleLabel = [CC_Base.shared cc_init:CC_Label.class];
     titleLabel
     .cc_textAlignment(NSTextAlignmentCenter)

@@ -6,7 +6,7 @@
 //
 
 #import "CC_TabBarController.h"
-#import "CC_Lib+UIColor.h"
+#import "UIColor+CC.h"
 #import "CC_CoreUI.h"
 
 #define CCTABBAR_SELECTED_Color RGBA(36, 151, 235, 1)
@@ -27,7 +27,7 @@
 
 @implementation CC_TabBarController
 
-@synthesize cc_baseView,cc_controllers,cc_viewControllers,cc_tabBarItemArray;
+@synthesize cc_controllers,cc_viewControllers,cc_tabBarItemArray;
 
 - (void)cc_registerController:(CC_Controller *)controller {
     controller.cc_delegate = [CC_Base.shared cc_init:CC_Delegate.class];
@@ -45,28 +45,9 @@
     return nil;
 }
 
-- (void)cc_addSubview:(id)view {
-    [cc_baseView addSubview:view];
-}
-
-- (void)cc_removeViewWithName:(NSString *)name {
-    UIView *view = [cc_baseView cc_viewWithName:name];
-    if (view) {
-        [view removeFromSuperview];
-    }
-}
-
-- (CC_View *)cc_viewWithName:(NSString *)name {
-    return [cc_baseView cc_viewWithName:name];
-}
-
 - (void)cc_viewWillLoad {}
 
 - (void)super_cc_viewWillLoad {
-    cc_baseView = [CC_Base.shared cc_init:CC_View.class];
-    cc_baseView.frame = self.view.frame;
-//    [self.view addSubview:cc_baseView];
-    
     cc_controllers = [CC_Base.shared cc_init:NSMutableArray.class];
     cc_viewControllers = [CC_Base.shared cc_init:NSMutableArray.class];
     cc_tabBarItemArray = [CC_Base.shared cc_init:NSMutableArray.class];
@@ -140,7 +121,11 @@
     [self.cc_imgNameArray insertObject:image atIndex:index];
     [self.cc_selectedImgNameArray insertObject:selectedImage atIndex:index];
     
-    UIViewController *vc = [CC_Base.shared cc_init:cls];
+    CC_ViewController *vc = [CC_Base.shared cc_init:cls];
+    if (![vc isKindOfClass:CC_ViewController.class]) {
+        CCLOG(@"use 'CC_ViewController'");
+    }
+    vc.parent = self;
     UITabBarItem *item = [self addChildViewController:vc
                                                 title:title
                                                 image:image
@@ -148,14 +133,13 @@
                                                 index:index];
     
     [self.cc_tabBarItemArray insertObject:item atIndex:index];
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:vc];
-    [self.cc_viewControllers insertObject:navController atIndex:index];
+//    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:vc];
+    [self.cc_viewControllers insertObject:vc atIndex:index];
     self.viewControllers = self.cc_viewControllers;
 }
 
 - (void)cc_deleteItemAtIndex:(NSInteger)index {
-    if (index >= self.cc_viewControllers.count)
-    {
+    if (index >= self.cc_viewControllers.count) {
         CCLOG(@"cannot find index = %ld tab ",index);
         return;
     }
@@ -178,7 +162,7 @@
     } else if (badgeNumber > 99) {
         [tabBarItem setBadgeValue:@"99+"];
     } else {
-        [tabBarItem setBadgeValue:[NSString stringWithFormat:@"%lu",(unsigned long)badgeNumber]];
+        [tabBarItem setBadgeValue:[NSString stringWithFormat:@"%ld",badgeNumber]];
     }
 }
 
@@ -211,18 +195,18 @@
 
 #pragma mark - private
 - (void)setUpChildViewController {
-    for (int i = 0; i < self.cc_classArray.count; i++)
-    {
+    for (int i = 0; i < self.cc_classArray.count; i++) {
         NSString *title = self.cc_titleArray.count ? self.cc_titleArray[i] : nil;
-        UIViewController *vc = [CC_Base.shared cc_init:self.cc_classArray[i]];
+        CC_ViewController *vc = [CC_Base.shared cc_init:self.cc_classArray[i]];
+        vc.parent = self;
         UITabBarItem *item = [self addChildViewController:vc
                                                     title:title
                                                     image:self.cc_imgNameArray[i]
                                             selectedImage:self.cc_selectedImgNameArray[i]
                                                     index:i];
         [self.cc_tabBarItemArray addObject:item];
-        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:vc];
-        [self.cc_viewControllers addObject:navController];
+//        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:vc];
+        [self.cc_viewControllers addObject:vc];
     }
     self.viewControllers = self.cc_viewControllers;
 }

@@ -18,7 +18,7 @@
 - (void)cc_viewWillLoad {
     
     self.cc_displayView.cc_backgroundColor(UIColor.whiteColor);
-    self.title = @"Test_FunctionViewController";
+    self.cc_title = @"Test_FunctionViewController";
     
     [self test_function];
 }

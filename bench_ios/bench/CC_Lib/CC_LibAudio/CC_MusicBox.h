@@ -17,7 +17,7 @@
 + (instancetype)shared;
 
 @property(nonatomic,assign) BOOL cc_forbiddenMusic;
-@property(nonatomic,assign) BOOL cc_forbiddenEffect;
+@property(nonatomic,assign) BOOL cc_forbiddenSound;
 
 @property(nonatomic,retain) AVAudioPlayer *cc_audioPlayer;
 
@@ -26,7 +26,7 @@
 @property(nonatomic,assign) BOOL cc_fadeIn;
 
 // 音效循环次数
-@property(nonatomic,assign) int cc_effectReplayTimes;
+@property(nonatomic,assign) int cc_soundReplayTimes;
 
 // 音乐循环次数
 @property(nonatomic,assign) int cc_musicReplayTimes;
@@ -35,8 +35,11 @@
 // 注意：如不设置 最大音量为手机设置的音量
 @property(nonatomic,assign) float cc_defaultVolume;
 
+// 停止播放
 - (void)cc_stopMusic;
+// 播放音乐
 - (void)cc_playMusic:(NSString *)name type:(NSString *)type;
-- (void)cc_playEffect:(NSString *)name type:(NSString *)type;
+// 播放音效
+- (void)cc_playSound:(NSString *)name type:(NSString *)type;
 
 @end

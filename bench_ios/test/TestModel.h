@@ -7,14 +7,38 @@
 //
 
 #import "CC_Model.h"
-
+@class TestSubModel,TestSubArrayModel;
 @interface TestModel : CC_Model
 
-@property (nonatomic,retain) NSString *st1;
+@property (nonatomic,assign) int intv;
+@property (nonatomic,retain) NSString *robots;
 
-@property (nonatomic,retain) NSString *st2;
+@property (nonatomic,retain) NSString *jumpLogin;
 
-@property (nonatomic,retain) CC_Model *model1;
+@property (nonatomic,retain) NSString *nowTimestamp;
+
+@property (nonatomic,retain) NSString *success;
+
+@property (nonatomic,retain) NSString *nowDate;
+
+@property (nonatomic,retain) NSArray <TestSubArrayModel *>*groupUsers;
+
+@property (nonatomic,retain) TestSubModel *group;
 
 @end
 
+@interface TestSubModel : CC_Model
+
+@property (nonatomic,retain) NSString *groupUserCount;
+
+@property (nonatomic,retain) NSString *groupName;
+
+@property (nonatomic,retain) NSString *groupLogoUrl;
+
+@end
+
+@interface TestSubArrayModel : CC_Model
+
+@property (nonatomic,retain) NSString *groupId;
+
+@end

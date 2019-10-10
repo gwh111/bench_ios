@@ -8,38 +8,28 @@
 
 #import <UIKit/UIKit.h>
 #import "CC_Foundation.h"
-#import "CC_Lib+UIView.h"
+#import "UIView+CCUI.h"
+
+#import "CCUIScaffold.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class CC_ViewController;
+@interface CC_View : UIView <CC_View>
 
-@interface CC_View : UIView
+@property (nonatomic,readonly) CC_Label *badgeLabel;
 
-#pragma mark clase "CC_View" property extention
-// UIView property
-- (CC_View *(^)(NSString *))cc_name;
-- (CC_View *(^)(CGFloat,CGFloat,CGFloat,CGFloat))cc_frame;
-- (CC_View *(^)(CGFloat,CGFloat))cc_size;
-- (CC_View *(^)(CGFloat))cc_width;
-- (CC_View *(^)(CGFloat))cc_height;
+/// 是否可拖拽 默认不可拖拽
+- (__kindof CC_View *(^)(BOOL dragable))cc_dragable;
 
-- (CC_View *(^)(CGFloat,CGFloat))cc_center;
-- (CC_View *(^)(CGFloat))cc_centerX;
-- (CC_View *(^)(CGFloat))cc_centerY;
-- (CC_View *(^)(CGFloat))cc_top;
-- (CC_View *(^)(CGFloat))cc_bottom;
-- (CC_View *(^)(CGFloat))cc_left;
-- (CC_View *(^)(CGFloat))cc_right;
-- (CC_View *(^)(UIColor *))cc_backgroundColor;
-- (CC_View *(^)(CGFloat))cc_cornerRadius;
-- (CC_View *(^)(CGFloat))cc_borderWidth;
-- (CC_View *(^)(UIColor *))cc_borderColor;
-- (CC_View *(^)(BOOL))cc_userInteractionEnabled;
-- (CC_View *(^)(id))cc_addToView;
+/// 角标
+- (__kindof CC_View *(^)(NSString *))cc_badgeValue;
+- (__kindof CC_View *(^)(UIColor  *))cc_badgeColor;
+- (__kindof CC_View *(^)(UIColor  *))cc_badgeBgColor;
 
-#pragma mark function
-- (CC_ViewController *)cc_viewController;
+// @param badge msg number
+//- (void)cc_updateBadge:(NSString *)badge;
+//- (void)cc_updateBadgeBackgroundColor:(UIColor *)backgroundColor;
+//- (void)cc_updateBadgeTextColor:(UIColor *)textColor;
 
 @end
 

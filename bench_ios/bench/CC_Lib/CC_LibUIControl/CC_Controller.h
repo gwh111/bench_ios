@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CC_Controller : NSObject 
 
-@property (nonatomic,retain) NSString *cc_name;
+@property (nonatomic, retain) NSString *cc_name;
 @property (nonatomic, retain) CC_Delegate *cc_delegate;
 
 // 不借助其他属性就能初始化的配置 注册就会主动调用

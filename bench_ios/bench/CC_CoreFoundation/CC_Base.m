@@ -45,8 +45,8 @@ static dispatch_once_t onceToken;
 #endif
 }
 
-- (id)cc_init:(Class)class {
-    return [class new];
+- (id)cc_init:(Class)aClass {
+    return [aClass new];
 }
 
 - (void)cc_registerAppDelegate:(id)module {

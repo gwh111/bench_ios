@@ -148,8 +148,8 @@
     //根据是否能获取所有应用的名称判断
     if ([[NSFileManager defaultManager] fileExistsAtPath:@"User/Applications/"]) {
         CCLOG(@"The device is jail broken!");
-//        NSArray *appList = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:@"User/Applications/" error:nil];
-//        CCLOG(@"appList = %@", appList);
+        NSArray *appList = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:@"User/Applications/" error:nil];
+        CCLOG(@"appList = %@", appList);
         return YES;
     }
     

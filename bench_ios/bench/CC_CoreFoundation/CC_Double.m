@@ -11,7 +11,7 @@
 
 @implementation CC_Double
 
-+ (CC_Double *)value:(double)value{
++ (CC_Double *)value:(double)value {
     CC_Double *d = [CC_Base.shared cc_init:[CC_Double class]];
     d.value = value;
     return d;

@@ -22,7 +22,7 @@
     // 必须明确知道地址对应的对象是否存在，否则在ARC中是不安全的
     
     address = [address hasPrefix:@"0x"]?address:[@"0x" stringByAppendingString:address];
-    unsigned long long hex = strtoull(address.UTF8String, NULL, 0);
+    uintptr_t hex = strtoull(address.UTF8String, NULL, 0);
     id gotcha = (__bridge id)(void *)hex;
     if ([gotcha isKindOfClass:[UILabel class]]) {
         UILabel *obj = gotcha;
@@ -124,6 +124,27 @@
     NSDecimalNumber *resultDN = [aDN decimalNumberByRoundingAccordingToBehavior:roundingBehavior];
     NSString *str = [NSString stringWithFormat:@"%@",resultDN];
     return str;
+}
+
+- (NSString *)cc_removeSuffixZero:(NSString *)numberStr {
+    if (numberStr.length > 1) {
+        
+        if ([numberStr componentsSeparatedByString:@"."].count == 2) {
+            NSString *last = [numberStr componentsSeparatedByString:@"."].lastObject;
+            if ([last isEqualToString:@"00"]) {
+                numberStr = [numberStr substringToIndex:numberStr.length - (last.length + 1)];
+                return numberStr;
+            }else{
+                if ([[last substringFromIndex:last.length -1] isEqualToString:@"0"]) {
+                    numberStr = [numberStr substringToIndex:numberStr.length - 1];
+                    return numberStr;
+                }
+            }
+        }
+        return numberStr;
+    }else{
+        return numberStr;
+    }
 }
 
 #pragma mark is

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "CC_Foundation.h"
-#import "CC_Lib+UIColor.h"
+#import "UIColor+CC.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

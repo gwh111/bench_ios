@@ -7,105 +7,147 @@
 //
 
 #import "CC_View.h"
+#import "CC_Label.h"
+#import "CC_CoreUI.h"
+#import "UIColor+CC.h"
+
+typedef void (^CCAssociatedTapBlock)(UIView *view);
+
+@interface CC_View () {
+@public
+    BOOL _dragable;
+    CC_Label *_badgeLabel;
+}
+
+@end
 
 @implementation CC_View
 
-+ (id)initOn:(id)obj{
-    id view = [[self alloc]init];
-    if ([obj isKindOfClass:[UIView class]]) {
-        [obj addSubview:view];
-    }else if ([obj isKindOfClass:[UIViewController class]]){
-        [obj cc_addSubview:view];
-    }
-    return view;
+// MARK: - LifeCycle -
+
+// MARK: - Actions -
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event{
+    
+    if (self->_dragable == NO) { return; }
+    
+    UITouch *touch = [touches anyObject];
+    
+    // 当前触摸点
+    CGPoint currentPoint = [touch locationInView:self.superview];
+    // 上一个触摸点
+    CGPoint previousPoint = [touch previousLocationInView:self.superview];
+    
+    // 当前view的中点
+    CGPoint center = self.center;
+    
+    center.x += (currentPoint.x - previousPoint.x);
+    center.y += (currentPoint.y - previousPoint.y);
+    // 修改当前view的中点(中点改变view的位置就会改变)
+    self.center = center;
 }
 
-#pragma mark clase "UIView" property extention
-// UIView property
-- (CC_View *(^)(NSString *))cc_name{
-    return (id)self.cc_name_id;
-}
-
-- (CC_View *(^)(CGFloat,CGFloat,CGFloat,CGFloat))cc_frame{
-    return (id)self.cc_frame_id;
-}
-
-- (CC_View *(^)(CGFloat,CGFloat))cc_size{
-    return (id)self.cc_size_id;
-}
-
-- (CC_View *(^)(CGFloat))cc_width {
-    return (id)self.cc_width_id;
-}
-
-- (CC_View *(^)(CGFloat))cc_height {
-    return (id)self.cc_height_id;
-}
-
-- (CC_View *(^)(CGFloat,CGFloat))cc_center{
-    return (id)self.cc_center_id;
-}
-
-- (CC_View *(^)(CGFloat))cc_centerX{
-    return (id)self.cc_centerX_id;
-}
-
-- (CC_View *(^)(CGFloat))cc_centerY{
-    return (id)self.cc_centerY_id;
-}
-
-- (CC_View *(^)(CGFloat))cc_top{
-    return (id)self.cc_top_id;
-}
-
-- (CC_View *(^)(CGFloat))cc_bottom{
-    return (id)self.cc_bottom_id;
-}
-
-- (CC_View *(^)(CGFloat))cc_left{
-    return (id)self.cc_left_id;
-}
-
-- (CC_View *(^)(CGFloat))cc_right{
-    return (id)self.cc_right_id;
-}
-
-- (CC_View *(^)(UIColor *))cc_backgroundColor{
-    return (id)self.cc_backgroundColor_id;
-}
-
-- (CC_View *(^)(CGFloat))cc_cornerRadius{
-    return (id)self.cc_cornerRadius_id;
-}
-
-- (CC_View *(^)(CGFloat))cc_borderWidth{
-    return (id)self.cc_borderWidth_id;
-}
-
-- (CC_View *(^)(UIColor *))cc_borderColor{
-    return (id)self.cc_borderColor_id;
-}
-
-- (CC_View *(^)(BOOL))cc_userInteractionEnabled{
-    return (id)self.cc_userInteractionEnabled_id;
-}
-
-- (CC_View *(^)(id))cc_addToView{
-    return ^(id view){
-        [view cc_addSubview:self];
+- (__kindof CC_View *(^)(BOOL dragable))cc_dragable {
+    return ^(BOOL dragable) {
+        self->_dragable = dragable;
         return self;
     };
 }
 
-#pragma mark function
-- (CC_ViewController *)cc_viewController{
-    for (UIView *next=[self superview]; next; next=next.superview){
-        UIResponder *nextResponder = [next nextResponder];
-        if ([nextResponder isKindOfClass:[UIViewController class]]) {
-            return (CC_ViewController *)nextResponder;
-        }
+// MARK: - UI -
+- (__kindof CC_View *(^)(NSString *))cc_badgeValue {
+    return ^(NSString *badgeValue) {
+        [self badgeLabel];
+        CGSize size = [self caculateBadgeWidth:badgeValue];
+        self.badgeLabel
+        .cc_frame(self.width - size.width/2.0, -size.height/2.0, size.width, size.height)
+        .cc_text(badgeValue)
+        .cc_cornerRadius(size.height / 2.0);
+        
+        return self;
+    };
+}
+
+- (__kindof CC_View *(^)(UIColor *))cc_badgeColor {
+    return ^(UIColor *badgeColor) {
+        [self badgeLabel];
+        self->_badgeLabel.textColor = badgeColor;
+        return self;
+    };
+}
+
+- (__kindof CC_View *(^)(UIColor *))cc_badgeBgColor {
+    return ^(UIColor *badgeBackgroundColor) {
+        [self badgeLabel];
+        self->_badgeLabel.backgroundColor = badgeBackgroundColor;
+        return self;
+    };
+}
+
+/**
+ - (void)cc_updateBadge:(NSString *)badge{
+ [self checkBadgeLabel];
+ 
+ CGSize size = [self caculateBadgeWidth:badge];
+ self.badgeLabel.frame = CGRectMake(self.width-size.width/2.0, -size.height/2.0, size.width, size.height);
+ self.badgeLabel.text = badge;
+ self.badgeLabel.layer.cornerRadius = size.height/2.0;
+ self.badgeLabel.layer.masksToBounds = YES;
+ }
+ 
+ - (void)cc_updateBadgeBackgroundColor:(UIColor *)backgroundColor{
+ [self checkBadgeLabel];
+ self.badgeLabel.backgroundColor = backgroundColor;
+ }
+ 
+ - (void)cc_updateBadgeTextColor:(UIColor*)textColor{
+ [self checkBadgeLabel];
+ self.badgeLabel.textColor = textColor;
+ }
+ */
+
+/**
+ - (CC_Label *)badgeLabel{
+ return [CC_Runtime cc_getObject:self key:@selector(badgeLabel)];
+ }
+ 
+ - (void)setBadgeLabel:(CC_Label *)badgeLabel{
+ [CC_Runtime cc_setObject:self key:@selector(badgeLabel) value:badgeLabel];
+ }
+ 
+ // MARK: - Internal -
+ - (void)checkBadgeLabel {
+ if (!self.badgeLabel) {
+ self.badgeLabel = [CC_Base.shared cc_init:CC_Label.class];
+ self.badgeLabel
+ .cc_font([[CC_CoreUI shared]relativeFont:11])
+ .cc_textAlignment(NSTextAlignmentCenter)
+ .cc_backgroundColor([UIColor cc_rgbA:255 green:89 blue:59 alpha:1])
+ .cc_addToView(self);
+ }
+ }
+ */
+
+- (CC_Label *)badgeLabel {
+    if (!_badgeLabel) {
+        _badgeLabel = ((CC_Label *)[CC_Base.shared cc_init:CC_Label.class])
+        .cc_font([[CC_CoreUI shared]relativeFont:11])
+        .cc_textAlignment(NSTextAlignmentCenter)
+        .cc_backgroundColor([UIColor cc_rgbA:255 green:89 blue:59 alpha:1])
+        .cc_addToView(self)
+        .cc_textColor(UIColor.whiteColor);
     }
-    return nil;
+    return _badgeLabel;
+}
+
+- (CGSize)caculateBadgeWidth:(NSString *)badge {
+    if (badge.length <= 0) {
+        return CGSizeZero;
+    }else{
+        CGSize size = [badge boundingRectWithSize:CGSizeMake(MAXFLOAT, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[[CC_CoreUI shared]relativeFont:11]} context:nil].size;
+        size.height = [[CC_CoreUI shared] relativeHeight:14];
+        size.width += [[CC_CoreUI shared] relativeHeight:8];
+        return size;
+    }
 }
 
 @end

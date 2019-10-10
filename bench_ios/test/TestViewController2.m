@@ -28,20 +28,23 @@
 }
 
 - (void)cc_viewWillLoad {
-    TestController *controller = [ccs controller:TestController.class];
+    self.cc_title = @"asdb";
+    
+    
+    TestController *controller = [ccs anObject:TestController.class];
     //  注册完可直接实现TestController里的协议'methd2withA:b:'
     [self cc_registerController:controller];
 }
 
 - (void)cc_viewDidLoad {
     IMAGE(@"asd");
-    // 方法一
+    // 方法一 不再使用 使用方法三
     UILabel *label = [[UILabel alloc]init];
     label.name = @"label1";
     label.frame=CGRectMake(0, 0, 0, 0);
-    label.backgroundColor = HEX(#FFD700);
-    label.textColor = HEX(#9B30FF);
-    [label cc_tappedInterval:0.1 block:^(id view) {
+    label.backgroundColor = HEXA(@"FFD700", 1);
+    label.textColor = HEXA(@"9B30FF", 1);
+    [label cc_tappedInterval:0.1 withBlock:^(id view) {
         CCLOG(@"abc");
     }];
     [self.view addSubview:label];
@@ -64,52 +67,33 @@
     NSString *str = [ccs string:@"abc%@%d",@"a",34];
     // 方法三
     
-    CC_Label *l = ccs.label;
-    {typeof(l) item = l;
-        item.cc_textColor(HEX(9B30FF))
-            .cc_name(@"mylabel")
-            .cc_frame(RH(10),RH(100),RH(100),RH(100))
-        .cc_backgroundColor(HEX(#FFD700))
-            .cc_addToView(self.view);
+    CC_Label *l = ccs.Label
+    .cc_textColor(HEXA(@"9B30FF", 1))
+    .cc_name(@"mylabel")
+    .cc_frame(RH(10),RH(100),RH(100),RH(100))
+    .cc_backgroundColor(HEXA(@"FFD700", 1))
+    .cc_addToView(self.view);
         
-        [item bindText:str];
-        [item cc_tappedInterval:0.1 block:^(id view) {
-            // 改变labele内的富文本
-            NSMutableAttributedString *att = [ccs mutAttributedString];
-            [att cc_appendAttStr:@"abc" color:COLOR_LIGHT_ORANGE];
-            [att cc_appendAttStr:@"123" color:[UIColor greenColor] font:RF(22)];
-            CC_Label *v = view;
-            v.attributedText = att;
-            // 延时5秒后退出控制器并进入一个新控制器
-            [ccs delay:5 block:^{
-                [ccs pushViewController:[ccs viewController:self.class] withDismissVisible:NO];
-                // [ccs popToViewController:HomeVC.class];
-            }];
+    [l bindText:str];
+    [l cc_tappedInterval:0.1 withBlock:^(id view) {
+        // 改变labele内的富文本
+        NSMutableAttributedString *att = ccs.mutableAttributedString;
+        [att cc_appendAttStr:@"abc" color:COLOR_LIGHT_ORANGE];
+        [att cc_appendAttStr:@"123" color:[UIColor greenColor] font:RF(22)];
+        CC_Label *v = view;
+        v.attributedText = att;
+        // 延时5秒后退出控制器并进入一个新控制器
+        [ccs delay:5 block:^{
+            [ccs pushViewController:[ccs anObject:self.class] withDismissVisible:NO];
+            // [ccs popToViewController:HomeVC.class];
         }];
-    }
-    
-    
-    ccs.label
-        .cc_textColor(HEXA(@"9B30FF", 1))
-        .cc_name(@"mylabel")
-        .cc_frame(RH(10),RH(100),RH(100),RH(100))
-        .cc_backgroundColor(HEXA(@"FFD700", 1))
-    
-    ;
-    
-    
-    l.cc_addToView(self.view);
-    l.cc_addToView(self.view);
+    }];
     
     // 3秒后更新string view跟踪变化
     [ccs delay:3 block:^{
         // 无需获取控件，更新数据源自动更新视图控件
         [str cc_update:@"cvb"];
     }];
-    
-    ccs.view.cc_tapped(^(id view) {
-        
-    });
     
     [ccs textAttachment]
     .cc_emojiTag(@"a")

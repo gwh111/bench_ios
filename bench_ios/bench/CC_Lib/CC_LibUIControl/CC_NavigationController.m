@@ -10,6 +10,12 @@
 #import "CC_WebViewController.h"
 #import "CC_Base.h"
 
+@interface CC_NavigationController (){
+    
+}
+
+@end
+
 @implementation CC_NavigationController
 @synthesize cc_UINav;
 
@@ -18,16 +24,21 @@
 }
 
 - (void)cc_willInit {
-//    cc_controllers = [CC_Base cc_init:[NSMutableArray class]];
+    
 }
 
-//- (void)cc_initWithRootController:(CC_Controller *)controller{
-//    [cc_controllers addObject:controller];
-//    cc_UINav = [[UINavigationController alloc] initWithRootViewController:controller.cc_viewController];
-//}
+- (void)cc_initNavigationBarWithTitleFont:(UIFont *)font
+                               titleColor:(UIColor *)titleColor
+                          backgroundColor:(UIColor *)backgroundColor
+                          backgroundImage:(UIImage *)backgroundImage {
+    _cc_navigationBarConfig.cc_navigationBarTitleFont = font;
+    _cc_navigationBarConfig.cc_navigationBarTitleColor = titleColor;
+    _cc_navigationBarConfig.cc_navigationBarBackgroundColor = backgroundColor;
+    _cc_navigationBarConfig.cc_navigationBarBackgroundImage = backgroundImage;
+}
 
-- (void)cc_push:(Class)class {
-    [self cc_pushViewController:[CC_Base.shared cc_init:class]];
+- (void)cc_push:(Class)aClass {
+    [self cc_pushViewController:[CC_Base.shared cc_init:aClass]];
 }
 
 - (void)cc_pushViewController:(CC_ViewController *)viewController {
@@ -54,9 +65,9 @@
     return [self cc_popViewControllerAnimated:YES];
 }
 
-- (void)cc_popToViewController:(Class)class {
+- (void)cc_popToViewController:(Class)aClass {
     for (CC_ViewController *viewController in cc_UINav.viewControllers) {
-        if ([viewController isKindOfClass:class]) {
+        if ([viewController isKindOfClass:aClass]) {
             [cc_UINav popToViewController:viewController animated:YES];
         }
     }

@@ -12,11 +12,11 @@
 @implementation CC_BundleStore
 
 + (NSDictionary *)cc_appBundle{
-    return [[NSBundle mainBundle]infoDictionary];
+    return [[NSBundle mainBundle] infoDictionary];
 }
 
 + (NSString *)cc_appName{
-    return [self cc_appBundle][@"displayName"];
+    return [self cc_appBundle][@"CFBundleDisplayName"];
 }
 
 + (NSString *)cc_appBid{

@@ -7,179 +7,76 @@
 //
 
 #import "CC_Label.h"
+#import "CC_Alert.h"
 
 @interface CC_Label (){
-    BOOL hasBind;
+    BOOL _hasBind;
 }
 @end
 
 @implementation CC_Label
 
-+ (CC_Label *)initOn:(id)obj{
-    CC_Label *label = [[CC_Label alloc]init];
-    if ([obj isKindOfClass:[UIView class]]) {
-        [obj addSubview:label];
-    }else if ([obj isKindOfClass:[UIViewController class]]){
-        [obj addSubview:label];
+- (__kindof CC_Label* (^)(BOOL))cc_enableDebugMode {
+    return ^(BOOL debugMode) {
+        if (debugMode) {
+            for (int i = 0; i < self.gestureRecognizers.count; ++i) {
+                UIGestureRecognizer *ges = self.gestureRecognizers[i];
+                if ([ges isKindOfClass:UITapGestureRecognizer.class]) {
+                    UITapGestureRecognizer *tap = (UITapGestureRecognizer *)ges;
+                    if (tap.numberOfTapsRequired == 5) {
+                        [tap removeTarget:self action:@selector(debugMenuAction:)];
+                    }
+                }
+            }
+            UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(debugMenuAction:)];
+            tap.numberOfTapsRequired = 5;
+            self.cc_userInteractionEnabled(YES);
+            [self addGestureRecognizer:tap];
+        }
+        return self;
+    };
+}
+
+- (void)debugMenuAction:(UITapGestureRecognizer *)sender {
+    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"调试菜单" message:@"内部使用" preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *dynamicDomainAction = [UIAlertAction actionWithTitle:@"功能1" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        CCLOG(@"功能1");
+    }];
+    
+    UIAlertAction *networkAction = [UIAlertAction actionWithTitle:@"功能2" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        CCLOG(@"功能2");
+    }];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        [alertC dismissViewControllerAnimated:YES completion:nil];
+    }];
+    
+    [alertC addAction:dynamicDomainAction];
+    [alertC addAction:networkAction];
+    [alertC addAction:cancelAction];
+    
+    [UIView.cc_viewControllerByWindow presentViewController:alertC animated:YES completion:nil];
+}
+
+// MARK: - Life Cycle -
+- (void)dealloc{
+    if (_hasBind == NO) {
+        return;
     }
-    return label;
+    
+    // unbind text address from object address
+    NSString *objAddress = [NSString stringWithFormat:@"%p",self];
+    NSString *bindAddress = [CC_Base.shared cc_shared:objAddress];
+    [CC_Base.shared cc_setShared:objAddress obj:nil];
+    [CC_Base.shared cc_setBind:bindAddress value:nil];
 }
 
-#pragma mark clase "UILabel" property extention
-// UIView property
-- (CC_Label *(^)(NSString *))cc_name{
-    return (id)self.cc_name_id;
-}
+@end
 
-- (CC_Label *(^)(CGFloat,CGFloat,CGFloat,CGFloat))cc_frame{
-    return (id)self.cc_frame_id;
-}
+@implementation CC_Label (CCActions)
 
-- (CC_Label *(^)(CGFloat,CGFloat))cc_size{
-    return (id)self.cc_size_id;
-}
-
-- (CC_Label *(^)(CGFloat))cc_width {
-    return (id)self.cc_width_id;
-}
-
-- (CC_Label *(^)(CGFloat))cc_height {
-    return (id)self.cc_height_id;
-}
-
-- (CC_Label *(^)(CGFloat,CGFloat))cc_center{
-    return (id)self.cc_center_id;
-}
-
-- (CC_Label *(^)(CGFloat))cc_centerX{
-    return (id)self.cc_centerX_id;
-}
-
-- (CC_Label *(^)(CGFloat))cc_centerY{
-    return (id)self.cc_centerY_id;
-}
-
-- (CC_Label *(^)(CGFloat))cc_top{
-    return (id)self.cc_top_id;
-}
-
-- (CC_Label *(^)(CGFloat))cc_bottom{
-    return (id)self.cc_bottom_id;
-}
-
-- (CC_Label *(^)(CGFloat))cc_left{
-    return (id)self.cc_left_id;
-}
-
-- (CC_Label *(^)(CGFloat))cc_right{
-    return (id)self.cc_right_id;
-}
-
-- (CC_Label *(^)(UIColor *))cc_backgroundColor{
-    return (id)self.cc_backgroundColor_id;
-}
-
-- (CC_Label *(^)(CGFloat))cc_cornerRadius{
-    return (id)self.cc_cornerRadius_id;
-}
-
-- (CC_Label *(^)(CGFloat))cc_borderWidth{
-    return (id)self.cc_borderWidth_id;
-}
-
-- (CC_Label *(^)(UIColor *))cc_borderColor{
-    return (id)self.cc_borderColor_id;
-}
-
-- (CC_Label *(^)(BOOL))cc_userInteractionEnabled{
-    return (id)self.cc_userInteractionEnabled_id;
-}
-
-- (CC_Label *(^)(id))cc_addToView{
-    return (id)self.cc_addToView_id;
-}
-
-// UILabel property
-- (CC_Label *(^)(NSString *))cc_text{
-    return ^(NSString *text){
-        self.text = text;
-        return self;
-    };
-}
-
-- (CC_Label *(^)(UIFont *))cc_font{
-    return ^(UIFont *font){
-        self.font = font;
-        return self;
-    };
-}
-
-- (CC_Label *(^)(UIColor *))cc_textColor{
-    return ^(UIColor *textColor){
-        self.textColor = textColor;
-        return self;
-    };
-}
-
-- (CC_Label *(^)(UIColor *))cc_shadowColor{
-    return ^(UIColor *shadowColor){
-        self.shadowColor = shadowColor;
-        return self;
-    };
-}
-
-- (CC_Label *(^)(CGFloat, CGFloat))cc_shadowOffset{
-    return ^(CGFloat w, CGFloat h){
-        self.shadowOffset = CGSizeMake(w, h);
-        return self;
-    };
-}
-
-- (CC_Label *(^)(NSTextAlignment))cc_textAlignment{
-    return ^(NSTextAlignment textAlignment){
-        self.textAlignment = textAlignment;
-        return self;
-    };
-}
-
-- (CC_Label *(^)(NSLineBreakMode))cc_lineBreakMode{
-    return ^(NSLineBreakMode lineBreakMode){
-        self.lineBreakMode = lineBreakMode;
-        return self;
-    };
-}
-
-- (CC_Label *(^)(NSAttributedString *))cc_attributedText{
-    return ^(NSAttributedString *attributedText){
-        self.attributedText = attributedText;
-        return self;
-    };
-}
-
-- (CC_Label *(^)(NSInteger))cc_numberOfLines{
-    return ^(NSInteger numberOfLines){
-        self.numberOfLines = numberOfLines;
-        return self;
-    };
-}
-
-- (CC_Label *(^)(NSString *))cc_bindText{
-    return ^(NSString *text){
-        [self bindText:text];
-        return self;
-    };
-}
-
-- (CC_Label *(^)(NSAttributedString *))cc_bindAttText{
-    return ^(NSAttributedString *attText){
-        [self bindAttText:attText];
-        return self;
-    };
-}
-
-#pragma mark function
 - (void)bindText:(NSString *)text{
-    hasBind = YES;
+    _hasBind = YES;
     // bind text address to object address
     NSString *textAddress = [NSString stringWithFormat:@"%p",text];
     NSString *objAddress = [NSString stringWithFormat:@"%p",self];
@@ -189,7 +86,7 @@
 }
 
 - (void)bindAttText:(NSAttributedString *)attText{
-    hasBind = YES;
+    _hasBind = YES;
     // bind attText address to object address
     NSString *textAddress = [NSString stringWithFormat:@"%p",attText];
     NSString *objAddress = [NSString stringWithFormat:@"%p",self];
@@ -198,16 +95,5 @@
     self.attributedText = attText;
 }
 
-#pragma mark private function
-- (void)dealloc{
-    if (hasBind == NO) {
-        return;
-    }
-    // unbind text address from object address
-    NSString *objAddress = [NSString stringWithFormat:@"%p",self];
-    NSString *bindAddress = [CC_Base.shared cc_shared:objAddress];
-    [CC_Base.shared cc_setShared:objAddress obj:nil];
-    [CC_Base.shared cc_setBind:bindAddress value:nil];
-}
-
 @end
+

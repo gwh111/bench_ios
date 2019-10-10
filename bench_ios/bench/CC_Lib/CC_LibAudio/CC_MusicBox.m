@@ -14,8 +14,8 @@
     return [CC_Base.shared cc_registerSharedInstance:self];
 }
 
-- (void)cc_playEffect:(NSString *)name type:(NSString *)type{
-    if (_cc_forbiddenEffect) {
+- (void)cc_playSound:(NSString *)name type:(NSString *)type{
+    if (_cc_forbiddenSound) {
         return;
     }
     isMusic = 0;
@@ -105,8 +105,8 @@
             [_cc_audioPlayer play];
         }
     }else{
-        if (_cc_effectReplayTimes > 0) {
-            _cc_effectReplayTimes--;
+        if (_cc_soundReplayTimes > 0) {
+            _cc_soundReplayTimes--;
             [_cc_audioPlayer play];
         }
     }

@@ -21,10 +21,18 @@
 #define MASTER_COLOR      @"MASTER_COLOR"
 #define AUXILIARY_COLOR   @"AUXILIARY_COLOR"
 
+#define IPHONE_X \
+({BOOL isPhoneX = NO;\
+if (@available(iOS 11.0, *)) {\
+isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bottom > 0.0;\
+}\
+(isPhoneX);})
+
 //导航栏 状态栏
 #define NAV_BAR_HEIGHT CC_CoreUI.shared.uiNavBarHeight
 #define STATUS_BAR_HEIGHT [CC_CoreUI.shared statusBarHeight]
 #define STATUS_AND_NAV_BAR_HEIGHT (STATUS_BAR_HEIGHT + NAV_BAR_HEIGHT)
+#define TABBAR_BAR_HEIGHT CC_CoreUI.shared.uiTabBarHeight
 
 #define RH(f) [CC_CoreUI.shared relativeHeight:f]
 #define RF(f) [CC_CoreUI.shared relativeFont:f]
@@ -44,6 +52,7 @@
 
 // Default is 'RH(44)'
 @property(nonatomic,assign) float uiNavBarHeight;
+@property(nonatomic,assign) float uiTabBarHeight;
 
 + (instancetype)shared;
 
@@ -82,6 +91,8 @@
 /* get font based on ui demo width&height, also can use thd font */
 - (UIFont *)relativeFont:(float)fontSize;
 - (UIFont *)relativeFont:(NSString *)fontName fontSize:(float)fontSize;
+
+- (id)getAView;
 
 @end
 

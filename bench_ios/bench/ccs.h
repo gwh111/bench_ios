@@ -14,13 +14,6 @@
 
 + (void)start;
 
-// Function keyword
-// Get can be omitted. Get 'xxx' from its own, without parameter.
-// update: action will do modify, append or any other step to decorate or make one thing to a new thing.
-// result: compare two things or do calculation.
-// action: return void, do as command.
-// after "_" is a shot description to describe what this function will do. "to" means make one thing to it. "with" is something used to help make change, it will be omit.
-
 #pragma mark configure
 + (void)configureAppStandard:(NSDictionary *)defaultDic;
 
@@ -36,7 +29,12 @@
 + (void)configureDomainWithReqGroupList:(NSArray *)domainReqList andKey:(NSString *)domainReqKey cache:(BOOL)cache pingTest:(BOOL)pingTest block:(void (^)(HttpModel *result))block;
 
 // 直接配置域名
-- (void)configureDomainWithReqList:(NSArray *)domainReqList block:(void (^)(HttpModel *result))block;
++ (void)configureDomainWithReqList:(NSArray *)domainReqList block:(void (^)(HttpModel *result))block;
+
++ (void)configureNavigationBarWithTitleFont:(UIFont *)font
+                                 titleColor:(UIColor *)titleColor
+                            backgroundColor:(UIColor *)backgroundColor
+                            backgroundImage:(UIImage *)backgroundImage;
 
 #pragma mark monitor
 // 启动监控 默认开启
@@ -75,7 +73,7 @@
 + (UIColor *)colorHexA:(NSString *)hex alpha:(float)alpha;
 + (UIColor *)colorRgbA:(float)red green:(float)green blue:(float)blue alpha:(float)alpha;
 
-+ (id)model:(Class)class;
++ (id)model:(Class)aClass;
 
 #pragma mark CC_UIKit
 
@@ -91,101 +89,36 @@
 + (float)relativeHeight:(float)height;
 + (UIFont *)relativeFont:(float)fontSize;
 + (UIFont *)relativeFont:(NSString *)fontName fontSize:(float)fontSize;
-
-+ (CC_View *)view;
-// create a subclass of 'CC_View'
-#define View(class) [ccs view:class]
-+ (id)view:(Class)class;
-
-+ (CC_Label *)label;
-// create a subclass of 'CC_Label'
-#define Label(class) [ccs label:class]
-+ (id)label:(Class)class;
-
-+ (CC_Button *)button;
-// create a subclass of 'CC_Button'
-#define Button(class) [ccs button:class]
-+ (id)button:(Class)class;
-
-+ (CC_TextView *)textView;
-// create a subclass of 'CC_TextView'
-#define TextView(class) [ccs textView:class]
-+ (id)textView:(Class)class;
-
-+ (CC_TextField *)textField;
-// create a subclass of 'CC_TextField'
-#define TextField(class) [ccs textField:class]
-+ (id)textField:(Class)class;
-
-+ (CC_ImageView *)imageView;
-// create a subclass of 'CC_ImageView'
-#define ImageView(class) [ccs imageView:class]
-+ (id)imageView:(Class)class;
-
-+ (CC_ScrollView *)scrollView;
-// create a subclass of 'CC_ScrollView'
-#define ScrollView(class) [ccs scrollView:class]
-+ (id)scrollView:(Class)class;
-
-+ (CC_TableView *)tableView;
-// create a subclass of 'CC_TableView'
-#define TableView(class) [ccs tableView:class]
-+ (id)tableView:(Class)class;
-
-#define IMAGE(name) [ccs image:name]
-+ (CC_Image *)image:(NSString *)imageName;
-
-+ (CC_Mask *)mask;
-+ (void)maskStart;
-+ (void)maskStartAtView:(UIView *)view;
-+ (void)maskStop;
-
-+ (CC_Notice *)notice;
-+ (void)showNotice:(NSString *)str;
-+ (void)showNotice:(NSString *)str atView:(UIView *)view;
-+ (void)showNotice:(NSString *)str atView:(UIView *)view delay:(int)delay;
-
-#pragma mark alert
-+ (void)showAltOn:(UIViewController *)controller title:(NSString *)title msg:(NSString *)msg bts:(NSArray *)bts block:(void (^)(int index, NSString *name))block;
-
-+ (void)showTextFieldAltOn:(UIViewController *)controller title:(NSString *)title msg:(NSString *)msg placeholder:(NSString *)placeholder bts:(NSArray *)bts block:(void (^)(int index, NSString *name, NSString *text))block;
-+ (void)showTextFieldsAltOn:(UIViewController *)controller title:(NSString *)title msg:(NSString *)msg placeholders:(NSArray *)placeholders bts:(NSArray *)bts block:(void (^)(int index, NSString *name, NSArray *texts))block;
-
-+ (CC_LabelGroup *)labelGroup;
-
-// object
-+ (CC_TextAttachment *)textAttachment;
-+ (NSAttributedString *)attributedString;
-+ (NSMutableAttributedString *)mutAttributedString;
-
-+ (id)viewController:(Class)class;
-+ (id)controller:(Class)class;
-
-+ (NSString *)deviceName;
++ (id)getAView;
 
 #pragma mark action
 + (void)pushViewController:(id)vc;
 // push to viewController && remove current viewController
 + (void)pushViewController:(id)vc withDismissVisible:(BOOL)dismissVisible;
 + (void)popViewController;
-+ (void)popToViewController:(Class)class;
++ (void)popToViewController:(Class)aClass;
 + (void)pushWebViewControllerWithUrl:(NSString *)urlStr;
 
 #pragma mark CC_LibNetwork
 + (CC_HttpTask *)httpTask;
 + (CC_HttpHelper *)httpHelper;
++ (CC_HttpEncryption *)httpEncryption;
++ (CC_HttpConfig *)httpConfig;
 
 #pragma mark CC_LibStorage
-+ (NSString *)keychainKey:(NSString *)name;
+// keychain
++ (NSString *)keychainValueForKey:(NSString *)name;
 + (void)saveKeychainKey:(NSString *)key value:(NSString *)value;
 + (NSString *)keychainUUID;
 
-+ (id)defaultKey:(NSString *)key;
+// NSUserDefaults
++ (id)defaultValueForKey:(NSString *)key;
 + (void)saveDefaultKey:(NSString *)key value:(id)value;
 
-+ (id)safeDefaultKey:(NSString *)key;
++ (id)safeDefaultValueForKey:(NSString *)key;
 + (void)saveSafeDefaultKey:(NSString *)key value:(id)value;
 
+// NSBundle
 + (NSString *)appName;
 + (NSString *)appBid;
 + (NSString *)appVersion;
@@ -199,6 +132,7 @@
 + (BOOL)copyBunldFileToSandboxToPath:(NSString *)name type:(NSString *)type;
 + (BOOL)copyBunldPlistToSandboxToPath:(NSString *)name;
 
+// 沙盒 Documents 
 + (NSString *)sandboxPath;
 + (NSArray *)sandboxDirectoryFilesWithPath:(NSString *)name type:(NSString *)type;
 
@@ -207,6 +141,9 @@
 
 + (BOOL)deleteSandboxFileWithName:(NSString *)name;
 + (BOOL)saveToSandboxWithData:(id)data toPath:(NSString *)name type:(NSString *)type;
+
+// DataBase
++ (CC_DataBaseStore *)dataBaseStore;
 
 #pragma mark CC_CoreThread
 + (void)gotoThread:(void (^)(void))block;
@@ -229,7 +166,7 @@
 
 #pragma mark CC_CoreFoundation
 // Init class
-+ (id)init:(Class)class;
++ (id)init:(Class)aClass;
 
 + (void)registerAppDelegate:(id)module;
 // Shared Instance
@@ -238,7 +175,7 @@
 
 // data sharing, shared data in app, such as update a model in controller A when you are in controller B
 // app共享的数据存储 如在控制器B更新控制器A里的model
-+ (id)shared:(NSString *)key;
++ (id)sharedValueForKey:(NSString *)key;
 + (id)removeShared:(NSString *)key;
 + (id)setShared:(NSString *)key obj:(id)obj;
 + (id)resetShared:(NSString *)key obj:(id)obj;
@@ -279,3 +216,124 @@
 
 @end
 
+@interface ccs (CCUI)
+
+///-------------------------------
+/// @name 生成UI控件
+///-------------------------------
+
+/// An object that manages the content for a rectangular area on the screen.
+///
+/// Usage:
+///
+/// CC_View *someView = ccs.View;
+/// .cc_addToView(self.view)
+/// .cc_name(@"someName")
+/// .cc_frame(RH(10),RH(100),RH(100),RH(100))
+/// .cc_backgroundColor(UIColor.whiteColor);
+///
++ (CC_View           *)View;
+
+/// An object that displays a single image or a sequence of animated
+/// images in your interface
++ (CC_ImageView      *)ImageView;
+
+/// A view that displays one or more lines of read-only text,
+/// often used in conjunction with controls to describe their intended purpose.
++ (CC_Label          *)Label;
+
+/// A control that executes your custom code in response to
+/// user interactions.
++ (CC_Button         *)Button;
+
+/// A scrollable, multiline text region.
++ (CC_TextView       *)TextView;
+
+/// An object that displays an editable text area in your interface.
++ (CC_TextField      *)TextField;
+
+/// A view that allows the scrolling and zooming of its
+/// contained views.
++ (CC_ScrollView     *)ScrollView;
+
+/// A view that presents data using rows arranged in a
+/// single column.
+/// must specify style at creation. -initWithFrame: calls this with UITableViewStylePlain
++ (CC_TableView      *)TableView;
++ (CC_TableView      *)TableViewWithStyle:(UITableViewStyle)style;
+
+/// An object that manages an ordered collection of data items
+/// and presents them using customizable layouts.
++ (CC_CollectionView *)CollectionView;
++ (CC_CollectionView *)CollectionViewWithLayout:(UICollectionViewLayout *)layout;
+
+/// An object that displays interactive web content, such as
+/// for an in-app browser.
++ (CC_WebView        *)WebView;
+
++ (CC_LabelGroup     *)LabelGroup;
+
+///-------------------------------
+/// @name 生成其它对象
+///-------------------------------
+
+#define IMAGE(NAME) [ccs image:NAME]
+
+/// Creates an image object from the specified named asset.
++ (CC_Image                  *)image:(NSString *)imageName;
+
+/// The values for the attachment attributes of attributed strings and related objects.
++ (CC_TextAttachment         *)textAttachment;
+
+/// A string that has associated attributes (such as visual style, hyperlinks,
+/// or accessibility data) for portions of its text.
++ (NSAttributedString        *)attributedString;
+
+/// A mutable string object that also contains attributes (such as visual style, hyperlinks,
+/// or accessibility data) associated with various portions of its text content.
++ (NSMutableAttributedString *)mutableAttributedString;
+
++ (id)anObject:(Class)cls;
+
+///-------------------------------
+/// @name 生成过渡视图
+///-------------------------------
+
+/**
+ 是否有标题 否 CC_Mask
+ 是
+    是否有msg 否 CC_Notice
+ 是
+    UIAlertController
+ */
+
+//+ (void)show;
+//+ (void)dismiss;
+//
+///// CC_Notice
+//+ (void)showWithTitle:(NSString *)title;
+//
+///// AlertController
+//+ (void)showWithTitle:(NSString *)title
+//                  msg:(NSString *)msg
+//                 btns:(NSArray <NSString *>*)bts
+//                block:(void (^)(int index, NSString *name))block;
+
++ (CC_Mask *)Mask;
++ (void)maskStart;
++ (void)maskStartAtView:(UIView *)view;
++ (void)maskStop;
+
++ (CC_Notice *)Notice;
+
++ (void)showNotice:(NSString *)str;
++ (void)showNotice:(NSString *)str atView:(UIView *)view;
++ (void)showNotice:(NSString *)str atView:(UIView *)view delay:(int)delay;
+
++ (void)showAltOn:(UIViewController *)controller title:(NSString *)title msg:(NSString *)msg bts:(NSArray *)bts block:(void (^)(int index, NSString *name))block;
+
++ (void)showTextFieldAltOn:(UIViewController *)controller title:(NSString *)title msg:(NSString *)msg placeholder:(NSString *)placeholder bts:(NSArray *)bts block:(void (^)(int index, NSString *name, NSString *text))block;
+
++ (void)showTextFieldsAltOn:(UIViewController *)controller title:(NSString *)title msg:(NSString *)msg placeholders:(NSArray *)placeholders bts:(NSArray *)bts block:(void (^)(int index, NSString *name, NSArray *texts))block;
+
+@end

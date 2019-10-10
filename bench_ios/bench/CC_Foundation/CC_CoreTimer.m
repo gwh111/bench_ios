@@ -131,6 +131,7 @@
 
             return [NSString stringWithFormat:@"%@_%d",currentUniqueTimeStamp,currentUniqueTimeStampCount];
         }else{
+            
             currentUniqueTimeStampCount = 0;
             currentUniqueTimeStamp = timestamp;
             return timestamp;

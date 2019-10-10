@@ -30,9 +30,24 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)cc_setImageWithURL:(NSURL *)url placeholderImage:(nullable UIImage *)placeholder;
 
+/**
+ 加载图片，带占位图，带进度回调，带完成回调
+ 
+ @param url URL
+ @param placeholder 占位图
+ @param processBlock 进度回调
+ @param completedBlock 完成回调
+ */
 - (void)cc_setImageWithURL:(NSURL *)url placeholderImage:(nullable UIImage *)placeholder processBlock:(nullable CC_WebImageProgressBlock)processBlock completed:(nullable CC_WebImageCompletionBlock)completedBlock;
 
-// With ProgressView
+/**
+ 加载图片，带占位图，带进度条（扇形），带完成回调
+ 
+ @param url URL
+ @param placeholder 占位图
+ @param showProgressView 进度条是否展示
+ @param completedBlock 完成回调
+ */
 - (void)cc_setImageWithURL:(NSURL *)url placeholderImage:(nullable UIImage *)placeholder showProgressView:(BOOL)showProgressView completed:(nullable CC_WebImageCompletionBlock)completedBlock;
 
 @end

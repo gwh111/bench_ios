@@ -8,6 +8,8 @@
 
 #import "CC_Mask.h"
 #import "CC_NavigationController.h"
+#import "CC_CoreUI.h"
+#import "UIColor+CC.h"
 
 @interface CC_Mask(){
     NSString *textStr;
@@ -85,11 +87,12 @@
     [progressView addSubview:activityIndicator];
     
     textL = [CC_Base.shared cc_init:CC_Label.class];
-    textL.cc_addToView(progressView)
-    .cc_frame(0.0f, RH(60), RH(100), RH(40))
+    textL
     .cc_font(RF(14))
     .cc_textColor(UIColor.whiteColor)
-    .cc_textAlignment(NSTextAlignmentCenter);
+    .cc_textAlignment(NSTextAlignmentCenter)
+    .cc_addToView(progressView)
+    .cc_frame(0.0f, RH(60), RH(100), RH(40));
 }
 
 - (void)stop {

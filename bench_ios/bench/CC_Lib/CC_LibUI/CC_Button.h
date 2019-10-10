@@ -8,52 +8,48 @@
 
 #import <UIKit/UIKit.h>
 #import "CC_Foundation.h"
-#import "CC_Lib+UIView.h"
-#import "CC_Lib+UIButton.h"
+#import "CCUIScaffold.h"
+#import "UIButton+CCUI.h"
 
-@interface CC_Button : UIButton
+@interface CC_Button : UIButton <CC_Button>
 
-#pragma mark clase "CC_Button" property extention
-// UIView property
-- (CC_Button *(^)(NSString *))cc_name;
-- (CC_Button *(^)(CGFloat,CGFloat,CGFloat,CGFloat))cc_frame;
-- (CC_Button *(^)(CGFloat,CGFloat))cc_size;
-- (CC_Button *(^)(CGFloat))cc_width;
-- (CC_Button *(^)(CGFloat))cc_height;
+/**
+ default button will enlarge tap frame
+ 默认会扩大按钮的点击范围 */
+@property(nonatomic,assign) int forbiddenEnlargeTapFrame;
 
-- (CC_Button *(^)(CGFloat,CGFloat))cc_center;
-- (CC_Button *(^)(CGFloat))cc_centerX;
-- (CC_Button *(^)(CGFloat))cc_centerY;
-- (CC_Button *(^)(CGFloat))cc_top;
-- (CC_Button *(^)(CGFloat))cc_bottom;
-- (CC_Button *(^)(CGFloat))cc_left;
-- (CC_Button *(^)(CGFloat))cc_right;
-- (CC_Button *(^)(UIColor *))cc_backgroundColor;
-- (CC_Button *(^)(CGFloat))cc_cornerRadius;
-- (CC_Button *(^)(CGFloat))cc_borderWidth;
-- (CC_Button *(^)(UIColor *))cc_borderColor;
-- (CC_Button *(^)(BOOL))cc_userInteractionEnabled;
-- (CC_Button *(^)(id))cc_addToView;
+@end
 
-// UIButton property
-- (CC_Button *(^)(NSString *, UIControlState))cc_setTitleForState;
-- (CC_Button *(^)(UIColor *, UIControlState))cc_setTitleColorForState;
-- (CC_Button *(^)(UIColor *, UIControlState))cc_setTitleShadowColorForState;
-- (CC_Button *(^)(UIImage *, UIControlState))cc_setImageForState;
-- (CC_Button *(^)(UIImage *, UIControlState))cc_setBackgroundImageForState;
-- (CC_Button *(^)(NSAttributedString *, UIControlState))cc_setAttributedTitleForState;
+@interface CC_Button (CCActions)
 
-- (CC_Button *(^)(UIFont *))cc_font;
-- (CC_Button *(^)(UIColor *))cc_textColor;
-- (CC_Button *(^)(NSString *, UIControlState))cc_bindText;
-- (CC_Button *(^)(NSAttributedString *, UIControlState))cc_bindAttText;
+/**
+ 
+ 点击后执行block,经过time时间间隔后,按钮转为可用状态,主要用于防止连续点击后重复调用tap方法
+ 
+ @param time   按钮下一次可用的时间间隔
+ @param block  点击回调
+ 
+ */
+- (void)cc_addTappedOnceDelay:(float)time
+                    withBlock:(void (^)(CC_Button *btn))block;
 
-#pragma mark function
+/**
+ 
+ 点击后执行block,经过time时间间隔后,按钮转为可用状态,主要用于防止连续点击后重复调用tap方法
+ 
+ @param time   按钮下一次可用的时间间隔
+ @param block  点击回调
+ @param controlEvents 事件
+ 
+ @note 通过该方法可以指定绑定的事件,但对于一个行为中接连触发的事件只会有一次的延时
+ 比如controlEvents 传 UIControlEventTouchDown | UIControlEventTouchUpInside
+ */
+- (void)cc_addTappedOnceDelay:(float)time
+                    withBlock:(void (^)(CC_Button *btn))block
+             forControlEvents:(UIControlEvents)controlEvents;
+
+
 - (void)bindText:(NSString *)text state:(UIControlState)state;
 - (void)bindAttText:(NSAttributedString *)attText state:(UIControlState)state;
-
-/** default button will enlarge tap frame
-    默认会扩大按钮的点击范围 */
-@property(nonatomic,assign) int forbiddenEnlargeTapFrame;
 
 @end

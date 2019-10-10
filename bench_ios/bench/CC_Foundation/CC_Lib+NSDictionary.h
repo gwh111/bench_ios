@@ -20,6 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSMutableDictionary(CC_Lib)
 
+- (void)safeSetObject:(id)obj forKey:(NSString *)aKey;
+
 // Do nothing when key||value==nil
 - (void)cc_setKey:(NSString *)aKey value:(id)value;
 

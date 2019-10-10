@@ -120,11 +120,11 @@ static int baseTag=100;
         button.width = w;
         x = x + w;
         
-        button.cc_tapped(^(id view){
+        [button cc_tappedInterval:0.1 withBlock:^(id  _Nonnull view) {
             if ([self.delegate respondsToSelector:@selector(labelGroup:button:tappedAtIndex:)]) {
                 [self.delegate labelGroup:self button:button tappedAtIndex:i];
             }
-        });
+        }];
         if ([self.delegate respondsToSelector:@selector(labelGroup:initWithButton:)]) {
             [self.delegate labelGroup:self initWithButton:button];
         }

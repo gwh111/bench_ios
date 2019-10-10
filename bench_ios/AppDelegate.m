@@ -31,9 +31,11 @@
 - (void)cc_willInit{
     
     [ccs configureAppStandard:@{
+                                @"退出按钮字体":RF(12),
                                 YL_SUBTITLE_FONT  :RF(13),
                                 YL_SUBTITLE_COLOR :UIColor.whiteColor
                                 }];
+    APP_STANDARD(@"退出按钮字体");
     
     // 组件化方法 调用推送库
     [ccs APNs_updateTokenToServerWithDomainUrl:[NSURL URLWithString:@"http://xxx.com"] authedUserId:@"123456" pushMessageBlock:^(NSDictionary * _Nonnull messageDic, BOOL lanchFromRemote) {
@@ -43,14 +45,14 @@
     CCLOG(@"%@",APP_STANDARD(YL_SUBTITLE_FONT));
     
     //入口单页面
-    [self cc_init:HomeVC.class withNavigationBarHidden:NO block:^{
-        [self launch];
-    }];
-    
-    //入口TabBar
-//    [self cc_init:TestTabBarController.class withNavigationBarHidden:YES block:^{
+//    [self cc_initViewController:HomeVC.class withNavigationBarHidden:NO block:^{
 //        [self launch];
 //    }];
+    
+    //入口TabBar
+    [self cc_initTabbarViewController:TestTabBarController.class block:^{
+        [self launch];
+    }];
     
 }
 

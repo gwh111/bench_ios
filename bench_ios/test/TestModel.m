@@ -12,6 +12,15 @@
 
 - (void)cc_update{
     CCLOG(@"%@ %@",self.cc_modelDic,self.cc_modelDic[@"str1"]);
+    
 }
+
+@end
+
+@implementation TestSubModel
+
+@end
+
+@implementation TestSubArrayModel
 
 @end

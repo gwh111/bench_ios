@@ -9,7 +9,22 @@
 #ifndef CC_LibUI_h
 #define CC_LibUI_h
 
+#import "UIColor+CC.h"
+#import "UIImage+CC.h"
+#import "UIResponder+CC.h"
+
+#import "UIView+CCUI.h"
+#import "UIControl+CCUI.h"
+#import "UIButton+CCUI.h"
+#import "UITextField+CCUI.h"
+#import "UITextView+CCUI.h"
+#import "UIScrollView+CCUI.h"
+#import "UIImageView+CCUI.h"
+
 #import "CC_Color.h"
+#import "CC_Image.h"
+#import "CC_TextAttachment.h"
+
 #import "CC_View.h"
 #import "CC_Label.h"
 #import "CC_Button.h"
@@ -18,9 +33,8 @@
 #import "CC_ImageView.h"
 #import "CC_ScrollView.h"
 #import "CC_TableView.h"
+#import "CC_CollectionView.h"
 #import "CC_WebView.h"
-#import "CC_TextAttachment.h"
-#import "CC_Image.h"
 
 #import "CC_Notice.h"
 #import "CC_Mask.h"

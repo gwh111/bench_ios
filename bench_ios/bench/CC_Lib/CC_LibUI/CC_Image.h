@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "CC_Foundation.h"
-#import "CC_Lib+UIImage.h"
+#import "UIImage+CC.h"
 
 @interface CC_Image : UIImage
 

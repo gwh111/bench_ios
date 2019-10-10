@@ -18,12 +18,12 @@
 
 @implementation cc_message
 
-+ (id)cc_class:(Class)class method:(SEL)selector {
-    return [self cc_target:class method:selector paramList:nil];
++ (id)cc_class:(Class)aClass method:(SEL)selector {
+    return [self cc_target:aClass method:selector paramList:nil];
 }
 
-+ (id)cc_class:(Class)class method:(SEL)selector params:(id)param,... {
-    NSMethodSignature *signature = [class methodSignatureForSelector:selector];
++ (id)cc_class:(Class)aClass method:(SEL)selector params:(id)param,... {
+    NSMethodSignature *signature = [aClass methodSignatureForSelector:selector];
     NSInteger paramsCount = signature.numberOfArguments - 2;
     NSMutableArray *paramList = NSMutableArray.new;
     va_list params;
@@ -41,11 +41,11 @@
         }
     }
     va_end(params);
-    return [self cc_target:class method:selector paramList:paramList];
+    return [self cc_target:aClass method:selector paramList:paramList];
 }
 
-+ (id)cc_class:(Class)class method:(SEL)selector paramList:(NSArray *)paramList {
-    return [self cc_target:class method:selector paramList:paramList];
++ (id)cc_class:(Class)aClass method:(SEL)selector paramList:(NSArray *)paramList {
+    return [self cc_target:aClass method:selector paramList:paramList];
 }
 
 + (id)cc_instance:(id)instance method:(SEL)selector {
@@ -195,6 +195,7 @@
     // message sent to deallocated instance 0x7f81204154e0
     // 使用NSInvocation方法对返回对象引用计数会有问题 怀疑是ARC没有控制好
     // 原因是在arc模式下，getReturnValue：仅仅是从invocation的返回值拷贝到指定的内存地址，如果返回值是一个NSObject对象的话，是没有处理起内存管理的。而我们在定义resultSet时使用的是__strong类型的指针对象，arc就会假设该内存块已被retain（实际没有），当resultSet出了定义域释放时，导致该crash。假如在定义之前有赋值的话，还会造成内存泄露的问题。
+    // 所以在接收id对象时用__unsafe_unretained修饰来临时保留对象来解决这个问题
     if (target && [target respondsToSelector:selector]) {
         NSMethodSignature *methodSig = [target methodSignatureForSelector:selector];
         if (methodSig == nil) {
