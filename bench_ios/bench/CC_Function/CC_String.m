@@ -73,8 +73,7 @@
         NSMutableCharacterSet *allowed = [NSMutableCharacterSet alphanumericCharacterSet];
         [allowed addCharactersInString:@"!*'();:@&=+$,/?%#[]<>&\\"];
         
-        NSString *tempString = valueStr;
-        [valueStr stringByAddingPercentEncodingWithAllowedCharacters:allowed];
+        NSString *tempString = [valueStr stringByAddingPercentEncodingWithAllowedCharacters:allowed];
         
         if (tempString.length>0) {//参数为空不放入
             [urlFormatString appendString:[NSString stringWithFormat:@"%@=%@&",categoryId,tempString]];
