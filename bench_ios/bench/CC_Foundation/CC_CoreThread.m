@@ -30,7 +30,7 @@
 @end
 @implementation CC_CoreThread
 
-+ (instancetype)shared{
++ (instancetype)shared {
     return [CC_Base.shared cc_registerSharedInstance:self];
 }
 
@@ -54,7 +54,7 @@
     [CC_CoreThread.shared.queueMap cc_setKey:key value:queue];
 }
 
-- (void)cc_delayStop:(NSString *)key{
+- (void)cc_delayStop:(NSString *)key {
     NSOperationQueue *queue = CC_CoreThread.shared.queueMap[key];
     if (queue) {
         [queue cancelAllOperations];
@@ -62,48 +62,49 @@
     }
 }
 
-- (void)cc_gotoThread:(void (^)(void))block{
+- (void)cc_gotoThread:(void (^)(void))block {
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         // 耗时操作放在这里
         block();
     });
 }
 
-- (void)cc_gotoMain:(void (^)(void))block{
+- (void)cc_gotoMain:(void (^)(void))block {
     dispatch_async(dispatch_get_main_queue(), ^{
         // 回到主线程进行UI操作
         block();
     });
 }
 
-- (void)cc_gotoThreadSync:(void (^)(void))block{
+- (void)cc_gotoThreadSync:(void (^)(void))block {
     dispatch_sync(dispatch_get_global_queue(0, 0), ^{
         // 耗时操作放在这里
         block();
     });
 }
 
-- (void)cc_gotoMainSync:(void (^)(void))block{
+- (void)cc_gotoMainSync:(void (^)(void))block {
     dispatch_sync(dispatch_get_main_queue(), ^{
         // 回到主线程进行UI操作
         block();
     });
 }
 
-- (void)cc_delay:(double)delayInSeconds block:(void (^)(void))block{
+- (void)cc_delay:(double)delayInSeconds block:(void (^)(void))block {
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         block();
     });
 }
 
-- (void)cc_blockFinish:(id)sema{
+- (void)cc_blockFinish:(id)sema {
     dispatch_semaphore_signal(sema);
 }
 
-- (void)cc_blockSequence:(NSUInteger)taskCount block:(void(^)(NSUInteger taskIndex, BOOL finish, id sema))block{
+- (void)cc_blockSequence:(NSUInteger)taskCount block:(void(^)(NSUInteger taskIndex, BOOL finish, id sema))block {
     [self cc_gotoThread:^{
-        for (int i=0; i<taskCount; i++) {
+        int count = (int)taskCount;
+        for (int i = 0; i < count; i++) {
             dispatch_semaphore_t sema = dispatch_semaphore_create(0);
             block(i,0,sema);
             dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
@@ -116,21 +117,21 @@
 
 - (void)cc_group:(NSUInteger)taskCount block:(void(^)(NSUInteger taskIndex, BOOL finish))block{
     dispatch_group_t group = dispatch_group_create();
-    for (int i=0; i<taskCount; i++) {
+    int count = (int)taskCount;
+    for (int i = 0; i < count; i++) {
         [self cc_gotoThread:^{
             block(i, 0);
         }];
     }
     dispatch_group_notify(group, dispatch_get_main_queue(), ^{
-        [self cc_gotoMain:^{
-            block(taskCount, 1);
-        }];
+        block(taskCount, 1);
     });
 }
 
 - (void)cc_blockGroup:(NSUInteger)taskCount block:(void(^)(NSUInteger taskIndex, BOOL finish, id sema))block{
     dispatch_group_t group = dispatch_group_create();
-    for (int i=0; i<taskCount; i++) {
+    int count = (int)taskCount;
+    for (int i = 0; i < count; i++) {
         [self cc_gotoThread:^{
             dispatch_semaphore_t sema = dispatch_semaphore_create(0);
             block(i,0,sema);
@@ -138,9 +139,7 @@
         }];
     }
     dispatch_group_notify(group, dispatch_get_main_queue(), ^{
-        [self cc_gotoMain:^{
-            block(taskCount,1,nil);
-        }];
+        block(taskCount,1,nil);
     });
 }
 
