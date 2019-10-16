@@ -3,6 +3,8 @@
 
 <img width=128px src="https://github.com/gwh111/bench_ios/blob/master/bench_ios/icon.png?raw=true" >  
 
+[有目录的文档](https://gwh111.github.io/2019/10/11/bench-ios/)
+
 以增加开发效率为目的集成bench_ios开发。  
 bench_ios 不仅仅是它本身，还提供的是一种调度模式，可以根据自己业务需求接入不同模块来使用。详见 **组件化分类使用方法**。
 
