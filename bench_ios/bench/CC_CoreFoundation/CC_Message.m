@@ -134,7 +134,7 @@
         }
     }
     va_end(params);
-    return [self cc_target:className method:selector paramList:paramList];
+    return [self cc_target:targetClass method:selector paramList:paramList];
 }
 
 + (id)cc_targetInstance:(id)target method:(NSString *)method params:(id)param,... {
