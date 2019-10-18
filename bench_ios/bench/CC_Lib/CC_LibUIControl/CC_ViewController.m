@@ -42,9 +42,6 @@
 
     }];
     
-    cc_displayView.top = cc_navigationBar.bottom;
-    cc_displayView.height = cc_displayView.height - cc_navigationBar.bottom;
-    
     if (CC_NavigationController.shared.cc_UINav.viewControllers.count <= 1) {
         cc_navigationBar.backButton.hidden = YES;
     }
@@ -56,7 +53,7 @@
     cc_navigationBar.hidden = cc_navigationBarHidden;
     
     cc_displayView.top = cc_navigationBarHidden? Y():cc_navigationBar.bottom;
-    cc_displayView.height = cc_displayView.height - cc_navigationBar.bottom;
+    cc_displayView.height = cc_displayView.height - cc_navigationBar.bottom  - CC_CoreUI.shared.safeBottom;
     
     if (CC_NavigationController.shared.cc_UINav.viewControllers.count <= 1) {
         cc_navigationBar.backButton.hidden = YES;

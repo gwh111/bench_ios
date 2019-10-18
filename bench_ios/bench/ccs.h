@@ -86,6 +86,7 @@
 + (float)width;
 + (float)height;
 + (float)safeHeight;
++ (float)safeBottom;
 + (float)relativeHeight:(float)height;
 + (UIFont *)relativeFont:(float)fontSize;
 + (UIFont *)relativeFont:(NSString *)fontName fontSize:(float)fontSize;

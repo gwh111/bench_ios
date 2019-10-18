@@ -106,7 +106,11 @@
 }
 
 - (float)safeHeight {
-    return [self height] - [self y] - [self statusBarHeight];
+    return [self height] - [self y] - [self safeBottom];
+}
+
+- (float)safeBottom {
+    return IPHONE_X ? 44 : 0;
 }
 
 - (id)getAView {

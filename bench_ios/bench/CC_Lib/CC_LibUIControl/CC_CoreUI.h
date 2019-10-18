@@ -84,6 +84,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 
 /** height cut safe area and status bar */
 - (float)safeHeight;
+- (float)safeBottom;
 
 /* get width based on ui demo width&height */
 - (float)relativeHeight:(float)height;

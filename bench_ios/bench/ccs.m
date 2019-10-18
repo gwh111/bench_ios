@@ -158,6 +158,10 @@
     return [[cc_message cc_instance:CC_CoreUI.shared method:@selector(safeHeight)]floatValue];
 }
 
++ (float)safeBottom {
+    return [[cc_message cc_instance:CC_CoreUI.shared method:@selector(safeBottom)]floatValue];
+}
+
 + (float)relativeHeight:(float)height {
     return [[cc_message cc_instance:CC_CoreUI.shared method:@selector(relativeHeight:) params:Float(height)]floatValue];
 }
