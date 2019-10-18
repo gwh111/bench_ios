@@ -72,6 +72,7 @@
     cc_navigationBar.hidden = cc_navigationBarHidden;
     if (cc_displayView) {
         cc_displayView.top = cc_navigationBarHidden? Y():cc_navigationBar.bottom;
+        cc_displayView.height = cc_displayView.height + CC_CoreUI.shared.uiNavBarHeight;
     }
 }
 
