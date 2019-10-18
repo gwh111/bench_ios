@@ -76,7 +76,7 @@ static int baseTag=100;
     }else{
         count = tempArr.count;
     }
-    for (int i=0; i<count; i++) {
+    for (int i = 0; i < count; i++) {
         
         CC_Button *button = [CC_Base.shared cc_init:CC_Button.class];
         button.forbiddenEnlargeTapFrame = YES;
@@ -92,12 +92,15 @@ static int baseTag=100;
         if (number>0) {
             w = iH;
         }
+        if (_itemWidth > 0) {
+            w = _itemWidth;
+        }
         if (x + stepW + w > maxW) {
             x = sX;
             y = y + iH + sY;
             
             if (altype == CCLabelAlignmentTypeCenter) {
-                float needMove = (maxW - lastRight - sX)/2;
+                float needMove = (maxW - lastRight - sX) / 2;
                 for (int m = lastBeginIndex; m < i; m++) {
                     CC_Button *button = [self viewWithTag:baseTag+m];
                     button.left = button.left+needMove;

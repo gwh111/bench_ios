@@ -32,7 +32,9 @@ typedef enum : NSUInteger {
 
 @interface CC_LabelGroup : UIView
 
-@property(nonatomic,assign) id <CC_LabelGroupDelegate>delegate;
+@property (nonatomic,assign) id <CC_LabelGroupDelegate>delegate;
+// if set, item width is fixed.
+@property (nonatomic,assign) float itemWidth;
 
 /**
  *  初始化类型
