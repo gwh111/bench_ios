@@ -76,6 +76,7 @@
 - (void)cc_registerController:(CC_Controller *)controller {
     controller.cc_delegate = [CC_Base.shared cc_init:CC_Delegate.class];
     controller.cc_delegate.delegate = self;
+    controller.cc_displayView = cc_displayView;
     [controller cc_willInit];
     [cc_controllers cc_addObject:controller];
 }
