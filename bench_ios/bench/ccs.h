@@ -93,10 +93,15 @@
 + (id)getAView;
 
 #pragma mark action
-+ (void)pushViewController:(id)vc;
++ (void)pushViewController:(CC_ViewController *)viewController;
 // push to viewController && remove current viewController
-+ (void)pushViewController:(id)vc withDismissVisible:(BOOL)dismissVisible;
++ (void)pushViewController:(CC_ViewController *)viewController withDismissVisible:(BOOL)dismissVisible;
++ (void)presentViewController:(CC_ViewController *)viewController;
+// push a navigationController which has 'viewController' as root viewController
++ (void)presentViewController:(CC_ViewController *)viewController withNavigationControllerStyle:(UIModalPresentationStyle)style;
+
 + (void)popViewController;
++ (void)dismissViewController;
 + (void)popToViewController:(Class)aClass;
 + (void)pushWebViewControllerWithUrl:(NSString *)urlStr;
 

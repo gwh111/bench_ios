@@ -191,16 +191,28 @@
 }
 
 #pragma mark action
-+ (void)pushViewController:(id)vc {
-    [cc_message cc_instance:CC_NavigationController.shared method:@selector(cc_pushViewController:) params:vc];
++ (void)pushViewController:(CC_ViewController *)viewController {
+    [cc_message cc_instance:CC_NavigationController.shared method:@selector(cc_pushViewController:) params:viewController];
 }
 
-+ (void)pushViewController:(id)vc withDismissVisible:(BOOL)dismissVisible {
-    [cc_message cc_instance:CC_NavigationController.shared method:@selector(cc_pushViewController:withDismissVisible:) params:vc,[CC_Int value:dismissVisible]];
++ (void)pushViewController:(CC_ViewController *)viewController withDismissVisible:(BOOL)dismissVisible {
+    [cc_message cc_instance:CC_NavigationController.shared method:@selector(cc_pushViewController:withDismissVisible:) params:viewController,[CC_Int value:dismissVisible]];
+}
+
++ (void)presentViewController:(CC_ViewController *)viewController {
+    [cc_message cc_instance:CC_NavigationController.shared method:@selector(cc_presentViewController:) params:viewController];
+}
+
++ (void)presentViewController:(CC_ViewController *)viewController withNavigationControllerStyle:(UIModalPresentationStyle)style {
+    [cc_message cc_instance:CC_NavigationController.shared method:@selector(cc_presentViewController:withNavigationControllerStyle:) params:viewController, style];
 }
 
 + (void)popViewController {
     [cc_message cc_instance:CC_NavigationController.shared method:@selector(cc_popViewController)];
+}
+
++ (void)dismissViewController {
+    [cc_message cc_instance:CC_NavigationController.shared method:@selector(cc_dismissViewController)];
 }
 
 + (void)popToViewController:(Class)aClass {

@@ -17,10 +17,12 @@
 @end
 
 @implementation CC_NavigationController
-@synthesize cc_UINav;
+@synthesize cc_UINav, cc_UINavList;
 
 + (instancetype)shared {
-    return [CC_Base.shared cc_registerSharedInstance:self];
+    return [CC_Base.shared cc_registerSharedInstance:self block:^{
+        CC_NavigationController.shared.cc_UINavList = NSMutableArray.new;
+    }];
 }
 
 - (void)cc_willInit {
@@ -42,7 +44,27 @@
 }
 
 - (void)cc_pushViewController:(CC_ViewController *)viewController {
+    if (cc_UINavList.count > 0) {
+        UINavigationController *navC = cc_UINavList.firstObject;
+        [navC pushViewController:viewController animated:YES];
+        return;
+    }
     [cc_UINav pushViewController:viewController animated:YES];
+}
+
+- (void)cc_presentViewController:(CC_ViewController *)viewController {
+    [cc_UINav presentViewController:viewController animated:YES completion:nil];
+}
+
+- (void)cc_presentViewController:(CC_ViewController *)viewController withNavigationControllerStyle:(UIModalPresentationStyle)style {
+    
+    UINavigationController *navC = [[UINavigationController alloc] initWithRootViewController:viewController];
+    navC.navigationBarHidden = YES;
+    navC.modalPresentationStyle = style;
+    
+    [cc_UINavList addObject:navC];
+    
+    [cc_UINav presentViewController:navC animated:YES completion:nil];
 }
 
 - (void)cc_pushViewController:(CC_ViewController *)viewController withDismissVisible:(BOOL)visible {
@@ -56,13 +78,26 @@
             // 首页controller不能移除
             return;
         }
-        [controllers removeObjectAtIndex:controllers.count-2];
+        [controllers removeObjectAtIndex:controllers.count - 2];
         cc_UINav.viewControllers = controllers;
     }
 }
 
 - (CC_ViewController *)cc_popViewController {
     return [self cc_popViewControllerAnimated:YES];
+}
+
+- (void)cc_dismissViewController {
+    if (cc_UINavList.count > 0) {
+        UINavigationController *navC = cc_UINavList.firstObject;
+        [navC dismissViewControllerAnimated:YES completion:^{
+        }];
+        [cc_UINavList removeLastObject];
+        return;
+    }
+    [cc_UINav dismissViewControllerAnimated:YES completion:^{
+        
+    }];
 }
 
 - (void)cc_popToViewController:(Class)aClass {
