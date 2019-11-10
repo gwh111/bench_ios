@@ -153,11 +153,16 @@ static const void * const kDispatchQueueSpecificKey = &kDispatchQueueSpecificKey
     
     int colum_count = sqlite3_column_count(pStmt);
     while (sqlite3_step(pStmt) == SQLITE_ROW) {
+//        id currentModelObject = [modelObject copy];
+        Class cla = [modelObject class];
+        id currentModelObject = cla.new;
+        
         for (int column = 1; column < colum_count; column++) {
             NSString *fieldName = [NSString stringWithCString:sqlite3_column_name(pStmt, column) encoding:NSUTF8StringEncoding];
             NSString *propertyType = fieldDictionary[fieldName];
             if (!propertyType) continue;
-            id currentModelObject = modelObject;
+//            id currentModelObject = modelObject;
+//            id newObject = [modelObject copy];
             // 子类 name
             if ([fieldName rangeOfString:@"$"].location != NSNotFound)
             {
@@ -240,7 +245,8 @@ static const void * const kDispatchQueueSpecificKey = &kDispatchQueueSpecificKey
                 [currentModelObject setValue:@(value) forKey:fieldName];
             }
         }
-        [modelObjectArray addObject:modelObject];
+//        [modelObjectArray addObject:modelObject];
+        [modelObjectArray addObject:currentModelObject];
     }
     
     sqlite3_finalize(pStmt);
