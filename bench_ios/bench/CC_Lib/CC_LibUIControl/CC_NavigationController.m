@@ -104,6 +104,7 @@
     for (CC_ViewController *viewController in cc_UINav.viewControllers) {
         if ([viewController isKindOfClass:aClass]) {
             [cc_UINav popToViewController:viewController animated:YES];
+            return;
         }
     }
 }

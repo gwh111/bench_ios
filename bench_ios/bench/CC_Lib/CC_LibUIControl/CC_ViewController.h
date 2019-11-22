@@ -11,13 +11,13 @@
 #import "CC_Controller.h"
 #import "CC_NavigationBar.h"
 
-@class CC_View,CC_Controller;
+@class CC_ScrollView, CC_View, CC_Controller;
 
 @interface CC_ViewController : UIViewController
 
 @property (nonatomic, strong) id parent;
 @property (nonatomic, assign) BOOL cc_navigationBarHidden;
-@property (nonatomic, retain) CC_View *cc_displayView;
+@property (nonatomic, retain) CC_ScrollView *cc_displayView;
 @property (nonatomic, retain) NSMutableArray *cc_controllers;
 @property (nonatomic, retain) CC_NavigationBar *cc_navigationBar;
 
@@ -34,6 +34,7 @@
 - (CC_View *)cc_viewWithName:(NSString *)name;
 - (void)cc_removeViewWithName:(NSString *)name;
 - (CC_Controller *)cc_controllerWithName:(NSString *)name;
+- (void)cc_adaptUI;
 
 // Trigger function, triggering after the condition of trigger function is reached
 // 触发函数 条件达到后触发

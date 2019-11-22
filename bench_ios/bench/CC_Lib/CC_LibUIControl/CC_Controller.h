@@ -9,15 +9,15 @@
 #import "CC_Foundation.h"
 #import "CC_ViewController.h"
 
-@class CC_View;
+@class CC_View, CC_ScrollView;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CC_Controller : NSObject 
+@interface CC_Controller : NSObject
 
 @property (nonatomic, retain) NSString *cc_name;
 @property (nonatomic, retain) CC_Delegate *cc_delegate;
-@property (nonatomic, retain) CC_View *cc_displayView;
+@property (nonatomic, retain) CC_ScrollView *cc_displayView;
 
 // 不借助其他属性就能初始化的配置 注册就会主动调用
 - (void)cc_willInit;

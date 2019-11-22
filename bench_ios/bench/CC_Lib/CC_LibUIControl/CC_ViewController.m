@@ -27,7 +27,7 @@
 - (void)super_cc_viewWillLoad {
     self.view.backgroundColor = UIColor.whiteColor;
     
-    cc_displayView = [CC_Base.shared cc_init:CC_View.class];
+    cc_displayView = [CC_Base.shared cc_init:CC_ScrollView.class];
     cc_displayView.frame = self.view.frame;
     [self.view addSubview:cc_displayView];
     
@@ -108,6 +108,14 @@
         }
     }
     return nil;
+}
+
+- (void)cc_adaptUI {
+    for (UIView *view in cc_displayView.subviews) {
+        if (view.bottom > cc_displayView.contentSize.height) {
+            cc_displayView.contentSize = CGSizeMake(cc_displayView.width, view.bottom);
+        }
+    }
 }
 
 // Trigger function, triggering after the condition of trigger function is reached

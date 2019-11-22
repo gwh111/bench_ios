@@ -36,6 +36,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 
 #define RH(f) [CC_CoreUI.shared relativeHeight:f]
 #define RF(f) [CC_CoreUI.shared relativeFont:f]
+#define BRF(f) [CC_CoreUI.shared relativeFont:@"Helvetica-Bold" fontSize:f]
 
 #define X() [CC_CoreUI.shared x]
 #define Y() [CC_CoreUI.shared y]
