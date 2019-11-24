@@ -329,7 +329,7 @@
 }
 
 + (BOOL)saveToSandboxWithData:(id)data toPath:(NSString *)name type:(NSString *)type{
-    return [[cc_message cc_class:CC_SandboxStore.class method:@selector(cc_saveToSandboxWithData:toPath:type:) params:name,type,type]boolValue];
+    return [[cc_message cc_class:CC_SandboxStore.class method:@selector(cc_saveToSandboxWithData:toPath:type:) params:data,name,type]boolValue];
 }
 
 + (CC_DataBaseStore *)dataBaseStore {
