@@ -30,7 +30,7 @@
     uiDemoHeight = 568;
     
     uiNavBarHeight = [self relativeHeight:44];
-    uiTabBarHeight = IPHONE_X ? (49 + 34) : 49;
+    uiTabBarHeight = 49;
     
     NSDictionary *defaultFontDic = @{HEADLINE_FONT  :RF(24),
                                      HEADLINE_COLOR :UIColor.blackColor,

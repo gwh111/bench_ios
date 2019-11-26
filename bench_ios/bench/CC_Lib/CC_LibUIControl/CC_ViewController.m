@@ -46,10 +46,6 @@
         cc_navigationBar.backButton.hidden = YES;
     }
     
-    if ([parent isKindOfClass:UITabBarController.class]) {
-        cc_displayView.height = cc_displayView.height - CC_CoreUI.shared.uiTabBarHeight;
-    }
-    
     cc_navigationBar.hidden = cc_navigationBarHidden;
     
     cc_displayView.top = cc_navigationBarHidden? Y():cc_navigationBar.bottom;
@@ -61,6 +57,10 @@
     
     if ([parent isKindOfClass:UITabBarController.class]) {
         cc_displayView.height = cc_displayView.height - CC_CoreUI.shared.uiTabBarHeight;
+    }
+    
+    if (_cc_title) {
+        cc_navigationBar.titleLabel.text = _cc_title;
     }
 }
 
@@ -82,6 +82,7 @@
 }
 
 - (void)setCc_title:(NSString *)title {
+    _cc_title = title;
     cc_navigationBar.titleLabel.text = title;
 }
 

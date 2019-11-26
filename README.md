@@ -6,6 +6,8 @@
 [bench_ios开发指南](https://gwh111.github.io/2019/10/11/bench-ios/)  
 [解析文章](https://blog.csdn.net/gwh111/article/details/100700830)   
 
+[![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](http://opensource.org/licenses/MIT "Feel free to contribute.")
+
 'bench_ios' is a framework for efficient development.  
 It is not only itself, but also provides a scheduling mode, which can be accessed to different modules according to their own business needs.  
 
