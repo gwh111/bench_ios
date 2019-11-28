@@ -597,11 +597,6 @@
 }
 
 // MARK: - CCUI Custom -
-
-+ (id)anObject:(__unsafe_unretained Class)cls {
-    return [CC_Base.shared cc_init:cls];
-}
-
 + (CC_Mask *)Mask {
     return CC_Mask.shared;
 }

@@ -56,6 +56,7 @@
 		CCD8BEFB23163A6C00FC5FC9 /* CC_WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CCD8BEF923163A6C00FC5FC9 /* CC_WebViewController.m */; };
 		CCD8BF0023167A5E00FC5FC9 /* IMG_3058.JPG in Resources */ = {isa = PBXBuildFile; fileRef = CCD8BEFF23167A5D00FC5FC9 /* IMG_3058.JPG */; };
 		CCD8BF032317AE1B00FC5FC9 /* Test_FunctionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CCD8BF022317AE1B00FC5FC9 /* Test_FunctionViewController.m */; };
+		D80C6B3C23900F1800A1E0DB /* CC_Service.m in Sources */ = {isa = PBXBuildFile; fileRef = D80C6B3A23900F1700A1E0DB /* CC_Service.m */; };
 		D842D27022AF955F00816CB0 /* updateList.md in Resources */ = {isa = PBXBuildFile; fileRef = D842D26F22AF955F00816CB0 /* updateList.md */; };
 		D843B79523139670003CC955 /* CC_HttpHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D843B79423139670003CC955 /* CC_HttpHelper.m */; };
 		D843B7982313B1D4003CC955 /* HomeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D843B7972313B1D4003CC955 /* HomeVC.m */; };
@@ -261,6 +262,8 @@
 		CCD8BEFF23167A5D00FC5FC9 /* IMG_3058.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = IMG_3058.JPG; sourceTree = "<group>"; };
 		CCD8BF012317AE1B00FC5FC9 /* Test_FunctionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Test_FunctionViewController.h; sourceTree = "<group>"; };
 		CCD8BF022317AE1B00FC5FC9 /* Test_FunctionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Test_FunctionViewController.m; sourceTree = "<group>"; };
+		D80C6B3A23900F1700A1E0DB /* CC_Service.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC_Service.m; sourceTree = "<group>"; };
+		D80C6B3B23900F1700A1E0DB /* CC_Service.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_Service.h; sourceTree = "<group>"; };
 		D842D26F22AF955F00816CB0 /* updateList.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = updateList.md; sourceTree = SOURCE_ROOT; };
 		D843B751230FE12C003CC955 /* CC_LibUI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_LibUI.h; sourceTree = "<group>"; };
 		D843B753230FE33E003CC955 /* CC_LibUIControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_LibUIControl.h; sourceTree = "<group>"; };
@@ -943,6 +946,8 @@
 				D843B79423139670003CC955 /* CC_HttpHelper.m */,
 				D8A06EB4230F9999006BDF31 /* CC_HttpConfig.h */,
 				D8A06EAB230F9999006BDF31 /* CC_HttpConfig.m */,
+				D80C6B3B23900F1700A1E0DB /* CC_Service.h */,
+				D80C6B3A23900F1700A1E0DB /* CC_Service.m */,
 				D8A06EBA230F9999006BDF31 /* CC_Envirnment.h */,
 				D8A06EAF230F9999006BDF31 /* CC_Envirnment.m */,
 				D8A06EBB230F9999006BDF31 /* CC_ImageUploadTask.h */,
@@ -1221,6 +1226,7 @@
 				D84DC9952328D42600CF83C8 /* CC_NavigationBar.m in Sources */,
 				D843B7C02317E0A4003CC955 /* CC_Delegate.m in Sources */,
 				6D4B632D2331C28E00EE2CAF /* UISwitch+CCUI.m in Sources */,
+				D80C6B3C23900F1800A1E0DB /* CC_Service.m in Sources */,
 				CCD8BEF02314E60C00FC5FC9 /* Test_LibViewController.m in Sources */,
 				D8A06F34230F9999006BDF31 /* CC_WebImageDownloader.m in Sources */,
 				D8A06F4B230F9999006BDF31 /* CC_CoreThread.m in Sources */,

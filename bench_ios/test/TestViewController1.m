@@ -28,7 +28,7 @@
 }
 
 - (void)cc_viewWillLoad{
-    TestView *imgv = [ccs anObject:TestView.class];
+    TestView *imgv = [ccs init:TestView.class];
     ccs.View
     .cc_dragable(YES);
     
@@ -79,7 +79,7 @@
 
 - (void)cc_viewDidLoad{
     
-    TestViewController2 *vc1 = [ccs anObject:TestViewController2.class];
+    TestViewController2 *vc1 = [ccs init:TestViewController2.class];
     vc1.tests1 = @"";
     [ccs pushViewController:vc1];
     

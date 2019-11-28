@@ -77,7 +77,7 @@
         return;
     }
     if ([cls isSubclassOfClass:[UIViewController class]]) {
-        [ccs pushViewController:[ccs anObject:cls]];
+        [ccs pushViewController:[ccs init:cls]];
     }else{
         [cc_message cc_class:cls method:@selector(start)];
     }

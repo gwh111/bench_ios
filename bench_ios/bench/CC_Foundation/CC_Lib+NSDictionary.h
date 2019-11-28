@@ -22,7 +22,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)safeSetObject:(id)obj forKey:(NSString *)aKey;
 
-// Do nothing when key||value==nil
+- (void)cc_setKey:(NSString *)aKey;
+// Do nothing when key==nil
 - (void)cc_setKey:(NSString *)aKey value:(id)value;
 
 - (void)cc_removeKey:(NSString *)aKey;

@@ -31,7 +31,7 @@
     self.cc_title = @"asdb";
     
     
-    TestController *controller = [ccs anObject:TestController.class];
+    TestController *controller = [ccs init:TestController.class];
     //  注册完可直接实现TestController里的协议'methd2withA:b:'
     [self cc_registerController:controller];
 }
@@ -84,7 +84,7 @@
         v.attributedText = att;
         // 延时5秒后退出控制器并进入一个新控制器
         [ccs delay:5 block:^{
-            [ccs pushViewController:[ccs anObject:self.class] withDismissVisible:NO];
+            [ccs pushViewController:[ccs init:self.class] withDismissVisible:NO];
             // [ccs popToViewController:HomeVC.class];
         }];
     }];

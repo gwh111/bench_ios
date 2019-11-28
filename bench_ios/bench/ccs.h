@@ -299,8 +299,6 @@
 /// or accessibility data) associated with various portions of its text content.
 + (NSMutableAttributedString *)mutableAttributedString;
 
-+ (id)anObject:(Class)cls;
-
 ///-------------------------------
 /// @name 生成过渡视图
 ///-------------------------------

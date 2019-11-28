@@ -43,6 +43,15 @@
 }
 
 - (void)startAtView:(UIView *)view {
+    
+    [CC_CoreThread.shared cc_gotoMain:^{
+        
+        [self safeStartAtView:view];
+    }];
+    
+}
+
+- (void)safeStartAtView:(UIView *)view {
     UIView *showV;
     if (view) {
         showV = view;
@@ -96,6 +105,15 @@
 }
 
 - (void)stop {
+    
+    [CC_CoreThread.shared cc_gotoMain:^{
+        
+        [self safeStop];
+    }];
+}
+
+- (void)safeStop {
+
     [activityIndicator stopAnimating];
     progressView.hidden = YES;
     crossView.hidden = YES;

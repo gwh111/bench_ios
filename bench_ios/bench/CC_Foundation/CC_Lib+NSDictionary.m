@@ -45,6 +45,13 @@
     [self setObject:obj forKey:aKey];
 }
 
+- (void)cc_setKey:(NSString *)aKey {
+    if (!aKey) {
+        return;
+    }
+    [self setObject:@"" forKey:aKey];
+}
+
 - (void)cc_setKey:(NSString *)aKey value:(id)value{
     if (!aKey) {
         return;
