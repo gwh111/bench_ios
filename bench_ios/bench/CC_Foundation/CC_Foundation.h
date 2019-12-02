@@ -12,6 +12,7 @@
 #import <Foundation/Foundation.h>
 #import "CC_CoreFoundation.h"
 
+#import "CC_Money.h"
 #import "CC_Model.h"
 #import "CC_CoreTimer.h"
 #import "CC_CoreThread.h"

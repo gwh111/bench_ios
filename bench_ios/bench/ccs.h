@@ -9,10 +9,15 @@
 #import "CC_UIKit.h"
 #import "CC_LibKit.h"
 #import "CC_Macro.h"
+#import "CC_ShareUI+CC.h"
 
 @interface ccs : NSObject
 
-+ (void)start;
+// add pch path in 'Build Settings' - 'Prefix Header' as  '$(SRCROOT)/projectname/projectname-prefix.pch'
+
+// release=0，trunk=1，branch1=2
++ (void)configureEnvironment:(int)tag;
++ (int)getEnvironment;
 
 #pragma mark configure
 + (void)configureAppStandard:(NSDictionary *)defaultDic;
@@ -35,6 +40,9 @@
                                  titleColor:(UIColor *)titleColor
                             backgroundColor:(UIColor *)backgroundColor
                             backgroundImage:(UIImage *)backgroundImage;
+
+//配置是否进入后台，请求是否中断，默认开启
++ (void)configureBackGroundSessionStop:(BOOL)stopSession;
 
 #pragma mark monitor
 // 启动监控 默认开启
@@ -74,6 +82,9 @@
 + (UIColor *)colorRgbA:(float)red green:(float)green blue:(float)blue alpha:(float)alpha;
 
 + (id)model:(Class)aClass;
++ (HttpModel *)httpModel;
++ (CC_Money *)money;
++ (CC_ShareUI *)ui;
 
 #pragma mark CC_UIKit
 
@@ -91,6 +102,7 @@
 + (UIFont *)relativeFont:(float)fontSize;
 + (UIFont *)relativeFont:(NSString *)fontName fontSize:(float)fontSize;
 + (id)getAView;
++ (BOOL)isDarkMode;
 
 #pragma mark action
 + (void)pushViewController:(CC_ViewController *)viewController;
@@ -101,6 +113,7 @@
 + (void)presentViewController:(CC_ViewController *)viewController withNavigationControllerStyle:(UIModalPresentationStyle)style;
 
 + (void)popViewController;
++ (void)popViewControllerFrom:(CC_ViewController *)viewController userInfo:(id)userInfo;
 + (void)dismissViewController;
 + (void)popToViewController:(Class)aClass;
 + (void)pushWebViewControllerWithUrl:(NSString *)urlStr;
@@ -110,6 +123,14 @@
 + (CC_HttpHelper *)httpHelper;
 + (CC_HttpEncryption *)httpEncryption;
 + (CC_HttpConfig *)httpConfig;
+// 清除所有内存的图片缓存
++ (void)clearAllMemoryWebImageCache:(void(^)(void))completionBlock;
+// 清除所有磁盘的图片缓存
++ (void)clearAllDiskWebImageCache:(void(^)(void))completionBlock;
+// 清除所有内存和磁盘的图片缓存
++ (void)clearAllWebImageCache:(void(^)(void))completionBlock;
+// 清除指定key的图片缓存
++ (void)clearWebImageCacheForKey:(NSString*)url completionBlock:(void(^)(void))completionBlock;
 
 #pragma mark CC_LibStorage
 // keychain
@@ -138,7 +159,7 @@
 + (BOOL)copyBunldFileToSandboxToPath:(NSString *)name type:(NSString *)type;
 + (BOOL)copyBunldPlistToSandboxToPath:(NSString *)name;
 
-// 沙盒 Documents 
+// 沙盒 Documents
 + (NSString *)sandboxPath;
 + (NSArray *)sandboxDirectoryFilesWithPath:(NSString *)name type:(NSString *)type;
 
@@ -150,6 +171,9 @@
 
 // DataBase
 + (CC_DataBaseStore *)dataBaseStore;
+
+#pragma mark CC_LibAudio
++ (CC_MusicBox *)musicBox;
 
 #pragma mark CC_CoreThread
 + (void)gotoThread:(void (^)(void))block;
@@ -304,31 +328,39 @@
 ///-------------------------------
 
 /**
- 是否有标题 否 CC_Mask
- 是
-    是否有msg 否 CC_Notice
- 是
-    UIAlertController
- */
+是否有标题 否 CC_Mask
+是
+   是否有msg 否 CC_Notice
+是
+   UIAlertController
+*/
 
-//+ (void)show;
-//+ (void)dismiss;
-//
-///// CC_Notice
-//+ (void)showWithTitle:(NSString *)title;
-//
+/*
++ (CC_Mask   *)Mask;
+
++ (CC_Notice *)Notice;
+
+/// Mask ccs.show
++ (void)show;
+
+/// Mask ccs.dismiss
++ (void)dismiss;
+
+/// CC_Notice [ccs showWithTitle:CXX]
++ (void)showWithTitle:(NSString *)title;
+
 ///// AlertController
-//+ (void)showWithTitle:(NSString *)title
-//                  msg:(NSString *)msg
-//                 btns:(NSArray <NSString *>*)bts
-//                block:(void (^)(int index, NSString *name))block;
++ (void)showWithTitle:(NSString *)title
+                  msg:(NSString *)msg
+                 btns:(NSArray <NSString *>*)bts
+                block:(void (^)(int index, NSString *name))block
+         atController:(UIViewController *)controller;
 
-+ (CC_Mask *)Mask;
+*/
+
 + (void)maskStart;
 + (void)maskStartAtView:(UIView *)view;
 + (void)maskStop;
-
-+ (CC_Notice *)Notice;
 
 + (void)showNotice:(NSString *)str;
 + (void)showNotice:(NSString *)str atView:(UIView *)view;

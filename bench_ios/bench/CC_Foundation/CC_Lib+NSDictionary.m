@@ -52,7 +52,7 @@
     [self setObject:@"" forKey:aKey];
 }
 
-- (void)cc_setKey:(NSString *)aKey value:(id)value{
+- (void)cc_setKey:(NSString *)aKey value:(id)value {
     if (!aKey) {
         return;
     }
@@ -63,14 +63,20 @@
     [self setObject:value forKey:aKey];
 }
 
-- (void)cc_removeKey:(NSString *)aKey{
+- (void)cc_removeKey:(NSString *)aKey {
     if (!aKey) {
         return;
     }
     [self removeObjectForKey:aKey];
 }
 
-- (NSMutableString *)cc_formatToString{
+- (NSData *)cc_convertToData {
+
+    NSData *data = [NSJSONSerialization dataWithJSONObject:self options:NSJSONWritingPrettyPrinted error:nil];
+    return data;
+}
+
+- (NSMutableString *)cc_formatToString {
     NSMutableString *formatString = [[NSMutableString alloc]init];
     
     NSArray *keysArray = [self allKeys];

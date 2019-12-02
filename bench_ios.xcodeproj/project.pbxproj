@@ -71,6 +71,9 @@
 		D84DC92E23275AD800CF83C8 /* AppDelegate_APNs.m in Sources */ = {isa = PBXBuildFile; fileRef = D84DC92C23275AD800CF83C8 /* AppDelegate_APNs.m */; };
 		D84DC9952328D42600CF83C8 /* CC_NavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = D84DC9942328D42600CF83C8 /* CC_NavigationBar.m */; };
 		D84DC99A2328DE6400CF83C8 /* CC_NavigationBarConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = D84DC9992328DE6400CF83C8 /* CC_NavigationBarConfig.m */; };
+		D8535BA72394F2F20052C476 /* CC_ShareUI+CC.m in Sources */ = {isa = PBXBuildFile; fileRef = D8535BA62394F2F20052C476 /* CC_ShareUI+CC.m */; };
+		D8535BAA2394F3340052C476 /* CC_ShareUI.m in Sources */ = {isa = PBXBuildFile; fileRef = D8535BA92394F3340052C476 /* CC_ShareUI.m */; };
+		D8535BAD2394F3750052C476 /* CC_Money.m in Sources */ = {isa = PBXBuildFile; fileRef = D8535BAC2394F3750052C476 /* CC_Money.m */; };
 		D86A7A1A234F291000A732DD /* bench_ios.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D86A7A19234F291000A732DD /* bench_ios.bundle */; };
 		D87A2778233BB6A6005B7343 /* testjson.json in Resources */ = {isa = PBXBuildFile; fileRef = D87A2777233BB6A6005B7343 /* testjson.json */; };
 		D8A06EF7230F9999006BDF31 /* CC_Double.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A06E12230F9999006BDF31 /* CC_Double.m */; };
@@ -297,6 +300,12 @@
 		D84DC9942328D42600CF83C8 /* CC_NavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC_NavigationBar.m; sourceTree = "<group>"; };
 		D84DC9982328DE6400CF83C8 /* CC_NavigationBarConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_NavigationBarConfig.h; sourceTree = "<group>"; };
 		D84DC9992328DE6400CF83C8 /* CC_NavigationBarConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC_NavigationBarConfig.m; sourceTree = "<group>"; };
+		D8535BA52394F2F10052C476 /* CC_ShareUI+CC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CC_ShareUI+CC.h"; sourceTree = "<group>"; };
+		D8535BA62394F2F20052C476 /* CC_ShareUI+CC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CC_ShareUI+CC.m"; sourceTree = "<group>"; };
+		D8535BA82394F3340052C476 /* CC_ShareUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_ShareUI.h; sourceTree = "<group>"; };
+		D8535BA92394F3340052C476 /* CC_ShareUI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC_ShareUI.m; sourceTree = "<group>"; };
+		D8535BAB2394F3740052C476 /* CC_Money.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_Money.h; sourceTree = "<group>"; };
+		D8535BAC2394F3750052C476 /* CC_Money.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC_Money.m; sourceTree = "<group>"; };
 		D86A7A19234F291000A732DD /* bench_ios.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = bench_ios.bundle; sourceTree = "<group>"; };
 		D87A2777233BB6A6005B7343 /* testjson.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = testjson.json; sourceTree = "<group>"; };
 		D8A06E0B230F9999006BDF31 /* CC_CoreMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_CoreMacro.h; sourceTree = "<group>"; };
@@ -735,6 +744,8 @@
 			children = (
 				D8A06E20230F9999006BDF31 /* ccs.h */,
 				D8A06EE2230F9999006BDF31 /* ccs.m */,
+				D8535BA52394F2F10052C476 /* CC_ShareUI+CC.h */,
+				D8535BA62394F2F20052C476 /* CC_ShareUI+CC.m */,
 				D8A06E10230F9999006BDF31 /* CC_Macro.h */,
 				D8A06E0C230F9999006BDF31 /* CC_Kit */,
 				D8A06E42230F9999006BDF31 /* CC_Lib */,
@@ -852,6 +863,8 @@
 			isa = PBXGroup;
 			children = (
 				D843B751230FE12C003CC955 /* CC_LibUI.h */,
+				D8535BA82394F3340052C476 /* CC_ShareUI.h */,
+				D8535BA92394F3340052C476 /* CC_ShareUI.m */,
 				D8A06E7D230F9999006BDF31 /* CC_View.h */,
 				D8A06E64230F9999006BDF31 /* CC_View.m */,
 				D8A06E5B230F9999006BDF31 /* CC_Label.h */,
@@ -996,6 +1009,8 @@
 				D8A06E33230F9999006BDF31 /* CC_Foundation.h */,
 				D8A06EDC230F9999006BDF31 /* CC_Model.h */,
 				D8A06ED4230F9999006BDF31 /* CC_Model.m */,
+				D8535BAB2394F3740052C476 /* CC_Money.h */,
+				D8535BAC2394F3750052C476 /* CC_Money.m */,
 				D8A06EDD230F9999006BDF31 /* CC_CoreTimer.h */,
 				D8A06ED3230F9999006BDF31 /* CC_CoreTimer.m */,
 				D8A06ED6230F9999006BDF31 /* CC_CoreThread.h */,
@@ -1176,6 +1191,7 @@
 				D8A06EFC230F9999006BDF31 /* CC_Base.m in Sources */,
 				D8A06F02230F9999006BDF31 /* CC_Date.m in Sources */,
 				D8A06F7C230F99C9006BDF31 /* TestView.m in Sources */,
+				D8535BAD2394F3750052C476 /* CC_Money.m in Sources */,
 				D8A06F1E230F9999006BDF31 /* CC_TapGestureRecognizer.m in Sources */,
 				D8A06F03230F9999006BDF31 /* CC_Function.m in Sources */,
 				D8A06F39230F9999006BDF31 /* CC_WebImageManager.m in Sources */,
@@ -1225,6 +1241,7 @@
 				1F0687652325F56900875FCC /* CC_Mask.m in Sources */,
 				D84DC9952328D42600CF83C8 /* CC_NavigationBar.m in Sources */,
 				D843B7C02317E0A4003CC955 /* CC_Delegate.m in Sources */,
+				D8535BA72394F2F20052C476 /* CC_ShareUI+CC.m in Sources */,
 				6D4B632D2331C28E00EE2CAF /* UISwitch+CCUI.m in Sources */,
 				D80C6B3C23900F1800A1E0DB /* CC_Service.m in Sources */,
 				CCD8BEF02314E60C00FC5FC9 /* Test_LibViewController.m in Sources */,
@@ -1254,6 +1271,7 @@
 				D8A06F13230F9999006BDF31 /* CC_Image.m in Sources */,
 				D8A06F52230F9999006BDF31 /* CC_Lib+NSDictionary.m in Sources */,
 				D8A06F68230F99B7006BDF31 /* TestCoreFoundation.m in Sources */,
+				D8535BAA2394F3340052C476 /* CC_ShareUI.m in Sources */,
 				D8A06EF9230F9999006BDF31 /* CC_Runtime.m in Sources */,
 				D8A06F2A230F9999006BDF31 /* CC_Label.m in Sources */,
 				D84DC91F232662A500CF83C8 /* TestTabBarController.m in Sources */,

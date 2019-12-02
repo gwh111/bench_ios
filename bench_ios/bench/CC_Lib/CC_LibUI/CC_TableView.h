@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (__kindof CC_TableView *(^)(id<UITableViewDelegate>))cc_delegate;
 - (__kindof CC_TableView *(^)(id<UITableViewDataSource>))cc_dataSource;
 
+- (void)cc_addTextList:(NSArray *)list withTappedBlock:(void(^)(NSUInteger index))block;
+
 @end
 
 NS_ASSUME_NONNULL_END

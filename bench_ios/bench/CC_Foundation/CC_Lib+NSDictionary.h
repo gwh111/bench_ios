@@ -28,6 +28,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)cc_removeKey:(NSString *)aKey;
 
+- (NSData *)cc_convertToData;
+
 // 字典转换成xx=xx&xx=xx...的字符串
 - (NSMutableString *)cc_formatToString;
 

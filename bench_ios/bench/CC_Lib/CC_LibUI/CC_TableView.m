@@ -7,6 +7,14 @@
 //
 
 #import "CC_TableView.h"
+#import "CC_CoreUI.h"
+
+@interface CC_TableView ()
+
+@property (strong) void (^tappedBlock)(NSUInteger index);
+@property (nonatomic, retain) NSArray *list;
+
+@end
 
 @implementation CC_TableView
 
@@ -22,6 +30,49 @@
         self.dataSource = delegate;
         return self;
     };
+}
+
+- (void)cc_addTextList:(NSArray *)list withTappedBlock:(void(^)(NSUInteger index))block {
+    _list = list;
+    _tappedBlock = block;
+    self.dataSource = self;
+    self.delegate = self;
+}
+
+//tableView
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return _list.count;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return RH(50);
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *CellIdentifier = @"Cell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc]
+                initWithStyle:UITableViewCellStyleDefault
+                reuseIdentifier: CellIdentifier];
+    } else {
+        while ([cell.contentView.subviews lastObject] != nil) {
+            [(UIView *)[cell.contentView.subviews lastObject] removeFromSuperview];
+        }
+    }
+    
+    cell.textLabel.text = _list[indexPath.row];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:YES];
+    _tappedBlock(indexPath.row);
 }
 
 @end
