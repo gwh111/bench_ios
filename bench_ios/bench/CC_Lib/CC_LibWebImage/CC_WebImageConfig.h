@@ -6,7 +6,6 @@
 //  Copyright © 2019 路飞. All rights reserved.
 //
 
-#import "CC_Foundation.h"
 #import <UIKit/UIKit.h>
 
 @protocol CC_WebImageOperationDelegate <NSObject>

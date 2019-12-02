@@ -12,27 +12,11 @@ Pod::Spec.new do |spec|
 
   spec.ios.deployment_target  = '7.0'
 
-  spec.source_files       = 'bench_ios/bench/*'
+  spec.source_files       = 'bench_ios/bench/ccs.{h,m}'
   spec.resources          = 'bench_ios/bench_ios.bundle'
 
-  spec.subspec 'CC_Kit' do |ss|
-    ss.source_files = 'bench_ios/bench/CC_Kit/**/*'
-  end
-
-  spec.subspec 'CC_Lib' do |ss|
-    ss.source_files = 'bench_ios/bench/CC_Lib/**/*'
-  end
-
-  spec.subspec 'CC_Function' do |ss|
-    ss.source_files = 'bench_ios/bench/CC_Function/**/*'
-  end
-
-  spec.subspec 'CC_Foundation' do |ss|
-    ss.source_files = 'bench_ios/bench/CC_Foundation/**/*'
-  end
-
-  spec.subspec 'CC_CoreFoundation' do |ss|
-    ss.source_files = 'bench_ios/bench/CC_CoreFoundation/**/*'
-  end
+    spec.subspec 'CC_Core' do |ss|
+      ss.source_files = 'bench_ios/bench/**/*'
+    end
 
 end

@@ -38,6 +38,7 @@
 
 // Trigger function, triggering after the condition of trigger function is reached
 // 触发函数 条件达到后触发
+- (void)cc_viewDidPopFrom:(CC_ViewController *)viewController userInfo:(id)userInfo;
 - (void)cc_viewDidLoad;
 - (void)cc_viewWillAppear;
 - (void)cc_viewWillDisappear;

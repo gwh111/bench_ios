@@ -9,7 +9,7 @@
 #import "CC_TableView.h"
 #import "CC_CoreUI.h"
 
-@interface CC_TableView ()
+@interface CC_TableView () <UITableViewDelegate, UITableViewDataSource>
 
 @property (strong) void (^tappedBlock)(NSUInteger index);
 @property (nonatomic, retain) NSArray *list;

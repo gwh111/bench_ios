@@ -213,7 +213,7 @@
 }
 
 + (BOOL)isDarkMode {
-    return [cc_message cc_instance:CC_CoreUI.shared method:@selector(isDarkMode) params:nil];
+    return [[cc_message cc_instance:CC_CoreUI.shared method:@selector(isDarkMode) params:nil]boolValue];
 }
 
 #pragma mark action

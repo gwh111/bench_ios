@@ -9,6 +9,7 @@
 #import "CC_Runtime.h"
 #import <objc/runtime.h>
 #import "CC_Base.h"
+#import "CC_CoreMacro.h"
 
 @interface CC_Runtime ()
 

@@ -120,6 +120,8 @@
 }
 
 // Trigger function, triggering after the condition of trigger function is reached
+- (void)cc_viewDidPopFrom:(CC_ViewController *)viewController userInfo:(id)userInfo {}
+
 - (void)cc_viewDidLoad {}
 
 - (void)cc_viewWillAppear {}

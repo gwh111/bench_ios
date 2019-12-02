@@ -9,6 +9,7 @@
 #import "CC_Base.h"
 #import <malloc/malloc.h>
 #import "CC_CoreBase.h"
+#import "CC_CoreMacro.h"
 
 //@interface CC_Base()
 //

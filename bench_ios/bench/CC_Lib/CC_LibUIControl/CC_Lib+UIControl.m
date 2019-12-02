@@ -6,6 +6,7 @@
 //
 
 #import "CC_Lib+UIControl.h"
+#import "CC_Foundation.h"
 
 typedef NSTimeInterval acceptEventInterval;
 typedef NSTimeInterval acceptEventTime;

@@ -33,6 +33,7 @@
 
 // Returns the popped controller.
 - (CC_ViewController *)cc_popViewController;
+- (CC_ViewController *)cc_popViewControllerFrom:(CC_ViewController *)viewController userInfo:(id)userInfo;
 
 - (void)cc_dismissViewController;
 - (void)cc_popToViewController:(Class)aClass;

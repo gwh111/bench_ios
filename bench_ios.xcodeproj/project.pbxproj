@@ -303,6 +303,7 @@
 		D8535BA92394F3340052C476 /* CC_ShareUI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC_ShareUI.m; sourceTree = "<group>"; };
 		D8535BAB2394F3740052C476 /* CC_Money.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_Money.h; sourceTree = "<group>"; };
 		D8535BAC2394F3750052C476 /* CC_Money.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC_Money.m; sourceTree = "<group>"; };
+		D8535BAE2394FA430052C476 /* CC_Foundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_Foundation.h; sourceTree = "<group>"; };
 		D86A7A19234F291000A732DD /* bench_ios.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = bench_ios.bundle; sourceTree = "<group>"; };
 		D87A2777233BB6A6005B7343 /* testjson.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = testjson.json; sourceTree = "<group>"; };
 		D8A06E0B230F9999006BDF31 /* CC_CoreMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_CoreMacro.h; sourceTree = "<group>"; };
@@ -340,7 +341,6 @@
 		D8A06E2E230F9999006BDF31 /* CC_Dictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC_Dictionary.m; sourceTree = "<group>"; };
 		D8A06E2F230F9999006BDF31 /* CC_Array.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_Array.h; sourceTree = "<group>"; };
 		D8A06E31230F9999006BDF31 /* CC_CoreFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_CoreFoundation.h; sourceTree = "<group>"; };
-		D8A06E33230F9999006BDF31 /* CC_Foundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_Foundation.h; sourceTree = "<group>"; };
 		D8A06E41230F9999006BDF31 /* PlatformConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlatformConfig.h; sourceTree = "<group>"; };
 		D8A06E46230F9999006BDF31 /* RSA.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSA.m; sourceTree = "<group>"; };
 		D8A06E47230F9999006BDF31 /* RSA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSA.h; sourceTree = "<group>"; };
@@ -1001,7 +1001,7 @@
 		D8A06ECC230F9999006BDF31 /* CC_Foundation */ = {
 			isa = PBXGroup;
 			children = (
-				D8A06E33230F9999006BDF31 /* CC_Foundation.h */,
+				D8535BAE2394FA430052C476 /* CC_Foundation.h */,
 				D8A06EDC230F9999006BDF31 /* CC_Model.h */,
 				D8A06ED4230F9999006BDF31 /* CC_Model.m */,
 				D8535BAB2394F3740052C476 /* CC_Money.h */,

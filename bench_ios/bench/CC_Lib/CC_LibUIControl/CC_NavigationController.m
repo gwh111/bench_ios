@@ -22,6 +22,11 @@
 + (instancetype)shared {
     return [CC_Base.shared cc_registerSharedInstance:self block:^{
         CC_NavigationController.shared.cc_UINavList = NSMutableArray.new;
+        CC_NavigationBarConfig *config = CC_NavigationBarConfig.new;
+        config.cc_navigationBarTitleFont = [CC_CoreUI.shared relativeFont:@"Helvetica-Bold" fontSize:19];
+        config.cc_navigationBarTitleColor = HEX(#000000);
+        config.cc_navigationBarBackgroundColor = UIColor.whiteColor;
+        CC_NavigationController.shared.cc_navigationBarConfig = config;
     }];
 }
 
@@ -85,6 +90,13 @@
 
 - (CC_ViewController *)cc_popViewController {
     return [self cc_popViewControllerAnimated:YES];
+}
+
+- (CC_ViewController *)cc_popViewControllerFrom:(CC_ViewController *)viewController userInfo:(id)userInfo {
+    CC_ViewController *pop = [self cc_popViewControllerAnimated:YES];
+    CC_ViewController *last = cc_UINav.viewControllers.lastObject;
+    [last cc_viewDidPopFrom:pop userInfo:userInfo];
+    return pop;
 }
 
 - (void)cc_dismissViewController {

@@ -6,7 +6,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CC_Foundation.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

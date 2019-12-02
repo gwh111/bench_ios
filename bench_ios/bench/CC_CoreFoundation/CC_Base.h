@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "CC_CoreMacro.h"
 
 @interface CC_Base : NSObject
 
