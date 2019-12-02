@@ -54,6 +54,7 @@ static const NSInteger kDefaultMaxCacheAge = 60 * 60 * 24 * 7;
         self.cacheConfig = [[CC_WebImageCacheConfig alloc] init];
         self.diskCache = [[CC_WebDiskCache alloc] initWithPath:diskPath withConfig:self.cacheConfig];
         self.memoryCache = [[NSCache alloc] init];
+        self.addressCache = [[NSCache alloc] init];
         self.ioQueue = dispatch_queue_create("com.ccimage.cache", DISPATCH_QUEUE_SERIAL);
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onDidEnterBackground:) name:UIApplicationDidEnterBackgroundNotification object:nil];
     }
@@ -145,6 +146,7 @@ static const NSInteger kDefaultMaxCacheAge = 60 * 60 * 24 * 7;
 
 - (void)clearAllMemoryCacheWithCompletion:(void (^)(void))completionBlock{
     [self.memoryCache removeAllObjects];
+    [self.addressCache removeAllObjects];
     SAFE_CALL_BLOCK(completionBlock);
 }
 
@@ -157,6 +159,7 @@ static const NSInteger kDefaultMaxCacheAge = 60 * 60 * 24 * 7;
 
 - (void)clearAllWithCompletion:(void (^)(void))completionBlock{
     [self.memoryCache removeAllObjects];
+    [self.addressCache removeAllObjects];
     dispatch_async(self.ioQueue, ^{
         [self.diskCache clearDiskCache];
         SAFE_CALL_BLOCK(completionBlock);

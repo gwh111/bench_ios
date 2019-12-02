@@ -54,7 +54,7 @@
                         [self cc_setImageWithURL:[NSURL URLWithString:imgName] placeholderImage:placeholderImage];
                     }else {
                         [self cc_setImageWithURL:[NSURL URLWithString:imgName]];
-                    }                    
+                    }
                 }
                     break;
                 default:
@@ -62,6 +62,13 @@
             }
         }
         
+        return self;
+    };
+}
+
+- (__kindof CC_ImageView *(^)(BOOL))cc_hideAnimation {
+    return ^(BOOL hideAnimation) {
+        self.hideAnimation = hideAnimation;
         return self;
     };
 }

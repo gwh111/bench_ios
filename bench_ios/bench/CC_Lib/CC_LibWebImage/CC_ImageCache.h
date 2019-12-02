@@ -40,6 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 typedef NSCache CC_WebMemoryCache;
+typedef NSCache CC_ImageAddressCache;
 
 typedef void(^CC_CacheQueryCompletedBlock)(UIImage * _Nullable image, NSData * _Nullable data);
 
@@ -47,6 +48,7 @@ typedef void(^CC_CacheQueryCompletedBlock)(UIImage * _Nullable image, NSData * _
 
 @property (nonatomic, strong) id<CC_WebDiskCacheDelegate> diskCache;
 @property (nonatomic, strong) CC_WebMemoryCache *memoryCache;
+@property (nonatomic, strong) CC_ImageAddressCache *addressCache;
 @property (nonatomic, strong) CC_WebImageCacheConfig *cacheConfig;
 
 - (nonnull instancetype)initWithNamespace:(nonnull NSString *)ns;

@@ -18,6 +18,8 @@ typedef void(^CC_WebImageCompletionBlock)(UIImage * _Nullable image, NSError * _
 
 + (instancetype)shared;
 
+@property (strong, nonatomic, nullable) CC_ImageCache *imageCache;
+
 - (id<CC_WebImageOperationDelegate>)loadImageWithURL:(nullable NSURL *)url
                                               progress:(nullable CC_WebImageProgressBlock)progressBlock
                                              completed:(nullable CC_WebImageCompletionBlock)completedBlock;

@@ -31,12 +31,6 @@
 
 @end
 
-@interface CC_WebImageManager ()
-
-@property (strong, nonatomic, nullable) CC_ImageCache *imageCache;
-
-@end
-
 @implementation CC_WebImageManager
 
 + (instancetype)shared{
@@ -47,6 +41,7 @@
 
 - (void)setup{
     self.imageCache = [CC_Base.shared cc_init:CC_ImageCache.class];
+    
 }
 
 #pragma methods

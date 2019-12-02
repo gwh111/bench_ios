@@ -9,56 +9,33 @@
 
 @implementation UIImageView (CCUI)
 
-- (__kindof UIImageView * (^)(UIImage *))cc_image {
-    return ^(UIImage *image) {
-        self.image = image;
-        return self;
-    };
+- (UIImageView * (^)(UIImage *))cc_image {
+    return ^(UIImage *_) { self.image = _; return self; };
 }
 
-- (__kindof UIImageView *(^)(UIImage *))cc_highlightedImage {
-    return ^(UIImage *highlightedImage) {
-        self.highlightedImage = highlightedImage;        
-        return self;
-    };
+- (UIImageView *(^)(UIImage *))cc_highlightedImage {
+    return ^(UIImage *_) { self.highlightedImage = _; return self; };
 }
 
-- (__kindof UIImageView *(^)(BOOL))cc_highlighted {
-    return ^(BOOL highlighted) {
-        self.highlighted = highlighted;
-        return self;
-    };
+- (UIImageView *(^)(BOOL))cc_highlighted {
+    return ^(BOOL _) { self.highlighted = _; return self; };
 }
 
-- (__kindof UIImageView *(^)(NSArray *))cc_animationImages {
-    return ^(NSArray *animationImages) {
-        self.animationImages = animationImages;
-        return self;
-    };
+- (UIImageView *(^)(NSArray *))cc_animationImages {
+    return ^(NSArray *_) { self.animationImages = _; return self; };
 }
 
-- (__kindof UIImageView *(^)(NSArray *))cc_highlightedAnimationImages {
-    return ^(NSArray *highlightedAnimationImages) {
-        self.highlightedAnimationImages = highlightedAnimationImages;
-        return self;
-    };
+- (UIImageView *(^)(NSArray *))cc_highlightedAnimationImages {
+    return ^(NSArray *_) { self.highlightedAnimationImages = _; return self; };
 }
 
-- (__kindof UIImageView *(^)(NSTimeInterval))cc_animationDuration {
-    return ^(NSTimeInterval animationDuration) {
-        self.animationDuration = animationDuration;
-        return self;
-    };
+- (UIImageView *(^)(NSTimeInterval))cc_animationDuration {
+    return ^(NSTimeInterval _) { self.animationDuration = _; return self; };
 }
 
-- (__kindof UIImageView *(^)(NSInteger))cc_animationRepeatCount {
-    return ^(NSInteger animationRepeatCount) {
-        self.animationRepeatCount = animationRepeatCount;
-        return self;
-    };
+- (UIImageView *(^)(NSInteger))cc_animationRepeatCount {
+    return ^(NSInteger _) { self.animationRepeatCount = _; return self; };
 }
-
-
 
 @end
 

@@ -12,6 +12,7 @@
 
 static const char  user_defined_base_show_progress_view_key;
 static const char  user_defined_base_progress_view_key;
+static const char  user_defined_base_hide_animation_key;
 
 static char kCC_WebImageOperation;
 typedef NSMutableDictionary<NSString *, id<CC_WebImageOperationDelegate>> CC_WebImageOperationDictionay;
@@ -58,17 +59,24 @@ typedef NSMutableDictionary<NSString *, id<CC_WebImageOperationDelegate>> CC_Web
 -(void)cc_setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder processBlock:(nullable CC_WebImageProgressBlock)processBlock completed:(nullable CC_WebImageCompletionBlock)completedBlock{
     //设置占位图
     dispatch_main_async_safe(^{
-        [self internalSetImage:placeholder];
+        [self internalSetImage:placeholder animated:NO];
     });
-    __weak typeof(self) weakSelf = self;
+    WS(weakSelf)
     id<CC_WebImageOperationDelegate> operation = [[CC_WebImageManager shared] loadImageWithURL:url progress:processBlock completed:^(UIImage * _Nullable image, NSError * _Nullable error, BOOL finished) {
+        SS(strongSelf)
         if (error) {
 #if DEBUG
             [CC_Notice.shared showNotice:error.description];
 #endif
         } else if (image) {
             //设置下载完的图片
-            [weakSelf internalSetImage:image];
+            NSString *address = [[CC_WebImageManager shared].imageCache.addressCache objectForKey:[NSString stringWithFormat:@"%p",strongSelf]];
+            if (!address) {
+                [[CC_WebImageManager shared].imageCache.addressCache setObject:[NSString stringWithFormat:@"%p",strongSelf] forKey:[NSString stringWithFormat:@"%p",strongSelf]];
+                [weakSelf internalSetImage:image animated:YES];
+            }else{
+                [weakSelf internalSetImage:image animated:NO];
+            }
         } else {
             if (finished) {
 #if DEBUG
@@ -82,13 +90,6 @@ typedef NSMutableDictionary<NSString *, id<CC_WebImageOperationDelegate>> CC_Web
     [self setOperation:operation forKey:NSStringFromClass([self class])];
 }
 - (void)cc_setImageWithURL:(NSURL *)url placeholderImage:(nullable UIImage *)placeholder showProgressView:(BOOL)showProgressView completed:(nullable CC_WebImageCompletionBlock)completedBlock{
-    
-    UIImageView *imgV = [UIImageView new];
-    imgV.showProgressView = YES;
-    [imgV cc_setImageWithURL:[NSURL URLWithString:@"imageUrl"] placeholderImage:[UIImage imageNamed:@"placeholder"] showProgressView:YES completed:^(UIImage * _Nullable image, NSError * _Nullable error, BOOL finished) {
-        //完成回调
-        
-    }];
     
     self.progressV = [[CC_WebImgProgressView alloc]initWithFrame:CGRectMake(self.width/2.0-RH(12.0f), self.height/2.0-RH(12.0f), RH(24.0f), RH(24.0f))];
     [self addSubview:self.progressV];
@@ -107,10 +108,21 @@ typedef NSMutableDictionary<NSString *, id<CC_WebImageOperationDelegate>> CC_Web
             }
         }
     } completed:completedBlock];
+    
+    if (!self.hideAnimation) {
+        [self.layer removeAnimationForKey:@"transition"];
+    }
 }
-- (void)internalSetImage:(UIImage *)image {
+- (void)internalSetImage:(UIImage *)image animated:(BOOL)animated{
     if (!image) {
         return;
+    }
+    if (!self.hideAnimation && animated) {
+        CATransition *animation = [CATransition animation];
+        [animation setDuration:0.65];
+        [animation setType:kCATransitionFade];
+        animation.removedOnCompletion = YES;
+        [self.layer addAnimation:animation forKey:@"transition"];
     }
     if ([self isKindOfClass:[UIImageView class]]) {
         UIImageView *imageView = (UIImageView *)self;
@@ -195,4 +207,11 @@ typedef NSMutableDictionary<NSString *, id<CC_WebImageOperationDelegate>> CC_Web
     [CC_Runtime cc_setObject:self key:(SEL)&user_defined_base_progress_view_key value:progressV];
 }
 
+- (BOOL)hideAnimation{
+    return [[CC_Runtime cc_getObject:self key:(SEL)&user_defined_base_hide_animation_key]boolValue];
+}
+
+- (void)setHideAnimation:(BOOL)hideAnimation{
+    [CC_Runtime cc_setObject:self key:(SEL)&user_defined_base_hide_animation_key value:[NSNumber numberWithBool:hideAnimation]];
+}
 @end

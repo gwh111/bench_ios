@@ -21,6 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 //是否展示进度条
 @property (nonatomic, assign) BOOL showProgressView;
+//是否展示动画-默认开启
+@property (nonatomic, assign) BOOL hideAnimation;
 //进度条view
 @property (nonatomic, strong) CC_WebImgProgressView *progressV;
 

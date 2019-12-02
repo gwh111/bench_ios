@@ -9,79 +9,58 @@
 #import "HomeVC.h"
 #import "ccs.h"
 
-@interface HomeVC ()<UITableViewDelegate,UITableViewDataSource>{
-    NSArray *testList;
-}
+@interface HomeVC ()
+
+@property (nonatomic, retain) NSArray *testList;
+@property (nonatomic, retain) NSMutableArray *testNameList;
 
 @end
 
 @implementation HomeVC
 
-- (void)cc_viewWillLoad{
+- (void)cc_viewWillLoad {
+    self.view.backgroundColor = UIColor.whiteColor;
     self.cc_title = @"首页";
-    testList = [ccs bundlePlistWithPath:@"testList"][@"list"];
+    _testList = [ccs bundlePlistWithPath:@"testList"][@"list"];
+    _testNameList = ccs.mutArray;
+    for (int i = 0; i < _testList.count; i++) {
+        [_testNameList cc_addObject:_testList[i][@"title"]];
+    }
+    
 }
 
 - (void)cc_viewDidLoad {
-    self.view.backgroundColor = UIColor.whiteColor;
     
 //    self.cc_navigationBarHidden = YES;
-    ccs.TableView
+    CC_TableView *tableView = ccs.TableView
     .cc_addToView(self)
 //    .cc_frame(0, STATUS_AND_NAV_BAR_HEIGHT, ccs.width, ccs.safeHeight - TABBAR_BAR_HEIGHT)
     .cc_frame(0, 0, WIDTH(), self.cc_displayView.height)
-    .cc_delegate(self)
-    .cc_dataSource(self)
     .cc_backgroundColor(UIColor.whiteColor);
-}
-
-//tableView
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return [testList count];
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 1;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 50;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc]
-                initWithStyle:UITableViewCellStyleDefault
-                reuseIdentifier: CellIdentifier];
-    }else{
-        while ([cell.contentView.subviews lastObject] != nil) {
-            [(UIView *)[cell.contentView.subviews lastObject] removeFromSuperview];
+    [tableView cc_addTextList:_testNameList withTappedBlock:^(NSUInteger index) {
+        
+        NSDictionary *dic = self.testList[index];
+        NSString *name = dic[@"className"];
+        Class cls = NSClassFromString(name);
+        if (!cls) {
+            CCLOG(@"找不到class");
+            return;
         }
-    }
-    cell.textLabel.text = [testList objectAtIndex:indexPath.section][@"title"];
+        if ([cls isSubclassOfClass:[UIViewController class]]) {
+            [ccs pushViewController:[ccs init:cls]];
+        } else {
+            [cc_message cc_class:cls method:@selector(start)];
+        }
+    }];
     
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    return cell;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:YES];
+    ccs.ui.dateLabel
+    .cc_text(@"2019/09/10 10:13:41")
+    .cc_top(RH(10))
+    .cc_addToView(self);
     
-    NSDictionary *dic = testList[indexPath.section];
-    NSString *name = dic[@"className"];
-    Class cls = NSClassFromString(name);
-    if (!cls) {
-        CCLOG(@"找不到class");
-        return;
-    }
-    if ([cls isSubclassOfClass:[UIViewController class]]) {
-        [ccs pushViewController:[ccs init:cls]];
-    }else{
-        [cc_message cc_class:cls method:@selector(start)];
-    }
-    
+    ccs.ui.grayLine
+    .cc_top(RH(30))
+    .cc_addToView(self);
 }
 
 @end

@@ -13,7 +13,7 @@
 
 + (void)start {
     
-    [ccs pushWebViewControllerWithUrl:@"https://juejin.im/post/5d64de36e51d45620d2cb91c"];
+    [ccs pushWebViewControllerWithUrl:@"https://blog.csdn.net/gwh111/article/details/100700830"];
     
     [ccs showNotice:@"hello"];
 }
