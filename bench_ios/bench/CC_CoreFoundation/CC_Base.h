@@ -15,6 +15,7 @@
 @property (nonatomic,assign) NSTimeInterval cc_acceptEventInterval;
 
 @property (nonatomic,assign) BOOL cc_debug;
+@property (nonatomic,assign) int cc_environment;
 
 + (instancetype)shared;
 

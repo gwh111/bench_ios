@@ -12,6 +12,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CC_HttpConfig : NSObject
 
+// 和服务端交互的方式
+typedef NS_ENUM(NSUInteger, CCHttpRequestType) {
+    CCHttpRequestTypeNormal,// 服务端使用service字段判断服务
+    CCHttpRequestTypeMock,// 线下使用 httphead 的 Web-Exterface-RequestPath 字段f判断服务，线上使用 url 的路径判断服务
+};
+
+@property(nonatomic,assign) CCHttpRequestType httpRequestType;
+
 @property(nonatomic,retain) NSMutableDictionary *httpHeaderFields;
 
 // 设置一次 额外的 每个接口都要发送的数据
@@ -42,6 +50,9 @@ NS_ASSUME_NONNULL_BEGIN
 // 设置要加密的域名
 // 必须添加 CC_HttpEncryption文件
 @property(nonatomic,retain) NSString *encryptDomain;
+
+// 忽略 mock 系统给的错误
+@property(nonatomic,assign) BOOL ignoreMockError;
 
 - (void)start;
 

@@ -99,20 +99,21 @@ static NSString *static_netTestContain = @"http://d.net/";
     } else {
         urlReq = [CC_HttpHelper.shared requestWithUrl:model.requestDomain andParamters:model.requestParamsStr model:model configure:configure type:type];
     }
+    
     model.requestUrl = [NSString stringWithFormat:@"%@?%@",urlReq.URL.absoluteString,model.requestParamsStr];
     
     NSURLSessionDownloadTask *mytask = [session downloadTaskWithRequest:urlReq completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         
-        [session finishTasksAndInvalidate];
+        [CC_HttpHelper.shared cancelURLSession:session];
         
         if (error.code == -1003) {
             NSURL *urlBase =  error.userInfo[NSURLErrorFailingURLErrorKey];
-            NSString *ipStr = CC_HttpTask.shared.configure.scopeIp;
+            NSString *ipStr = self.configure.scopeIp;
             if (ipStr.length>0 && urlBase.host.length>0) {
                 NSMutableString *mutUrlStr = [NSMutableString stringWithString:urlBase.relativeString];
                 NSURL *newUrl = [NSURL URLWithString:[mutUrlStr stringByReplacingOccurrencesOfString:urlBase.host withString:ipStr]];
                 [CC_CoreThread.shared cc_gotoMainSync:^{
-                    [CC_HttpTask.shared.configure httpHeaderAdd:@"host" value:urlBase.host];
+                    [self.configure httpHeaderAdd:@"host" value:urlBase.host];
                     [CC_HttpTask.shared request:newUrl params:paramsDic model:model request:request finishCallbackBlock:^(NSString *error, HttpModel *result) {
                         block(error,result);
                     } type:0];
@@ -121,7 +122,7 @@ static NSString *static_netTestContain = @"http://d.net/";
                 return;
             }
         } else {
-            [CC_HttpTask.shared.configure httpHeaderRemove:@"host"];
+            [self.configure httpHeaderRemove:@"host"];
         }
         
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
@@ -150,8 +151,8 @@ static NSString *static_netTestContain = @"http://d.net/";
             }
             model.networkError = nil;
             
-            if (CC_HttpTask.shared.configure.headerEncrypt == YES && model.forbiddenEncrypt == NO) {
-                if ([CC_HttpTask.shared.configure.encryptDomain isEqualToString:model.requestDomain.absoluteString]) {
+            if (self.configure.headerEncrypt == YES && model.forbiddenEncrypt == NO) {
+                if ([self.configure.encryptDomain isEqualToString:model.requestDomain.absoluteString]) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"
                     Class clazz = NSClassFromString(@"CC_HttpEncryption");
@@ -165,14 +166,14 @@ static NSString *static_netTestContain = @"http://d.net/";
         }
         
         if (model.resultDic) {
-            if (CC_HttpTask.shared.configure.headerEncrypt) {
+            if (self.configure.headerEncrypt) {
                 CCLOG(@"%@",model.requestParams);
             }
             if (model.debug) {
-                CCLOG(@"%@\n%@",model.requestUrl,[[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:model.resultDic options:NSJSONWritingPrettyPrinted error:nil] encoding:NSUTF8StringEncoding]);
+                CCLOG(@"%@\n%@",[model.requestUrl stringByRemovingPercentEncoding],[[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:model.resultDic options:NSJSONWritingPrettyPrinted error:nil] encoding:NSUTF8StringEncoding]);
             }
         } else {
-            CCLOG(@"%@\n%@",model.requestUrl,model.resultStr);
+            CCLOG(@"%@\n%@",[model.requestUrl stringByRemovingPercentEncoding],model.resultStr);
         }
         
         if (model.debug) {
@@ -182,13 +183,13 @@ static NSString *static_netTestContain = @"http://d.net/";
             NSDate *localDate = [date dateByAddingTimeInterval:interval];
             model.responseLocalDate = localDate;
         }
-        NSArray *keyNames = [CC_HttpTask.shared.configure.logicBlockMap allKeys];
+        NSArray *keyNames = [self.configure.logicBlockMap allKeys];
         for (NSString *name in keyNames) {
-            CC_ResLModel *logicModel = CC_HttpTask.shared.configure.logicBlockMap[name];
+            CC_ResLModel *logicModel = self.configure.logicBlockMap[name];
             if (logicModel.logicPathList.count > 0) {
                 [CC_HttpTask.shared reponseLogicPassed:logicModel result:model.resultDic index:0];
                 //使用更新后的数据
-                CC_ResLModel *newModel = CC_HttpTask.shared.configure.logicBlockMap[logicModel.logicName];
+                CC_ResLModel *newModel = self.configure.logicBlockMap[logicModel.logicName];
                 if (newModel.logicPassed) {
                     [CC_CoreThread.shared cc_gotoMainSync:^{
                         newModel.logicBlock(model,block);
@@ -204,11 +205,19 @@ static NSString *static_netTestContain = @"http://d.net/";
         }
         
         [CC_CoreThread.shared cc_gotoMainSync:^{
-            executorDelegate.finishBlock(model.errorMsgStr, model);
+            if (self.configure.ignoreMockError) {
+
+                executorDelegate.finishBlock(nil, model);
+            } else {
+
+                executorDelegate.finishBlock(model.errorMsgStr, model);
+            }
         }];
         
     }];
     [mytask resume];
+    
+    [CC_HttpHelper.shared addURLSession:session];
 }
 
 #pragma mark NSURLSessionDelegate
@@ -283,6 +292,10 @@ static NSString *static_netTestContain = @"http://d.net/";
 //上传多张图片-指定图片大小 单位 兆
 - (void)imageUpload:(NSArray *)images url:(id)url params:(id)paramsDic imageSize:(NSUInteger)imageSize reConnectTimes:(NSInteger)times finishBlock:(void (^)(NSArray<HttpModel *> *, NSArray<HttpModel *> *))uploadImageBlock {
     [[CC_Base.shared cc_init:CC_ImageUploadTask.class] uploadImages:images url:url params:paramsDic imageSize:imageSize reConnectTimes:times configure:configure finishBlock:uploadImageBlock];
+}
+
+- (void)imageUpload:(NSArray<id> *)images url:(id)url params:(id)paramsDic reConnectTimes:(NSInteger)times finishBlock:(void (^)(NSArray<HttpModel *> *, NSArray<HttpModel *> *))uploadImageBlock{
+    [[CC_Base.shared cc_init:CC_ImageUploadTask.class] uploadImages:images url:url params:paramsDic reConnectTimes:times configure:configure finishBlock:uploadImageBlock];
 }
 
 #pragma mark - 文件上传下载进度回调接口

@@ -43,7 +43,6 @@
 		6D4B62E023278B6600EE2CAF /* UITextField+CCUI.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D4B62DF23278B6600EE2CAF /* UITextField+CCUI.m */; };
 		6D4B62E723290C9700EE2CAF /* CCLibUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D4B62E623290C9500EE2CAF /* CCLibUITests.m */; };
 		6D4B632D2331C28E00EE2CAF /* UISwitch+CCUI.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D4B632C2331C28E00EE2CAF /* UISwitch+CCUI.m */; };
-		6DC3A4CB233DBFA700BBB2A4 /* CC_DomainCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC3A4CA233DBFA700BBB2A4 /* CC_DomainCenter.m */; };
 		CC50D46523408FC70078D481 /* CC_DataBaseStore.m in Sources */ = {isa = PBXBuildFile; fileRef = CC50D45F23408FC60078D481 /* CC_DataBaseStore.m */; };
 		CC50D46623408FC70078D481 /* CC_DatabaseTool.m in Sources */ = {isa = PBXBuildFile; fileRef = CC50D46023408FC70078D481 /* CC_DatabaseTool.m */; };
 		CC50D46723408FC70078D481 /* CC_Database.m in Sources */ = {isa = PBXBuildFile; fileRef = CC50D46223408FC70078D481 /* CC_Database.m */; };
@@ -240,8 +239,6 @@
 		6D4B62E623290C9500EE2CAF /* CCLibUITests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCLibUITests.m; sourceTree = "<group>"; };
 		6D4B632B2331C28E00EE2CAF /* UISwitch+CCUI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UISwitch+CCUI.h"; sourceTree = "<group>"; };
 		6D4B632C2331C28E00EE2CAF /* UISwitch+CCUI.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UISwitch+CCUI.m"; sourceTree = "<group>"; };
-		6DC3A4C9233DBFA700BBB2A4 /* CC_DomainCenter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC_DomainCenter.h; sourceTree = "<group>"; };
-		6DC3A4CA233DBFA700BBB2A4 /* CC_DomainCenter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC_DomainCenter.m; sourceTree = "<group>"; };
 		CC50D45F23408FC60078D481 /* CC_DataBaseStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC_DataBaseStore.m; sourceTree = "<group>"; };
 		CC50D46023408FC70078D481 /* CC_DatabaseTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC_DatabaseTool.m; sourceTree = "<group>"; };
 		CC50D46123408FC70078D481 /* CC_DataBaseStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_DataBaseStore.h; sourceTree = "<group>"; };
@@ -971,8 +968,6 @@
 				D8A06EB3230F9999006BDF31 /* CC_HttpEncryption.m */,
 				D8A06EB0230F9999006BDF31 /* CC_HttpResponseModel.h */,
 				D8A06EB9230F9999006BDF31 /* CC_HttpResponseModel.m */,
-				6DC3A4C9233DBFA700BBB2A4 /* CC_DomainCenter.h */,
-				6DC3A4CA233DBFA700BBB2A4 /* CC_DomainCenter.m */,
 			);
 			path = CC_LibNetwork;
 			sourceTree = "<group>";
@@ -1175,7 +1170,6 @@
 			files = (
 				6D4B62DC232780BD00EE2CAF /* UIColor+CC.m in Sources */,
 				D8A06EFF230F9999006BDF31 /* CC_String.m in Sources */,
-				6DC3A4CB233DBFA700BBB2A4 /* CC_DomainCenter.m in Sources */,
 				D8A06F54230F9999006BDF31 /* ccs.m in Sources */,
 				D8A06F24230F9999006BDF31 /* CC_NavigationController.m in Sources */,
 				D8A06F7D230F99C9006BDF31 /* TestModel.m in Sources */,

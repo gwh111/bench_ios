@@ -73,6 +73,19 @@
 // 响应数据不一定是json格式，如果YES，对不是json的数据不报错
 @property(nonatomic,assign) BOOL forbiddenJSONParseError;
 
+// mock 系统调用参数
+// 路径 服务名
+@property(nonatomic,retain) NSString *mockRequestPath;
+
+// 应用代码 不能为空，应用的代码，如app.test.web.base
+@property(nonatomic,retain) NSString *mockAppCode;
+
+// 源码版本 不能为空，主干默认为1.0，分支则根据项目的源码版本来传递，比如：1.2.20190628.626-SNAPSHOT
+@property(nonatomic,retain) NSString *mockSourceVersion;
+
+// 接口版本
+@property(nonatomic,retain) NSString *mockExterfaceVersion;
+
 - (void)parsingError:(NSError *)error;
 - (void)parsingResult:(NSString *)resultStr;
 

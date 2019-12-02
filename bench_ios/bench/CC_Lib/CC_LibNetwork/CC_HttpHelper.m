@@ -13,12 +13,6 @@
 #import "CC_BenchUpdate.h"
 #import "CC_Base.h"
 
-#ifdef CCBUILDTAG
-#   define CCBUILDTAG2 CCBUILDTAG
-#else
-#   define CCBUILDTAG2 -1
-#endif
-
 @interface CC_HttpHelper (){
     NSArray *tempDomainReqList;
     NSString *tempDomainReqKey;
@@ -28,6 +22,7 @@
     int tempReqIndex;
     int tempReqCount;
 }
+@property (nonatomic, strong) NSMutableArray *sessionArr;
 
 @end
 @implementation CC_HttpHelper
@@ -36,7 +31,35 @@ static NSString *DOMAIN_TAG_KEY = @"cc_domainTag";
 static NSString *DOMAIN_DEFAULT_KEY = @"cc_domainDic";
 
 + (instancetype)shared {
-    return [CC_Base.shared cc_registerSharedInstance:self];
+    return [CC_Base.shared cc_registerSharedInstance:self block:^{
+        
+    }];
+}
+
+- (instancetype)init {
+    if (self = [super init]) {
+        self.sessionArr = @[].mutableCopy;
+        self.stopSession = YES;
+    }
+    return self;
+}
+
+- (void)addURLSession:(NSURLSession *)session {
+    [self.sessionArr addObject:session];
+}
+
+- (void)cancelURLSession:(NSURLSession *)session {
+    [session invalidateAndCancel];
+    [self.sessionArr removeObject:session];
+    CCLOG(@"取消%@session",session);
+}
+
+- (void)cancelAllSession{
+    for (NSURLSession *session in _sessionArr) {
+        [session invalidateAndCancel];
+        [_sessionArr removeObject:session];
+    }
+    CCLOG(@"取消所有session");
 }
 
 - (BOOL)isNetworkReachable {
@@ -75,17 +98,7 @@ static NSString *DOMAIN_DEFAULT_KEY = @"cc_domainDic";
         // ...
         if ([result.resultStr containsString:BENCH_IOS_NET_TEST_CONTAIN]) {
             // net environment
-            if (CCBUILDTAG2 < 0) {
-                #ifdef DEBUG
-                if (domainReqList.count > 1) {
-                    tag = 1;
-                }
-                #else
-                
-                #endif
-            }else{
-                tag = CCBUILDTAG2;
-            }
+            tag = CC_Base.shared.cc_environment;
         }else{
             tag = 0;
         }
@@ -115,6 +128,9 @@ static NSString *DOMAIN_DEFAULT_KEY = @"cc_domainDic";
     tempPingTest = pingTest;
     tempDomainBlock = block;
     
+    [[NSNotificationCenter defaultCenter] postNotificationName:CCDomainLaunchNotification
+                                                        object:domainReqGroupList];
+    
     __block int tag = 0;
     if ([CC_DefaultStore cc_default:DOMAIN_TAG_KEY] && tempCache) {
         tag = [[CC_DefaultStore cc_default:DOMAIN_TAG_KEY]intValue];
@@ -134,17 +150,7 @@ static NSString *DOMAIN_DEFAULT_KEY = @"cc_domainDic";
             // ...
             if ([result.resultStr containsString:BENCH_IOS_NET_TEST_CONTAIN]) {
                 // net environment
-                if (CCBUILDTAG2 < 0) {
-                    #ifdef DEBUG
-                    if (domainReqGroupList.count > 1) {
-                        tag = 1;
-                    }
-                    #else
-                    
-                    #endif
-                }else{
-                    tag = CCBUILDTAG2;
-                }
+                tag = CC_Base.shared.cc_environment;
             }else{
                 tag = 0;
             }
@@ -167,6 +173,11 @@ static NSString *DOMAIN_DEFAULT_KEY = @"cc_domainDic";
         tempUrl = url;
     }else if ([url isKindOfClass:[NSString class]]) {
         tempUrl = [NSURL URLWithString:url];
+        if (configure.httpRequestType == CCHttpRequestTypeMock) {
+            if (CC_Base.shared.cc_environment == 0) {
+                tempUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", url,  model.mockRequestPath]];
+            }
+        }
     }else{
         CCLOG(@"url 不合法");
     }
@@ -193,7 +204,7 @@ static NSString *DOMAIN_DEFAULT_KEY = @"cc_domainDic";
         }
     }
     NSArray *keys = [configure.extreParameter allKeys];
-    for (int i = 0; i <keys.count; i++) {
+    for (int i = 0; i < keys.count; i++) {
         [params setObject:configure.extreParameter[keys[i]] forKey:keys[i]];
     }
     if (!configure.signKeyStr) {
@@ -229,11 +240,21 @@ static NSString *DOMAIN_DEFAULT_KEY = @"cc_domainDic";
             request.URL = [NSURL URLWithString:[NSString stringWithFormat:@"%@?%@",url.absoluteString,paramsString]];
         }
     }else if (type != CCHttpTaskTypeRequest) {
-        request.HTTPBody = [paramsString dataUsingEncoding:NSUTF8StringEncoding];
+        
+        if (configure.httpRequestType == CCHttpRequestTypeMock) {
+            
+            if (model.requestParams) {
+                NSData *data= [NSJSONSerialization dataWithJSONObject:model.requestParams options:NSJSONWritingPrettyPrinted error:nil];
+                request.HTTPBody = data;
+            }
+        } else {
+
+            request.HTTPBody = [paramsString dataUsingEncoding:NSUTF8StringEncoding];
+        }
     }
     if (type == CCHttpTaskTypeGet) {
         [request setHTTPMethod:@"GET"];
-    }else{
+    } else {
         [request setHTTPMethod:@"POST"];
     }
     if (model.timeoutInterval > 0) {
@@ -250,6 +271,14 @@ static NSString *DOMAIN_DEFAULT_KEY = @"cc_domainDic";
         CCLOG(@"没有设置_requestHTTPHeaderFieldDic");
         return request;
     }
+    if (configure.httpRequestType == CCHttpRequestTypeMock) {
+        [request setValue:model.mockRequestPath forHTTPHeaderField:@"Web-Exterface-RequestPath"];
+        [request setValue:model.mockAppCode forHTTPHeaderField:@"Web-Exterface-AppCode"];
+        [request setValue:model.mockSourceVersion forHTTPHeaderField:@"Web-Exterface-SourceVersion"];
+        [request setValue:model.mockExterfaceVersion forHTTPHeaderField:@"Web-Exterface-ExterfaceVersion"];
+        [request setValue:@"application/json; charset=UTF-8" forHTTPHeaderField:@"Content-Type"];
+    }
+    
     NSArray *keys = [configure.httpHeaderFields allKeys];
     for (int i = 0; i < keys.count; i++) {
         [request setValue:configure.httpHeaderFields[keys[i]] forHTTPHeaderField:keys[i]];
@@ -352,3 +381,7 @@ static NSString *DOMAIN_DEFAULT_KEY = @"cc_domainDic";
 }
 
 @end
+
+NSNotificationName const CCDomainLaunchNotification  = @"CCDomainLaunchNotification";
+NSNotificationName const CCDomainChangedNotification = @"CCDomainChangedNotification";
+NSNotificationName const CCDomainDoneNotification    = @"CCDomainDoneNotification";

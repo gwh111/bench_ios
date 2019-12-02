@@ -12,8 +12,13 @@
 
 @implementation ccs
 
-+ (void)start {
-    CCLOG(@"\napp name:%@\napp version:%@",[ccs appBundle][@"displayName"],[ccs appVersion]);
++ (void)configureEnvironment:(int)tag {
+    CCLOG(@"\napp name:%@\napp version:%@",[ccs appName],[ccs appVersion]);
+    CC_Base.shared.cc_environment = tag;
+}
+
++ (int)getEnvironment {
+    return CC_Base.shared.cc_environment;
 }
 
 + (void)configureAppStandard:(NSDictionary *)defaultDic {
@@ -33,6 +38,10 @@
                             backgroundColor:(UIColor *)backgroundColor
                             backgroundImage:(UIImage *)backgroundImage {
     [cc_message cc_instance:CC_NavigationController.shared method:@selector(cc_initNavigationBarWithTitleFont:titleColor:backgroundColor:backgroundImage:) params:font,titleColor,backgroundColor,backgroundImage];
+}
+
++ (void)configureBackGroundSessionStop:(BOOL)stopSession{
+    CC_HttpHelper.shared.stopSession = stopSession;
 }
 
 + (void)openLaunchMonitor:(BOOL)open {
@@ -118,15 +127,28 @@
 + (NSMutableDictionary *)mutDictionary {
     return [CC_Base.shared cc_init:[NSMutableDictionary class]];
 }
-+ (NSMutableDictionary *)mutDictionary:(NSMutableDictionary *)dic{
+
++ (NSMutableDictionary *)mutDictionary:(NSMutableDictionary *)dic {
     if (!dic) {
-        return [CC_Base.shared cc_init:[NSMutableDictionary class]];
+        return [self mutDictionary];
     }
     return [[NSMutableDictionary alloc]initWithDictionary:dic];
 }
 
-+ (id)model:(Class)aClass{
++ (id)model:(Class)aClass {
     return [CC_Base.shared cc_init:aClass];
+}
+
++ (HttpModel *)httpModel {
+    return [CC_Base.shared cc_init:HttpModel.class];
+}
+
++ (CC_Money *)money {
+    return [CC_Base.shared cc_init:CC_Money.class];
+}
+
++ (CC_ShareUI *)ui {
+    return CC_ShareUI.shared;
 }
 
 #pragma mark CC_UIKit
@@ -190,6 +212,10 @@
     return [cc_message cc_instance:CC_CoreUI.shared method:@selector(getAView) params:nil];
 }
 
++ (BOOL)isDarkMode {
+    return [cc_message cc_instance:CC_CoreUI.shared method:@selector(isDarkMode) params:nil];
+}
+
 #pragma mark action
 + (void)pushViewController:(CC_ViewController *)viewController {
     [cc_message cc_instance:CC_NavigationController.shared method:@selector(cc_pushViewController:) params:viewController];
@@ -209,6 +235,10 @@
 
 + (void)popViewController {
     [cc_message cc_instance:CC_NavigationController.shared method:@selector(cc_popViewController)];
+}
+
++ (void)popViewControllerFrom:(CC_ViewController *)viewController userInfo:(id)userInfo {
+    [cc_message cc_instance:CC_NavigationController.shared method:@selector(cc_popViewControllerFrom:userInfo:) params:viewController, userInfo];
 }
 
 + (void)dismissViewController {
@@ -238,6 +268,22 @@
 
 + (CC_HttpConfig *)httpConfig{
     return CC_HttpConfig.new;
+}
+
++ (void)clearAllMemoryWebImageCache:(void (^)(void))completionBlock{
+    [CC_WebImageManager.shared clearAllMemoryWebImageCache:completionBlock];
+}
+
++ (void)clearAllDiskWebImageCache:(void (^)(void))completionBlock{
+    [CC_WebImageManager.shared clearAllDiskWebImageCache:completionBlock];
+}
+
++ (void)clearAllWebImageCache:(void (^)(void))completionBlock{
+    [CC_WebImageManager.shared clearAllWebImageCache:completionBlock];
+}
+
++ (void)clearWebImageCacheForKey:(NSString *)url completionBlock:(void (^)(void))completionBlock{
+    [CC_WebImageManager.shared clearWebImageCacheForKey:url completionBlock:completionBlock];
 }
 #pragma mark CC_LibStore
 + (NSString *)keychainValueForKey:(NSString *)name{
@@ -335,8 +381,14 @@
 + (CC_DataBaseStore *)dataBaseStore {
     return [CC_DataBaseStore shared];
 }
+
+#pragma mark CC_LibAudio
++ (CC_MusicBox *)musicBox {
+    return CC_MusicBox.shared;
+}
+
 #pragma mark CC_CoreFoundation
-+ (id)init:(Class)aClass{
++ (id)init:(Class)aClass {
     id object = [CC_Base.shared cc_init:aClass];
     [cc_message cc_instance:object method:@selector(start)];
     return object;
@@ -601,20 +653,39 @@
     return CC_Mask.shared;
 }
 
++ (CC_Notice *)Notice {
+    return CC_Notice.shared;
+}
+
++ (void)show {
+    [CC_Mask.shared start];
+}
+
++ (void)dismiss {
+    [CC_Mask.shared stop];
+}
+
++ (void)showWithTitle:(NSString *)title {
+    [cc_message cc_instance:CC_Notice.shared method:@selector(showNotice:) params:title];
+}
+
++ (void)showWithTitle:(NSString *)title msg:(NSString *)msg
+                 btns:(NSArray<NSString *> *)bts block:(void (^)(int, NSString *))block
+         atController:(UIViewController *)controller {
+    
+    [cc_message cc_class:CC_Alert.class method:@selector(showAltOn:title:msg:bts:block:) params:controller,title,msg,bts,block];
+}
+
 + (void)maskStart {
     [CC_Mask.shared start];
 }
 
++ (void)maskStop {
+    [CC_Mask.shared stop];
+}
+
 + (void)maskStartAtView:(UIView *)view {
     [CC_Mask.shared startAtView:view];
-}
-
-+ (void)maskStop {
-    return [CC_Mask.shared stop];
-}
-
-+ (CC_Notice *)Notice {
-    return CC_Notice.shared;
 }
 
 + (void)showNotice:(NSString *)str {

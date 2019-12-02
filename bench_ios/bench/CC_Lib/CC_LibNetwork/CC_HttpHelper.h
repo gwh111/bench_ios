@@ -21,8 +21,16 @@ typedef NS_ENUM(NSUInteger, CCHttpTaskType) {
 };
 
 @interface CC_HttpHelper : NSObject
+// 配置是否进入后台，请求是否中断，默认开启
+@property (nonatomic, assign) BOOL stopSession;
 
 + (instancetype)shared;
+
+// session管理
+- (void)addURLSession:(NSURLSession *)session;
+- (void)cancelURLSession:(NSURLSession *)session;
+- (void)cancelAllSession;
+
 
 - (BOOL)isNetworkReachable;
 
@@ -55,3 +63,11 @@ typedef NS_ENUM(NSUInteger, CCHttpTaskType) {
 
 @end
 
+/// 域名初始化通知
+FOUNDATION_EXPORT NSNotificationName const CCDomainLaunchNotification;
+
+/// 域名变更通知    应用中接收该通知用于域名切换
+FOUNDATION_EXPORT NSNotificationName const CCDomainChangedNotification;
+
+/// 域名设置完成通知 应用中发送该通知完成重新请求
+FOUNDATION_EXPORT NSNotificationName const CCDomainDoneNotification;

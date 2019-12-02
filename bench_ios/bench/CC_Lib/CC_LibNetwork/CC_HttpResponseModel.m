@@ -57,12 +57,12 @@
             _errorNameStr = @"服务器开小差了";
             _errorMsgStr = _errorNameStr;
             if (_debug) {
-                CCLOG(@"%@",_errorMsgStr);
+                NSLog(@"%@",_errorMsgStr);
                 if ([CC_SandboxStore cc_sandboxPlistWithPath:@"service"][_service]) {
                     _resultStr = [CC_SandboxStore cc_sandboxPlistWithPath:@"service"][_service];
                     _errorNameStr = nil;
                     _errorMsgStr = nil;
-                    CCLOG(@"Debug Data '%@'",_service);
+                    NSLog(@"Debug Data '%@'",_service);
                     [self parsingResult:_resultStr];
                 }
             }

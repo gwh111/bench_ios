@@ -94,6 +94,15 @@
  */
 - (void)imageUpload:(NSArray<id> *)images url:(id)url params:(id)paramsDic imageSize:(NSUInteger)imageSize reConnectTimes:(NSInteger)times finishBlock:(void (^)(NSArray<HttpModel*> *errorModelArr, NSArray<HttpModel*> *successModelArr))uploadImageBlock;
 
+/**
+ 上传多张图片-NSData
+ @param images 图片数组-NSData类型
+ @param url URL
+ @param paramsDic 参数
+ @param times 上传失败-重新上传次数
+ @param uploadImageBlock 回调函数
+ */
+- (void)imageUpload:(NSArray<id> *)images url:(id)url params:(id)paramsDic reConnectTimes:(NSInteger)times finishBlock:(void (^)(NSArray<HttpModel*> *errorModelArr, NSArray<HttpModel*> *successModelArr))uploadImageBlock;
 
 ///  根据文件路径上传文件
 /// @param filepath 文件路径
