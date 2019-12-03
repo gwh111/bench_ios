@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "CC_Foundation.h"
-#import "CCUIScaffold.h"
 #import "UIButton+CCUI.h"
+#import "UIView+CCUI.h"
 
-@interface CC_Button : UIButton <CC_Button>
+@interface CC_Button : UIButton <CC_ButtonChainProtocol,CC_ButtonChainExtProtocol>
 
 /**
  default button will enlarge tap frame

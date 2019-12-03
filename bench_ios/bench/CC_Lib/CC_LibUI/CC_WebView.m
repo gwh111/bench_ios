@@ -11,21 +11,21 @@
 @implementation CC_WebView
 
 // CC_WebView property
-- (CC_WebView *(^)(id<WKNavigationDelegate>))cc_navigationDelegate{
+- (__kindof CC_WebView *(^)(id<WKNavigationDelegate>))cc_navigationDelegate{
     return ^(id<WKNavigationDelegate> navigationDelegate){
         self.navigationDelegate = navigationDelegate;
         return self;
     };
 }
 
-- (CC_WebView *(^)(id<WKUIDelegate>))cc_UIDelegate{
+- (__kindof CC_WebView *(^)(id<WKUIDelegate>))cc_UIDelegate{
     return ^(id<WKUIDelegate> UIDelegate){
         self.UIDelegate = UIDelegate;
         return self;
     };
 }
 
-- (CC_WebView *(^)(BOOL))cc_allowsBackForwardNavigationGestures{
+- (__kindof CC_WebView *(^)(BOOL))cc_allowsBackForwardNavigationGestures{
     return ^(BOOL allowsBackForwardNavigationGestures){
         self.allowsBackForwardNavigationGestures = allowsBackForwardNavigationGestures;
         return self;

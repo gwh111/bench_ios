@@ -125,11 +125,23 @@
     NSArray *windows = [UIApplication sharedApplication].windows;
     for(UIWindow *window in [windows reverseObjectEnumerator]) {
         if ([window isKindOfClass:[UIWindow class]] &&
-            CGRectEqualToRect(window.bounds, [UIScreen mainScreen].bounds)&&window.hidden==NO){
+            CGRectEqualToRect(window.bounds, [UIScreen mainScreen].bounds)&&window.hidden == NO){
             return window;
         }
     }
     return [UIApplication sharedApplication].keyWindow;
+}
+
+- (BOOL)isDarkMode {
+    if (@available(iOS 13.0, *)) {
+        UIUserInterfaceStyle mode = UITraitCollection.currentTraitCollection.userInterfaceStyle;
+        if (mode == UIUserInterfaceStyleDark) {
+            return YES;
+        } else if (mode == UIUserInterfaceStyleLight) {
+            
+        }
+    }
+    return NO;
 }
 
 @end

@@ -16,48 +16,6 @@
 
 @implementation CC_Label
 
-- (__kindof CC_Label* (^)(BOOL))cc_enableDebugMode {
-    return ^(BOOL debugMode) {
-        if (debugMode) {
-            for (int i = 0; i < self.gestureRecognizers.count; ++i) {
-                UIGestureRecognizer *ges = self.gestureRecognizers[i];
-                if ([ges isKindOfClass:UITapGestureRecognizer.class]) {
-                    UITapGestureRecognizer *tap = (UITapGestureRecognizer *)ges;
-                    if (tap.numberOfTapsRequired == 5) {
-                        [tap removeTarget:self action:@selector(debugMenuAction:)];
-                    }
-                }
-            }
-            UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(debugMenuAction:)];
-            tap.numberOfTapsRequired = 5;
-            self.cc_userInteractionEnabled(YES);
-            [self addGestureRecognizer:tap];
-        }
-        return self;
-    };
-}
-
-- (void)debugMenuAction:(UITapGestureRecognizer *)sender {
-    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"调试菜单" message:@"内部使用" preferredStyle:UIAlertControllerStyleActionSheet];
-    UIAlertAction *dynamicDomainAction = [UIAlertAction actionWithTitle:@"功能1" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        CCLOG(@"功能1");
-    }];
-    
-    UIAlertAction *networkAction = [UIAlertAction actionWithTitle:@"功能2" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        CCLOG(@"功能2");
-    }];
-    
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        [alertC dismissViewControllerAnimated:YES completion:nil];
-    }];
-    
-    [alertC addAction:dynamicDomainAction];
-    [alertC addAction:networkAction];
-    [alertC addAction:cancelAction];
-    
-    [UIView.cc_viewControllerByWindow presentViewController:alertC animated:YES completion:nil];
-}
-
 // MARK: - Life Cycle -
 - (void)dealloc{
     if (_hasBind == NO) {

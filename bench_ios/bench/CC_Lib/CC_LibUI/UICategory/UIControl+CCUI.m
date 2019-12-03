@@ -9,25 +9,16 @@
 
 @implementation UIControl (CCUI)
 
-- (__kindof UIControl *(^)(BOOL))cc_enabled {
-    return ^(BOOL enabled) {
-        self.enabled = enabled;
-        return self;
-    };
+- (UIControl *(^)(BOOL))cc_enabled {
+    return ^(BOOL _) { self.enabled = _; return self; };
 }
 
-- (__kindof UIControl *(^)(BOOL))cc_selected {
-    return ^(BOOL selected) {
-        self.selected = selected;
-        return self;
-    };
+- (UIControl *(^)(BOOL))cc_selected {
+    return ^(BOOL _) { self.selected = _; return self; };
 }
 
-- (__kindof UIControl *(^)(BOOL))cc_highlighted {
-    return ^(BOOL highlighted) {
-        self.highlighted = highlighted;
-        return self;
-    };
+- (UIControl *(^)(BOOL))cc_highlighted {
+    return ^(BOOL _) { self.highlighted = _; return self; };
 }
 
 @end

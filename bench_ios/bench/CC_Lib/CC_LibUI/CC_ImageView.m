@@ -54,7 +54,7 @@
                         [self cc_setImageWithURL:[NSURL URLWithString:imgName] placeholderImage:placeholderImage];
                     }else {
                         [self cc_setImageWithURL:[NSURL URLWithString:imgName]];
-                    }
+                    }                    
                 }
                     break;
                 default:

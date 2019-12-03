@@ -13,94 +13,56 @@
 
 @implementation UIScrollView (CCUI)
 
-- (__kindof UIScrollView *(^)(CGPoint))cc_contentOffset{
-    return ^(CGPoint contentOffset){
-        self.contentOffset = contentOffset;
-        return self;
-    };
+- (UIScrollView *(^)(CGPoint))cc_contentOffset{
+    return ^(CGPoint _) { self.contentOffset = _; return self; };
 }
 
-- (__kindof UIScrollView *(^)(CGSize))cc_contentSize{
-    return ^(CGSize contentSize){
-        self.contentSize = contentSize;
-        return self;
-    };
+- (UIScrollView *(^)(CGSize))cc_contentSize{
+    return ^(CGSize _) { self.contentSize = _; return self; };
 }
 
-- (__kindof UIScrollView *(^)(BOOL))cc_directionalLockEnabled {
-    return ^(BOOL directionalLockEnabled) {
-        self.directionalLockEnabled = directionalLockEnabled;
-        return self;
-    };
+- (UIScrollView *(^)(BOOL))cc_directionalLockEnabled {
+    return ^(BOOL _) { self.directionalLockEnabled = _; return self; };
 }
 
-- (__kindof UIScrollView *(^)(BOOL))cc_bounces {
-    return ^(BOOL bounces) {
-        self.bounces = bounces;
-        return self;
-    };
+- (UIScrollView *(^)(BOOL))cc_bounces {
+    return ^(BOOL _) { self.bounces = _; return self; };
 }
 
-- (__kindof UIScrollView *(^)(BOOL))cc_alwaysBounceVertical {
-    return ^(BOOL alwaysBounceVertical) {
-        self.alwaysBounceVertical = alwaysBounceVertical;
-        return self;
-    };
+- (UIScrollView *(^)(BOOL))cc_alwaysBounceVertical {
+    return ^(BOOL _) { self.alwaysBounceVertical = _; return self; };
 }
 
-- (__kindof UIScrollView *(^)(BOOL))cc_alwaysBounceHorizontal {
-    return ^(BOOL alwaysBounceHorizontal) {
-        self.alwaysBounceHorizontal = alwaysBounceHorizontal;
-        return self;
-    };
+- (UIScrollView *(^)(BOOL))cc_alwaysBounceHorizontal {
+    return ^(BOOL _) { self.alwaysBounceHorizontal = _; return self; };
 }
 
-- (__kindof UIScrollView *(^)(BOOL))cc_pagingEnabled {
-    return ^(BOOL pagingEnabled) {
-        self.pagingEnabled = pagingEnabled;
-        return self;
-    };
+- (UIScrollView *(^)(BOOL))cc_pagingEnabled {
+    return ^(BOOL _) { self.pagingEnabled = _; return self; };
 }
 
-- (__kindof UIScrollView *(^)(BOOL))cc_scrollEnabled {
-    return ^(BOOL scrollEnabled) {
-        self.scrollEnabled = scrollEnabled;
-        return self;
-    };
+- (UIScrollView *(^)(BOOL))cc_scrollEnabled {
+    return ^(BOOL _) { self.scrollEnabled = _; return self; };
 }
 
-- (__kindof UIScrollView *(^)(BOOL))cc_showsHorizontalScrollIndicator {
-    return ^(BOOL showsHorizontalScrollIndicator) {
-        self.showsHorizontalScrollIndicator = showsHorizontalScrollIndicator;
-        return self;
-    };
+- (UIScrollView *(^)(BOOL))cc_showsHorizontalScrollIndicator {
+    return ^(BOOL _) { self.showsHorizontalScrollIndicator = _; return self; };
 }
 
-- (__kindof UIScrollView *(^)(BOOL))cc_showsVerticalScrollIndicator {
-    return ^(BOOL showsVerticalScrollIndicator) {
-        self.showsVerticalScrollIndicator = showsVerticalScrollIndicator;
-        return self;
-    };
+- (UIScrollView *(^)(BOOL))cc_showsVerticalScrollIndicator {
+    return ^(BOOL _) { self.showsVerticalScrollIndicator = _; return self; };
 }
 
-- (__kindof UIScrollView *(^)(UIScrollViewDecelerationRate))cc_decelerationRate {
-    return ^(UIScrollViewDecelerationRate decelerationRate) {
-        self.decelerationRate = decelerationRate;
-        return self;
-    };
+- (UIScrollView *(^)(UIScrollViewDecelerationRate))cc_decelerationRate {
+    return ^(UIScrollViewDecelerationRate _) { self.decelerationRate = _; return self; };
 }
 
-- (__kindof UIScrollView *(^)(BOOL))cc_delaysContentTouches {
-    return ^(BOOL delaysContentTouches) {
-        self.delaysContentTouches = delaysContentTouches;
-        return self;
-    };
+- (UIScrollView *(^)(BOOL))cc_delaysContentTouches {
+    return ^(BOOL _) { self.delaysContentTouches = _; return self; };
 }
 
-- (__kindof UIScrollView *(^)(BOOL))cc_canCancelContentTouches {
-    return ^(BOOL canCancelContentTouches) {
-        return self;
-    };
+- (UIScrollView *(^)(BOOL))cc_canCancelContentTouches {
+    return ^(BOOL _) { self.canCancelContentTouches = _; return self; };
 }
 
 @end
@@ -111,6 +73,13 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cc_kdAdapterAction:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cc_kdAdapterAction:) name:UIKeyboardWillHideNotification object:nil];
     self.cc_incrementOffset = offset;
+}
+
+
+- (void)cc_replay {
+    if(self.cc_notification) {
+        [self cc_kdAdapterAction:self.cc_notification];
+    }
 }
 
 - (void)cc_removeKdAdapter {
@@ -190,6 +159,7 @@
                                                    toView:self];
         // NSLog(@"%@",NSStringFromCGPoint(point));
         point = [self convertPoint:point toView:[self cc_viewController].view];
+        NSLog(@"%@",NSStringFromCGPoint([self convertPoint:CGPointMake(CGRectGetMinX(responder.frame), CGRectGetMaxY(responder.frame)) toView:UIApplication.sharedApplication.delegate.window]));
         if (self.contentOffset.y > 0) {
             point.y += self.contentOffset.y;
         }else if (self.contentOffset.y < 0) {
@@ -238,6 +208,14 @@
             }];
         }
     }
+}
+
+- (NSNotification *)cc_notification {
+    return objc_getAssociatedObject(self, @selector(cc_notification));
+}
+
+- (void)setCc_notification:(NSNotification *)sender {
+    objc_setAssociatedObject(self, @selector(cc_notification), sender, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (void)setCc_incrementOffset:(CGPoint)offset {

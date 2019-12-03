@@ -6,7 +6,6 @@
 //
 
 #import "CC_Lib+UIControl.h"
-#import "CC_Foundation.h"
 
 typedef NSTimeInterval acceptEventInterval;
 typedef NSTimeInterval acceptEventTime;
@@ -42,7 +41,8 @@ typedef NSTimeInterval acceptEventTime;
 
 // 在load时执行hook
 + (void)load{
-    [CC_Runtime cc_exchange:@selector(sendAction:to:forEvent:) to:@selector(cc_sendAction:to:forEvent:)];
+    [CC_Runtime cc_exchangeInstance:self.class method:@selector(sendAction:to:forEvent:) withMethod:@selector(cc_sendAction:to:forEvent:)];
+//    [CC_Runtime cc_exchange:@selector(sendAction:to:forEvent:) to:@selector(cc_sendAction:to:forEvent:)];
 //    Method before   = class_getInstanceMethod(self, @selector(sendAction:to:forEvent:));
 //    Method after    = class_getInstanceMethod(self, @selector(cc_sendAction:to:forEvent:));
 //    method_exchangeImplementations(before, after);

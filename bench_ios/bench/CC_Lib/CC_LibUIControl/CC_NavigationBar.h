@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong) UILabel *titleLabel;
 @property (nonatomic,strong) UIImage *navigationBarBackgroundImage;
 @property (nonatomic,strong) UIImageView *navigationBarImageView;
+@property (nonatomic,strong) UIView *line;
 
 - (void)cc_updateConfig:(CC_NavigationBarConfig *)config;
 

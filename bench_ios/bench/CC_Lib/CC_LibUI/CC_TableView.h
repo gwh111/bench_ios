@@ -7,12 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CCUIScaffold.h"
+#import "UIView+CCUI.h"
+#import "UIScrollView+CCUI.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CC_TableView : UITableView <CC_TableView>
+@interface CC_TableView : UITableView <CC_TableViewViewChainProtocol,CC_TableViewViewChainExtProtocol, UITableViewDataSource, UITableViewDelegate>
 
+- (__kindof CC_TableView *(^)(Class cls))cc_registerCellClass;
 - (__kindof CC_TableView *(^)(id<UITableViewDelegate>))cc_delegate;
 - (__kindof CC_TableView *(^)(id<UITableViewDataSource>))cc_dataSource;
 

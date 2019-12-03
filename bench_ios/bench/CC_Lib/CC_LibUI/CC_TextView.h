@@ -8,17 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import "CC_Foundation.h"
-#import "CCUIScaffold.h"
+#import "UIView+CCUI.h"
+#import "UIScrollView+CCUI.h"
 #import "UITextView+CCUI.h"
 
-@interface CC_TextView : UITextView <CC_TextView>
+@interface CC_TextView : UITextView <CC_TextViewChainProtocol,CC_TextViewChainExtProtocol,CC_TextViewChainSelfExtProtocol>
 
 @end
 
 @interface CC_TextView (CCActions)
-
-- (__kindof CC_TextView *(^)(NSString *))cc_bindText;
-- (__kindof CC_TextView *(^)(NSAttributedString *))cc_bindAttText;
 
 - (void)bindText:(NSString *)text;
 - (void)bindAttText:(NSAttributedString *)attText;

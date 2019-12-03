@@ -48,16 +48,16 @@ static NSString *KEY_BACK_ICON = @"gray_navBack_arrow_icon@3x";
         [self addSubview:_backButton];
         
         _titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(WIDTH()/2 - RH(150), STATUS_BAR_HEIGHT, RH(300), RH(44))];
-        _titleLabel.textColor = [UIColor blackColor];
+        _titleLabel.textColor = HEX(#000000);
         _titleLabel.backgroundColor = [UIColor clearColor];
         _titleLabel.font = [CC_CoreUI.shared relativeFont:@"Helvetica-Bold" fontSize:19];
         _titleLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:_titleLabel];
         
-        UIView *line = [[UIView alloc]init];
-        line.frame = CGRectMake(0, _titleLabel.bottom - 1, WIDTH(), 1);
-        line.backgroundColor = RGBA(0, 0, 0, .1);
-        [self addSubview:line];
+        _line = [[UIView alloc]init];
+        _line.frame = CGRectMake(0, _titleLabel.bottom - 1, WIDTH(), 1);
+        _line.backgroundColor = RGBA(0, 0, 0, .1);
+        [self addSubview:_line];
     }
     return self;
 }
@@ -65,6 +65,9 @@ static NSString *KEY_BACK_ICON = @"gray_navBack_arrow_icon@3x";
 - (void)cc_updateConfig:(CC_NavigationBarConfig *)config {
     if (!config) {
         return;
+    }
+    if (config.hiddenLine) {
+        _line.hidden = YES;
     }
     _navigationBarBackgroundImage = config.cc_navigationBarBackgroundImage;
     _titleLabel.font = config.cc_navigationBarTitleFont;

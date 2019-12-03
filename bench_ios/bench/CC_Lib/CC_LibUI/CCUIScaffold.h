@@ -17,30 +17,79 @@ NS_ASSUME_NONNULL_BEGIN
  特殊类型比如代理,交由对应类实现
  
  */
-
 @protocol CC_View <NSObject>
 
 @optional
+
+/// 添加到父视图 [ctrl + ⌘ + ↑] 定位到.m查看实现
 - (__kindof CC_View *(^)(id))cc_addToView;
+
+/// 设置视图背景色
 - (__kindof CC_View *(^)(UIColor *))cc_backgroundColor;
+
+/// 设置圆角及maskToBounds为YES
 - (__kindof CC_View *(^)(CGFloat))cc_cornerRadius;
-- (__kindof CC_View *(^)(BOOL))cc_userInteractionEnabled;
+
+/// 单独设置maskToBounds
+- (__kindof CC_View *(^)(BOOL))cc_masksToBounds;
+
+/// 设置边框颜色[UIColor]
 - (__kindof CC_View *(^)(UIColor *))cc_borderColor;
+
+/// 设置边框宽度 [ctrl + ⌘ + ↑] 定位到.m查看实现
 - (__kindof CC_View *(^)(CGFloat))cc_borderWidth;
+
+/// 是否隐藏
 - (__kindof CC_View *(^)(BOOL))cc_hidden;
+
+/// 透明度
 - (__kindof CC_View *(^)(CGFloat))cc_alpha;
+
+/// 设置视图名称类似tag
 - (__kindof CC_View *(^)(NSString *))cc_name;
+
+/// 设置视图tag [ctrl + ⌘ + ↑] 定位到.m查看实现
 - (__kindof CC_View *(^)(CGFloat))cc_tag;
+
+/// 设置视图内容模式
 - (__kindof CC_View *(^)(UIViewContentMode))cc_contentMode;
+
+/// 等价于使用视图bounds去调用sizeThatFits:
+- (__kindof CC_View *(^)(void))cc_sizeToFit;
+
+/// 子视图超过边缘是否裁剪
+- (__kindof CC_View *(^)(BOOL))cc_clipsToBounds;
+
+/// 手势是否可用
+- (__kindof CC_View *(^)(BOOL))cc_userInteractionEnabled;
+
+/// 设置frame [ctrl + ⌘ + ↑] 定位到.m查看实现
 - (__kindof CC_View *(^)(CGFloat x,CGFloat y,CGFloat w,CGFloat h))cc_frame;
+
+/// 设置尺寸
 - (__kindof CC_View *(^)(CGFloat w,CGFloat h))cc_size;
+
+/// 设置宽度
 - (__kindof CC_View *(^)(CGFloat))cc_w;
+
+/// 设置高度
 - (__kindof CC_View *(^)(CGFloat))cc_h;
+
+/// 设置y值
 - (__kindof CC_View *(^)(CGFloat))cc_top;
+
+/// 设置x值 [ctrl + ⌘ + ↑] 定位到.m查看实现
 - (__kindof CC_View *(^)(CGFloat))cc_left;
 
+/// 右间距 view.left = superview.width + right - view.width;
+/// @warning 请先设置父视图与自身的宽度
 - (__kindof CC_View *(^)(CGFloat right))cc_right;
+
+/// 下间距 view.top = superview.height + bottom - view.height;
+/// @warning 请先设置父视图与自身的高度
 - (__kindof CC_View *(^)(CGFloat bottom))cc_bottom;
+
+
 - (__kindof CC_View *(^)(CGFloat,CGFloat))cc_center;
 - (__kindof CC_View *(^)(CGFloat))cc_centerX;
 - (__kindof CC_View *(^)(CGFloat))cc_centerY;
@@ -61,6 +110,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (__kindof CC_Label *(^)(CGFloat))cc_borderWidth;
 - (__kindof CC_Label *(^)(BOOL))cc_hidden;
 - (__kindof CC_Label *(^)(CGFloat))cc_alpha;
+- (__kindof CC_Label *(^)(BOOL))cc_clipsToBounds;
+- (__kindof CC_Label *(^)(void))cc_sizeToFit;
 - (__kindof CC_Label *(^)(NSString *))cc_name;
 - (__kindof CC_Label *(^)(CGFloat))cc_tag;
 - (__kindof CC_Label *(^)(UIViewContentMode))cc_contentMode;
@@ -83,6 +134,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///-------------------------------
 /// @name UILabel
 ///-------------------------------
+
 - (__kindof CC_Label *(^)(NSString *))cc_text;
 - (__kindof CC_Label *(^)(UIFont *))cc_font;
 - (__kindof CC_Label *(^)(UIColor *))cc_textColor;
@@ -106,6 +158,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (__kindof CC_ImageView *(^)(UIColor *))cc_borderColor;
 - (__kindof CC_ImageView *(^)(CGFloat))cc_borderWidth;
 - (__kindof CC_ImageView *(^)(BOOL))cc_hidden;
+- (__kindof CC_ImageView *(^)(BOOL))cc_clipsToBounds;
+- (__kindof CC_ImageView *(^)(void))cc_sizeToFit;
 - (__kindof CC_ImageView *(^)(CGFloat))cc_alpha;
 - (__kindof CC_ImageView *(^)(NSString *))cc_name;
 - (__kindof CC_ImageView *(^)(CGFloat))cc_tag;
@@ -164,6 +218,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (__kindof CC_Button *(^)(CGFloat))cc_borderWidth;
 - (__kindof CC_Button *(^)(BOOL))cc_hidden;
 - (__kindof CC_Button *(^)(CGFloat))cc_alpha;
+- (__kindof CC_Button *(^)(BOOL))cc_clipsToBounds;
+- (__kindof CC_Button *(^)(void))cc_sizeToFit;
 - (__kindof CC_Button *(^)(NSString *))cc_name;
 - (__kindof CC_Button *(^)(CGFloat))cc_tag;
 - (__kindof CC_Button *(^)(UIViewContentMode))cc_contentMode;
@@ -196,6 +252,41 @@ NS_ASSUME_NONNULL_BEGIN
 - (__kindof CC_Button *(^)(NSAttributedString *attributed,UIControlState state))cc_setAttributedTitleForState;
 - (__kindof CC_Button *(^)(UIColor *color,UIControlState state))cc_setTitleShadowColorForState;
 
+// MARK: - Title
+- (__kindof CC_Button *(^)(NSString *))cc_setNormalTitle;
+- (__kindof CC_Button *(^)(NSString *))cc_setHighlightedTitle;
+- (__kindof CC_Button *(^)(NSString *))cc_setDisabledTitle;
+- (__kindof CC_Button *(^)(NSString *))cc_setSelectedTitle;
+
+// MARK: - Title Color
+- (__kindof CC_Button *(^)(UIColor *))cc_setNormalTitleColor;
+- (__kindof CC_Button *(^)(UIColor *))cc_setHighlightedTitleColor;
+- (__kindof CC_Button *(^)(UIColor *))cc_setDisabledTitleColor;
+- (__kindof CC_Button *(^)(UIColor *))cc_setSelectedTitleColor;
+
+// MARK: - Image
+- (__kindof CC_Button *(^)(UIImage *))cc_setNormalImage;
+- (__kindof CC_Button *(^)(UIImage *))cc_setHighlightedImage;
+- (__kindof CC_Button *(^)(UIImage *))cc_setDisabledImage;
+- (__kindof CC_Button *(^)(UIImage *))cc_setSelectedImage;
+
+// MARK: - BackgroundImage
+- (__kindof CC_Button *(^)(UIImage *))cc_setNormalBackgroundImage;
+- (__kindof CC_Button *(^)(UIImage *))cc_setHighlightedBackgroundImage;
+- (__kindof CC_Button *(^)(UIImage *))cc_setDisabledBackgroundImage;
+- (__kindof CC_Button *(^)(UIImage *))cc_setSelectedBackgroundImage;
+
+// MARK: - BackgroundColor
+- (__kindof CC_Button *(^)(UIColor *))cc_setNormalBackgroundColor;
+- (__kindof CC_Button *(^)(UIColor *))cc_setHighlightedBackgroundColor;
+- (__kindof CC_Button *(^)(UIColor *))cc_setDisabledBackgroundColor;
+- (__kindof CC_Button *(^)(UIColor *))cc_setSelectedBackgroundColor;
+
+// MARK: - AttributedTitle
+- (__kindof CC_Button *(^)(NSAttributedString *))cc_setNormalAttributedTitle;
+- (__kindof CC_Button *(^)(NSAttributedString *))cc_setHighlightedAttributedTitle;
+- (__kindof CC_Button *(^)(NSAttributedString *))cc_setDisabledAttributedTitle;
+- (__kindof CC_Button *(^)(NSAttributedString *))cc_setSelectedAttributedTitle;
 
 @end
 
@@ -210,6 +301,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (__kindof CC_TextField *(^)(CGFloat))cc_borderWidth;
 - (__kindof CC_TextField *(^)(BOOL))cc_hidden;
 - (__kindof CC_TextField *(^)(CGFloat))cc_alpha;
+- (__kindof CC_TextField *(^)(BOOL))cc_clipsToBounds;
+- (__kindof CC_TextField *(^)(void))cc_sizeToFit;
 - (__kindof CC_TextField *(^)(NSString *))cc_name;
 - (__kindof CC_TextField *(^)(CGFloat))cc_tag;
 - (__kindof CC_TextField *(^)(UIViewContentMode))cc_contentMode;
@@ -278,6 +371,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (__kindof CC_TextView *(^)(CGFloat))cc_borderWidth;
 - (__kindof CC_TextView *(^)(BOOL))cc_hidden;
 - (__kindof CC_TextView *(^)(CGFloat))cc_alpha;
+- (__kindof CC_TextView *(^)(BOOL))cc_clipsToBounds;
+- (__kindof CC_TextView *(^)(void))cc_sizeToFit;
 - (__kindof CC_TextView *(^)(NSString *))cc_name;
 - (__kindof CC_TextView *(^)(CGFloat))cc_tag;
 - (__kindof CC_TextView *(^)(UIViewContentMode))cc_contentMode;
@@ -326,6 +421,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (__kindof CC_ScrollView *(^)(CGFloat))cc_alpha;
 - (__kindof CC_ScrollView *(^)(NSString *))cc_name;
 - (__kindof CC_ScrollView *(^)(CGFloat))cc_tag;
+- (__kindof CC_ScrollView *(^)(BOOL))cc_clipsToBounds;
+- (__kindof CC_ScrollView *(^)(void))cc_sizeToFit;
 - (__kindof CC_ScrollView *(^)(UIViewContentMode))cc_contentMode;
 - (__kindof CC_ScrollView *(^)(CGFloat x,CGFloat y,CGFloat w,CGFloat h))cc_frame;
 - (__kindof CC_ScrollView *(^)(CGFloat w,CGFloat h))cc_size;
@@ -401,6 +498,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (__kindof CC_TableView *(^)(CGFloat))cc_alpha;
 - (__kindof CC_TableView *(^)(NSString *))cc_name;
 - (__kindof CC_TableView *(^)(CGFloat))cc_tag;
+- (__kindof CC_TableView *(^)(BOOL))cc_clipsToBounds;
+- (__kindof CC_TableView *(^)(void))cc_sizeToFit;
 - (__kindof CC_TableView *(^)(UIViewContentMode))cc_contentMode;
 - (__kindof CC_TableView *(^)(CGFloat x,CGFloat y,CGFloat w,CGFloat h))cc_frame;
 - (__kindof CC_TableView *(^)(CGFloat w,CGFloat h))cc_size;
@@ -435,6 +534,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (__kindof CC_CollectionView *(^)(BOOL))cc_hidden;
 - (__kindof CC_CollectionView *(^)(CGFloat))cc_alpha;
 - (__kindof CC_CollectionView *(^)(NSString *))cc_name;
+- (__kindof CC_CollectionView *(^)(BOOL))cc_clipsToBounds;
+- (__kindof CC_CollectionView *(^)(void))cc_sizeToFit;
 - (__kindof CC_CollectionView *(^)(CGFloat))cc_tag;
 - (__kindof CC_CollectionView *(^)(UIViewContentMode))cc_contentMode;
 - (__kindof CC_CollectionView *(^)(CGFloat x,CGFloat y,CGFloat w,CGFloat h))cc_frame;

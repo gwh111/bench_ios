@@ -6,11 +6,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CCUIScaffold.h"
+#import "UIView+CCUI.h"
+#import "UIScrollView+CCUI.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CC_CollectionView : UICollectionView <CC_CollectionView>
+@interface CC_CollectionView : UICollectionView <CC_CollectionViewChainProtocol,CC_CollectionViewChainExtProtocol>
 
 /// 通过ccs.CollectionView创建时,默认布局为UICollectionViewFlowLayout
 /// 可用该属性,进行布局设置

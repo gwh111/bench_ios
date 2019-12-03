@@ -8,16 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import <WebKit/WebKit.h>
-#import "CCUIScaffold.h"
 #import "CC_CoreUI.h"
+#import "UIView+CCUI.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CC_WebView : WKWebView <CC_WebView>
+@interface CC_WebView : WKWebView <CC_WebViewChainProtocol>
 
-- (CC_WebView *(^)(id<WKNavigationDelegate>))cc_navigationDelegate;
-- (CC_WebView *(^)(id<WKUIDelegate>))cc_UIDelegate;
-- (CC_WebView *(^)(BOOL))cc_allowsBackForwardNavigationGestures;
+- (__kindof CC_WebView *(^)(id<WKNavigationDelegate>))cc_navigationDelegate;
+- (__kindof CC_WebView *(^)(id<WKUIDelegate>))cc_UIDelegate;
+- (__kindof CC_WebView *(^)(BOOL))cc_allowsBackForwardNavigationGestures;
 
 @end
 

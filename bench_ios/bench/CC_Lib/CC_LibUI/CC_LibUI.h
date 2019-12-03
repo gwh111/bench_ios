@@ -42,4 +42,7 @@
 #import "CC_Alert.h"
 #import "CC_LabelGroup.h"
 
+#import "UIImageView+CC.h"
+#import "UIView+CC.h"
+
 #endif /* CC_LibUI_h */

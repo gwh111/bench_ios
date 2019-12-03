@@ -7,8 +7,6 @@
 
 #import <Foundation/Foundation.h>
 
-NS_ASSUME_NONNULL_BEGIN
-
 @protocol CC_Delegate
 
 @end
@@ -20,5 +18,3 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)cc_performSelector:(SEL)selector params:(id)param,...;
 
 @end
-
-NS_ASSUME_NONNULL_END

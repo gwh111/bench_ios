@@ -9,6 +9,7 @@
 #import "CC_TextView.h"
 
 @interface CC_TextView (){
+@public
     BOOL _hasBind;
 }
 @end
@@ -30,20 +31,6 @@
 @end
 
 @implementation CC_TextView (CCActions)
-
-- (__kindof CC_TextView *(^)(NSString *))cc_bindText{
-    return ^(NSString *text){
-        [self bindText:text];
-        return self;
-    };
-}
-
-- (__kindof CC_TextView *(^)(NSAttributedString *))cc_bindAttText{
-    return ^(NSAttributedString *attText){
-        [self bindAttText:attText];
-        return self;
-    };
-}
 
 - (void)bindText:(NSString *)text{
     _hasBind = YES;

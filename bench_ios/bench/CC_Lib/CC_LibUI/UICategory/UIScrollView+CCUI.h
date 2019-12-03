@@ -8,52 +8,53 @@
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
+@class CC_ScrollView,CC_TextView,CC_TableView,CC_CollectionView;
 
+// MARK: - UI -
 @interface UIScrollView (CCUI)
 
 /// The point at which the origin of the content view is offset from the origin of the scroll view.
-- (__kindof UIScrollView *(^)(CGPoint))cc_contentOffset;
+- (UIScrollView *(^)(CGPoint))cc_contentOffset;
 
 /// The size of the content view.
-- (__kindof UIScrollView *(^)(CGSize))cc_contentSize;
+- (UIScrollView *(^)(CGSize))cc_contentSize;
 
 /// default NO. if YES, try to lock vertical or horizontal scrolling while dragging
-- (__kindof UIScrollView *(^)(BOOL))cc_directionalLockEnabled;
+- (UIScrollView *(^)(BOOL))cc_directionalLockEnabled;
 
 /// default YES. if YES, bounces past edge of content and back again
-- (__kindof UIScrollView *(^)(BOOL))cc_bounces;
+- (UIScrollView *(^)(BOOL))cc_bounces;
 
 /// default NO. if YES and bounces is YES, even if content is smaller than bounds, allow drag vertically
-- (__kindof UIScrollView *(^)(BOOL))cc_alwaysBounceVertical;
+- (UIScrollView *(^)(BOOL))cc_alwaysBounceVertical;
 
 /// default NO. if YES and bounces is YES, even if content is smaller than bounds, allow drag horizontally
-- (__kindof UIScrollView *(^)(BOOL))cc_alwaysBounceHorizontal;
+- (UIScrollView *(^)(BOOL))cc_alwaysBounceHorizontal;
 
 /// default NO. if YES, stop on multiples of view bounds
-- (__kindof UIScrollView *(^)(BOOL))cc_pagingEnabled;
+- (UIScrollView *(^)(BOOL))cc_pagingEnabled;
 
 /// default YES. turn off any dragging temporarily
-- (__kindof UIScrollView *(^)(BOOL))cc_scrollEnabled;
+- (UIScrollView *(^)(BOOL))cc_scrollEnabled;
 
 /// default YES. show indicator while we are tracking. fades out after tracking
-- (__kindof UIScrollView *(^)(BOOL))cc_showsHorizontalScrollIndicator;
+- (UIScrollView *(^)(BOOL))cc_showsHorizontalScrollIndicator;
 
 /// default YES. show indicator while we are tracking. fades out after tracking
-- (__kindof UIScrollView *(^)(BOOL))cc_showsVerticalScrollIndicator;
+- (UIScrollView *(^)(BOOL))cc_showsVerticalScrollIndicator;
 
 /// A floating-point value that determines the rate of deceleration after the user lifts their finger.
-- (__kindof UIScrollView *(^)(UIScrollViewDecelerationRate))cc_decelerationRate;
+- (UIScrollView *(^)(UIScrollViewDecelerationRate))cc_decelerationRate;
 
 /// default is YES. if NO, we immediately call
-- (__kindof UIScrollView *(^)(BOOL))cc_delaysContentTouches;
+- (UIScrollView *(^)(BOOL))cc_delaysContentTouches;
 
 /// default is YES. if NO, then once we start tracking, we don't try to drag if the touch moves. this has no effect on presses
-- (__kindof UIScrollView *(^)(BOOL))cc_canCancelContentTouches;
+- (UIScrollView *(^)(BOOL))cc_canCancelContentTouches;
 
 @end
 
-UIKIT_EXTERN NSString const *CCFrameEndUserInfoKey;
-UIKIT_EXTERN NSString const *CCAnimationDurationUserInfoKey;
+// MARK: - Actions -
 
 @interface UIScrollView (CCActions)
 
@@ -80,10 +81,18 @@ UIKIT_EXTERN NSString const *CCAnimationDurationUserInfoKey;
 - (void)cc_kdAdapterWithOffset:(CGPoint)offset;
 
 /**
+ 当要求点击键盘的ReturnKey/其它方式定位到下一个响应者时,键盘高度不会有变化,此时无法获得通知
+ 用该方法调整手动键盘高度,会使用上一次获得到的键盘通知
+ @note 若没有上一次通知对象,则无效果
+ 
+ */
+- (void)cc_replay;
+
+/**
  通知的格式
  notification.userInfo {
- CCFrameEndUserInfoKey:"NSRect: {{0, 510}, {414, 226}}"
- CCAnimationDurationUserInfoKey:0.25
+    CCFrameEndUserInfoKey:"NSRect: {{0, 510}, {414, 226}}"
+    CCAnimationDurationUserInfoKey:0.25
  }
  
  字典的结构
@@ -99,6 +108,184 @@ UIKIT_EXTERN NSString const *CCAnimationDurationUserInfoKey;
  移除通知
  */
 - (void)cc_removeKdAdapter;
+
+@end
+
+UIKIT_EXTERN NSString const *CCFrameEndUserInfoKey;
+UIKIT_EXTERN NSString const *CCAnimationDurationUserInfoKey;
+
+
+// MARK: - UIScrollView属性链式协议 -
+
+@protocol CC_ScrollViewChainExtProtocol <NSObject>
+
+/// The point at which the origin of the content view is offset from the origin of the scroll view.
+- (__kindof CC_ScrollView *(^)(CGPoint))cc_contentOffset;
+
+/// The size of the content view.
+- (__kindof CC_ScrollView *(^)(CGSize))cc_contentSize;
+
+/// default NO. if YES, try to lock vertical or horizontal scrolling while dragging
+- (__kindof CC_ScrollView *(^)(BOOL))cc_directionalLockEnabled;
+
+/// default YES. if YES, bounces past edge of content and back again
+- (__kindof CC_ScrollView *(^)(BOOL))cc_bounces;
+
+/// default NO. if YES and bounces is YES, even if content is smaller than bounds, allow drag vertically
+- (__kindof CC_ScrollView *(^)(BOOL))cc_alwaysBounceVertical;
+
+/// default NO. if YES and bounces is YES, even if content is smaller than bounds, allow drag horizontally
+- (__kindof CC_ScrollView *(^)(BOOL))cc_alwaysBounceHorizontal;
+
+/// default NO. if YES, stop on multiples of view bounds
+- (__kindof CC_ScrollView *(^)(BOOL))cc_pagingEnabled;
+
+/// default YES. turn off any dragging temporarily
+- (__kindof CC_ScrollView *(^)(BOOL))cc_scrollEnabled;
+
+/// default YES. show indicator while we are tracking. fades out after tracking
+- (__kindof CC_ScrollView *(^)(BOOL))cc_showsHorizontalScrollIndicator;
+
+/// default YES. show indicator while we are tracking. fades out after tracking
+- (__kindof CC_ScrollView *(^)(BOOL))cc_showsVerticalScrollIndicator;
+
+/// A floating-point value that determines the rate of deceleration after the user lifts their finger.
+- (__kindof CC_ScrollView *(^)(UIScrollViewDecelerationRate))cc_decelerationRate;
+
+/// default is YES. if NO, we immediately call
+- (__kindof CC_ScrollView *(^)(BOOL))cc_delaysContentTouches;
+
+/// default is YES. if NO, then once we start tracking, we don't try to drag if the touch moves. this has no effect on presses
+- (__kindof CC_ScrollView *(^)(BOOL))cc_canCancelContentTouches;
+
+@end
+
+@protocol CC_TextViewChainExtProtocol <NSObject>
+
+/// The point at which the origin of the content view is offset from the origin of the scroll view.
+- (__kindof CC_TextView *(^)(CGPoint))cc_contentOffset;
+
+/// The size of the content view.
+- (__kindof CC_TextView *(^)(CGSize))cc_contentSize;
+
+/// default NO. if YES, try to lock vertical or horizontal scrolling while dragging
+- (__kindof CC_TextView *(^)(BOOL))cc_directionalLockEnabled;
+
+/// default YES. if YES, bounces past edge of content and back again
+- (__kindof CC_TextView *(^)(BOOL))cc_bounces;
+
+/// default NO. if YES and bounces is YES, even if content is smaller than bounds, allow drag vertically
+- (__kindof CC_TextView *(^)(BOOL))cc_alwaysBounceVertical;
+
+/// default NO. if YES and bounces is YES, even if content is smaller than bounds, allow drag horizontally
+- (__kindof CC_TextView *(^)(BOOL))cc_alwaysBounceHorizontal;
+
+/// default NO. if YES, stop on multiples of view bounds
+- (__kindof CC_TextView *(^)(BOOL))cc_pagingEnabled;
+
+/// default YES. turn off any dragging temporarily
+- (__kindof CC_TextView *(^)(BOOL))cc_scrollEnabled;
+
+/// default YES. show indicator while we are tracking. fades out after tracking
+- (__kindof CC_TextView *(^)(BOOL))cc_showsHorizontalScrollIndicator;
+
+/// default YES. show indicator while we are tracking. fades out after tracking
+- (__kindof CC_TextView *(^)(BOOL))cc_showsVerticalScrollIndicator;
+
+/// A floating-point value that determines the rate of deceleration after the user lifts their finger.
+- (__kindof CC_TextView *(^)(UIScrollViewDecelerationRate))cc_decelerationRate;
+
+/// default is YES. if NO, we immediately call
+- (__kindof CC_TextView *(^)(BOOL))cc_delaysContentTouches;
+
+/// default is YES. if NO, then once we start tracking, we don't try to drag if the touch moves. this has no effect on presses
+- (__kindof CC_TextView *(^)(BOOL))cc_canCancelContentTouches;
+
+@end
+
+@protocol CC_TableViewViewChainExtProtocol <NSObject>
+
+/// The point at which the origin of the content view is offset from the origin of the scroll view.
+- (__kindof CC_TableView *(^)(CGPoint))cc_contentOffset;
+
+/// The size of the content view.
+- (__kindof CC_TableView *(^)(CGSize))cc_contentSize;
+
+/// default NO. if YES, try to lock vertical or horizontal scrolling while dragging
+- (__kindof CC_TableView *(^)(BOOL))cc_directionalLockEnabled;
+
+/// default YES. if YES, bounces past edge of content and back again
+- (__kindof CC_TableView *(^)(BOOL))cc_bounces;
+
+/// default NO. if YES and bounces is YES, even if content is smaller than bounds, allow drag vertically
+- (__kindof CC_TableView *(^)(BOOL))cc_alwaysBounceVertical;
+
+/// default NO. if YES and bounces is YES, even if content is smaller than bounds, allow drag horizontally
+- (__kindof CC_TableView *(^)(BOOL))cc_alwaysBounceHorizontal;
+
+/// default NO. if YES, stop on multiples of view bounds
+- (__kindof CC_TableView *(^)(BOOL))cc_pagingEnabled;
+
+/// default YES. turn off any dragging temporarily
+- (__kindof CC_TableView *(^)(BOOL))cc_scrollEnabled;
+
+/// default YES. show indicator while we are tracking. fades out after tracking
+- (__kindof CC_TableView *(^)(BOOL))cc_showsHorizontalScrollIndicator;
+
+/// default YES. show indicator while we are tracking. fades out after tracking
+- (__kindof CC_TableView *(^)(BOOL))cc_showsVerticalScrollIndicator;
+
+/// A floating-point value that determines the rate of deceleration after the user lifts their finger.
+- (__kindof CC_TableView *(^)(UIScrollViewDecelerationRate))cc_decelerationRate;
+
+/// default is YES. if NO, we immediately call
+- (__kindof CC_TableView *(^)(BOOL))cc_delaysContentTouches;
+
+/// default is YES. if NO, then once we start tracking, we don't try to drag if the touch moves. this has no effect on presses
+- (__kindof CC_TableView *(^)(BOOL))cc_canCancelContentTouches;
+
+@end
+
+@protocol CC_CollectionViewChainExtProtocol <NSObject>
+
+/// The point at which the origin of the content view is offset from the origin of the scroll view.
+- (__kindof CC_CollectionView *(^)(CGPoint))cc_contentOffset;
+
+/// The size of the content view.
+- (__kindof CC_CollectionView *(^)(CGSize))cc_contentSize;
+
+/// default NO. if YES, try to lock vertical or horizontal scrolling while dragging
+- (__kindof CC_CollectionView *(^)(BOOL))cc_directionalLockEnabled;
+
+/// default YES. if YES, bounces past edge of content and back again
+- (__kindof CC_CollectionView *(^)(BOOL))cc_bounces;
+
+/// default NO. if YES and bounces is YES, even if content is smaller than bounds, allow drag vertically
+- (__kindof CC_CollectionView *(^)(BOOL))cc_alwaysBounceVertical;
+
+/// default NO. if YES and bounces is YES, even if content is smaller than bounds, allow drag horizontally
+- (__kindof CC_CollectionView *(^)(BOOL))cc_alwaysBounceHorizontal;
+
+/// default NO. if YES, stop on multiples of view bounds
+- (__kindof CC_CollectionView *(^)(BOOL))cc_pagingEnabled;
+
+/// default YES. turn off any dragging temporarily
+- (__kindof CC_CollectionView *(^)(BOOL))cc_scrollEnabled;
+
+/// default YES. show indicator while we are tracking. fades out after tracking
+- (__kindof CC_CollectionView *(^)(BOOL))cc_showsHorizontalScrollIndicator;
+
+/// default YES. show indicator while we are tracking. fades out after tracking
+- (__kindof CC_CollectionView *(^)(BOOL))cc_showsVerticalScrollIndicator;
+
+/// A floating-point value that determines the rate of deceleration after the user lifts their finger.
+- (__kindof CC_CollectionView *(^)(UIScrollViewDecelerationRate))cc_decelerationRate;
+
+/// default is YES. if NO, we immediately call
+- (__kindof CC_CollectionView *(^)(BOOL))cc_delaysContentTouches;
+
+/// default is YES. if NO, then once we start tracking, we don't try to drag if the touch moves. this has no effect on presses
+- (__kindof CC_CollectionView *(^)(BOOL))cc_canCancelContentTouches;
 
 @end
 

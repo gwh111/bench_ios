@@ -8,26 +8,27 @@
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
+@class CC_TextView;
 
 @interface UITextView (CCUI)
 
-- (__kindof UITextView *(^)(NSString *))cc_text;
+- (UITextView *(^)(NSString *))cc_text;
 
-- (__kindof UITextView *(^)(UIFont   *))cc_font;
+- (UITextView *(^)(UIFont   *))cc_font;
 
-- (__kindof UITextView *(^)(UIColor  *))cc_textColor;
+- (UITextView *(^)(UIColor  *))cc_textColor;
 
-- (__kindof UITextView *(^)(NSRange ))cc_selectedRange;
+- (UITextView *(^)(NSRange ))cc_selectedRange;
 
-- (__kindof UITextView *(^)(BOOL))cc_editable;
+- (UITextView *(^)(BOOL))cc_editable;
 
-- (__kindof UITextView *(^)(BOOL))cc_selectable;
+- (UITextView *(^)(BOOL))cc_selectable;
 
-- (__kindof UITextView *(^)(UIDataDetectorTypes))cc_dataDetectorTypes;
+- (UITextView *(^)(UIDataDetectorTypes))cc_dataDetectorTypes;
 
-- (__kindof UITextView *(^)(NSTextAlignment))cc_textAlignment;
+- (UITextView *(^)(NSTextAlignment))cc_textAlignment;
 
-- (__kindof UITextView *(^)(id<UITextViewDelegate>))cc_delegate;
+- (UITextView *(^)(id<UITextViewDelegate>))cc_delegate;
 
 @end
 
@@ -41,6 +42,29 @@ NS_ASSUME_NONNULL_BEGIN
 
 /** get textView width after set height&text */
 - (float)cc_widthForHeight:(float)height;
+
+@end
+
+
+@protocol CC_TextViewChainSelfExtProtocol <NSObject>
+
+- (__kindof CC_TextView *(^)(NSString *))cc_text;
+
+- (__kindof CC_TextView *(^)(UIFont *))cc_font;
+
+- (__kindof CC_TextView *(^)(UIColor *))cc_textColor;
+
+- (__kindof CC_TextView *(^)(NSRange))cc_selectedRange;
+
+- (__kindof CC_TextView *(^)(BOOL))cc_editable;
+
+- (__kindof CC_TextView *(^)(BOOL))cc_selectable;
+
+- (__kindof CC_TextView *(^)(UIDataDetectorTypes))cc_dataDetectorTypes;
+
+- (__kindof CC_TextView *(^)(NSTextAlignment))cc_textAlignment;
+
+- (__kindof CC_TextView *(^)(id<UITextViewDelegate>))cc_delegate;
 
 @end
 

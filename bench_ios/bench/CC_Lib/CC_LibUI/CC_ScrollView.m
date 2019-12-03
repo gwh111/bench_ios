@@ -11,10 +11,7 @@
 @implementation CC_ScrollView
 
 - (__kindof CC_ScrollView *(^)(id<UIScrollViewDelegate>))cc_delegate{
-    return ^(id<UIScrollViewDelegate> delegate){
-        self.delegate = delegate;
-        return self;
-    };
+    return ^(id<UIScrollViewDelegate> _) { self.delegate = _; return self; };
 }
 
 @end

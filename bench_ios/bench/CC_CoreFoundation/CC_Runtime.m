@@ -9,11 +9,11 @@
 #import "CC_Runtime.h"
 #import <objc/runtime.h>
 #import "CC_Base.h"
-#import "CC_CoreMacro.h"
 
 @interface CC_Runtime ()
 
-@property (nonatomic,retain) NSMutableDictionary *exchangeMap;
+@property (nonatomic,retain) NSMutableDictionary *instanceMap;
+@property (nonatomic,retain) NSMutableDictionary *classMap;
 
 @end
 
@@ -21,7 +21,8 @@
 
 + (instancetype)shared{
     return [CC_Base.shared cc_registerSharedInstance:self block:^{
-        [CC_Runtime shared].exchangeMap = [[NSMutableDictionary alloc]init];
+        [CC_Runtime shared].instanceMap = [[NSMutableDictionary alloc]init];
+        [CC_Runtime shared].classMap = [[NSMutableDictionary alloc]init];
     }];
 }
 
@@ -37,20 +38,37 @@
     objc_setAssociatedObject(object, @selector(value), value, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-+ (void)cc_exchange:(SEL)s1 to:(SEL)s2{
++ (void)cc_exchangeInstance:(Class)aClass method:(SEL)s1 withMethod:(SEL)s2 {
     NSString *meStr1 = NSStringFromSelector(s1);
-    if ([CC_Runtime shared].exchangeMap[meStr1]) {
+    if ([CC_Runtime shared].instanceMap[meStr1]) {
         CCLOGAssert(@"'%@' has been registerd",meStr1);
     }
     NSString *meStr2 = NSStringFromSelector(s2);
-    if ([CC_Runtime shared].exchangeMap[meStr2]) {
+    if ([CC_Runtime shared].instanceMap[meStr2]) {
         CCLOGAssert(@"'%@' has been registerd",meStr2);
     }
-    [[CC_Runtime shared].exchangeMap setObject:@"" forKey:meStr1];
-    [[CC_Runtime shared].exchangeMap setObject:@"" forKey:meStr2];
+    [[CC_Runtime shared].instanceMap setObject:@"" forKey:meStr1];
+    [[CC_Runtime shared].instanceMap setObject:@"" forKey:meStr2];
     
-    Method before = class_getInstanceMethod(self, s1);
-    Method after = class_getInstanceMethod(self, s2);
+    Method before = class_getInstanceMethod(aClass, s1);
+    Method after = class_getInstanceMethod(aClass, s2);
+    method_exchangeImplementations(before, after);
+}
+
++ (void)cc_exchangeClass:(Class)aClass method:(SEL)s1 withMethod:(SEL)s2 {
+    NSString *meStr1 = NSStringFromSelector(s1);
+    if ([CC_Runtime shared].classMap[meStr1]) {
+        CCLOGAssert(@"'%@' has been registerd",meStr1);
+    }
+    NSString *meStr2 = NSStringFromSelector(s2);
+    if ([CC_Runtime shared].classMap[meStr2]) {
+        CCLOGAssert(@"'%@' has been registerd",meStr2);
+    }
+    [[CC_Runtime shared].classMap setObject:@"" forKey:meStr1];
+    [[CC_Runtime shared].classMap setObject:@"" forKey:meStr2];
+    
+    Method before = class_getClassMethod(aClass, s1);
+    Method after = class_getClassMethod(aClass, s2);
     method_exchangeImplementations(before, after);
 }
 

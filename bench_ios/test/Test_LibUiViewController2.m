@@ -181,8 +181,6 @@ NSInteger enableLog = 0;
         .cc_sizeToFit()
         .cc_top(440)
         .cc_centerXSuper();
-        
-        verLabel.cc_enableDebugMode(YES);
     }
     
     CCLOG(@"\n[测试]:角标\n");

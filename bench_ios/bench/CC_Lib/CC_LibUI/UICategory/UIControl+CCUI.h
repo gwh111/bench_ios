@@ -12,13 +12,13 @@ NS_ASSUME_NONNULL_BEGIN
 @interface UIControl (CCUI)
 
 /// default is YES. if NO, ignores touch events and subclasses may draw differently
-- (__kindof UIControl *(^)(BOOL))cc_enabled;
+- (UIControl *(^)(BOOL))cc_enabled;
 
 /// default is NO may be used by some subclasses or by application
-- (__kindof UIControl *(^)(BOOL))cc_selected;
+- (UIControl *(^)(BOOL))cc_selected;
 
 /// default is NO. this gets set/cleared automatically when touch enters/exits during tracking and cleared on up
-- (__kindof UIControl *(^)(BOOL))cc_highlighted;
+- (UIControl *(^)(BOOL))cc_highlighted;
 
 @end
 

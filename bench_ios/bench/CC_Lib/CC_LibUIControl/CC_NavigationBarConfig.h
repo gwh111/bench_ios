@@ -21,6 +21,7 @@ typedef NS_ENUM(NSUInteger, CC_NavigationBarType) {
 @property (nonatomic,strong) UIColor *cc_navigationBarTitleColor;
 @property (nonatomic,strong) UIColor *cc_navigationBarBackgroundColor;
 @property (nonatomic,strong) UIImage *cc_navigationBarBackgroundImage;
+@property (nonatomic,assign) BOOL hiddenLine;
 
 @end
 

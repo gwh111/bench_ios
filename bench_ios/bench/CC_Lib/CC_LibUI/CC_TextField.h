@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "CC_Foundation.h"
-#import "CCUIScaffold.h"
+#import "UIView+CCUI.h"
 #import "UITextField+CCUI.h"
 
-@interface CC_TextField : UITextField <CC_TextField>
+@interface CC_TextField : UITextField <CC_TextFieldChainProtocol,CC_TextFieldChainExtProtocol>
 
 @end
 

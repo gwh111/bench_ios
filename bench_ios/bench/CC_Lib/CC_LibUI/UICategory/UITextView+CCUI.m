@@ -9,67 +9,45 @@
 
 @implementation UITextView (CCUI)
 
-- (__kindof UITextView *(^)(NSString *))cc_text{
-    return ^(NSString *text){
-        self.text = text;
+- (UITextView *(^)(NSString *))cc_text{
+    return ^(NSString *_) {
+        if (_) {
+            self.text = _;
+        }
         return self;
     };
 }
 
-- (__kindof UITextView *(^)(UIFont *))cc_font{
-    return ^(UIFont *font){
-        self.font = font;
-        return self;
-    };
+- (UITextView *(^)(UIFont *))cc_font{
+    return ^(UIFont *_) { self.font = _; return self; };
 }
 
-- (__kindof UITextView *(^)(UIColor *))cc_textColor{
-    return ^(UIColor *textColor){
-        self.textColor = textColor;
-        return self;
-    };
+- (UITextView *(^)(UIColor *))cc_textColor{
+    return ^(UIColor *_){ self.textColor = _; return self; };
 }
 
-- (__kindof UITextView *(^)(NSRange))cc_selectedRange{
-    return ^(NSRange selectedRange){
-        self.selectedRange = selectedRange;
-        return self;
-    };
+- (UITextView *(^)(NSRange))cc_selectedRange{
+    return ^(NSRange _) { self.selectedRange = _; return self; };
 }
 
-- (__kindof UITextView *(^)(BOOL))cc_editable{
-    return ^(BOOL editable){
-        self.editable = editable;
-        return self;
-    };
+- (UITextView *(^)(BOOL))cc_editable{
+    return ^(BOOL _) { self.editable = _; return self; };
 }
 
-- (__kindof UITextView *(^)(BOOL))cc_selectable{
-    return ^(BOOL selectable){
-        self.selectable = selectable;
-        return self;
-    };
+- (UITextView *(^)(BOOL))cc_selectable{
+    return ^(BOOL _) { self.selectable = _; return self; };
 }
 
-- (__kindof UITextView *(^)(UIDataDetectorTypes))cc_dataDetectorTypes{
-    return ^(UIDataDetectorTypes dataDetectorTypes){
-        self.dataDetectorTypes = dataDetectorTypes;
-        return self;
-    };
+- (UITextView *(^)(UIDataDetectorTypes))cc_dataDetectorTypes{
+    return ^(UIDataDetectorTypes _) { self.dataDetectorTypes = _; return self; };
 }
 
-- (__kindof UITextView *(^)(NSTextAlignment))cc_textAlignment{
-    return ^(NSTextAlignment textAlignment){
-        self.textAlignment = textAlignment;
-        return self;
-    };
+- (UITextView *(^)(NSTextAlignment))cc_textAlignment{
+    return ^(NSTextAlignment _) { self.textAlignment = _; return self; };
 }
 
-- (__kindof UITextView *(^)(id<UITextViewDelegate>))cc_delegate{
-    return ^(id<UITextViewDelegate> delegate){
-        self.delegate = delegate;
-        return self;
-    };
+- (UITextView *(^)(id<UITextViewDelegate>))cc_delegate{
+    return ^(id<UITextViewDelegate> _) { self.delegate = _; return self; };
 }
 
 @end

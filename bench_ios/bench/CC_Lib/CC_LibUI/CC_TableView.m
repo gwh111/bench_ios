@@ -18,18 +18,16 @@
 
 @implementation CC_TableView
 
+- (__kindof CC_TableView * (^)(Class))cc_registerCellClass {
+    return ^(Class _) { [self registerClass:_ forCellReuseIdentifier:NSStringFromClass(_)]; return self; };
+}
+
 - (__kindof CC_TableView *(^)(id<UITableViewDelegate>))cc_delegate{
-    return ^(id<UITableViewDelegate> delegate){
-        self.delegate = delegate;
-        return self;
-    };
+    return ^(id<UITableViewDelegate> _) { self.delegate = _; return self; };
 }
 
 - (__kindof CC_TableView *(^)(id<UITableViewDataSource>))cc_dataSource{
-    return ^(id<UITableViewDataSource> delegate){
-        self.dataSource = delegate;
-        return self;
-    };
+    return ^(id<UITableViewDataSource> _) { self.dataSource = _; return self; };
 }
 
 - (void)cc_addTextList:(NSArray *)list withTappedBlock:(void(^)(NSUInteger index))block {

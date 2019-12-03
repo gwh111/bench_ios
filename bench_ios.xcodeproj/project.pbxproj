@@ -73,6 +73,9 @@
 		D8535BA72394F2F20052C476 /* CC_ShareUI+CC.m in Sources */ = {isa = PBXBuildFile; fileRef = D8535BA62394F2F20052C476 /* CC_ShareUI+CC.m */; };
 		D8535BAA2394F3340052C476 /* CC_ShareUI.m in Sources */ = {isa = PBXBuildFile; fileRef = D8535BA92394F3340052C476 /* CC_ShareUI.m */; };
 		D8535BAD2394F3750052C476 /* CC_Money.m in Sources */ = {isa = PBXBuildFile; fileRef = D8535BAC2394F3750052C476 /* CC_Money.m */; };
+		D85360E62395FE9E0052C476 /* UIResponder+CC.m in Sources */ = {isa = PBXBuildFile; fileRef = D85360E12395FE9D0052C476 /* UIResponder+CC.m */; };
+		D85360E72395FE9E0052C476 /* UIImageView+CC.m in Sources */ = {isa = PBXBuildFile; fileRef = D85360E22395FE9D0052C476 /* UIImageView+CC.m */; };
+		D85360E82395FE9E0052C476 /* UIView+CC.m in Sources */ = {isa = PBXBuildFile; fileRef = D85360E52395FE9D0052C476 /* UIView+CC.m */; };
 		D86A7A1A234F291000A732DD /* bench_ios.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D86A7A19234F291000A732DD /* bench_ios.bundle */; };
 		D87A2778233BB6A6005B7343 /* testjson.json in Resources */ = {isa = PBXBuildFile; fileRef = D87A2777233BB6A6005B7343 /* testjson.json */; };
 		D8A06EF7230F9999006BDF31 /* CC_Double.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A06E12230F9999006BDF31 /* CC_Double.m */; };
@@ -304,6 +307,12 @@
 		D8535BAB2394F3740052C476 /* CC_Money.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_Money.h; sourceTree = "<group>"; };
 		D8535BAC2394F3750052C476 /* CC_Money.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC_Money.m; sourceTree = "<group>"; };
 		D8535BAE2394FA430052C476 /* CC_Foundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_Foundation.h; sourceTree = "<group>"; };
+		D85360E02395FE9D0052C476 /* UIView+CC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+CC.h"; sourceTree = "<group>"; };
+		D85360E12395FE9D0052C476 /* UIResponder+CC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIResponder+CC.m"; sourceTree = "<group>"; };
+		D85360E22395FE9D0052C476 /* UIImageView+CC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+CC.m"; sourceTree = "<group>"; };
+		D85360E32395FE9D0052C476 /* UIImageView+CC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+CC.h"; sourceTree = "<group>"; };
+		D85360E42395FE9D0052C476 /* UIResponder+CC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIResponder+CC.h"; sourceTree = "<group>"; };
+		D85360E52395FE9D0052C476 /* UIView+CC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+CC.m"; sourceTree = "<group>"; };
 		D86A7A19234F291000A732DD /* bench_ios.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = bench_ios.bundle; sourceTree = "<group>"; };
 		D87A2777233BB6A6005B7343 /* testjson.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = testjson.json; sourceTree = "<group>"; };
 		D8A06E0B230F9999006BDF31 /* CC_CoreMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC_CoreMacro.h; sourceTree = "<group>"; };
@@ -568,6 +577,12 @@
 		1F06873D2325F55900875FCC /* Categroy */ = {
 			isa = PBXGroup;
 			children = (
+				D85360E32395FE9D0052C476 /* UIImageView+CC.h */,
+				D85360E22395FE9D0052C476 /* UIImageView+CC.m */,
+				D85360E42395FE9D0052C476 /* UIResponder+CC.h */,
+				D85360E12395FE9D0052C476 /* UIResponder+CC.m */,
+				D85360E02395FE9D0052C476 /* UIView+CC.h */,
+				D85360E52395FE9D0052C476 /* UIView+CC.m */,
 				6D4B62D72327802C00EE2CAF /* UIImage+CC.h */,
 				6D4B62D82327802C00EE2CAF /* UIImage+CC.m */,
 				6D4B62DA232780BD00EE2CAF /* UIColor+CC.h */,
@@ -1196,6 +1211,7 @@
 				1F9734292334E746002145A4 /* Test_LibWebImageController.m in Sources */,
 				D8A06F14230F9999006BDF31 /* CC_Lib+UIControl.m in Sources */,
 				D8A06F4F230F9999006BDF31 /* CC_CoreTimer.m in Sources */,
+				D85360E72395FE9E0052C476 /* UIImageView+CC.m in Sources */,
 				1F97342C23385D1D002145A4 /* Test_EncryptViewController.m in Sources */,
 				CC50D46723408FC70078D481 /* CC_Database.m in Sources */,
 				6D4B62D92327802C00EE2CAF /* UIImage+CC.m in Sources */,
@@ -1205,6 +1221,7 @@
 				D8A06EFB230F9999006BDF31 /* CC_Int.m in Sources */,
 				1F06874A2325F55A00875FCC /* UIButton+CCUI.m in Sources */,
 				D8A06F22230F9999006BDF31 /* CC_Device.m in Sources */,
+				D85360E82395FE9E0052C476 /* UIView+CC.m in Sources */,
 				D8A06EF8230F9999006BDF31 /* CC_Message.m in Sources */,
 				D8A06F11230F9999006BDF31 /* CC_Lib+UIResponder.m in Sources */,
 				D8A06EFA230F9999006BDF31 /* CC_Monitor.m in Sources */,
@@ -1212,6 +1229,7 @@
 				D8A06F0C230F9999006BDF31 /* RSA.m in Sources */,
 				D8A06F3B230F9999006BDF31 /* CC_Envirnment.m in Sources */,
 				D843B7B423177B78003CC955 /* CC_BenchUpdate.m in Sources */,
+				D85360E62395FE9E0052C476 /* UIResponder+CC.m in Sources */,
 				D843B7982313B1D4003CC955 /* HomeVC.m in Sources */,
 				D8A06F23230F9999006BDF31 /* CC_Color.m in Sources */,
 				D8A06F48230F9999006BDF31 /* CC_RSA.m in Sources */,

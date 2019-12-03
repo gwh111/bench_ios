@@ -29,7 +29,7 @@
     va_list params;
     va_start(params, param);
     int i = 0;
-    for (id tmpObject = param; (id)tmpObject; tmpObject = va_arg(params, id)) {
+    for (id tmpObject = param; 1; tmpObject = va_arg(params, id)) {
         if (tmpObject) {
             [paramList addObject:tmpObject];
         }else{
@@ -59,7 +59,7 @@
     va_list params;
     va_start(params, param);
     int i = 0;
-    for (id tmpObject = param; (id)tmpObject; tmpObject = va_arg(params, id)) {
+    for (id tmpObject = param; 1; tmpObject = va_arg(params, id)) {
         if (tmpObject) {
             [paramList addObject:tmpObject];
         }else{
@@ -122,7 +122,7 @@
     va_list params;
     va_start(params, param);
     int i = 0;
-    for (id tmpObject = param; (id)tmpObject; tmpObject = va_arg(params, id)) {
+    for (id tmpObject = param; 1; tmpObject = va_arg(params, id)) {
         if (tmpObject) {
             [paramList addObject:tmpObject];
         }else{
@@ -148,7 +148,7 @@
     va_list params;
     va_start(params, param);
     int i = 0;
-    for (id tmpObject = param; (id)tmpObject; tmpObject = va_arg(params, id)) {
+    for (id tmpObject = param; 1; tmpObject = va_arg(params, id)) {
         if (tmpObject) {
             [paramList addObject:tmpObject];
         }else{
@@ -176,7 +176,7 @@
     va_list params;
     va_start(params, param);
     int i = 0;
-    for (id tmpObject = param; (id)tmpObject; tmpObject = va_arg(params, id)) {
+    for (id tmpObject = param; 1; tmpObject = va_arg(params, id)) {
         if (tmpObject) {
             [paramList addObject:tmpObject];
         }else{
@@ -192,6 +192,7 @@
 }
 
 + (id)cc_target:(id)target method:(SEL)selector paramList:(NSArray *)paramList {
+    
     // message sent to deallocated instance 0x7f81204154e0
     // 使用NSInvocation方法对返回对象引用计数会有问题 怀疑是ARC没有控制好
     // 原因是在arc模式下，getReturnValue：仅仅是从invocation的返回值拷贝到指定的内存地址，如果返回值是一个NSObject对象的话，是没有处理起内存管理的。而我们在定义resultSet时使用的是__strong类型的指针对象，arc就会假设该内存块已被retain（实际没有），当resultSet出了定义域释放时，导致该crash。假如在定义之前有赋值的话，还会造成内存泄露的问题。
@@ -202,9 +203,9 @@
             return nil;
         }
         NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:methodSig];
-        [invocation setSelector:selector];
         [invocation setTarget:target];
-        for (NSInteger i=0; i<paramList.count; i++) {
+        [invocation setSelector:selector];
+        for (NSInteger i = 0; i < paramList.count; i++) {
             id obj = paramList[i];
             if (![obj isKindOfClass:NSNull.class]) {
                 [invocation setArgument:&obj atIndex:i+2];
@@ -266,7 +267,10 @@
         CCLOG(@"<<< error:\n<<< target not found!");
     }
     if (![target respondsToSelector:selector]) {
-        CCLOG(@"<<< error:\n<<< %@ not found!",NSStringFromSelector(selector));
+        if ([NSStringFromSelector(selector) isEqualToString:@"start"]) {
+            return nil;
+        }
+        CCLOG(@"<<< error:\n<<< %@ not found!", NSStringFromSelector(selector));
     }
     return nil;
 }

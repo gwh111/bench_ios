@@ -83,56 +83,12 @@ typedef void (^CCAssociatedTapBlock)(UIView *view);
     };
 }
 
-/**
- - (void)cc_updateBadge:(NSString *)badge{
- [self checkBadgeLabel];
- 
- CGSize size = [self caculateBadgeWidth:badge];
- self.badgeLabel.frame = CGRectMake(self.width-size.width/2.0, -size.height/2.0, size.width, size.height);
- self.badgeLabel.text = badge;
- self.badgeLabel.layer.cornerRadius = size.height/2.0;
- self.badgeLabel.layer.masksToBounds = YES;
- }
- 
- - (void)cc_updateBadgeBackgroundColor:(UIColor *)backgroundColor{
- [self checkBadgeLabel];
- self.badgeLabel.backgroundColor = backgroundColor;
- }
- 
- - (void)cc_updateBadgeTextColor:(UIColor*)textColor{
- [self checkBadgeLabel];
- self.badgeLabel.textColor = textColor;
- }
- */
-
-/**
- - (CC_Label *)badgeLabel{
- return [CC_Runtime cc_getObject:self key:@selector(badgeLabel)];
- }
- 
- - (void)setBadgeLabel:(CC_Label *)badgeLabel{
- [CC_Runtime cc_setObject:self key:@selector(badgeLabel) value:badgeLabel];
- }
- 
- // MARK: - Internal -
- - (void)checkBadgeLabel {
- if (!self.badgeLabel) {
- self.badgeLabel = [CC_Base.shared cc_init:CC_Label.class];
- self.badgeLabel
- .cc_font([[CC_CoreUI shared]relativeFont:11])
- .cc_textAlignment(NSTextAlignmentCenter)
- .cc_backgroundColor([UIColor cc_rgbA:255 green:89 blue:59 alpha:1])
- .cc_addToView(self);
- }
- }
- */
-
 - (CC_Label *)badgeLabel {
     if (!_badgeLabel) {
         _badgeLabel = ((CC_Label *)[CC_Base.shared cc_init:CC_Label.class])
         .cc_font([[CC_CoreUI shared]relativeFont:11])
         .cc_textAlignment(NSTextAlignmentCenter)
-        .cc_backgroundColor([UIColor cc_rgbA:255 green:89 blue:59 alpha:1])
+        .cc_backgroundColor([UIColor colorWithRed:1 green:0.23 blue:0.19 alpha:1])
         .cc_addToView(self)
         .cc_textColor(UIColor.whiteColor);
     }

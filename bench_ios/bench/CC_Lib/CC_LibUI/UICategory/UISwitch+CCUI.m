@@ -9,46 +9,28 @@
 
 @implementation UISwitch (CCUI)
 
-- (__kindof UISwitch *(^)(UIColor *))cc_onTintColor {
-    return ^(UIColor *tintColor) {
-        self.onTintColor = tintColor;
-        return self;
-    };
+- (UISwitch *(^)(UIColor *))cc_onTintColor {
+    return ^(UIColor *_) { self.onTintColor = _; return self; };
 }
 
-- (__kindof UISwitch *(^)(UIColor *))cc_tintColor {
-    return ^(UIColor *tintColor) {
-        self.tintColor = tintColor;
-        return self;
-    };
+- (UISwitch *(^)(UIColor *))cc_tintColor {
+    return ^(UIColor *_) { self.tintColor = _; return self; };
 }
 
-- (__kindof UISwitch *(^)(UIColor *))cc_thumbTintColor {
-    return ^(UIColor *thmbTintColor) {
-        self.thumbTintColor = thmbTintColor;
-        return self;
-    };
+- (UISwitch *(^)(UIColor *))cc_thumbTintColor {
+    return ^(UIColor *_) { self.thumbTintColor = _; return self; };
 }
 
-- (__kindof UISwitch *(^)(UIImage *))cc_onImage {
-    return ^(UIImage *image) {
-        self.onImage = image;
-        return self;
-    };
+- (UISwitch *(^)(UIImage *))cc_onImage {
+    return ^(UIImage *_) { self.onImage = _; return self; };
 }
 
-- (__kindof UISwitch *(^)(UIImage *))cc_offImage {
-    return ^(UIImage *image) {
-        self.offImage = image;
-        return self;
-    };
+- (UISwitch *(^)(UIImage *))cc_offImage {
+    return ^(UIImage *_) { self.offImage = _; return self; };
 }
 
-- (__kindof UISwitch *(^)(BOOL))cc_on {
-    return ^(BOOL on) {
-        self.on = on;
-        return self;
-    };
+- (UISwitch *(^)(BOOL))cc_on {
+    return ^(BOOL _) { self.on = _; return self; };
 }
 
 @end

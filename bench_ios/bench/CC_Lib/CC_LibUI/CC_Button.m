@@ -17,6 +17,7 @@
     // Tap freezing time
     NSTimeInterval _freezingTime;
     void (^_tappedBlock)(CC_Button *);
+    
 }
 
 @end
@@ -79,9 +80,25 @@
 
 - (void)_cc_tappedDelayMethod:(CC_Button *)button{
     !self->_tappedBlock ? : self->_tappedBlock(self);
-    self.enabled = NO;
+    self.userInteractionEnabled = NO;
+    
+    UIImage *disableBgImg = [self backgroundImageForState:UIControlStateDisabled];
+    UIImage *normalBgImg = [self backgroundImageForState:UIControlStateNormal];
+
+    if(disableBgImg) {
+        self.cc_setBackgroundImageForState(disableBgImg,UIControlStateNormal);
+    }
+
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(_freezingTime * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        self.enabled = YES;
+        self.userInteractionEnabled = YES;
+        
+        if(disableBgImg) {
+            self.cc_setBackgroundImageForState(disableBgImg,UIControlStateDisabled);
+        }
+        
+        if (normalBgImg) {
+            self.cc_setBackgroundImageForState(normalBgImg,UIControlStateNormal);
+        }
     });
 }
 

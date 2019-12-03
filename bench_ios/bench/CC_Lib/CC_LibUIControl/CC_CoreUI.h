@@ -96,5 +96,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 
 - (id)getAView;
 
+- (BOOL)isDarkMode;
+
 @end
 

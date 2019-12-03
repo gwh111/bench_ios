@@ -102,6 +102,9 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+    if (CC_HttpHelper.shared.stopSession) {
+        [CC_HttpHelper.shared cancelAllSession];
+    }
     [cc_message cc_appDelegateMethod:@selector(cc_applicationWillEnterForeground:) params:application];
     [self cc_applicationWillEnterForeground:application];
 }

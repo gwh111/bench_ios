@@ -8,16 +8,18 @@
 
 #import <UIKit/UIKit.h>
 #import "CC_Foundation.h"
-#import "CCUIScaffold.h"
 #import "CC_View.h"
+
+#import "UIView+CCUI.h"
+#import "UILabel+CCUI.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CC_Label : UILabel <CC_Label>
-
-- (__kindof CC_Label* (^)(BOOL))cc_enableDebugMode;
+@interface CC_Label : UILabel <CC_LabelChainProtocol,CC_LabelChainExtProtocol>
 
 @end
+
+// MARK: - Actions -
 
 @interface CC_Label (CCActions)
 
@@ -25,6 +27,5 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)bindAttText:(NSAttributedString *)attText;
 
 @end
-
 
 NS_ASSUME_NONNULL_END

@@ -10,16 +10,10 @@
 @implementation CC_CollectionView
 
 - (__kindof CC_CollectionView *(^)(id<UICollectionViewDelegate>))cc_delegate {
-    return ^(id<UICollectionViewDelegate> delegate) {
-        self.delegate = delegate;
-        return self;
-    };
+    return ^(id<UICollectionViewDelegate> _) { self.delegate = _; return self; };
 }
 - (__kindof CC_CollectionView *(^)(id<UICollectionViewDataSource>))cc_dataSource {
-    return ^(id<UICollectionViewDataSource> dataSource) {
-        self.dataSource = dataSource;
-        return self;
-    };
+    return ^(id<UICollectionViewDataSource> _) { self.dataSource = _; return self; };
 }
 
 @end

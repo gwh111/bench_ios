@@ -17,7 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (id)cc_getObject:(id)object key:(SEL)key;
 + (void)cc_setObject:(id)object key:(SEL)key value:(id)value;
 
-+ (void)cc_exchange:(SEL)s1 to:(SEL)s2;
++ (void)cc_exchangeInstance:(Class)aClass method:(SEL)s1 withMethod:(SEL)s2;
++ (void)cc_exchangeClass:(Class)aClass method:(SEL)s1 withMethod:(SEL)s2;
 
 @end
 

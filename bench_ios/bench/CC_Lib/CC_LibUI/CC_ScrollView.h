@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UIView+CCUI.h"
+#import "UIScrollView+CCUI.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CC_ScrollView : UIScrollView
+@interface CC_ScrollView : UIScrollView <CC_ScrollViewChainProtocol,CC_ScrollViewChainExtProtocol>
 
 - (__kindof CC_ScrollView *(^)(id<UIScrollViewDelegate>))cc_delegate;
 
