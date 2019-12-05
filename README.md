@@ -10,6 +10,7 @@
 
 'bench_ios' is a framework for efficient development.  
 It is not only itself, but also provides a scheduling mode, which can be accessed to different modules according to their own business needs.  
+You can use it with UI Component in [UITemplateApp](https://github.com/gwh111/UITemplateApp)  
 
 ## Podfile install
 
