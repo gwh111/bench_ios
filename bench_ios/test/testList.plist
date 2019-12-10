@@ -64,6 +64,12 @@
 			<key>className</key>
 			<string>Test_LibUiViewController2</string>
 		</dict>
+		<dict>
+			<key>title</key>
+			<string>手动屏幕旋转</string>
+			<key>className</key>
+			<string>TestOritationVC</string>
+		</dict>
 	</array>
 </dict>
 </plist>

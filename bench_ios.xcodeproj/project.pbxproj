@@ -150,6 +150,9 @@
 		D8A06F7C230F99C9006BDF31 /* TestView.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A06F72230F99C8006BDF31 /* TestView.m */; };
 		D8A06F7D230F99C9006BDF31 /* TestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A06F73230F99C8006BDF31 /* TestModel.m */; };
 		D8A06F7E230F99C9006BDF31 /* TestViewController2.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A06F76230F99C8006BDF31 /* TestViewController2.m */; };
+		D8D4CD80239F4B3B0041CC97 /* MXRotationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D4CD7E239F4B3B0041CC97 /* MXRotationManager.m */; };
+		D8D4CD83239F4B400041CC97 /* NullSafe.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D4CD82239F4B400041CC97 /* NullSafe.m */; };
+		D8D4CD86239F4B7C0041CC97 /* TestOritationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D4CD84239F4B7C0041CC97 /* TestOritationVC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -473,6 +476,11 @@
 		D8A06F75230F99C8006BDF31 /* TestModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestModel.h; sourceTree = "<group>"; };
 		D8A06F76230F99C8006BDF31 /* TestViewController2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestViewController2.m; sourceTree = "<group>"; };
 		D8A06F7F230F99FA006BDF31 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		D8D4CD7E239F4B3B0041CC97 /* MXRotationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXRotationManager.m; sourceTree = "<group>"; };
+		D8D4CD7F239F4B3B0041CC97 /* MXRotationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXRotationManager.h; sourceTree = "<group>"; };
+		D8D4CD82239F4B400041CC97 /* NullSafe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NullSafe.m; sourceTree = "<group>"; };
+		D8D4CD84239F4B7C0041CC97 /* TestOritationVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestOritationVC.m; sourceTree = "<group>"; };
+		D8D4CD85239F4B7C0041CC97 /* TestOritationVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestOritationVC.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -716,6 +724,8 @@
 				D8A06F73230F99C8006BDF31 /* TestModel.m */,
 				D8A06F6B230F99C8006BDF31 /* TestController.h */,
 				D8A06F6F230F99C8006BDF31 /* TestController.m */,
+				D8D4CD85239F4B7C0041CC97 /* TestOritationVC.h */,
+				D8D4CD84239F4B7C0041CC97 /* TestOritationVC.m */,
 				18B6BD011F1F09CA0019391D /* TestViewController1.h */,
 				18B6BD021F1F09CA0019391D /* TestViewController1.m */,
 				D8A06F6D230F99C8006BDF31 /* TestViewController2.h */,
@@ -847,6 +857,8 @@
 		D8A06E44230F9999006BDF31 /* thd */ = {
 			isa = PBXGroup;
 			children = (
+				D8D4CD81239F4B400041CC97 /* NullSafe */,
+				D8D4CD7D239F4B3B0041CC97 /* MXRotationManager */,
 				D8A06E45230F9999006BDF31 /* RSA */,
 				D8A06E48230F9999006BDF31 /* Reachability */,
 			);
@@ -1041,6 +1053,23 @@
 			path = CC_Foundation;
 			sourceTree = "<group>";
 		};
+		D8D4CD7D239F4B3B0041CC97 /* MXRotationManager */ = {
+			isa = PBXGroup;
+			children = (
+				D8D4CD7E239F4B3B0041CC97 /* MXRotationManager.m */,
+				D8D4CD7F239F4B3B0041CC97 /* MXRotationManager.h */,
+			);
+			path = MXRotationManager;
+			sourceTree = "<group>";
+		};
+		D8D4CD81239F4B400041CC97 /* NullSafe */ = {
+			isa = PBXGroup;
+			children = (
+				D8D4CD82239F4B400041CC97 /* NullSafe.m */,
+			);
+			path = NullSafe;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1194,6 +1223,7 @@
 				D8A06F01230F9999006BDF31 /* CC_Data.m in Sources */,
 				D8A06F2B230F9999006BDF31 /* CC_Controller.m in Sources */,
 				6D4B62C023263DA300EE2CAF /* UITextView+CCUI.m in Sources */,
+				D8D4CD83239F4B400041CC97 /* NullSafe.m in Sources */,
 				1F06876E2325F56900875FCC /* CC_Notice.m in Sources */,
 				D843B79523139670003CC955 /* CC_HttpHelper.m in Sources */,
 				1F06876F2325F56900875FCC /* CC_CollectionView.m in Sources */,
@@ -1232,6 +1262,7 @@
 				D85360E62395FE9E0052C476 /* UIResponder+CC.m in Sources */,
 				D843B7982313B1D4003CC955 /* HomeVC.m in Sources */,
 				D8A06F23230F9999006BDF31 /* CC_Color.m in Sources */,
+				D8D4CD80239F4B3B0041CC97 /* MXRotationManager.m in Sources */,
 				D8A06F48230F9999006BDF31 /* CC_RSA.m in Sources */,
 				D8A06F30230F9999006BDF31 /* CC_GCoreDataManager.m in Sources */,
 				D8A06EFD230F9999006BDF31 /* CC_Float.m in Sources */,
@@ -1294,6 +1325,7 @@
 				D8A06F25230F9999006BDF31 /* CC_WKCookieTool.m in Sources */,
 				41527A9F23376BBC00C5B8C4 /* UILabel+CCUI.m in Sources */,
 				D8A06F7A230F99C9006BDF31 /* TestController.m in Sources */,
+				D8D4CD86239F4B7C0041CC97 /* TestOritationVC.m in Sources */,
 				1F0687672325F56900875FCC /* CC_Alert.m in Sources */,
 				D8A06F38230F9999006BDF31 /* CC_WebImageOperation.m in Sources */,
 				1F06876D2325F56900875FCC /* CC_TextView.m in Sources */,

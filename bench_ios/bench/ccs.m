@@ -216,6 +216,10 @@
     return [[cc_message cc_instance:CC_CoreUI.shared method:@selector(isDarkMode) params:nil]boolValue];
 }
 
++ (void)setDeviceOrientation:(UIDeviceOrientation)orientation {
+    [cc_message cc_instance:MXRotationManager.defaultManager method:@selector(setOrientationIndex:) params:[CC_Int value:orientation]];
+}
+
 #pragma mark action
 + (void)pushViewController:(CC_ViewController *)viewController {
     [cc_message cc_instance:CC_NavigationController.shared method:@selector(cc_pushViewController:) params:viewController];

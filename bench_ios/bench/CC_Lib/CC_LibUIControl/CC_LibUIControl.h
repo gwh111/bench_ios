@@ -21,4 +21,7 @@
 #import "CC_TabBarController.h"
 #import "CC_NavigationController.h"
 
+// thd
+#import "MXRotationManager.h"
+
 #endif /* CC_LibUIControl_h */

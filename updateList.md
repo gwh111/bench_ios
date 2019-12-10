@@ -12,6 +12,10 @@ API格式：
       }//if 和 else 两边有空格
 7、两行函数之间有一行空格
 
+19/12/10 apple
+添加手动屏幕旋转
+[ccs setDeviceOrientation:UIDeviceOrientationLandscapeLeft];
+
 19/07/30 Liuyi
 CC_Mask中添加一个判断指示器状态的方法
 当异步加载数据时,CC_Mask视图并不能阻止当前页面的事件触发

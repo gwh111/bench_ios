@@ -103,6 +103,7 @@
 + (UIFont *)relativeFont:(NSString *)fontName fontSize:(float)fontSize;
 + (id)getAView;
 + (BOOL)isDarkMode;
++ (void)setDeviceOrientation:(UIDeviceOrientation)orientation;
 
 #pragma mark action
 + (void)pushViewController:(CC_ViewController *)viewController;

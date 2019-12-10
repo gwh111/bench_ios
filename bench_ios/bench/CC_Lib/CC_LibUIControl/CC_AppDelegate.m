@@ -10,6 +10,8 @@
 #import "CC_CoreUI.h"
 #import "CC_LibNetwork.h"
 
+#import "MXRotationManager.h"
+
 @interface CC_AppDelegate ()
 
 @end
@@ -158,6 +160,11 @@
     CCLOG(@"\n>>>DeviceToken Error:%@\n", error.description);
     [cc_message cc_appDelegateMethod:@selector(cc_application:didFailToRegisterForRemoteNotificationsWithError:) params:application,error];
     [self cc_application:application didFailToRegisterForRemoteNotificationsWithError:error];
+}
+
+#pragma mark oritation
+- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
+    return [MXRotationManager defaultManager].interfaceOrientationMask;
 }
 
 @end
