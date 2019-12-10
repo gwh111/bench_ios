@@ -140,9 +140,13 @@
 + (NSString *)keychainUUID;
 
 // NSUserDefaults
++ (id)getDefault:(NSString *)key;
++ (void)setDefault:(NSString *)key value:(id)value;
 + (id)defaultValueForKey:(NSString *)key;
 + (void)saveDefaultKey:(NSString *)key value:(id)value;
 
++ (id)getSafeDefault:(NSString *)key;
++ (void)setSafeDefault:(NSString *)key value:(id)value;
 + (id)safeDefaultValueForKey:(NSString *)key;
 + (void)saveSafeDefaultKey:(NSString *)key value:(id)value;
 
@@ -206,10 +210,11 @@
 
 // data sharing, shared data in app, such as update a model in controller A when you are in controller B
 // app共享的数据存储 如在控制器B更新控制器A里的model
++ (id)getShared:(NSString *)key;
 + (id)sharedValueForKey:(NSString *)key;
 + (id)removeShared:(NSString *)key;
-+ (id)setShared:(NSString *)key obj:(id)obj;
-+ (id)resetShared:(NSString *)key obj:(id)obj;
++ (id)setShared:(NSString *)key value:(id)obj;
++ (id)resetShared:(NSString *)key value:(id)obj;
 
 #pragma mark CC_Function
 + (NSData *)function_dataWithInt:(int)i;

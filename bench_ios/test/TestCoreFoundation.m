@@ -16,9 +16,9 @@
     
     // 共享数据 重复设置一个字段会断言
     if ((1)) {
-        [ccs setShared:@"userName" obj:@"a"];
+        [ccs setShared:@"userName" value:@"a"];
 //        [ccs setShared:@"userName" obj:@"a"];// assert
-        [ccs resetShared:@"userName" obj:@"a"];
+        [ccs resetShared:@"userName" value:@"a"];
         CCLOG(@"%@",[ccs sharedValueForKey:@"userName"]);
     }
 }

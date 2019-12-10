@@ -298,23 +298,39 @@
     [cc_message cc_class:CC_KeyChainStore.class method:@selector(cc_saveKeychainWithName:str:) params:key,value];
 }
 
-+ (NSString *)keychainUUID{
++ (NSString *)keychainUUID {
     return [cc_message cc_class:CC_KeyChainStore.class method:@selector(cc_keychainUUID)];
 }
 
-+ (id)defaultValueForKey:(NSString *)key{
++ (id)getDefault:(NSString *)key {
+    return [self defaultValueForKey:key];
+}
+
++ (id)defaultValueForKey:(NSString *)key {
     return [cc_message cc_class:CC_DefaultStore.class method:@selector(cc_default:) params:key];
 }
 
-+ (void)saveDefaultKey:(NSString *)key value:(id)value{
++ (void)setDefault:(NSString *)key value:(id)value {
+    [self saveDefaultKey:key value:value];
+}
+
++ (void)saveDefaultKey:(NSString *)key value:(id)value {
     [cc_message cc_class:CC_DefaultStore.class method:@selector(cc_saveDefault:value:) params:key,value];
 }
 
-+ (id)safeDefaultValueForKey:(NSString *)key{
++ (id)getSafeDefault:(NSString *)key {
+    return [self safeDefaultValueForKey:key];
+}
+
++ (id)safeDefaultValueForKey:(NSString *)key {
     return [cc_message cc_class:CC_DefaultStore.class method:@selector(cc_safeDefault:) params:key];
 }
 
-+ (void)saveSafeDefaultKey:(NSString *)key value:(id)value{
++ (void)setSafeDefault:(NSString *)key value:(id)value {
+    [self saveSafeDefaultKey:key value:value];
+}
+
++ (void)saveSafeDefaultKey:(NSString *)key value:(id)value {
     [cc_message cc_class:CC_DefaultStore.class method:@selector(cc_saveSafeDefault:value:) params:key,value];
 }
 
@@ -410,20 +426,24 @@
     return [CC_Base.shared cc_registerSharedInstance:shared block:block];
 }
 
-+ (id)sharedValueForKey:(NSString *)key{
++ (id)getShared:(NSString *)key {
+    return [self sharedValueForKey:key];
+}
+
++ (id)sharedValueForKey:(NSString *)key {
     return [CC_Base.shared cc_shared:key];
 }
 
-+ (id)removeShared:(NSString *)key{
++ (id)removeShared:(NSString *)key {
     return [CC_Base.shared cc_removeShared:key];
 }
 
-+ (id)setShared:(NSString *)key obj:(id)obj{
-    return [CC_Base.shared cc_setShared:key obj:obj];
++ (id)setShared:(NSString *)key value:(id)value {
+    return [CC_Base.shared cc_setShared:key obj:value];
 }
 
-+ (id)resetShared:(NSString *)key obj:(id)obj{
-    return [CC_Base.shared cc_resetShared:key obj:obj];
++ (id)resetShared:(NSString *)key value:(id)value {
+    return [CC_Base.shared cc_resetShared:key obj:value];
 }
 
 #pragma mark CC_Function
