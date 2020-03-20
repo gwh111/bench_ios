@@ -6,7 +6,7 @@
 //  Copyright © 2020 gwh. All rights reserved.
 //
 
-#import "CC_Foundation.h"
+#import "ccs.h"
 
 @interface PopViewC : CC_Controller
 

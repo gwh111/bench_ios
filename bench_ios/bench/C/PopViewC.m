@@ -6,7 +6,6 @@
 //  Copyright © 2020 gwh. All rights reserved.
 //
 
-#import "ccs.h"
 #import "PopViewC.h"
 
 @interface PopViewC ()

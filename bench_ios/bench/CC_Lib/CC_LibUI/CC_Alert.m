@@ -40,7 +40,7 @@
     [controller presentViewController:alertController animated:NO completion:nil];
 }
 
-- (void)showTextFieldAltOn:(UIViewController *)controller title:(NSString *)title msg:(NSString *)msg placeholder:(NSString *)placeholder bts:(NSArray *)bts block:(void (^)(int index, NSString *name, NSString *text))block textFieldBlock:(void(^)(UITextField *_Nonnull textField))textFieldBlock {
+- (void)showTextFieldAltOn:(UIViewController *)controller title:(NSString *)title msg:(NSString *)msg placeholder:(NSString *)placeholder bts:(NSArray *)bts block:(void (^)(int index, NSString *name, NSString *text))block textFieldBlock:(void (^_Nullable)(UITextField *_Nonnull textField))textFieldBlock {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:msg preferredStyle:UIAlertControllerStyleAlert];
     [alertController addTextFieldWithConfigurationHandler:^(UITextField *_Nonnull textField) {
         textField.placeholder = placeholder;

@@ -34,13 +34,13 @@ static MXRotationManager *INSTANCE = nil;
     return [self defaultManager];
 }
 
-+ (id)copyWithZone:(NSZone *)zone {
-    return [self defaultManager];
-}
-
-+ (id)mutableCopyWithZone:(NSZone *)zone {
-    return [self defaultManager];
-}
+//+ (id)copyWithZone:(NSZone *)zone {
+//    return [self defaultManager];
+//}
+//
+//+ (id)mutableCopyWithZone:(NSZone *)zone {
+//    return [self defaultManager];
+//}
 
 #pragma mark - setter methods
 - (void)setOrientationIndex:(int)index {
