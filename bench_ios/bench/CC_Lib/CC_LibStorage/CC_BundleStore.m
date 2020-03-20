@@ -16,7 +16,7 @@
 }
 
 + (NSString *)cc_appName{
-    return [self cc_appBundle][@"CFBundleDisplayName"];
+    return [self cc_appBundle][@"CFBundleName"];
 }
 
 + (NSString *)cc_appBid{

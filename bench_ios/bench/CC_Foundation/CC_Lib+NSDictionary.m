@@ -10,7 +10,7 @@
 
 @implementation NSDictionary (CCCat)
 
-- (void)cc_propertyCode{
+- (void)cc_propertyCode {
     NSMutableString *codes = [NSMutableString string];
     [self enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull value, BOOL * _Nonnull stop){
         NSString *code;
@@ -92,7 +92,7 @@
 }
 
 #pragma mark correct decimal number
-- (NSMutableDictionary *)cc_correctDecimalLoss:(NSMutableDictionary *)dic{
+- (NSMutableDictionary *)cc_correctDecimalLoss:(NSMutableDictionary *)dic {
     if (dic) {
         return [self parseDic:dic];
     }
@@ -107,7 +107,7 @@
     return decNumber;
 }
 
-- (NSMutableDictionary *)parseDic:(NSMutableDictionary *)dic{
+- (NSMutableDictionary *)parseDic:(NSMutableDictionary *)dic {
     NSArray *allKeys = [dic allKeys];
     for (int i=0; i<allKeys.count; i++) {
         NSString *key = allKeys[i];
@@ -125,7 +125,7 @@
     return dic;
 }
 
-- (NSMutableArray *)parseArr:(NSMutableArray *)arr{
+- (NSMutableArray *)parseArr:(NSMutableArray *)arr {
     for (int i=0; i<arr.count; i++) {
         id v = arr[i];
         if ([v isKindOfClass:[NSDictionary class]]){
@@ -141,7 +141,7 @@
     return arr;
 }
 
-- (NSDecimalNumber *)parseNumber:(NSNumber *)number{
+- (NSDecimalNumber *)parseNumber:(NSNumber *)number {
     return [self reviseNum:number];
 }
 

@@ -9,12 +9,13 @@
 #import "CC_UIKit.h"
 #import "CC_LibKit.h"
 #import "CC_Macro.h"
-#import "CC_ShareUI+CC.h"
+#import "CC_UI+CC.h"
 
 @interface ccs : NSObject
 
 // add pch path in 'Build Settings' - 'Prefix Header' as  '$(SRCROOT)/projectname/projectname-prefix.pch'
 
+// 手动配置环境 0线上 1主干 默认根据 CCBUILDTAG 打包方式选择
 // release=0，trunk=1，branch1=2
 + (void)configureEnvironment:(int)tag;
 + (int)getEnvironment;
@@ -67,6 +68,10 @@
 // 4.减少了if else 这样缺乏扩展性的代码
 // 5.增加新功能支持不影响其他代码
 + (NSString *)string:(NSString *)format, ...;
++ (NSString *)stringInt:(int)value;
++ (NSString *)stringFloat:(float)value;
++ (NSString *)stringDouble:(double)value;
+
 + (NSMutableString *)mutString;
 + (NSMutableString *)mutString:(NSString *)format, ...;
 
@@ -81,15 +86,24 @@
 + (UIColor *)colorHexA:(NSString *)hex alpha:(float)alpha;
 + (UIColor *)colorRgbA:(float)red green:(float)green blue:(float)blue alpha:(float)alpha;
 
+// 分类分组
++ (CC_UI *)ui;
++ (CC_Tool *)tool;
+
 + (id)model:(Class)aClass;
 + (HttpModel *)httpModel;
 + (CC_Money *)money;
-+ (CC_ShareUI *)ui;
++ (CC_NavigationController *)navigation;
++ (CC_SandboxStore *)sandbox;
++ (CC_Math *)math;
++ (CC_CoreCrash *)coreCrash;
 
 #pragma mark CC_UIKit
 
 #define APP_STANDARD(name) [ccs appStandard:name]
 #pragma mark function
++ (CC_CoreUI *)coreUI;
++ (CGRect)screenRect;
 + (id)appStandard:(NSString *)name;
 + (float)statusBarHeight;
 + (float)x;
@@ -105,6 +119,9 @@
 + (BOOL)isDarkMode;
 + (void)setDeviceOrientation:(UIDeviceOrientation)orientation;
 
++ (CC_ViewController *)currentVC;
++ (CC_TabBarController *)currentTabBarC;
+
 #pragma mark action
 + (void)pushViewController:(CC_ViewController *)viewController;
 // push to viewController && remove current viewController
@@ -117,6 +134,7 @@
 + (void)popViewControllerFrom:(CC_ViewController *)viewController userInfo:(id)userInfo;
 + (void)dismissViewController;
 + (void)popToViewController:(Class)aClass;
++ (void)popToRootViewControllerAnimated:(BOOL)animated;
 + (void)pushWebViewControllerWithUrl:(NSString *)urlStr;
 
 #pragma mark CC_LibNetwork
@@ -164,7 +182,7 @@
 + (BOOL)copyBunldFileToSandboxToPath:(NSString *)name type:(NSString *)type;
 + (BOOL)copyBunldPlistToSandboxToPath:(NSString *)name;
 
-// 沙盒 Documents
+// 沙盒 Documents 
 + (NSString *)sandboxPath;
 + (NSArray *)sandboxDirectoryFilesWithPath:(NSString *)name type:(NSString *)type;
 
@@ -203,7 +221,7 @@
 // Init class
 + (id)init:(Class)aClass;
 
-+ (void)registerAppDelegate:(id)module;
++ (id)registerAppDelegate:(id)module;
 // Shared Instance
 + (id)registerSharedInstance:(id)shared;
 + (id)registerSharedInstance:(id)shared block:(void(^)(void))block;
@@ -269,44 +287,17 @@
 /// .cc_backgroundColor(UIColor.whiteColor);
 ///
 + (CC_View           *)View;
-
-/// An object that displays a single image or a sequence of animated
-/// images in your interface
 + (CC_ImageView      *)ImageView;
-
-/// A view that displays one or more lines of read-only text,
-/// often used in conjunction with controls to describe their intended purpose.
 + (CC_Label          *)Label;
-
-/// A control that executes your custom code in response to
-/// user interactions.
 + (CC_Button         *)Button;
-
-/// A scrollable, multiline text region.
 + (CC_TextView       *)TextView;
-
-/// An object that displays an editable text area in your interface.
 + (CC_TextField      *)TextField;
-
-/// A view that allows the scrolling and zooming of its
-/// contained views.
 + (CC_ScrollView     *)ScrollView;
-
-/// A view that presents data using rows arranged in a
-/// single column.
-/// must specify style at creation. -initWithFrame: calls this with UITableViewStylePlain
 + (CC_TableView      *)TableView;
 + (CC_TableView      *)TableViewWithStyle:(UITableViewStyle)style;
-
-/// An object that manages an ordered collection of data items
-/// and presents them using customizable layouts.
 + (CC_CollectionView *)CollectionView;
 + (CC_CollectionView *)CollectionViewWithLayout:(UICollectionViewLayout *)layout;
-
-/// An object that displays interactive web content, such as
-/// for an in-app browser.
 + (CC_WebView        *)WebView;
-
 + (CC_LabelGroup     *)LabelGroup;
 
 ///-------------------------------
@@ -317,52 +308,14 @@
 
 /// Creates an image object from the specified named asset.
 + (CC_Image                  *)image:(NSString *)imageName;
-
-/// The values for the attachment attributes of attributed strings and related objects.
 + (CC_TextAttachment         *)textAttachment;
-
-/// A string that has associated attributes (such as visual style, hyperlinks,
-/// or accessibility data) for portions of its text.
 + (NSAttributedString        *)attributedString;
-
-/// A mutable string object that also contains attributes (such as visual style, hyperlinks,
-/// or accessibility data) associated with various portions of its text content.
 + (NSMutableAttributedString *)mutableAttributedString;
 
-///-------------------------------
-/// @name 生成过渡视图
-///-------------------------------
-
-/**
-是否有标题 否 CC_Mask
-是
-   是否有msg 否 CC_Notice
-是
-   UIAlertController
-*/
-
-/*
-+ (CC_Mask   *)Mask;
-
-+ (CC_Notice *)Notice;
-
-/// Mask ccs.show
-+ (void)show;
-
-/// Mask ccs.dismiss
-+ (void)dismiss;
-
-/// CC_Notice [ccs showWithTitle:CXX]
-+ (void)showWithTitle:(NSString *)title;
-
-///// AlertController
-+ (void)showWithTitle:(NSString *)title
-                  msg:(NSString *)msg
-                 btns:(NSArray <NSString *>*)bts
-                block:(void (^)(int index, NSString *name))block
-         atController:(UIViewController *)controller;
-
-*/
++ (CC_Color *)color;
++ (CC_Mask *)mask;
++ (CC_Notice *)notice;
++ (CC_Alert *)alert;
 
 + (void)maskStart;
 + (void)maskStartAtView:(UIView *)view;
@@ -373,9 +326,7 @@
 + (void)showNotice:(NSString *)str atView:(UIView *)view delay:(int)delay;
 
 + (void)showAltOn:(UIViewController *)controller title:(NSString *)title msg:(NSString *)msg bts:(NSArray *)bts block:(void (^)(int index, NSString *name))block;
-
 + (void)showTextFieldAltOn:(UIViewController *)controller title:(NSString *)title msg:(NSString *)msg placeholder:(NSString *)placeholder bts:(NSArray *)bts block:(void (^)(int index, NSString *name, NSString *text))block;
-
 + (void)showTextFieldsAltOn:(UIViewController *)controller title:(NSString *)title msg:(NSString *)msg placeholders:(NSArray *)placeholders bts:(NSArray *)bts block:(void (^)(int index, NSString *name, NSArray *texts))block;
 
 @end

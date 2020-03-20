@@ -9,6 +9,9 @@
 #ifndef CC_Macro_h
 #define CC_Macro_h
 
+#define COLOR_WHITE UIColor.whiteColor
+#define COLOR_BLACK UIColor.blackColor
+#define COLOR_CLEAR UIColor.clearColor
 #define COLOR_LIGHT_GREEN [UIColor colorWithRed:107/255.0f green:221/255.0f blue:123/255.0f alpha:1]
 #define COLOR_LIGHT_BLUE [UIColor colorWithRed:62/255.0f green:188/255.0f blue:202/255.0f alpha:1]
 #define COLOR_LIGHT_ORANGE [UIColor colorWithRed:223/255.0f green:142/255.0f blue:57/255.0f alpha:1]

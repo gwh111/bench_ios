@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface TestNetwork : NSObject
-
+- (void)testNetworkApi;
 @end
 
 NS_ASSUME_NONNULL_END

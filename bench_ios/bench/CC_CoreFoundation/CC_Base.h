@@ -24,8 +24,9 @@
 // Init object for 'class'
 - (id)cc_init:(Class)aClass;
 
+- (id)cc_getAppDelegate:(Class)aClass;
 // For moduler register a lifecycle/runloop.
-- (void)cc_registerAppDelegate:(id)module;
+- (id)cc_registerAppDelegate:(id)module;
 
 // Return sharedInstance.
 - (id)cc_registerSharedInstance:(id)shared;

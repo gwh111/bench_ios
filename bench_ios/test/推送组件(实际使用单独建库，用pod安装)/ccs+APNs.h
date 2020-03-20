@@ -11,14 +11,7 @@
 
 @interface ccs (APNs)
 
-/**
- 上传推送配置
-
- @param domainUrl 域名URL
- @param authedUserId 用户ID
- @param pushMessageBlock 推送回调
- */
-+ (void)APNs_updateTokenToServerWithDomainUrl:(NSURL *)domainUrl authedUserId:(NSString *)authedUserId pushMessageBlock:(void(^)(NSDictionary *messageDic, BOOL lanchFromRemote))pushMessageBlock;
++ (AppDelegate_APNs *)APNs;
 
 @end
 

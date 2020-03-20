@@ -15,6 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CC_Service : NSObject
 
+@property (nonatomic, retain) NSString *mainURL; //mainURLs[ccs.getEnvironment];
+@property (nonatomic, retain) NSArray *mainURLs;
+
 @property (nonatomic, retain) NSMutableDictionary *requestMap;
 @property (nonatomic, retain) NSMutableDictionary *responseMap;
 

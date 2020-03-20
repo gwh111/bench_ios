@@ -61,6 +61,10 @@
 
 @implementation CC_Button (CCActions)
 
+- (void)addTappedOnceDelay:(float)time withBlock:(void (^)(CC_Button *btn))block {
+    [self cc_addTappedOnceDelay:time withBlock:block];
+}
+
 - (void)cc_addTappedOnceDelay:(float)time
                     withBlock:(void (^)(CC_Button *btn))block {
     

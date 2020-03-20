@@ -21,6 +21,8 @@
 
 @property (nonatomic,retain) NSString *nowDate;
 
+@property (nonatomic,retain) NSArray *group2;
+
 @property (nonatomic,retain) NSArray <TestSubArrayModel *>*groupUsers;
 
 @property (nonatomic,retain) TestSubModel *group;

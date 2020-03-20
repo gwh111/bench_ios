@@ -17,9 +17,15 @@
 
 @interface TestViewController1 ()
 
+@property (nonatomic, retain) NSString *name;
+
+@property (nonatomic, copy) NSString *text;
+@property (nonatomic, strong) dispatch_queue_t concurrentQueue;
+
 @end
 
 @implementation TestViewController1
+@synthesize text = _text;
 
 + (instancetype)shared{
     return [ccs registerSharedInstance:self block:^{
@@ -27,7 +33,89 @@
     }];
 }
 
+- (void)testReadWriteLock {
+    
+    self.concurrentQueue = dispatch_queue_create("aaa", DISPATCH_QUEUE_CONCURRENT);
+    // 测试代码,模拟多线程情况下的读写
+    for (int i = 0; i<10; i++) {
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+            self.text = [NSString stringWithFormat:@"噼里啪啦--%d",i];
+        });
+    }
+    
+    for (int i = 0; i<50; i++) {
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+            NSLog(@"读 %@ %@",[self text],[NSThread currentThread]);
+        });
+    }
+    
+    for (int i = 10; i<20; i++) {
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+            self.text = [NSString stringWithFormat:@"噼里啪啦--%d",i];
+        });
+    }
+}
+ 
+// 写操作,栅栏函数是不允许并发的,所以"写操作"是单线程进入的,根据log可以看出来
+- (void)setText:(NSString *)text {
+    
+    __weak typeof(self) weakSelf = self;
+    dispatch_barrier_sync(self.concurrentQueue, ^{
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+        strongSelf->_text = text;
+        NSLog(@"写操作 %@ %@",text,[NSThread currentThread]);
+        // 模拟耗时操作,1个1个执行,没有并发
+        sleep(1);
+    });
+}
+
+// 读操作,这个是可以并发的,log在很快时间打印完
+- (NSString *)text {
+ 
+    __block NSString * t = nil ;
+    __weak typeof(self) weakSelf = self;
+    // 并发 还是 顺序
+    dispatch_sync(self.concurrentQueue, ^{
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+        t = strongSelf->_text;
+        // 模拟耗时操作,瞬间执行完,说明是多个线程并发的进入的
+        sleep(1);
+    });
+    return t;
+}
+// end
+
+- (void)testKVO {
+    
+    
+    TestModel *model1 = TestModel.new;
+    TestModel *model = TestModel.new;
+    
+    __weak typeof(model) weakDataSource = model;
+    [model1 addObserver:weakDataSource forKeyPath:@"success" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+//    model1.success = @"asd";
+    
+    
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary<NSKeyValueChangeKey,id> *)change
+                       context:(void *)contex {
+    NSLog(@"%@",keyPath);
+}
+
+- (void)dealloc
+{
+    NSLog(@"TestViewController1dealloc");
+}
+
 - (void)cc_viewWillLoad{
+    
+    [self testReadWriteLock];
+//    [self testKVO];
+    return;
+    
     TestView *imgv = [ccs init:TestView.class];
     ccs.View
     .cc_dragable(YES);
@@ -62,6 +150,7 @@
                              @"jumpLogin" :@"",
                              @"nowTimestamp" : @"1568962641534",
                              @"success" : @"",
+                             @"group2":@[@{@"name":@"1"}],
                              @"group" : @{
                                      @"groupUserCount" : @"",
                                      @"groupName" :@"易辰,清一色,贼牛逼",
@@ -75,10 +164,11 @@
     [@{@"st1":@"1",@"a":@"b"} cc_propertyCode];
     
     CCLOG(@"%@",APP_STANDARD(@"大标题"));
+    
 }
 
 - (void)cc_viewDidLoad{
-    
+    return;
     TestViewController2 *vc1 = [ccs init:TestViewController2.class];
     vc1.tests1 = @"";
     [ccs pushViewController:vc1];
@@ -88,6 +178,8 @@
     .cc_name(@"abc")
     .cc_frame(RH(10),RH(100),RH(100),RH(100))
     .cc_backgroundColor(UIColor.whiteColor);
+    
+    [someView cc_addCornerRadius:20 borderWidth:3 borderColor:UIColor.orangeColor backgroundColor:nil drawTopLeft:YES drawTopRight:NO drawBottomLeft:NO drawBottomRight:YES];
     
     [someView cc_tappedInterval:3 withBlock:^(id  _Nonnull view) {
         [self cc_removeViewWithName:@"abc"];
@@ -102,8 +194,4 @@
     return obj;
 }
 
-- (void)dealloc
-{
-    
-}
 @end

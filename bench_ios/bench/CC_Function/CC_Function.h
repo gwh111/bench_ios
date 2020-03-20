@@ -14,6 +14,7 @@
 #import "CC_Array.h"
 #import "CC_Date.h"
 #import "CC_Data.h"
+#import "CC_Math.h"
 
 @interface CC_Function : NSObject
 
@@ -25,6 +26,8 @@
 + (NSData *)cc_dataWithInt:(int)i;
 
 #pragma mark validate
+- (BOOL)isSimuLator;
+
 + (BOOL)cc_isEmpty:(id)obj;
 
 // 是否从appstore下载的
@@ -32,6 +35,8 @@
 
 // 是否越狱
 + (BOOL)cc_isJailBreak;
+
++ (NSString *)cc_weekFromDate:(id)date;
 
 #pragma mark compare
 //  版本号对比 如1.3.2 比 1.4.1版本低 返回-1
@@ -45,7 +50,7 @@
 + (NSString *)cc_formatDate:(NSString *)date nowDate:(NSString *)nowDate;
 + (NSString *)cc_formatDate:(NSString *)date nowDate:(NSString *)nowDate formatArr:(NSArray *)formatArr;
 
-#pragma mark math
+#pragma mark deprecated use ccs.math
 // 度和弧度的转化
 + (float)cc_duWithHudu:(float)hudu;
 + (float)cc_huduWithDu:(float)du;

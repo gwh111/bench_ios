@@ -8,23 +8,26 @@
 
 #import "CC_AppDelegate.h"
 
-NS_ASSUME_NONNULL_BEGIN
-
-typedef void(^CC_PushMessageBlock)(NSDictionary *messageDic, BOOL lanchFromRemote);
-
 @interface AppDelegate_APNs : CC_AppDelegate
 
-@property (nonatomic,retain) NSMutableArray *arr;
+@property (nonatomic, assign) BOOL launchedFromRemoteNotification;
+@property (nonatomic, assign) NSInteger requestCycleCount;  // 向服务端上传token循环次数.
+
++ (instancetype)shared;
 
 /**
- 上传推送配置
+获取推送token
+@param block success 是否成功获取
+             granted 是否打开推送授权
+*/
+- (void)addReceiveDeviceTokenBlock:(void(^)(BOOL success, BOOL granted, NSData *deviceToken))block;
 
- @param domainUrl 域名
- @param authedUserId 用户ID
- @param pushMessageBlock 推送回调
+/**
+上传推送配置
+@param domainUrl 域名
+@param authedUserId 用户ID
+@param pushMessageBlock 推送回调
  */
-- (void)updateTokenToServerWithDomainUrl:(NSURL *)domainUrl authedUserId:(NSString *)authedUserId pushMessageBlock:(CC_PushMessageBlock)pushMessageBlock;
+- (void)updateTokenToServerWithDomainUrl:(NSURL *)domainUrl authedUserId:(NSString *)authedUserId pushMessageBlock:(void(^)(NSDictionary *messageDic, BOOL lanchFromRemote))pushMessageBlock;
 
 @end
-
-NS_ASSUME_NONNULL_END

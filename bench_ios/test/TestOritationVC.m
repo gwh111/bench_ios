@@ -15,7 +15,6 @@
 @implementation TestOritationVC
 
 - (void)cc_viewWillDisappear {
-
     [ccs setDeviceOrientation:UIDeviceOrientationPortrait];
 }
 

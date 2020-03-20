@@ -18,43 +18,55 @@
     NSMutableDictionary *registerMutDic;
     
     NSDate *lastDate;
-    int pause;
+    NSLock *lock;
+    
     float minF;
     
     NSString *currentUniqueTimeStamp;
     int currentUniqueTimeStampCount;
 }
 
+@property (nonatomic, retain) NSTimer *timer;
+
 @end
 
 @implementation CC_CoreTimer
 
-+ (instancetype)shared{
++ (instancetype)shared {
     return [CC_Base.shared cc_registerSharedInstance:self block:^{
-        [CC_CoreTimer.shared initT];
+        [CC_CoreTimer.shared start];
     }];
 }
 
-- (void)initT{
+- (void)start {
+    lock = NSLock.new;
     minF = 0.1;
     registerMutDic = [[NSMutableDictionary alloc]init];
     registerBlockMutArr = [[NSMutableArray alloc]init];
     registerNameMutArr = [[NSMutableArray alloc]init];
     registerTimeMutArr = [[NSMutableArray alloc]init];
-    __block CC_CoreTimer *weakSelf = self;
-    [CC_CoreThread.shared cc_gotoThread:^{
-        [NSTimer scheduledTimerWithTimeInterval:weakSelf->minF target:self selector:@selector(runTimer) userInfo:nil repeats:YES];
-        [[NSRunLoop currentRunLoop]run];
-    }];
+    [self initTimer];
 }
 
-- (void)runTimer{
+- (void)initTimer {
+    if (!self.timer) {
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+            self.timer = [NSTimer scheduledTimerWithTimeInterval:self->minF target:self selector:@selector(runTimer) userInfo:nil repeats:YES];
+            [[NSRunLoop currentRunLoop]run];
+        });
+    }
+}
+
+- (void)stopTimer {
+    [self.timer invalidate];
+    self.timer = nil;
+}
+
+- (void)runTimer {
     if (registerTimeMutArr.count == 0) {
         return;
     }
-    if (pause) {
-        return;
-    }
+    [lock lock];
     NSTimeInterval add = 0;
     NSDate *d2 = [NSDate date];
     if (!lastDate) {
@@ -64,24 +76,24 @@
     }
     lastDate = d2;
     
-    for (int i=0; i<registerTimeMutArr.count; i++) {
+    for (int i = 0; i < registerTimeMutArr.count; i++) {
         float getT = [registerTimeMutArr[i] floatValue];
         NSString *name = registerNameMutArr[i];
         float need = [registerMutDic[name] floatValue];
         if (getT + add < need) {
-            [registerTimeMutArr replaceObjectAtIndex:i withObject:@(getT+add)];
+            [registerTimeMutArr replaceObjectAtIndex:i withObject:@(getT + add)];
         }else{
             float plus = getT + add - need;
             
             [registerTimeMutArr replaceObjectAtIndex:i withObject:@(plus)];
             
-            __block CC_CoreTimer *weakSelf = self;
             [CC_CoreThread.shared cc_gotoMain:^{
-                void (^myBlock)(void) = weakSelf->registerBlockMutArr[i];
+                void (^myBlock)(void) = self->registerBlockMutArr[i];
                 myBlock();
             }];
         }
     }
+    [lock unlock];
 }
 
 - (void)cc_registerT:(NSString *)name interval:(float)interval block:(void (^)(void))block{
@@ -93,10 +105,13 @@
     }
     if (!registerMutDic[name]) {
         //防重复
+        [lock lock];
         [registerMutDic setObject:@(interval) forKey:name];
         [registerNameMutArr addObject:name];
         [registerBlockMutArr addObject:block];
         [registerTimeMutArr addObject:@(0)];
+        [lock unlock];
+        [self initTimer];
     }
 }
 
@@ -104,13 +119,13 @@
     if (!name) {
         CCLOGAssert(@"no name");
     }
-    pause = 1;
+    [lock lock];
     //写保护
     [registerMutDic removeObjectForKey:name];
     int index = -1;
-    for (int i=0; i<registerNameMutArr.count; i++) {
+    for (int i = 0; i < registerNameMutArr.count; i++) {
         if ([registerNameMutArr[i]isEqualToString:name]) {
-            index=i;
+            index = i;
         }
     }
     if (index >= 0) {
@@ -118,7 +133,11 @@
         [registerBlockMutArr removeObjectAtIndex:index];
         [registerTimeMutArr removeObjectAtIndex:index];
     }
-    pause = 0;
+    [lock unlock];
+    if (registerNameMutArr.count == 0) {
+        [_timer invalidate];
+        _timer = nil;
+    }
 }
 
 

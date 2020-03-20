@@ -5,7 +5,7 @@
 //  Created by gwh on 2019/11/11.
 //
 
-#import "CC_Foundation.h"
+#import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

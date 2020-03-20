@@ -71,7 +71,7 @@
         valueStr=[valueStr stringByReplacingOccurrencesOfString:@" " withString:@" "];
         
         NSMutableCharacterSet *allowed = [NSMutableCharacterSet alphanumericCharacterSet];
-        [allowed addCharactersInString:@"!*'();:@&=+$,/?%#[]<>&\\"];
+//        [allowed addCharactersInString:@"!*'();:@&=+$,/?%#[]<>&\\"];
         
         NSString *tempString = [valueStr stringByAddingPercentEncodingWithAllowedCharacters:allowed];
         

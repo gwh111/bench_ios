@@ -35,6 +35,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 #define TABBAR_BAR_HEIGHT CC_CoreUI.shared.uiTabBarHeight
 
 #define RH(f) [CC_CoreUI.shared relativeHeight:f]
+#define PH(f) f * WIDTH() //宽度的几倍
 #define RF(f) [CC_CoreUI.shared relativeFont:f]
 #define BRF(f) [CC_CoreUI.shared relativeFont:@"Helvetica-Bold" fontSize:f]
 
@@ -77,11 +78,13 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 
 - (float)statusBarHeight;
 
+- (CGRect)screenRect;
 - (float)x;
 // consider safe area y, =cc_statusBarHeight
 - (float)y;
 - (float)width;
 - (float)height;
+
 
 /** height cut safe area and status bar */
 - (float)safeHeight;

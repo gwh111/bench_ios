@@ -65,20 +65,20 @@
     .cc_frame(0, webV.top, 0, 1)
     .cc_backgroundColor(RGBA(62, 255.0, 202, 1));
     
-    NSArray *names = @[@"X"];
-    
-    // WS(weakSelf)
-    for (int i = 0; i < names.count; i++) {
-        CC_Button *button = ((CC_Button *)[CC_Base.shared cc_init:CC_Button.class])
-        .cc_addToView(self.view)
-        .cc_frame(RH(75)*i, Y(), NAV_BAR_HEIGHT, NAV_BAR_HEIGHT)
-        .cc_setTitleForState(names[i], UIControlStateNormal)
-        .cc_setTitleColorForState(UIColor.blackColor, UIControlStateNormal);
-        
-        [button cc_tappedInterval:0.1 withBlock:^(id  _Nonnull view) {
-            [[CC_NavigationController shared]cc_popViewController];
-        }];
-    }
+//    NSArray *names = @[@"X"];
+//    
+//    // WS(weakSelf)
+//    for (int i = 0; i < names.count; i++) {
+//        CC_Button *button = ((CC_Button *)[CC_Base.shared cc_init:CC_Button.class])
+//        .cc_addToView(self.view)
+//        .cc_frame(RH(75)*i, Y(), NAV_BAR_HEIGHT, NAV_BAR_HEIGHT)
+//        .cc_setTitleForState(names[i], UIControlStateNormal)
+//        .cc_setTitleColorForState(UIColor.blackColor, UIControlStateNormal);
+//        
+//        [button cc_tappedInterval:0.1 withBlock:^(id  _Nonnull view) {
+//            [[CC_NavigationController shared]cc_popViewController];
+//        }];
+//    }
     
     titleLabel = [CC_Base.shared cc_init:CC_Label.class];
     titleLabel

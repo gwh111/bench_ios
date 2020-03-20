@@ -11,6 +11,7 @@
 #import "CC_LibNetwork.h"
 
 #import "MXRotationManager.h"
+#import "CC_CoreCrash.h"
 
 @interface CC_AppDelegate ()
 
@@ -27,8 +28,9 @@
 
 - (void)super_cc_willInit {
     
-    // Foundation
-//    [CC_Base cc_willInit];
+    // 设置异常捕获 bench的monitor会定期检查是否被其他库比如bugly替换
+    [CC_CoreCrash.shared setupUncaughtExceptionHandler];
+    
     [CC_NavigationController.shared cc_willInit];
     
     // Lib
@@ -36,10 +38,10 @@
     [CC_CoreUI.shared start];
 }
 
-- (void)cc_initViewController:(Class)aClass withNavigationBarHidden:(BOOL)hidden block:(void (^)(void))block {
+- (id)cc_initViewController:(Class)aClass withNavigationBarHidden:(BOOL)hidden block:(void (^)(void))block {
     id controller = [CC_Base.shared cc_init:aClass];
     if ([controller isKindOfClass:CC_ViewController.class]) {
-        CC_ViewController *viewController =controller;
+        CC_ViewController *viewController = controller;
         viewController.cc_navigationBarHidden = hidden;
     }
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:controller];
@@ -47,14 +49,15 @@
     [CC_NavigationController shared].cc_UINav.navigationBarHidden = YES;
     [CC_AppDelegate shared].window.rootViewController = [CC_NavigationController shared].cc_UINav;
     block();
+    return controller;
 }
 
-- (void)cc_initViewController:(Class)aClass block:(void (^)(void))block {
-    [self cc_initViewController:aClass withNavigationBarHidden:YES block:block];
+- (id)cc_initViewController:(Class)aClass block:(void (^)(void))block {
+    return [self cc_initViewController:aClass withNavigationBarHidden:YES block:block];
 }
 
-- (void)cc_initTabbarViewController:(Class)aClass block:(void (^)(void))block {
-    [self cc_initViewController:aClass withNavigationBarHidden:YES block:block];
+- (id)cc_initTabbarViewController:(Class)aClass block:(void (^)(void))block {
+    return [self cc_initViewController:aClass withNavigationBarHidden:YES block:block];
 }
 
 #pragma mark life circle
@@ -74,7 +77,7 @@
     CCLOG(@"<<<bench_ios init success");
     [CC_Monitor.shared reviewLaunchFinish];
     
-    return YES;
+    return [self cc_application:application didFinishLaunchingWithOptions:launchOptions];
 }
 
 
@@ -134,37 +137,16 @@
 #pragma mark open URL
 - (BOOL)cc_application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options NS_AVAILABLE_IOS(9_0) {
     return YES;
-};
+}
 
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options NS_AVAILABLE_IOS(9_0) {
     [cc_message cc_appDelegateMethod:@selector(cc_application:openURL:options:) params:app,url,options];
     return [self cc_application:app openURL:url options:options];
 }
 
-#pragma mark notification
-- (void)cc_application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {};
-
-- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-    NSString *token = [[deviceToken description] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
-    token = [token stringByReplacingOccurrencesOfString:@" " withString:@""];
-    CCLOG(@"\n>>>DeviceToken Success:%@\n", token);
-    
-    [cc_message cc_appDelegateMethod:@selector(cc_application:didRegisterForRemoteNotificationsWithDeviceToken:) params:application,deviceToken];
-    [self cc_application:application didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
-}
-
-
-- (void)cc_application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {}
-
-- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
-    CCLOG(@"\n>>>DeviceToken Error:%@\n", error.description);
-    [cc_message cc_appDelegateMethod:@selector(cc_application:didFailToRegisterForRemoteNotificationsWithError:) params:application,error];
-    [self cc_application:application didFailToRegisterForRemoteNotificationsWithError:error];
-}
-
 #pragma mark oritation
 - (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
-    return [MXRotationManager defaultManager].interfaceOrientationMask;
+    return MXRotationManager.defaultManager.interfaceOrientationMask;
 }
 
 @end

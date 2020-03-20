@@ -91,7 +91,7 @@ static NSString *static_netTestContain = @"http://d.net/";
     executorDelegate.finishBlock = block; // 绑定执行完成时的block
 
     NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
-    NSURLSession  *session = [NSURLSession sessionWithConfiguration:sessionConfig delegate:executorDelegate delegateQueue:nil];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfig delegate:executorDelegate delegateQueue:nil];
 
     NSURLRequest *urlReq;
     if (request) {
@@ -128,6 +128,9 @@ static NSString *static_netTestContain = @"http://d.net/";
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
         NSString *dateStr = httpResponse.allHeaderFields[@"Date"];
         model.responseDate = [dateStr cc_convertToDate];
+        if (!model.responseDate) {
+            model.responseDate = [dateStr cc_convertToDateWithformatter:@"e, dd MM yyyy HH:mm:ss z"];
+        }
         
         if (error) {
             if (error.code!=53) {
@@ -298,26 +301,71 @@ static NSString *static_netTestContain = @"http://d.net/";
     [[CC_Base.shared cc_init:CC_ImageUploadTask.class] uploadImages:images url:url params:paramsDic reConnectTimes:times configure:configure finishBlock:uploadImageBlock];
 }
 
-#pragma mark - 文件上传下载进度回调接口
-
-- (void)uploadFileWithPath:(NSString *)filepath
-                    params:(id)paramsDic
-                  progress:(void(^)(double progress))progress
-             finishHandler:(void(^)(NSString *error, NSDictionary *result))finishHandler{
-}
-
+// 文件/mp4上传下载
 - (void)downloadDataWithUrl:(NSString *)urlStr
-                   progress:(void(^)(double progress))progress
-              finishHandler:(void (^)(NSError *error, NSDictionary *result))finishHandler{
+                finishBlock:(void (^)(NSError *error, HttpModel *result))finishBlock {
+    NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:nil];
+    NSURLSessionDownloadTask *mytask = [session downloadTaskWithURL:[NSURL URLWithString:urlStr] completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        
+        [session invalidateAndCancel];
+        if (error) {
+            
+            [CC_CoreThread.shared cc_gotoMain:^{
+
+                finishBlock(error,nil);
+            }];
+            return;
+        }
+        NSString *cache = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)lastObject];
+        //2,拿到cache文件夹和文件名
+        NSString *file = [cache stringByAppendingPathComponent:response.suggestedFilename];
+        
+        [[NSFileManager defaultManager] moveItemAtURL:location toURL:[NSURL fileURLWithPath:file] error:nil];
+        
+        HttpModel *model = HttpModel.new;
+        model.resultStr = file;
+        model.resultDic = @{@"path":file};
+        
+        [CC_CoreThread.shared cc_gotoMain:^{
+
+            finishBlock(nil,model);
+        }];
+    }];
+    [mytask resume];
 }
 
-- (void)uploadFileData:(NSData *)data
-              fileName:(NSString *)name
-                   url:(NSURL *)url
-              mimeType:(NSString *)mimeType
-                params:(id)paramsDic
-              progress:(void (^)(double))progress
-         finishHandler:(void (^)(NSString *error, NSDictionary *result))finishHandler{
+#pragma mark NSSessionUrlDelegate
+- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask
+      didWriteData:(int64_t)bytesWritten
+ totalBytesWritten:(int64_t)totalBytesWritten
+totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
+    //下载进度
+    CGFloat progress = totalBytesWritten / (double)totalBytesExpectedToWrite;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        //进行UI操作  设置进度条
+        NSLog(@"%f",progress);
+    });
+}
+    //下载完成 保存到本地相册
+- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask
+didFinishDownloadingToURL:(NSURL *)location {
+    //1.拿到cache文件夹的路径
+    NSString *cache = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)lastObject];
+    //2,拿到cache文件夹和文件名
+    NSString *file = [cache stringByAppendingPathComponent:downloadTask.response.suggestedFilename];
+    
+    [[NSFileManager defaultManager] moveItemAtURL:location toURL:[NSURL fileURLWithPath:file] error:nil];
+    
+//    NSString *toPath = [ccs.sandbox.documentsPath stringByAppendingPathComponent:@"record/xxx1.mp4"];
+//    [ccs.sandbox copyItemAtPath:file toPath:toPath overwrite:YES error:nil];
+    
+}
+
+-(void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error
+{//整个请求完成或者请求失败调用
+    
+    NSLog(@"didCompleteWithError");
 }
 
 

@@ -30,11 +30,11 @@ NS_ASSUME_NONNULL_BEGIN
 /** Set up the startup controller
     设置启动的控制器 */
 
-- (void)cc_initViewController:(Class)aClass block:(void (^)(void))block;
+- (id)cc_initViewController:(Class)aClass block:(void (^)(void))block;
 
-- (void)cc_initViewController:(Class)aClass withNavigationBarHidden:(BOOL)hidden block:(void (^)(void))block;
+- (id)cc_initViewController:(Class)aClass withNavigationBarHidden:(BOOL)hidden block:(void (^)(void))block;
 
-- (void)cc_initTabbarViewController:(Class)aClass block:(void (^)(void))block;
+- (id)cc_initTabbarViewController:(Class)aClass block:(void (^)(void))block;
 
 #pragma mark life circle
 - (BOOL)cc_application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions;
@@ -51,11 +51,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark open URL
 - (BOOL)cc_application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options NS_AVAILABLE_IOS(9_0);
-
-#pragma mark notification
-- (void)cc_application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken;
-
-- (void)cc_application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error;
 
 @end
 

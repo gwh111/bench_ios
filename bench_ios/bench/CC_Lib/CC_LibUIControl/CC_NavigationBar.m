@@ -47,7 +47,7 @@ static NSString *KEY_BACK_ICON = @"gray_navBack_arrow_icon@3x";
         _backButton.frame = CGRectMake(10, STATUS_BAR_HEIGHT + 10, backImage.size.width * 24 / backImage.size.height, 24);
         [self addSubview:_backButton];
         
-        _titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(WIDTH()/2 - RH(150), STATUS_BAR_HEIGHT, RH(300), RH(44))];
+        _titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(WIDTH()/2 - RH(150), STATUS_BAR_HEIGHT, RH(300), 44)];
         _titleLabel.textColor = HEX(#000000);
         _titleLabel.backgroundColor = [UIColor clearColor];
         _titleLabel.font = [CC_CoreUI.shared relativeFont:@"Helvetica-Bold" fontSize:19];

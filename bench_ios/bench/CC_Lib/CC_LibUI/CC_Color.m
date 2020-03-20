@@ -10,6 +10,101 @@
 
 @implementation CC_Color
 
++ (CC_Color *)color {
+    return CC_Color.new;
+}
+
+//颜色转字符串
+- (NSString *)cc_changeUIColorToRGB:(UIColor *)color {
+    
+    const CGFloat *cs=CGColorGetComponents(color.CGColor);
+
+    NSString *r = [NSString stringWithFormat:@"%@",[self  ToHex:cs[0]*255]];
+    NSString *g = [NSString stringWithFormat:@"%@",[self  ToHex:cs[1]*255]];
+    NSString *b = [NSString stringWithFormat:@"%@",[self  ToHex:cs[2]*255]];
+    return [NSString stringWithFormat:@"#%@%@%@",r,g,b];
+}
+
+//十进制转十六进制
+- (NSString *)ToHex:(int)tmpid {
+    NSString *endtmp = @"";
+    NSString *nLetterValue;
+    NSString *nStrat;
+    int ttmpig = tmpid%16;
+    int tmp = tmpid/16;
+    switch (ttmpig)
+    {
+        case 10:
+            nLetterValue =@"A";break;
+        case 11:
+            nLetterValue =@"B";break;
+        case 12:
+            nLetterValue =@"C";break;
+        case 13:
+            nLetterValue =@"D";break;
+        case 14:
+            nLetterValue =@"E";break;
+        case 15:
+            nLetterValue =@"F";break;
+        default:nLetterValue = [[NSString alloc]initWithFormat:@"%i",ttmpig];
+            
+    }
+    switch (tmp)
+    {
+        case 10:
+            nStrat =@"A";break;
+        case 11:
+            nStrat =@"B";break;
+        case 12:
+            nStrat =@"C";break;
+        case 13:
+            nStrat =@"D";break;
+        case 14:
+            nStrat =@"E";break;
+        case 15:
+            nStrat =@"F";break;
+        default:nStrat = [[NSString alloc]initWithFormat:@"%i",tmp];
+            
+    }
+    endtmp = [[NSString alloc]initWithFormat:@"%@%@",nStrat,nLetterValue];
+    return endtmp;
+}
+
+- (BOOL)cc_isSameColor:(UIColor *)color1 andColor:(UIColor *)color2 {
+    CGFloat red1,red2,green1,green2,blue1,blue2,alpha1,alpha2;
+    //取出color1的背景颜色的RGBA值
+    [color1 getRed:&red1 green:&green1 blue:&blue1 alpha:&alpha1];
+    //取出color2的背景颜色的RGBA值
+    [color2 getRed:&red2 green:&green2 blue:&blue2 alpha:&alpha2];
+
+    if ((red1 == red2)&&(green1 == green2)&&(blue1 == blue2)&&(alpha1 == alpha2)) {
+        YES;
+    }
+    return NO;
+}
+ 
+// 制定图片 特定位置获取颜色
+- (UIColor *)cc_pixelColorAtLocation:(CGPoint)point inImage:(UIImage *)image {
+    return [CC_Color cc_pixelColorAtLocation:point inImage:image];
+}
+
+// 获得图片中除白色最可能的特征色
+// 当找不到颜色时返回白色
+- (UIColor *)cc_colorOfImage:(UIImage *)image {
+    return [CC_Color cc_colorOfImage:image];
+}
+
+// 获得图片中除白色最可能的特征色2 验证后留1种或合并
+- (UIColor *)cc_colorOfImage2:(UIImage *)image {
+    return [CC_Color cc_colorOfImage2:image];
+}
+
+// 判断两个颜色是否相近
+// 区间0-1  0 完全相同 1 完全不同 自定义阈值
+- (float)cc_compareColorA:(UIColor *)colorA andColorB:(UIColor *)colorB {
+    return [CC_Color cc_compareColorA:colorA andColorB:colorB];
+}
+
 // 制定图片 特定位置获取颜色
 + (UIColor *)cc_pixelColorAtLocation:(CGPoint)point inImage:(UIImage *)image{
     UIColor *color = nil;

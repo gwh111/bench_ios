@@ -26,7 +26,9 @@
 
 + (instancetype)shared {
     return [CC_Base.shared cc_registerSharedInstance:self block:^{
-        [CC_Mask.shared initUI];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [CC_Mask.shared initUI];
+        });
     }];
 }
 

@@ -8,6 +8,10 @@
 
 #import "CC_Controller.h"
 
+@interface CC_Controller ()
+
+@end
+
 @implementation CC_Controller
 @synthesize cc_delegate;
 
@@ -15,8 +19,16 @@
     
 }
 
-- (void)cc_init {
+- (void)cc_setup {
     
+}
+
+- (void)cc_setup:(void(^)(id c))block {
+    
+    [self cc_setup];
+    if (block) {
+        block(self);
+    }
 }
 
 @end

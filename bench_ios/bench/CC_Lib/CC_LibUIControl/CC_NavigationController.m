@@ -44,13 +44,35 @@
     _cc_navigationBarConfig.cc_navigationBarBackgroundImage = backgroundImage;
 }
 
-- (void)cc_push:(Class)aClass {
-    [self cc_pushViewController:[CC_Base.shared cc_init:aClass]];
+- (CC_ViewController *)currentVC {
+    if (cc_UINavList.count > 0) {
+        UINavigationController *navC = cc_UINavList.lastObject;
+        return navC.viewControllers.lastObject;
+    }
+    return cc_UINav.viewControllers.lastObject;
+}
+
+- (CC_TabBarController *)currentTabBarC {
+    for (UINavigationController *navC in cc_UINavList) {
+        NSArray *vcs = navC.viewControllers;
+        for (id vc in vcs) {
+            if ([vc isKindOfClass:CC_TabBarController.class]) {
+                return vc;
+            }
+        }
+    }
+    NSArray *vcs = cc_UINav.viewControllers;
+    for (id vc in vcs) {
+        if ([vc isKindOfClass:CC_TabBarController.class]) {
+            return vc;
+        }
+    }
+    return nil;
 }
 
 - (void)cc_pushViewController:(CC_ViewController *)viewController {
     if (cc_UINavList.count > 0) {
-        UINavigationController *navC = cc_UINavList.firstObject;
+        UINavigationController *navC = cc_UINavList.lastObject;
         [navC pushViewController:viewController animated:YES];
         return;
     }
@@ -58,7 +80,7 @@
 }
 
 - (void)cc_presentViewController:(CC_ViewController *)viewController {
-    [cc_UINav presentViewController:viewController animated:YES completion:nil];
+    [self cc_presentViewController:viewController withNavigationControllerStyle:UIModalPresentationFullScreen];
 }
 
 - (void)cc_presentViewController:(CC_ViewController *)viewController withNavigationControllerStyle:(UIModalPresentationStyle)style {
@@ -94,6 +116,7 @@
 
 - (CC_ViewController *)cc_popViewControllerFrom:(CC_ViewController *)viewController userInfo:(id)userInfo {
     CC_ViewController *pop = [self cc_popViewControllerAnimated:YES];
+    pop.cc_controllers = nil;
     CC_ViewController *last = cc_UINav.viewControllers.lastObject;
     [last cc_viewDidPopFrom:pop userInfo:userInfo];
     return pop;
@@ -101,7 +124,7 @@
 
 - (void)cc_dismissViewController {
     if (cc_UINavList.count > 0) {
-        UINavigationController *navC = cc_UINavList.firstObject;
+        UINavigationController *navC = cc_UINavList.lastObject;
         [navC dismissViewControllerAnimated:YES completion:^{
         }];
         [cc_UINavList removeLastObject];
@@ -113,20 +136,48 @@
 }
 
 - (void)cc_popToViewController:(Class)aClass {
-    for (CC_ViewController *viewController in cc_UINav.viewControllers) {
-        if ([viewController isKindOfClass:aClass]) {
-            [cc_UINav popToViewController:viewController animated:YES];
+    NSUInteger count = cc_UINav.viewControllers.count;
+    for (int i = 0; i < count; i++) {
+        CC_ViewController *vc = cc_UINav.viewControllers[count - i - 1];
+        if ([vc isKindOfClass:aClass]) {
+            [cc_UINav popToViewController:vc animated:YES];
             return;
         }
+        vc.cc_controllers = nil;
     }
 }
 
 - (void)cc_popToRootViewControllerAnimated:(BOOL)animated {
+    if (cc_UINavList.count > 0) {
+        UINavigationController *navC = cc_UINavList.lastObject;
+        for (int i = 0; i < navC.viewControllers.count; i++) {
+            if (i > 0) {
+                CC_ViewController *vc = navC.viewControllers[i];
+                vc.cc_controllers = nil;
+            }
+        }
+        [navC popToRootViewControllerAnimated:animated];
+        return;
+    }
+    for (int i = 0; i < cc_UINav.viewControllers.count; i++) {
+        if (i > 0) {
+            CC_ViewController *vc = cc_UINav.viewControllers[i];
+            vc.cc_controllers = nil;
+        }
+    }
     [cc_UINav popToRootViewControllerAnimated:YES];
 }
 
 - (CC_ViewController *)cc_popViewControllerAnimated:(BOOL)animated {
+    if (cc_UINavList.count > 0) {
+        UINavigationController *navC = cc_UINavList.lastObject;
+        CC_ViewController *last = navC.viewControllers.lastObject;
+        last.cc_controllers = nil;
+        [navC popViewControllerAnimated:animated];
+        return last;
+    }
     CC_ViewController *last = cc_UINav.viewControllers.lastObject;
+    last.cc_controllers = nil;
     [cc_UINav popViewControllerAnimated:animated];
     return last;
 }

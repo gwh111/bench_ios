@@ -52,7 +52,7 @@
         if (propertyAttributesList.count == 1) {
             // base type
             propertyType = [self parserFieldTypeWithAttr:propertyAttributesList[0]];
-            NSLog(@"propertyType = %@ name = %@",propertyType,propertyNameString);
+//            NSLog(@"propertyType = %@ name = %@",propertyType,propertyNameString);
         }
         else {
             // refernece type
@@ -64,7 +64,9 @@
                 class_type == [NSDictionary class] ||
                 class_type == [NSDate class] ||
                 class_type == [NSMutableArray class] ||
-                class_type == [NSMutableDictionary class]){
+                class_type == [NSMutableDictionary class] ||
+                class_type == [NSAttributedString class] ||
+                class_type == [NSMutableAttributedString class]){
                 propertyType = NSStringFromClass(class_type);
             }
             else if (class_type == [NSSet class] ||
@@ -96,7 +98,7 @@
         if (needDictionaryDave && propertyType)
         {
             [fieldsDic setObject:propertyType forKey:propertyNameString];
-            NSLog(@"propertyType = %@ name = %@",propertyType,propertyNameString);
+//            NSLog(@"propertyType = %@ name = %@",propertyType,propertyNameString);
         }
         if (propertyType && complete)
         {
@@ -206,9 +208,22 @@
 }
 
 + (NSString *)deleteSQL:(NSString *)tableName
-                  where:(NSString *)where {
+                  where:(NSString *)where
+                orderBy:(NSString *)orderBy
+                   desc:(BOOL)desc
+                  limit:(int)limit {
     
     NSString *delete_sql = [NSString stringWithFormat:@"DELETE FROM %@",tableName];
+    if (orderBy) {
+        if (desc) {
+            delete_sql = [delete_sql stringByAppendingFormat:@" order by %@ desc",orderBy];
+        } else {
+            delete_sql = [delete_sql stringByAppendingFormat:@" order by %@ asc",orderBy];
+        }
+    }
+    if (limit > 0) {
+        delete_sql = [delete_sql stringByAppendingFormat:@" limit %d",limit];
+    }
     if (where != nil && where.length > 0) {
         delete_sql = [delete_sql stringByAppendingFormat:@" WHERE %@",[self handleWhere:where]];
     }
@@ -217,6 +232,9 @@
 
 + (NSArray *)querySQL:(Class)modelClass
                 where:(NSString *)where
+              orderBy:(NSString *)orderBy
+                 desc:(BOOL)desc
+                limit:(int)limit
             tableName:(NSString *)tableName {
     
     NSString *table_name = NSStringFromClass(modelClass);
@@ -224,6 +242,17 @@
     NSDictionary *fieldDictionary = [CC_DatabaseTool parserModelObjectFieldsWithModelClass:modelClass];
     
     NSString *select_sql = [NSString stringWithFormat:@"SELECT * FROM %@",table_name];
+//     order by date desc limit 1
+    if (orderBy) {
+        if (desc) {
+            select_sql = [select_sql stringByAppendingFormat:@" order by %@ desc",orderBy];
+        } else {
+            select_sql = [select_sql stringByAppendingFormat:@" order by %@ asc",orderBy];
+        }
+    }
+    if (limit > 0) {
+        select_sql = [select_sql stringByAppendingFormat:@" limit %d",limit];
+    }
     if (where != nil && where.length > 0) {
         select_sql = [select_sql stringByAppendingFormat:@" WHERE %@",[self handleWhere:where]];
     }

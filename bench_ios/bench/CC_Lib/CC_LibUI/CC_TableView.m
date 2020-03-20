@@ -33,6 +33,7 @@
 - (void)cc_addTextList:(NSArray *)list withTappedBlock:(void(^)(NSUInteger index))block {
     _list = list;
     _tappedBlock = block;
+    self.backgroundColor = UIColor.clearColor;
     self.dataSource = self;
     self.delegate = self;
 }
@@ -63,6 +64,8 @@
         }
     }
     
+    cell.backgroundColor = UIColor.clearColor;
+    cell.textLabel.textColor = UIColor.blackColor;
     cell.textLabel.text = _list[indexPath.row];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;

@@ -61,7 +61,11 @@ NS_ASSUME_NONNULL_BEGIN
 * @return NSString 删除sql
 */
 + (NSString *)deleteSQL:(NSString *)tableName
-                  where:(NSString *)where;
+                  where:(NSString *)where
+                orderBy:(NSString *)orderBy
+                   desc:(BOOL)desc
+                  limit:(int)limit;
+
 /**
 * 说明: 查询model sql
 * @param modelClass 模型类
@@ -71,6 +75,9 @@ NS_ASSUME_NONNULL_BEGIN
 */
 + (NSArray *)querySQL:(Class)modelClass
                 where:(NSString *)where
+              orderBy:(NSString *)orderBy
+                 desc:(BOOL)desc
+                limit:(int)limit
             tableName:(NSString *)tableName;
 
 @end

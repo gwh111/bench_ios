@@ -12,6 +12,7 @@
 
 @property (nonatomic,retain) NSDictionary *cc_modelDic;
 
+// property/model
 - (void)cc_setObjectClassInArrayWithDic:(NSDictionary *)dic;
 
 // Use json data to set property.

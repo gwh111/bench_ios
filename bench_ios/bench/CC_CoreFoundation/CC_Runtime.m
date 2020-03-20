@@ -19,7 +19,7 @@
 
 @implementation CC_Runtime
 
-+ (instancetype)shared{
++ (instancetype)shared {
     return [CC_Base.shared cc_registerSharedInstance:self block:^{
         [CC_Runtime shared].instanceMap = [[NSMutableDictionary alloc]init];
         [CC_Runtime shared].classMap = [[NSMutableDictionary alloc]init];
@@ -38,38 +38,65 @@
     objc_setAssociatedObject(object, @selector(value), value, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-+ (void)cc_exchangeInstance:(Class)aClass method:(SEL)s1 withMethod:(SEL)s2 {
-    NSString *meStr1 = NSStringFromSelector(s1);
-    if ([CC_Runtime shared].instanceMap[meStr1]) {
-        CCLOGAssert(@"'%@' has been registerd",meStr1);
++ (void)cc_exchangeInstance:(Class)aClass method:(SEL)oriSelector withMethod:(SEL)newSelector {
+    NSString *classStr = NSStringFromClass(aClass);
+    NSString *meStr1 = NSStringFromSelector(oriSelector);
+    NSString *key = [classStr stringByAppendingString:meStr1];
+    if ([CC_Runtime shared].instanceMap[key]) {
+        CCLOGAssert(@"'%@' has been exchanged",meStr1);
     }
-    NSString *meStr2 = NSStringFromSelector(s2);
-    if ([CC_Runtime shared].instanceMap[meStr2]) {
-        CCLOGAssert(@"'%@' has been registerd",meStr2);
-    }
-    [[CC_Runtime shared].instanceMap setObject:@"" forKey:meStr1];
-    [[CC_Runtime shared].instanceMap setObject:@"" forKey:meStr2];
+    [[CC_Runtime shared].instanceMap setObject:@"" forKey:key];
     
-    Method before = class_getInstanceMethod(aClass, s1);
-    Method after = class_getInstanceMethod(aClass, s2);
+    Method before = class_getInstanceMethod(aClass, oriSelector);
+    Method after = class_getInstanceMethod(aClass, newSelector);
     method_exchangeImplementations(before, after);
 }
 
-+ (void)cc_exchangeClass:(Class)aClass method:(SEL)s1 withMethod:(SEL)s2 {
-    NSString *meStr1 = NSStringFromSelector(s1);
++ (void)cc_exchangeClass:(Class)aClass method:(SEL)oriSelector withMethod:(SEL)newSelector {
+    NSString *meStr1 = NSStringFromSelector(oriSelector);
     if ([CC_Runtime shared].classMap[meStr1]) {
-        CCLOGAssert(@"'%@' has been registerd",meStr1);
+        CCLOGAssert(@"'%@' has been exchanged",meStr1);
     }
-    NSString *meStr2 = NSStringFromSelector(s2);
+    NSString *meStr2 = NSStringFromSelector(newSelector);
     if ([CC_Runtime shared].classMap[meStr2]) {
         CCLOGAssert(@"'%@' has been registerd",meStr2);
     }
     [[CC_Runtime shared].classMap setObject:@"" forKey:meStr1];
     [[CC_Runtime shared].classMap setObject:@"" forKey:meStr2];
     
-    Method before = class_getClassMethod(aClass, s1);
-    Method after = class_getClassMethod(aClass, s2);
+    Method before = class_getClassMethod(aClass, oriSelector);
+    Method after = class_getClassMethod(aClass, newSelector);
     method_exchangeImplementations(before, after);
+}
+
++ (void)cc_swizzlingInstance:(Class)aClass method:(SEL)oriSelector withMethod:(SEL)newSelector {
+    
+    /* if current class not exist selector, then get super*/
+    Method originalMethod = class_getInstanceMethod(aClass, oriSelector);
+    Method swizzledMethod = class_getInstanceMethod(aClass, newSelector);
+    
+    /* add selector if not exist, implement append with method */
+    if (class_addMethod(aClass,
+                        oriSelector,
+                        method_getImplementation(swizzledMethod),
+                        method_getTypeEncoding(swizzledMethod)) ) {
+        /* replace class instance method, added if selector not exist */
+        /* for class cluster , it always add new selector here */
+        class_replaceMethod(aClass,
+                            newSelector,
+                            method_getImplementation(originalMethod),
+                            method_getTypeEncoding(originalMethod));
+        
+    } else {
+        /* swizzleMethod maybe belong to super */
+        class_replaceMethod(aClass,
+                            newSelector,
+                            class_replaceMethod(aClass,
+                                                oriSelector,
+                                                method_getImplementation(swizzledMethod),
+                                                method_getTypeEncoding(swizzledMethod)),
+                            method_getTypeEncoding(originalMethod));
+    }
 }
 
 @end

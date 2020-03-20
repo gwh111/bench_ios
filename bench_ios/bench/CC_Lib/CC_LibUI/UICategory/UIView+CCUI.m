@@ -310,6 +310,10 @@ typedef void (^CCAssociatedTapBlock)(UIView *view);
     [self.layer setMask:gradLayer];
 }
 
+- (void)tappedInterval:(NSTimeInterval)interval withBlock:(void (^)(id))block {
+    [self cc_tappedInterval:interval withBlock:block];
+}
+
 - (nullable __kindof UIView *)cc_tappedInterval:(NSTimeInterval)interval withBlock:(void (^)(id))block {
     [self setAssociatedTapBlock:block];
     

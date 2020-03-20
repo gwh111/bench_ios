@@ -10,6 +10,7 @@
 #import "CC_CoreBase.h"
 #import "CC_Base.h"
 #import "CC_Array.h"
+#import "CC_CoreCrash.h"
 
 #include <malloc/malloc.h>
 
@@ -40,7 +41,7 @@ static NSString *KEY_MALLOC_SIZE = @"malloc_size";
 
 - (void)run {
     // 巡查周期
-    float interval = 10.0;
+    float interval = 30.0;
     #ifdef DEBUG
     interval = 5;
     #else
@@ -55,6 +56,8 @@ static NSString *KEY_MALLOC_SIZE = @"malloc_size";
     if (startPatrolMonitor == 0) {
         return;
     }
+    [CC_CoreCrash.shared setupUncaughtExceptionHandler];
+    
     NSArray *keys = CC_CoreBase.shared.sharedInstanceDic.allKeys;
     NSMutableArray *mutArr = [NSMutableArray new];
     for (int i = 0; i < keys.count; i++) {
@@ -95,7 +98,7 @@ static NSString *KEY_MALLOC_SIZE = @"malloc_size";
         return;
     }
     NSMutableDictionary *delegateDic = appDelegateMonitorDic[appDelegateName];
-    id target = CC_CoreBase.shared.cc_sharedAppDelegate[appDelegateName];
+    id target = CC_CoreBase.shared.sharedAppDelegate[appDelegateName];
     
     NSMutableDictionary *methodDic = delegateDic[KEY_TIME_CONSUMINNG];
     NSDate *date1 = methodDic[method];

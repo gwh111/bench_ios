@@ -23,7 +23,21 @@ typedef void (^CCAssociatedTapBlock)(UIView *view);
 
 @implementation CC_View
 
-// MARK: - LifeCycle -
+- (id)popModule {
+    return [cc_message cc_targetClass:@"PopViewC" method:@"shared" params:nil];
+}
+
+- (id)popView:(void(^)(CC_View *displayView))block {
+    return [cc_message cc_targetInstance:self.popModule method:@"popView:block:" params:self,block];
+}
+
+- (id)popViewWithClose:(void(^)(CC_View *displayView, CC_Button *closeButton))block {
+    return [cc_message cc_targetInstance:self.popModule method:@"popViewWithClose:block:" params:self,block];
+}
+
+- (id)popViewWithCloseAndTitle:(void(^)(CC_View *displayView, CC_Button *closeButton, CC_Label *titleLabel))block {
+    return [cc_message cc_targetInstance:self.popModule method:@"popViewWithCloseAndTitle:block:" params:self,block];
+}
 
 // MARK: - Actions -
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event{

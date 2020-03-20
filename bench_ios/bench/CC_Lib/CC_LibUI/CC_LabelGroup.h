@@ -36,6 +36,10 @@ typedef enum : NSUInteger {
 // if set, item width is fixed.
 @property (nonatomic,assign) float itemWidth;
 
+- (void)addBtnInitBlock:(void(^)(CC_Button *btn))block;
+- (void)addGroupInitBlock:(void(^)(CC_LabelGroup *group))block;
+- (void)addBtnTappedBlock:(void(^)(CC_Button *btn, NSUInteger index))block;
+
 /**
  *  初始化类型
  *  type 对齐方式
@@ -61,6 +65,8 @@ typedef enum : NSUInteger {
  *  selected 选中状态数组
  */
 - (void)updateLabels:(NSArray *)tempArr selected:(NSArray *)selected;
+
+- (void)updateLabels:(NSArray *)tempArr selectedIndex:(NSUInteger)index;
 
 /**
  *  清空选中

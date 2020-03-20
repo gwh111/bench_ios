@@ -29,12 +29,11 @@ static const void * const kDispatchQueueSpecificKey = &kDispatchQueueSpecificKey
     }];
 }
 
-- (void)start
-{
+- (void)start {
     _queue = dispatch_queue_create([[NSString stringWithFormat:@"ccdb.%@", self] UTF8String], NULL);
     dispatch_queue_set_specific(_queue, kDispatchQueueSpecificKey, (__bridge void *)self, NULL);
 
-    self.databasePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingString:[NSString stringWithFormat:@"/%@_v%@.sqlite",[CC_BundleStore cc_appName],[CC_BundleStore cc_appVersion]]];
+    self.databasePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingString:[NSString stringWithFormat:@"/%@_v%@.sqlite",[CC_BundleStore cc_appName],@"1"]];
     self.db = [[CC_Database alloc] initWithPath:self.databasePath];
 }
 
@@ -137,7 +136,22 @@ static const void * const kDispatchQueueSpecificKey = &kDispatchQueueSpecificKey
     if (!modelClass) return array;
     
     dispatch_sync(self.queue, ^() {
-        array = [self commonQuery:modelClass where:where tableName:tableName];
+        array = [self commonQuery:modelClass where:where orderBy:nil desc:0 limit:0 tableName:tableName];
+    });
+    return array;
+}
+
+- (NSArray *)query:(Class)modelClass
+             where:(NSString *)where
+           orderBy:(NSString *)orderBy
+              desc:(BOOL)desc
+             limit:(int)limit
+         tableName:(NSString *)tableName {
+    __block NSArray *array = [NSArray new];
+    if (!modelClass) return array;
+    
+    dispatch_sync(self.queue, ^() {
+        array = [self commonQuery:modelClass where:where orderBy:orderBy desc:desc limit:limit tableName:tableName];
     });
     return array;
 }
@@ -147,12 +161,26 @@ static const void * const kDispatchQueueSpecificKey = &kDispatchQueueSpecificKey
 }
 
 - (BOOL)delete:(NSString *)tableName
+         where:(NSString *)where
+       orderBy:(NSString *)orderBy
+          desc:(BOOL)desc
+         limit:(int)limit {
+    __block BOOL result = NO;
+    if (!tableName || !tableName.length) return result;
+    
+    dispatch_sync(self.queue, ^() {
+        result = [self commonDelete:tableName where:where orderBy:orderBy desc:desc limit:limit];
+    });
+    return result;
+}
+
+- (BOOL)delete:(NSString *)tableName
          where:(NSString *)where {
     __block BOOL result = NO;
     if (!tableName || !tableName.length) return result;
     
     dispatch_sync(self.queue, ^() {
-        result = [self commonDelete:tableName where:where];
+        result = [self commonDelete:tableName where:where orderBy:nil desc:0 limit:0];
     });
     return result;
 }
@@ -239,6 +267,9 @@ static const void * const kDispatchQueueSpecificKey = &kDispatchQueueSpecificKey
 
 - (NSArray *)commonQuery:(Class)modelClass
                    where:(NSString *)where
+                 orderBy:(NSString *)orderBy
+                    desc:(BOOL)desc
+                   limit:(int)limit
                tableName:(NSString *)tableName {
     __block NSArray *array = [NSArray new];
     NSFileManager * file_manager = [NSFileManager defaultManager];
@@ -246,7 +277,7 @@ static const void * const kDispatchQueueSpecificKey = &kDispatchQueueSpecificKey
     {
         @autoreleasepool {
             if (![self.db open]) return array;
-            NSArray *modelArray = [CC_DatabaseTool querySQL:modelClass where:where tableName:tableName];
+            NSArray *modelArray = [CC_DatabaseTool querySQL:modelClass where:where orderBy:orderBy desc:desc limit:limit tableName:tableName];
             if (modelArray.count == 3) {
               array = [self.db executeQuery:modelArray[0] fieldDictionary:modelArray[1] modelObject:modelArray[2]];
             }
@@ -257,7 +288,10 @@ static const void * const kDispatchQueueSpecificKey = &kDispatchQueueSpecificKey
 }
 
 - (BOOL)commonDelete:(NSString *)tableName
-               where:(NSString *)where {
+               where:(NSString *)where
+             orderBy:(NSString *)orderBy
+                desc:(BOOL)desc
+               limit:(int)limit {
     
     BOOL result = NO;
     NSFileManager * file_manager = [NSFileManager defaultManager];
@@ -266,7 +300,7 @@ static const void * const kDispatchQueueSpecificKey = &kDispatchQueueSpecificKey
         @autoreleasepool {
             if (![self.db open]) return result;
             
-            result = [self.db executeUpdate:[CC_DatabaseTool deleteSQL:tableName where:where]];
+            result = [self.db executeUpdate:[CC_DatabaseTool deleteSQL:tableName where:where orderBy:orderBy desc:desc limit:limit]];
             
             [self.db close];
         }

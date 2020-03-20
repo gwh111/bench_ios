@@ -24,6 +24,12 @@
 		</dict>
 		<dict>
 			<key>title</key>
+			<string>多线程</string>
+			<key>className</key>
+			<string>TestThread</string>
+		</dict>
+		<dict>
+			<key>title</key>
 			<string>ViewController</string>
 			<key>className</key>
 			<string>TestViewController1</string>
@@ -60,15 +66,27 @@
 		</dict>
 		<dict>
 			<key>title</key>
-			<string>Test_LibUIViewController2(Beta)</string>
+			<string>TestCoreFoundation</string>
 			<key>className</key>
-			<string>Test_LibUiViewController2</string>
+			<string>TestCoreFoundation</string>
 		</dict>
 		<dict>
 			<key>title</key>
 			<string>手动屏幕旋转</string>
 			<key>className</key>
 			<string>TestOritationVC</string>
+		</dict>
+		<dict>
+			<key>title</key>
+			<string>视频播放</string>
+			<key>className</key>
+			<string>TestVideoVC</string>
+		</dict>
+		<dict>
+			<key>title</key>
+			<string>TestPresentVC</string>
+			<key>className</key>
+			<string>TestPresentVC</string>
 		</dict>
 	</array>
 </dict>

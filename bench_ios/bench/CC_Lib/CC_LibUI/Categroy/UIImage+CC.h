@@ -11,6 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIImage (CC)
 
+- (UIImage *)cc_imageByScalingToSize:(CGSize)targetSize;
+
 - (UIImage *)cc_scaleToKb:(NSInteger)kb;
 
 - (NSData *)cc_compressWithMaxLength:(NSUInteger)maxLength;

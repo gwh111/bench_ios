@@ -10,7 +10,7 @@
 
 @implementation CC_Alert
 
-+ (void)showAltOn:(UIViewController *)controller title:(NSString *)title msg:(NSString *)msg bts:(NSArray *)bts block:(void (^)(int index, NSString *name))block {
+- (void)showAltOn:(UIViewController *)controller title:(NSString *)title msg:(NSString *)msg bts:(NSArray *)bts block:(void (^)(int index, NSString *name))block {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:msg preferredStyle:UIAlertControllerStyleAlert];
     for (int i = 0; i < bts.count; i++) {
         [alertController addAction:[UIAlertAction actionWithTitle:bts[i] style:UIAlertActionStyleDefault handler:^(UIAlertAction *_Nonnull action) {
@@ -20,7 +20,7 @@
     [controller presentViewController:alertController animated:NO completion:nil];
 }
 
-+ (void)showTextFieldsAltOn:(UIViewController *)controller title:(NSString *)title msg:(NSString *)msg placeholders:(NSArray *)placeholders bts:(NSArray *)bts block:(void (^)(int index, NSString *name, NSArray *texts))block{
+- (void)showTextFieldsAltOn:(UIViewController *)controller title:(NSString *)title msg:(NSString *)msg placeholders:(NSArray *)placeholders bts:(NSArray *)bts block:(void (^)(int index, NSString *name, NSArray *texts))block{
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:msg preferredStyle:UIAlertControllerStyleAlert];
     for (int i = 0; i < placeholders.count; i++) {
         [alertController addTextFieldWithConfigurationHandler:^(UITextField *_Nonnull textField) {
@@ -40,10 +40,11 @@
     [controller presentViewController:alertController animated:NO completion:nil];
 }
 
-+ (void)showTextFieldAltOn:(UIViewController *)controller title:(NSString *)title msg:(NSString *)msg placeholder:(NSString *)placeholder bts:(NSArray *)bts block:(void (^)(int index, NSString *name, NSString *text))block{
+- (void)showTextFieldAltOn:(UIViewController *)controller title:(NSString *)title msg:(NSString *)msg placeholder:(NSString *)placeholder bts:(NSArray *)bts block:(void (^)(int index, NSString *name, NSString *text))block textFieldBlock:(void(^)(UITextField *_Nonnull textField))textFieldBlock {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:msg preferredStyle:UIAlertControllerStyleAlert];
     [alertController addTextFieldWithConfigurationHandler:^(UITextField *_Nonnull textField) {
         textField.placeholder = placeholder;
+        textFieldBlock(textField);
     }];
     for (int i = 0; i < bts.count; i++) {
         [alertController addAction:[UIAlertAction actionWithTitle:bts[i] style:UIAlertActionStyleDefault handler:^(UIAlertAction *_Nonnull action) {
@@ -51,6 +52,10 @@
         }]];
     }
     [controller presentViewController:alertController animated:NO completion:nil];
+}
+
+- (void)showTextFieldAltOn:(UIViewController *)controller title:(NSString *)title msg:(NSString *)msg placeholder:(NSString *)placeholder bts:(NSArray *)bts block:(void (^)(int index, NSString *name, NSString *text))block {
+    [self showTextFieldAltOn:controller title:title msg:msg placeholder:placeholder bts:bts block:block textFieldBlock:nil];
 }
 
 @end

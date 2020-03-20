@@ -42,10 +42,10 @@ typedef NS_ENUM(NSUInteger, CCHttpTaskType) {
                             ...]
     @param cache 是否缓存 使用否会直接返回缓存，在后台检测有无变更，有变更再次从block返回新地址
     @param pingTest 是否ping一个该域名下的test接口来检测域名是否有效（需要服务端有service=TEST的接口）
+ 
     如果没有新建.xcconfig配置CCBUILDTAG，在debug下默认使用主干地址1，在release默认使用线上地址1.
  
     GCC_PREPROCESSOR_DEFINITIONS = $(inherited) CCBUILDTAG='$(CCBUILDTAG)'
- 
     CC_CommonConfig.xcconfig
     CC_ReleaseConfig.xcconfig
     CC_TrunkConfig.xcconfig

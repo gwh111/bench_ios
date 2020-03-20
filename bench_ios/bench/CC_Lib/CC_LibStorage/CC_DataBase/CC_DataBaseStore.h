@@ -49,38 +49,31 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (BOOL)inserts:(NSArray *)modelArray
       tableName:(nullable NSString *)tableName;
-/**
- * 说明: 查询本地模型对象
- * @param modelClass 模型类
- * @return 查询模型对象数组
- */
+
 - (NSArray *)query:(Class)modelClass;
-/**
- * 说明: 根据表名称 查询本地模型对象
- * @param modelClass 模型类
- * @param tableName 自定义表名称
- * @return 查询模型对象数组
- */
 - (NSArray *)query:(Class)modelClass
          tableName:(NSString *)tableName;
-/**
- * 说明: 根据查询条件 查询本地模型对象
- * @param modelClass 模型类
- * @param where 查询条件(查询语法和SQL where 查询语法一样，where为空则查询所有)
- * @return 查询模型对象数组
- */
 - (NSArray *)query:(Class)modelClass
              where:(NSString *)where;
-/**
- * 说明: 根据查询条件&表名称 查询本地模型对象
- * @param modelClass 模型类
- * @param where 查询条件(查询语法和SQL where 查询语法一样，where为空则查询所有)
- * @param tableName 自定义表名称
- * @return 查询模型对象数组
- */
 - (NSArray *)query:(Class)modelClass
              where:(nullable NSString *)where
          tableName:(nullable NSString *)tableName;
+/**
+* 说明: 根据查询条件&表名称 查询本地模型对象
+* @param modelClass 模型类
+* @param where 查询条件(查询语法和SQL where 查询语法一样，where为空则查询所有)
+* @param orderBy 根据哪个字段排序
+* @param desc 是降序吗
+* @param limit 要几个 <=0 时为全部
+* @param tableName 自定义表名称
+* @return 查询模型对象数组
+*/
+- (NSArray *)query:(Class)modelClass
+             where:(NSString *)where
+           orderBy:(NSString *)orderBy
+              desc:(BOOL)desc
+             limit:(int)limit
+         tableName:(NSString *)tableName;
 /**
  * 说明: 根据条件 更新本地模型对象
  * @param modelObject 模型对象
@@ -125,14 +118,24 @@ NS_ASSUME_NONNULL_BEGIN
  * @return 是否成功
  */
 - (BOOL)clear:(NSString *)tableName;
-/**
- * 说明: 删除本地模型对象
- * @param tableName 删除对象表名称
- * @param where 查询条件(查询语法和SQL where 查询语法一样，where为空则删除所有)
- * @return 是否成功
- */
+
 - (BOOL)delete:(NSString *)tableName
          where:(nullable NSString *)where;
+/**
+* 说明: 删除本地模型对象
+* @param tableName 删除对象表名称
+* @param where 查询条件(查询语法和SQL where 查询语法一样，where为空则删除所有)
+* @param orderBy 根据哪个字段排序
+* @param desc 是降序吗
+* @param limit 要几个 <=0 时为全部
+* @return 是否成功
+*/
+- (BOOL)delete:(NSString *)tableName
+        where:(NSString *)where
+        orderBy:(NSString *)orderBy
+        desc:(BOOL)desc
+        limit:(int)limit;
+
 /**
  * 说明: 清空所有本地模型数据库
  */

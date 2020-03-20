@@ -10,6 +10,8 @@
 
 @interface cc_message : NSProxy
 
++ (id)cc_instanceWithClass:(NSString *)className;
+
 + (id)cc_class:(Class)aClass method:(SEL)selector;
 + (id)cc_class:(Class)aClass method:(SEL)selector params:(id)param,...;
 + (id)cc_class:(Class)aClass method:(SEL)selector paramList:(NSArray *)paramList;

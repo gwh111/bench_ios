@@ -178,7 +178,9 @@ static const void * const kDispatchQueueSpecificKey = &kDispatchQueueSpecificKey
                 [propertyType isEqualToString:@"NSArray"] ||
                 [propertyType isEqualToString:@"NSMutableArray"] ||
                 [propertyType isEqualToString:@"NSDictionary"] ||
-                [propertyType isEqualToString:@"NSMutableDictionary"])
+                [propertyType isEqualToString:@"NSMutableDictionary"] ||
+                [propertyType isEqualToString:@"NSAttributedString"] ||
+                [propertyType isEqualToString:@"NSMutableAttributedString"])
             {
                 int length = sqlite3_column_bytes(pStmt, column);
                 const void * blob = sqlite3_column_blob(pStmt, column);
@@ -444,6 +446,19 @@ static int FMDBDatabaseBusyHandler(void *f, int count) {
         else {
             sqlite3_bind_text(pStmt, idx, [[obj description] UTF8String], -1, SQLITE_STATIC);
         }
+    }
+    else if ([obj isKindOfClass:[NSAttributedString class]]||
+             [obj isKindOfClass:[NSMutableAttributedString class]]) {
+        
+        NSData *tempArchive = [NSKeyedArchiver archivedDataWithRootObject:obj];
+//        return [NSKeyedUnarchiver unarchiveObjectWithData:tempArchive];
+        const void *bytes = [tempArchive bytes];
+        if (!bytes) {
+            // it's an empty NSData object, aka [NSData data].
+            // Don't pass a NULL pointer, or sqlite will bind a SQL null instead of a blob.
+            bytes = "";
+        }
+        sqlite3_bind_blob(pStmt, idx, bytes, (int)[tempArchive length], SQLITE_STATIC);
     }
     else {
         sqlite3_bind_text(pStmt, idx, [[obj description] UTF8String], -1, SQLITE_STATIC);

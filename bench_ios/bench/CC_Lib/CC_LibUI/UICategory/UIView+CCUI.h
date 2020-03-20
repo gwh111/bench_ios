@@ -139,6 +139,7 @@ CC_TableView,CC_CollectionView,CC_WebView;
 // 添加tap点击的block
 // @param interval 下次点击需要间隔多久, 不小于0
 - (nullable __kindof UIView *)cc_tappedInterval:(NSTimeInterval)interval withBlock:(void (^)(id view))block;
+- (void)tappedInterval:(NSTimeInterval)interval withBlock:(void (^)(id view))block;
 
 - (void)cc_setShadow:(UIColor *)color;
 

@@ -20,11 +20,28 @@
     NSArray *tempNameArr;
     NSArray *tempSelectArr;
 }
+
+@property (nonatomic, strong) void (^btnInitBlock)(CC_Button *btn);
+@property (nonatomic, strong) void (^groupInitBlock)(CC_LabelGroup *group);
+@property (nonatomic, strong) void (^btnTappedBlock)(CC_Button *btn, NSUInteger index);
+
 @end
 
 @implementation CC_LabelGroup
 
 static int baseTag=100;
+
+- (void)addBtnInitBlock:(void(^)(CC_Button *btn))block {
+    _btnInitBlock = block;
+}
+
+- (void)addGroupInitBlock:(void(^)(CC_LabelGroup *group))block {
+    _groupInitBlock = block;
+}
+
+- (void)addBtnTappedBlock:(void(^)(CC_Button *btn, NSUInteger index))block {
+    _btnTappedBlock = block;
+}
 
 - (void)updateType:(CCLabelAlignmentType)type width:(float)width stepWidth:(float)stepWidth sideX:(float)sideX sideY:(float)sideY itemHeight:(float)itemHeight margin:(float)margin{
     self.width = width;
@@ -51,6 +68,20 @@ static int baseTag=100;
     [self updateLabels:tempNameArr selected:mutArr];
 }
 
+- (void)updateLabels:(NSArray *)tempArr selectedIndex:(NSUInteger)index {
+    tempNameArr = tempArr;
+    NSMutableArray *selects = NSMutableArray.new;
+    for (int i = 0; i < tempArr.count; i++) {
+        if (i == index) {
+            [selects addObject:@(1)];
+        } else {
+            [selects addObject:@(0)];
+        }
+    }
+    tempSelectArr = selects;
+    [self updateLabels:tempArr selected:selects number:0];
+}
+
 - (void)updateLabels:(NSArray *)tempArr selected:(NSArray *)selected{
     tempNameArr = tempArr;
     tempSelectArr = selected;
@@ -63,7 +94,7 @@ static int baseTag=100;
 
 - (void)updateLabels:(NSArray *)tempArr selected:(NSArray *)selected number:(NSUInteger)number{
     
-    [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+//    [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
     float x = sX;
     float y = sY;
@@ -78,7 +109,10 @@ static int baseTag=100;
     }
     for (int i = 0; i < count; i++) {
         
-        CC_Button *button = [CC_Base.shared cc_init:CC_Button.class];
+        CC_Button *button = [self viewWithTag:baseTag + i];
+        if (!button) {
+            button = [CC_Base.shared cc_init:CC_Button.class];
+        }
         button.forbiddenEnlargeTapFrame = YES;
         button.height = iH;
         [self addSubview:button];
@@ -127,10 +161,25 @@ static int baseTag=100;
             if ([self.delegate respondsToSelector:@selector(labelGroup:button:tappedAtIndex:)]) {
                 [self.delegate labelGroup:self button:button tappedAtIndex:i];
             }
+            if (self.btnTappedBlock) {
+                self.btnTappedBlock(button,i);
+            }
         }];
         if ([self.delegate respondsToSelector:@selector(labelGroup:initWithButton:)]) {
             [self.delegate labelGroup:self initWithButton:button];
         }
+        if (_btnInitBlock) {
+            _btnInitBlock(button);
+        }
+    }
+    
+    // 移除多的
+    NSUInteger from = count;
+    CC_Button *removeBtn = [self viewWithTag:baseTag + from];
+    while (removeBtn) {
+        [removeBtn removeFromSuperview];
+        from++;
+        removeBtn = [self viewWithTag:baseTag + from];
     }
     
     if (altype == CCLabelAlignmentTypeCenter) {
@@ -144,6 +193,9 @@ static int baseTag=100;
     self.height = y + iH + sY;
     if ([self.delegate respondsToSelector:@selector(labelGroupInitFinish:)]) {
         [self.delegate labelGroupInitFinish:self];
+    }
+    if (_groupInitBlock) {
+        _groupInitBlock(self);
     }
 }
 

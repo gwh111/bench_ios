@@ -104,41 +104,10 @@
  */
 - (void)imageUpload:(NSArray<id> *)images url:(id)url params:(id)paramsDic reConnectTimes:(NSInteger)times finishBlock:(void (^)(NSArray<HttpModel*> *errorModelArr, NSArray<HttpModel*> *successModelArr))uploadImageBlock;
 
-///  根据文件路径上传文件
-/// @param filepath 文件路径
-/// @param paramsDic 上传参数
-/// @param progress 进度回调
-/// @param finishHandler 响应回调
-- (void)uploadFileWithPath:(NSString *)filepath
-                    params:(id)paramsDic
-                  progress:(void(^)(double progress))progress
-             finishHandler:(void(^)(NSString *error, NSDictionary *result))finishHandler;
 
-/// 文件上传k接口
-/// @param data 文件二进制数据
-/// @param name 文件名
-/// @param url 上传路径
-/// @param mimeType MIMEType
-/// @param paramsDic 参数
-/// @param progress 上传进度回调
-/// @param finishHandler 响应回调
-- (void)uploadFileData:(NSData *)data
-              fileName:(NSString *)name
-                   url:(NSURL *)url
-              mimeType:(NSString *)mimeType
-                params:(id)paramsDic
-              progress:(void (^)(double))progress
-         finishHandler:(void (^)(NSString *error, NSDictionary *result))finishHandler;
-
-/// 文件下载接口
-/// @param urlStr 下载路径
-/// @param progress 下载进度回调
-/// @param finishHandler 响应回调
+// 文件/mp4上传下载
 - (void)downloadDataWithUrl:(NSString *)urlStr
-                   progress:(void(^)(double progress))progress
-              finishHandler:(void (^)(NSError *error, NSDictionary *result))finishHandler;
-
-
+                finishBlock:(void (^)(NSError *error, HttpModel *result))finishBlock;
 
 
 @end

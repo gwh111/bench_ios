@@ -24,6 +24,8 @@
                                 sessionValue:(NSString *)value
                                  expiresDate:(NSDate *)date;
 
+- (NSURLRequest *)cookieAppendRequestWithURL:(NSString *)urlStr webView:(WKWebView *)webView;
+
 /**
  解决新的跳转 Cookie 丢失问题
  @param originalRequest 拦截的请求

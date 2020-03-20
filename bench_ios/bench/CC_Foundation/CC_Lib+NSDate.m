@@ -10,41 +10,41 @@
 
 @implementation NSDate(CC_Lib)
 
-- (NSCalendarUnit)get_dateComponents{
+- (NSCalendarUnit)get_dateComponents {
     return NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay|NSCalendarUnitWeekOfYear|NSCalendarUnitHour|NSCalendarUnitMinute|NSCalendarUnitSecond|NSCalendarUnitWeekday|NSCalendarUnitWeekdayOrdinal;
 }
 
-- (NSInteger)cc_second{
+- (NSInteger)cc_second {
     NSDateComponents *components = [[NSCalendar currentCalendar] components:[self get_dateComponents] fromDate:self];
     return components.second;
 }
 
-- (NSInteger)cc_minute{
+- (NSInteger)cc_minute {
     NSDateComponents *components = [[NSCalendar currentCalendar] components:[self get_dateComponents] fromDate:self];
     return components.minute;
 }
 
-- (NSInteger)cc_hour{
+- (NSInteger)cc_hour {
     NSDateComponents *components = [[NSCalendar currentCalendar] components:[self get_dateComponents] fromDate:self];
     return components.hour;
 }
 
-- (NSInteger)cc_day{
+- (NSInteger)cc_day {
     NSDateComponents *components = [[NSCalendar currentCalendar] components:[self get_dateComponents] fromDate:self];
     return components.day;
 }
 
-- (NSInteger)cc_month{
+- (NSInteger)cc_month {
     NSDateComponents * components = [[NSCalendar currentCalendar] components:[self get_dateComponents] fromDate:self];
     return components.month;
 }
 
-- (NSInteger)cc_year{
+- (NSInteger)cc_year {
     NSDateComponents * components = [[NSCalendar currentCalendar] components:[self get_dateComponents] fromDate:self];
     return components.year;
 }
 
-- (NSString *)cc_weekday{
+- (NSString *)cc_weekday {
     NSArray *weeks = @[[NSNull null],@"星期日",@"星期一",@"星期二",@"星期三",@"星期四",@"星期五",@"星期六"];
     NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     NSTimeZone *timeZone = [NSTimeZone timeZoneWithName:@"Asia/Beijing"];
@@ -54,7 +54,7 @@
     return [weeks objectAtIndex:components.weekday];
 }
 
-- (NSString *)cc_convertToStringWithformatter:(NSString *)formatterStr{
+- (NSString *)cc_convertToStringWithformatter:(NSString *)formatterStr {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     if (formatterStr) {
         [dateFormatter setDateFormat:formatterStr];
@@ -65,8 +65,16 @@
     return currentDateString;
 }
 
-- (NSString *)cc_convertToString{
+- (NSString *)cc_convertToString {
     return [self cc_convertToStringWithformatter:nil];
+}
+
++ (NSDate *)cc_localDate {
+    NSDate *date = [NSDate date];
+    NSTimeZone *zone = [NSTimeZone systemTimeZone];
+    NSInteger interval = [zone secondsFromGMTForDate:date];
+    NSDate *localDate = [date dateByAddingTimeInterval:interval];
+    return localDate;
 }
 
 @end

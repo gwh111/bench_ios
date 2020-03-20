@@ -9,7 +9,7 @@
 #ifndef CC_LibUI_h
 #define CC_LibUI_h
 
-#import "CC_ShareUI.h"
+#import "CC_UI.h"
 
 #import "UIColor+CC.h"
 #import "UIImage+CC.h"

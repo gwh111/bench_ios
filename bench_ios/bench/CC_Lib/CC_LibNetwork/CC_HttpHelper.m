@@ -10,7 +10,6 @@
 #import "Reachability.h"
 #import "CC_HttpTask.h"
 #import "CC_Notice.h"
-#import "CC_BenchUpdate.h"
 #import "CC_Base.h"
 
 @interface CC_HttpHelper (){
@@ -135,9 +134,6 @@ static NSString *DOMAIN_DEFAULT_KEY = @"cc_domainDic";
     if ([CC_DefaultStore cc_default:DOMAIN_TAG_KEY] && tempCache) {
         tag = [[CC_DefaultStore cc_default:DOMAIN_TAG_KEY]intValue];
         tempDomainReqList = domainReqGroupList[tag];
-        if (tag > 0) {
-            [CC_BenchUpdate checkUpdate];
-        }
         [self getDomain];
     } else {
         // 如果安装环境不是内网 一定是线上包
@@ -156,9 +152,6 @@ static NSString *DOMAIN_DEFAULT_KEY = @"cc_domainDic";
             }
             self->tempDomainReqList = domainReqGroupList[tag];
             [CC_DefaultStore cc_saveDefault:DOMAIN_TAG_KEY value:@(tag)];
-            if (tag > 0) {
-                [CC_BenchUpdate checkUpdate];
-            }
             [self getDomain];
         }];
     }

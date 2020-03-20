@@ -97,6 +97,17 @@
 }
 
 #pragma mark validate
+- (BOOL)isSimuLator {
+    // TARGET_OS_IPHONE == 1
+    if (TARGET_IPHONE_SIMULATOR == 1) {
+        //模拟器
+        return YES;
+    }else{
+        //真机
+        return NO;
+    }
+}
+
 + (BOOL)cc_isEmpty:(id)obj{
     if (obj == nil || [obj isKindOfClass:[NSNull class]]) {
         return YES;
@@ -176,7 +187,7 @@
 
 #pragma mark date
 
-+ (NSString *)cc_weekFromDate:(id)date{
++ (NSString *)cc_weekFromDate:(id)date {
     if ([date isKindOfClass:[NSString class]]) {
         date = [date cc_convertToDate];
     }
@@ -189,11 +200,11 @@
     return [weeks objectAtIndex:components.weekday];
 }
 
-+ (NSString *)cc_formatDate:(NSString *)date nowDate:(NSString *)nowDate{
++ (NSString *)cc_formatDate:(NSString *)date nowDate:(NSString *)nowDate {
     return [self cc_formatDate:date nowDate:nowDate formatArr:@[@"yyyy-MM-dd",@"MM-dd",@"昨天",@"HH:mm"]];
 }
 
-+ (NSString *)cc_formatDate:(NSString *)cc_date nowDate:(NSString *)cc_nowDate formatArr:(NSArray *)formatArr{
++ (NSString *)cc_formatDate:(NSString *)cc_date nowDate:(NSString *)cc_nowDate formatArr:(NSArray *)formatArr {
     NSString *originTimeStr = cc_date;
     NSString *originNowDateStr = cc_nowDate;
     NSDateFormatter *originDateFormatter = [[NSDateFormatter alloc] init];

@@ -15,6 +15,10 @@
     
 }
 
+- (void)dealloc {
+    CCLOG(@"dealloc");
+}
+
 @end
 
 @implementation TestSubModel

@@ -13,10 +13,15 @@
 #import "CC_Int.h"
 #import "CC_Float.h"
 #import "CC_Double.h"
+#import "CC_NSUInteger.h"
 
 #import "CC_Monitor.h"
 
 @implementation cc_message
+
++ (id)cc_instanceWithClass:(NSString *)className {
+    return [[NSClassFromString(className) alloc]init];
+}
 
 + (id)cc_class:(Class)aClass method:(SEL)selector {
     return [self cc_target:aClass method:selector paramList:nil];
@@ -79,13 +84,13 @@
 }
 
 + (void)cc_appDelegateMethod:(SEL)selector params:(id)param,... {
-    NSArray *keys = [CC_CoreBase.shared.cc_sharedAppDelegate allKeys];
+    NSArray *keys = [CC_CoreBase.shared.sharedAppDelegate allKeys];
     for (NSString *name in keys) {
         
         NSString *method = NSStringFromSelector(selector);
         [CC_Monitor.shared watchStart:name method:method];
         
-        id target = CC_CoreBase.shared.cc_sharedAppDelegate[name];
+        id target = CC_CoreBase.shared.sharedAppDelegate[name];
         NSMethodSignature *signature = [target methodSignatureForSelector:selector];
         NSInteger paramsCount = signature.numberOfArguments - 2;
         NSMutableArray *paramsList = [CC_Base.shared cc_init:NSMutableArray.class];
@@ -165,7 +170,7 @@
 
 + (id)cc_targetAppDelegate:(NSString *)appDelegateName method:(NSString *)method block:(void (^)(BOOL success))block params:(id)param,... {
     SEL selector = NSSelectorFromString(method);
-    id appDelegate = CC_CoreBase.shared.cc_sharedAppDelegate[appDelegateName];
+    id appDelegate = CC_CoreBase.shared.sharedAppDelegate[appDelegateName];
     NSMethodSignature *signature = [appDelegate methodSignatureForSelector:selector];
     if (!signature) {
         CCLOG(@"<<< error:\n<<< target not found!");
@@ -213,13 +218,17 @@
                     CC_Int *ccint = (CC_Int *)obj;
                     int value = ccint.value;
                     [invocation setArgument:&value atIndex:i+2];
-                }else if ([obj isKindOfClass:CC_Float.class]){
+                } else if ([obj isKindOfClass:CC_Float.class]) {
                     CC_Float *ccfloat = (CC_Float *)obj;
                     float value = ccfloat.value;
                     [invocation setArgument:&value atIndex:i+2];
-                }else if ([obj isKindOfClass:CC_Double.class]){
+                } else if ([obj isKindOfClass:CC_Double.class]) {
                     CC_Double *ccdouble = (CC_Double *)obj;
                     double value = ccdouble.value;
+                    [invocation setArgument:&value atIndex:i+2];
+                } else if ([obj isKindOfClass:CC_NSUInteger.class]) {
+                    CC_NSUInteger *ccnsuinterge = (CC_NSUInteger *)obj;
+                    NSUInteger value = ccnsuinterge.value;
                     [invocation setArgument:&value atIndex:i+2];
                 }
                 else{

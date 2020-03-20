@@ -42,26 +42,45 @@
 
     }];
     
-    if (CC_NavigationController.shared.cc_UINav.viewControllers.count <= 1) {
-        cc_navigationBar.backButton.hidden = YES;
-    }
+    [self checkBackButtonHidden];
     
     cc_navigationBar.hidden = cc_navigationBarHidden;
     
     cc_displayView.top = cc_navigationBarHidden? Y():cc_navigationBar.bottom;
-    cc_displayView.height = cc_displayView.height - cc_navigationBar.bottom  - CC_CoreUI.shared.safeBottom;
-    
-    if (CC_NavigationController.shared.cc_UINav.viewControllers.count <= 1) {
-        cc_navigationBar.backButton.hidden = YES;
-    }
+    cc_displayView.height = cc_displayView.height - cc_navigationBar.bottom;
     
     if ([parent isKindOfClass:UITabBarController.class]) {
         cc_displayView.height = cc_displayView.height - CC_CoreUI.shared.uiTabBarHeight;
+    } else {
+        cc_displayView.height = cc_displayView.height - CC_CoreUI.shared.safeBottom;
     }
     
     if (_cc_title) {
         cc_navigationBar.titleLabel.text = _cc_title;
     }
+}
+
+- (void)checkBackButtonHidden {
+    
+    if (CC_NavigationController.shared.cc_UINavList.count > 0) {
+        UINavigationController *navC = CC_NavigationController.shared.cc_UINavList.lastObject;
+        if (navC.viewControllers.count <= 1) {
+            cc_navigationBar.backButton.hidden = YES;
+        } else {
+            cc_navigationBar.backButton.hidden = NO;
+        }
+    } else {
+
+        if (CC_NavigationController.shared.cc_UINav.viewControllers.count <= 1) {
+            cc_navigationBar.backButton.hidden = YES;
+        } else {
+            cc_navigationBar.backButton.hidden = NO;
+        }
+    }
+}
+
+- (void)super_cc_viewDidLoad {
+    
 }
 
 - (void)setCc_navigationBarHidden:(BOOL)hidden {
@@ -77,6 +96,7 @@
     controller.cc_delegate = [CC_Base.shared cc_init:CC_Delegate.class];
     controller.cc_delegate.delegate = self;
     controller.cc_displayView = cc_displayView;
+    [controller cc_setup];
     [controller cc_willInit];
     [cc_controllers cc_addObject:controller];
 }
@@ -88,6 +108,9 @@
 
 // Function used in controller
 - (void)cc_addSubview:(id)view {
+    if (!cc_displayView) {
+        return;
+    }
     [cc_displayView addSubview:view];
 }
 
@@ -102,7 +125,7 @@
     return [cc_displayView cc_viewWithName:name];
 }
 
-- (CC_Controller *)cc_controllerWithName:(NSString *)name {
+- (id)cc_controllerWithName:(NSString *)name {
     for (CC_Controller *controller in cc_controllers) {
         if ([controller.cc_name isEqualToString:name]) {
             return controller;
@@ -111,7 +134,27 @@
     return nil;
 }
 
+- (id)cc_controller:(Class)aClass {
+    for (CC_Controller *controller in cc_controllers) {
+        if ([controller isKindOfClass:aClass]) {
+            return controller;
+        }
+    }
+    return nil;
+}
+
+- (CC_TabBarController *)cc_tabBarController {
+    NSArray *vcs = self.navigationController.viewControllers;
+    for (id vc in vcs) {
+        if ([vc isKindOfClass:CC_TabBarController.class]) {
+            return vc;
+        }
+    }
+    return CC_NavigationController.shared.currentTabBarC;
+}
+
 - (void)cc_adaptUI {
+    cc_displayView.contentSize = cc_displayView.size;
     for (UIView *view in cc_displayView.subviews) {
         if (view.bottom > cc_displayView.contentSize.height) {
             cc_displayView.contentSize = CGSizeMake(cc_displayView.width, view.bottom);
@@ -126,6 +169,10 @@
 
 - (void)cc_viewWillAppear {}
 
+- (void)super_cc_viewWillAppear {
+    [self checkBackButtonHidden];
+}
+
 - (void)cc_viewWillDisappear {}
 
 - (void)cc_didReceiveMemoryWarning {}
@@ -139,14 +186,18 @@
     self.modalPresentationStyle = UIModalPresentationFullScreen;
     [self super_cc_viewWillLoad];
     [self cc_viewWillLoad];
+    [self super_cc_viewDidLoad];
     [self cc_viewDidLoad];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self super_cc_viewWillAppear];
     [self cc_viewWillAppear];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
     [self cc_viewWillDisappear];
 }
 

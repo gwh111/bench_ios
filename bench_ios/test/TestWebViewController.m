@@ -15,7 +15,11 @@
     
     [ccs pushWebViewControllerWithUrl:@"https://blog.csdn.net/gwh111/article/details/100700830"];
     
+    [ccs maskStart];
     [ccs showNotice:@"hello"];
+    [ccs delay:3 block:^{
+        [ccs maskStop];
+    }];
 }
 
 @end

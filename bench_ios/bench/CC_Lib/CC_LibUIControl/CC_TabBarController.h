@@ -10,12 +10,13 @@
 #import "CC_View.h"
 #import "CC_Controller.h"
 
-@class CC_View,CC_Controller;
+@class CC_View,CC_Controller,CC_ViewController;
 
 @interface CC_TabBarController : UITabBarController
 
-@property (nonatomic,retain) NSMutableArray *cc_controllers;
-@property (nonatomic,retain) NSMutableArray<CC_ViewController *> *cc_viewControllers;
+@property (nonatomic, retain) NSMutableArray *cc_controllers;
+@property (nonatomic, retain) NSMutableArray<CC_ViewController *> *cc_viewControllers;
+@property (nonatomic, assign) BOOL cc_autoResizeImage;// 自动调整图标大小到 20 20
 
 // Configuration function, adds configuration to this function
 // 配置函数 在此函数中添加配置
@@ -50,6 +51,9 @@
 - (void)cc_deleteItemAtIndex:(NSInteger)index;
 // if number > '99' will show '99+' as result.
 - (void)cc_updateBadgeNumber:(NSUInteger)badgeNumber atIndex:(NSInteger)index;
+
+//更新tabbarItem字体大小及图片
+- (void)cc_updateLabelFont:(UIFont *)font bottomMargin:(CGFloat)bottomMargin imageEdgeInset:(UIEdgeInsets)imageEdgeInset;
 
 // Trigger function, triggering after the condition of trigger function is reached
 // 触发函数 条件达到后触发

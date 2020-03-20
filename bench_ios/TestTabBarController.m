@@ -8,6 +8,7 @@
 #import "TestTabBarController.h"
 #import "HomeVC.h"
 #import "ccs.h"
+#import <objc/runtime.h>
 
 @interface TestTabBarController ()
 
@@ -41,6 +42,7 @@
                               index:2];
     
     [self cc_updateBadgeNumber:200 atIndex:2];
+    
 }
 
 /*

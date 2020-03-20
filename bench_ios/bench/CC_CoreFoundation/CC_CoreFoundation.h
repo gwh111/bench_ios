@@ -9,9 +9,6 @@
 #ifndef CC_CoreFoundation_h
 #define CC_CoreFoundation_h
 
-#define BENCH_IOS_VERSION @"2.0.0"
-#define BENCH_IOS_VERSION_URL @"http://bench-ios.oss-cn-shanghai.aliyuncs.com/bench_ios_verion.json"
-
 #define BENCH_IOS_NET_TEST_URL @"http://d.net/"
 #define BENCH_IOS_NET_TEST_CONTAIN @"http://d.net/"
 #define BENCH_IOS_NET_TEST_SERVICE @"/client/service.json?service=TEST"// 测试域名是否可用的服务端地址
@@ -27,5 +24,9 @@
 #import "CC_Int.h"
 #import "CC_Float.h"
 #import "CC_Double.h"
+#import "CC_NSUInteger.h"
+#import "CC_Rect.h"
+#import "CC_Point.h"
+#import "CC_Size.h"
 
 #endif /* CC_CoreFoundation_h */

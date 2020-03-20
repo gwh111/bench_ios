@@ -15,10 +15,10 @@
 + (instancetype)shared;
 
 // 自动根据noticeStr长度调整消失时间
-- (CC_Label *)showNotice:(NSString *)noticeStr;
+- (void)showNotice:(NSString *)noticeStr;
 // 有键盘的页面获取window会被释放 传入view
-- (CC_Label *)showNotice:(NSString *)noticeStr atView:(UIView *)view;
+- (void)showNotice:(NSString *)noticeStr atView:(UIView *)view;
 // 自己控制延时
-- (CC_Label *)showNotice:(NSString *)noticeStr atView:(UIView *)view delay:(int)delay;
+- (void)showNotice:(NSString *)noticeStr atView:(UIView *)view delay:(int)delay;
 
 @end

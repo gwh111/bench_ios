@@ -32,6 +32,7 @@
  */
 - (void)cc_addTappedOnceDelay:(float)time
                     withBlock:(void (^)(CC_Button *btn))block;
+- (void)addTappedOnceDelay:(float)time withBlock:(void (^)(CC_Button *btn))block;
 
 /**
  

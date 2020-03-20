@@ -29,8 +29,8 @@
     uiDemoWidth = 375;
     uiDemoHeight = 568;
     
-    uiNavBarHeight = [self relativeHeight:44];
-    uiTabBarHeight = 49;
+    uiNavBarHeight = 44;
+    uiTabBarHeight = IPHONE_X? 49+34 : 49;
     
     NSDictionary *defaultFontDic = @{HEADLINE_FONT  :RF(24),
                                      HEADLINE_COLOR :UIColor.blackColor,
@@ -65,6 +65,9 @@
         fontSize = fontSize;
     }else{
         float rate = [self width]/uiDemoWidth;
+        if (self.width > self.height) {
+            rate = [self height]/uiDemoWidth;
+        }
         if (fontSize <= 10) {
             fontSize = fontSize * rate;
             return [UIFont fontWithName:fontName size:fontSize];
@@ -78,6 +81,9 @@
 }
 
 - (float)relativeHeight:(float)height {
+    if (self.width > self.height) {
+        return (int)(height * [self height]/uiDemoWidth);
+    }
     return (int)(height * [self width]/uiDemoWidth);
 }
 
@@ -87,6 +93,10 @@
         return IPHONE_X ? 44 : 20;
     }
     return statusRect.size.height;
+}
+
+- (CGRect)screenRect {
+    return CGRectMake(0, 0, WIDTH(), HEIGHT());
 }
 
 - (float)x {
@@ -110,7 +120,7 @@
 }
 
 - (float)safeBottom {
-    return IPHONE_X ? 44 : 0;
+    return IPHONE_X ? 34 : 0;
 }
 
 - (id)getAView {

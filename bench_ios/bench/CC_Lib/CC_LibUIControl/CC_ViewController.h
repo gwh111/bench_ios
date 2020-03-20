@@ -10,8 +10,9 @@
 #import "CC_Foundation.h"
 #import "CC_Controller.h"
 #import "CC_NavigationBar.h"
+#import "CC_TabBarController.h"
 
-@class CC_ScrollView, CC_View, CC_Controller;
+@class CC_ScrollView, CC_View, CC_Controller, CC_TabBarController;
 
 @interface CC_ViewController : UIViewController
 
@@ -33,7 +34,11 @@
 - (void)cc_addSubview:(id)view;
 - (CC_View *)cc_viewWithName:(NSString *)name;
 - (void)cc_removeViewWithName:(NSString *)name;
-- (CC_Controller *)cc_controllerWithName:(NSString *)name;
+- (id)cc_controller:(Class)aClass;
+- (id)cc_controllerWithName:(NSString *)name;
+- (CC_TabBarController *)cc_tabBarController;
+
+// 调整 cc_displayView 自动滚动
 - (void)cc_adaptUI;
 
 // Trigger function, triggering after the condition of trigger function is reached

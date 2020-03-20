@@ -66,6 +66,22 @@
     return request;
 }
 
+- (NSURLRequest *)cookieAppendRequestWithURL:(NSString *)urlStr webView:(WKWebView *)webView{
+    if (!urlStr) {
+        return nil;
+    }
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlStr] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60];
+    NSArray *cookies = [NSHTTPCookieStorage sharedHTTPCookieStorage].cookies;
+    //Cookies数组转换为requestHeaderFields
+    NSDictionary *requestHeaderFields = [NSHTTPCookie requestHeaderFieldsWithCookies:cookies];
+    
+    //设置请求头
+    request.allHTTPHeaderFields = requestHeaderFields;
+    
+    return request.copy;
+}
+
 - (NSURLRequest *)fixNewRequestCookieWithRequest:(NSURLRequest *)originalRequest{
     NSMutableURLRequest *fixedRequest;
     if ([originalRequest isKindOfClass:[NSMutableURLRequest class]]) {

@@ -110,6 +110,16 @@
             return;
         }
     }
+    if ([type containsString:@"CC_Money"]) {
+        CC_Money *money = CC_Money.new;
+        [money moneyWithString:[NSString stringWithFormat:@"%@", value]];
+        [model setValue:money forKey:name];
+        return;
+    }
+    if ([type containsString:@"NSString"]) {
+        [model setValue:[NSString stringWithFormat:@"%@", value] forKey:name];
+        return;
+    }
     [model setValue:value forKey:name];
 }
 

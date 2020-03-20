@@ -12,7 +12,7 @@
 @implementation NSString (CC_Lib)
 
 #pragma mark function
-- (void)cc_update:(NSString *)str{
+- (void)cc_update:(NSString *)str {
     NSString *textAddress = [NSString stringWithFormat:@"%p",self];
     NSString *address = [CC_Base.shared cc_bind:textAddress];
     if (!address) {
@@ -39,7 +39,7 @@
     }
 }
 
-- (NSArray *)cc_convertToWord{
+- (NSArray *)cc_convertToWord {
     NSMutableArray *words = [[NSMutableArray alloc] init];
     const char *str = [self cStringUsingEncoding:NSUTF8StringEncoding];
     char *word;
@@ -73,38 +73,43 @@
     return words;
 }
 
-- (NSString *)cc_convertToUrlString{
+- (NSString *)cc_convertToUrlString {
     NSMutableCharacterSet *allowed = [NSMutableCharacterSet alphanumericCharacterSet];
     [allowed addCharactersInString:@"!*'();:@&=+$,/?%#[]<>&\\"];
     [self stringByAddingPercentEncodingWithAllowedCharacters:allowed];
     return self;
 }
 
-- (NSData *)cc_convertToUTF8data{
+- (NSData *)cc_convertToUTF8data {
     return [self dataUsingEncoding:NSUTF8StringEncoding];
 }
 
-- (NSData *)cc_convertToBase64data{
+- (NSData *)cc_convertToBase64data {
     NSData *ciphertextdata = [[NSData alloc]initWithBase64EncodedString:self options:NSDataBase64DecodingIgnoreUnknownCharacters];
     return ciphertextdata;
 }
 
-- (NSDate *)cc_convertToDateWithformatter:(NSString *)formatterStr{
+- (NSDate *)cc_convertToDateWithformatter:(NSString *)formatterStr {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"]];
     if (formatterStr) {
         [dateFormatter setDateFormat:formatterStr];
     }else{
         [dateFormatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
     }
     NSDate *resDate = [dateFormatter dateFromString:self];
+    if (!resDate) {
+        [dateFormatter setDateFormat:@"YYYY-MM-dd HH:mm:ss z"];
+        resDate = [dateFormatter dateFromString:self];
+    }
     return resDate;
 }
 
-- (NSDate *)cc_convertToDate{
+- (NSDate *)cc_convertToDate {
     return [self cc_convertToDateWithformatter:nil];
 }
 
-- (NSString *)cc_convertToDecimalLosslessString{
+- (NSString *)cc_convertToDecimalLosslessString {
     if (self == nil) {
         return nil;
     }

@@ -24,5 +24,7 @@
 
 - (NSString *)cc_convertToStringWithformatter:(NSString *)formatterStr;
 
++ (NSDate *)cc_localDate;
+
 @end
 

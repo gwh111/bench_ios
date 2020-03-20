@@ -30,13 +30,33 @@
 - (void)cc_viewWillLoad {
     self.cc_title = @"asdb";
     
+    CC_View *popView = ccs.ui.alphaBackground;
+    [popView popViewWithClose:^(CC_View *displayView, CC_Button *closeButton) {
+       
+        NSLog(@"%@",displayView);
+        
+    }];
+    
+//    return;
+    
+    UIImage *ii = [ccs function_imageWithColor:UIColor.whiteColor width:13 height:14];
     
     TestController *controller = [ccs init:TestController.class];
     //  注册完可直接实现TestController里的协议'methd2withA:b:'
     [self cc_registerController:controller];
+    [controller cc_setup:^(TestController *c) {
+       
+        NSLog(@"cc_setup");
+    }];
+    ExtensionClass *o = ExtensionClass.new;
+    [o m1];
+    o.value = 3;
+    
 }
 
 - (void)cc_viewDidLoad {
+    
+    return;
     IMAGE(@"asd");
     // 方法一 不再使用 使用方法三
     UILabel *label = [[UILabel alloc]init];
@@ -106,11 +126,64 @@
 }
 
 - (void)funtionB {
-    [self cc_controllerWithName:@""];
-    [self cc_viewWithName:@"abc"];
+    TestController *controller = [self cc_controllerWithName:@"abc"];
+    CC_View *view = [self cc_viewWithName:@"abc"];
 //    [ccs view:self];
 //    [ccs getView:self withName:@"mylabel"]
 //    .cc_backgroundColor(HEXA(@"54FF9F", 1));
+    [ccs setShared:@"" value:@""];
+    [ccs sharedValueForKey:@""];
+    
+    [ccs resetShared:@"" value:@""];
+    [ccs removeShared:@""];
+    [ccs gotoMain:^{
+        // do something in main
+    }];
+    
+    [ccs delay:3 block:^{
+        // do something after 3s.
+    }];
+    [ccs delay:3 key:@"notice" block:^{
+        
+    }];
+    [ccs delayStop:@"notice"];
+    
+    [ccs uniqueNowTimestamp];
+    
+    [ccs openLaunchMonitor:YES];
+    [ccs openLaunchMonitorLog:YES];
+    
+    NSString *uuid = [ccs keychainUUID];
+    
+    [ccs keychainValueForKey:@""];
+    
+    [ccs saveKeychainKey:@"uuid" value:@"abc123"];
+    [ccs saveDefaultKey:@"userName" value:@"123"];
+    [ccs defaultValueForKey:@"userName"];
+    
+    CC_AES.shared.cc_AESKey = @"apple";
+    [ccs saveSafeDefaultKey:@"uuid" value:@"abc123"];
+    [ccs safeDefaultValueForKey:@"uuid"];
+    
+    NSString *appName = ccs.appName;
+    NSString *appBid = ccs.appBid;
+    NSString *appVersion = ccs.appVersion;
+    NSString *appBundleVersion = ccs.appBundleVersion;
+    NSDictionary *appBundle = ccs.appBundle;
+    
+    NSDictionary *json = [ccs bundlePlistWithPath:@"test"];
+    NSData *webData = [ccs bundleFileWithPath:@"web" type:@"html"];
+    
+    NSArray *docPaths = [ccs bundleFileNamesWithPath:@"doc" type:@"txt"];
+    NSString *sandboxPath = [ccs sandboxPath];
+    
+    NSData *sandboxWebData = [ccs sandboxFileWithPath:@"web" type:@"html"];
+    NSDictionary *sandboxJson = [ccs sandboxPlistWithPath:@"test"];
+    [ccs deleteSandboxFileWithName:@"web.html"];
+    [ccs saveToSandboxWithData:@"abc" toPath:@"web" type:@"html"];
+    
+    [ccs copyBunldFileToSandboxToPath:@"test" type:@"json"];
+    [ccs copyBunldPlistToSandboxToPath:@"test.json"];
 }
 
 - (void)dealloc

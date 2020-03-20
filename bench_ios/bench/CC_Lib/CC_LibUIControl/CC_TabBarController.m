@@ -166,6 +166,24 @@
     }
 }
 
+- (void)cc_updateLabelFont:(UIFont *)font bottomMargin:(CGFloat)bottomMargin imageEdgeInset:(UIEdgeInsets)imageEdgeInset {
+    for (UITabBarItem *item in self.cc_tabBarItemArray) {
+        NSMutableDictionary *normalDic = [NSMutableDictionary dictionary];
+        NSMutableDictionary *selectedDic = [NSMutableDictionary dictionary];
+        if (item.title.length>0) {
+            normalDic[NSForegroundColorAttributeName] = self.cc_titleColor;
+            normalDic[NSFontAttributeName] = font;
+            [item setTitleTextAttributes:normalDic forState:UIControlStateNormal];
+            selectedDic[NSForegroundColorAttributeName] = self.cc_selectedTitleColor;
+            selectedDic[NSFontAttributeName] = font;
+            [item setTitleTextAttributes:selectedDic forState:UIControlStateSelected];
+            item.titlePositionAdjustment = UIOffsetMake(0, -bottomMargin);
+        } else {
+            item.imageInsets = imageEdgeInset;
+        }
+    }
+}
+
 #pragma kit function
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -176,10 +194,12 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     [self cc_viewWillAppear];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
     [self cc_viewWillDisappear];
 }
 
@@ -227,8 +247,16 @@
         selectedDic[NSForegroundColorAttributeName] = self.cc_selectedTitleColor;
         selectedDic[NSFontAttributeName] = RF(11);
         [item setTitleTextAttributes:selectedDic forState:UIControlStateSelected];
-        item.image = [[UIImage imageNamed:image] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        item.selectedImage = [[UIImage imageNamed:selectedImage] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        UIImage *tempImage = [UIImage imageNamed:image];
+        if (_cc_autoResizeImage) {
+            tempImage = [tempImage cc_imageByScalingToSize:CGSizeMake(RH(20), RH(20))];
+        }
+        item.image = [tempImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        UIImage *tempSelectedImage = [UIImage imageNamed:selectedImage];
+        if (_cc_autoResizeImage) {
+            tempSelectedImage = [tempSelectedImage cc_imageByScalingToSize:CGSizeMake(RH(20), RH(20))];
+        }
+        item.selectedImage = [tempSelectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     } else {
         item.image = [[UIImage imageNamed:image] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         item.selectedImage = [[UIImage imageNamed:selectedImage] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];

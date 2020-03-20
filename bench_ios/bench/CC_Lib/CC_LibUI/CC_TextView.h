@@ -22,3 +22,4 @@
 - (void)bindAttText:(NSAttributedString *)attText;
 
 @end
+

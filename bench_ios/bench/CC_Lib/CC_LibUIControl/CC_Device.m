@@ -17,11 +17,11 @@
 
 @implementation CC_Device
 
-+ (instancetype)shared{
++ (instancetype)shared {
     return [CC_Base.shared cc_registerSharedInstance:self];
 }
 
-+ (NSString *)platform{
++ (NSString *)platform {
     size_t size;
     sysctlbyname("hw.machine", NULL, &size, NULL, 0);
     char *machine = (char *)malloc(size);
@@ -34,7 +34,7 @@
     return platform;
 }
 
-+ (NSString *)cc_deviceName{
++ (NSString *)cc_deviceName {
     if ([CC_Device shared].device) {
         return [CC_Device shared].device;
     }

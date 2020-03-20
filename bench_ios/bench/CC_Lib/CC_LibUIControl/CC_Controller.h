@@ -11,19 +11,19 @@
 
 @class CC_View, CC_ScrollView;
 
-NS_ASSUME_NONNULL_BEGIN
-
 @interface CC_Controller : NSObject
 
 @property (nonatomic, retain) NSString *cc_name;
 @property (nonatomic, retain) CC_Delegate *cc_delegate;
 @property (nonatomic, retain) CC_ScrollView *cc_displayView;
+@property (strong) void (^cc_actionBlock)(NSDictionary *data);
 
 // 不借助其他属性就能初始化的配置 注册就会主动调用
 - (void)cc_willInit;
-// 自定义属性赋值后再操作 被动 需要自己调用
-- (void)cc_init;
+
+// 配置 注册就会主动调用
+- (void)cc_setup;
+// 配置回调，如重写需要自己调用block(self)
+- (void)cc_setup:(void(^)(id c))block;
 
 @end
-
-NS_ASSUME_NONNULL_END

@@ -24,11 +24,11 @@
 
 @implementation AppDelegate
 
-+ (void)load{
++ (void)load {
     [ccs registerAppDelegate:self];
 }
 
-- (void)cc_willInit{
+- (void)cc_willInit {
     
     [ccs configureAppStandard:@{
                                 @"退出按钮字体":RF(12),
@@ -38,7 +38,10 @@
     APP_STANDARD(@"退出按钮字体");
     
     // 组件化方法 调用推送库
-    [ccs APNs_updateTokenToServerWithDomainUrl:[NSURL URLWithString:@"http://xxx.com"] authedUserId:@"123456" pushMessageBlock:^(NSDictionary * _Nonnull messageDic, BOOL lanchFromRemote) {
+    [ccs.APNs addReceiveDeviceTokenBlock:^(BOOL success, BOOL granted, NSData *deviceToken) {
+        
+    }];
+    [ccs.APNs updateTokenToServerWithDomainUrl:[NSURL URLWithString:@"http://xxx.com"] authedUserId:@"123456" pushMessageBlock:^(NSDictionary *messageDic, BOOL lanchFromRemote) {
         
     }];
     
@@ -60,12 +63,12 @@
     
 }
 
-- (BOOL)cc_application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
-    return YES;
-}
-
 - (void)cc_applicationWillResignActive:(UIApplication *)application{
     
+}
+
+- (void)cc_application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+
 }
 
 @end

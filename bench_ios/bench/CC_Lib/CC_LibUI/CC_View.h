@@ -10,11 +10,13 @@
 #import "CC_Foundation.h"
 #import "UIView+CCUI.h"
 
-NS_ASSUME_NONNULL_BEGIN
-
 @interface CC_View : UIView <CC_ViewChainProtocol>
 
 @property (nonatomic,readonly) CC_Label *badgeLabel;
+
+- (id)popView:(void(^)(CC_View *displayView))block;
+- (id)popViewWithClose:(void(^)(CC_View *displayView, CC_Button *closeButton))block;
+- (id)popViewWithCloseAndTitle:(void(^)(CC_View *displayView, CC_Button *closeButton, CC_Label *titleLabel))block;
 
 /// 是否可拖拽 默认不可拖拽 参数 YES/NO
 - (__kindof CC_View *(^)(BOOL dragable))cc_dragable;
@@ -25,5 +27,3 @@ NS_ASSUME_NONNULL_BEGIN
 - (__kindof CC_View *(^)(UIColor  *))cc_badgeBgColor;
 
 @end
-
-NS_ASSUME_NONNULL_END

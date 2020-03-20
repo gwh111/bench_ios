@@ -16,7 +16,7 @@ static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         userManager = [[CC_CoreBase alloc]init];
         
-        userManager.cc_sharedAppDelegate = [[NSMutableDictionary alloc]init];
+        userManager.sharedAppDelegate = [[NSMutableDictionary alloc]init];
         userManager.sharedInstanceDic = [[NSMutableDictionary alloc]init];
         userManager.sharedObjDic = [[NSMutableDictionary alloc]init];
         userManager.sharedObjBindDic = [[NSMutableDictionary alloc]init];

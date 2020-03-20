@@ -10,12 +10,17 @@
 
 @implementation NSData (CC_Lib)
 
-- (NSString *)cc_convertToUTF8String{
+- (NSString *)cc_convertToUTF8String {
     return [[NSString alloc]initWithData:self encoding:NSUTF8StringEncoding];
 }
 
-- (NSString *)cc_convertToBase64String{
+- (NSString *)cc_convertToBase64String {
     return [self base64EncodedStringWithOptions:0];
+}
+
+- (NSDictionary *)cc_convertToDictionary {
+    NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:self options:NSJSONReadingMutableLeaves error:nil];
+    return dictionary;
 }
 
 @end

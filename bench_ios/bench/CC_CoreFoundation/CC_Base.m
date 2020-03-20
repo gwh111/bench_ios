@@ -49,13 +49,19 @@ static dispatch_once_t onceToken;
     return [aClass new];
 }
 
-- (void)cc_registerAppDelegate:(id)module {
+- (id)cc_getAppDelegate:(Class)aClass {
+    NSString *classStr = NSStringFromClass(aClass);
+    return CC_CoreBase.shared.sharedAppDelegate[classStr];
+}
+
+- (id)cc_registerAppDelegate:(id)module {
     NSString *classStr = NSStringFromClass([module class]);
-    id obj = CC_CoreBase.shared.cc_sharedAppDelegate[classStr];
+    id obj = CC_CoreBase.shared.sharedAppDelegate[classStr];
     if (!obj) {
         obj = [[module alloc]init];
-        [CC_CoreBase.shared.cc_sharedAppDelegate setObject:obj forKey:classStr];
+        [CC_CoreBase.shared.sharedAppDelegate setObject:obj forKey:classStr];
     }
+    return obj;
 }
 
 - (id)cc_registerSharedInstance:(id)shared {

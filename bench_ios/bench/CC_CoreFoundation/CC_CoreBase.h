@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CC_CoreBase : NSObject
 
 // lifecycle/runloop for moduler
-@property (nonatomic,retain) NSMutableDictionary *cc_sharedAppDelegate;
+@property (nonatomic,retain) NSMutableDictionary *sharedAppDelegate;
 
 // dispatch_once
 @property (nonatomic,retain) NSMutableDictionary *sharedInstanceDic;

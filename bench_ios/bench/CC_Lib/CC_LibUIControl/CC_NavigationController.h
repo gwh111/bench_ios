@@ -20,6 +20,9 @@
 
 - (void)cc_willInit;
 
+- (CC_ViewController *)currentVC;
+- (CC_TabBarController *)currentTabBarC;
+
 - (void)cc_initNavigationBarWithTitleFont:(UIFont *)font
                                titleColor:(UIColor *)titleColor
                           backgroundColor:(UIColor *)backgroundColor
@@ -37,6 +40,7 @@
 
 - (void)cc_dismissViewController;
 - (void)cc_popToViewController:(Class)aClass;
+- (void)cc_popToRootViewControllerAnimated:(BOOL)animated;
 
 - (void)cc_pushWebViewControllerWithUrl:(NSString *)urlStr;
 

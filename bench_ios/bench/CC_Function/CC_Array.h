@@ -8,8 +8,6 @@
 
 #import "CC_Foundation.h"
 
-NS_ASSUME_NONNULL_BEGIN
-
 @interface CC_Array : NSObject
 
 // 中文的排序
@@ -36,4 +34,3 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-NS_ASSUME_NONNULL_END

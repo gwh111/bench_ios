@@ -9,6 +9,9 @@
 #import "HomeVC.h"
 #import "ccs.h"
 
+#import "TestPresentVC.h"
+#import "TestPresentVC2.h"
+
 @interface HomeVC ()
 
 @property (nonatomic, retain) NSArray *testList;
@@ -26,7 +29,6 @@
     for (int i = 0; i < _testList.count; i++) {
         [_testNameList cc_addObject:_testList[i][@"title"]];
     }
-    
 }
 
 - (void)cc_viewDidLoad {
@@ -41,6 +43,11 @@
         
         NSDictionary *dic = self.testList[index];
         NSString *name = dic[@"className"];
+        if ([name isEqualToString:@"TestPresentVC"]) {
+            TestPresentVC2 *vc = [ccs init:TestPresentVC2.class];
+            [ccs presentViewController:vc];
+            return;
+        }
         Class cls = NSClassFromString(name);
         if (!cls) {
             CCLOG(@"找不到class");
