@@ -32,10 +32,10 @@
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
     [dic setObject:@"123" forKey:@"123"];
     
-    NSString *str1 = [ccs function_MD5SignWithDic:dic andMD5Key:@"123"];
+    NSString *str1 = [ccs.tool MD5SignWithDic:dic andMD5Key:@"123"];
     CCLOG(@" function_MD5SignWithDic %@",str1);
     
-    NSString *str2 = [ccs function_MD5SignValueWithDic:dic andMD5Key:@"123"];
+    NSString *str2 = [ccs.tool MD5SignValueWithDic:dic andMD5Key:@"123"];
     CCLOG(@" function_MD5SignValueWithDic %@",str2);
 }
 

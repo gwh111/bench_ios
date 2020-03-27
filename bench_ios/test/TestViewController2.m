@@ -7,7 +7,6 @@
 //
 
 #import "TestViewController2.h"
-#import "CC_Date.h"
 
 #import "TestController.h"
 #import "ccs.h"
@@ -38,8 +37,6 @@
     }];
     
 //    return;
-    
-    UIImage *ii = [ccs function_imageWithColor:UIColor.whiteColor width:13 height:14];
     
     TestController *controller = [ccs init:TestController.class];
     //  注册完可直接实现TestController里的协议'methd2withA:b:'
@@ -161,7 +158,7 @@
     [ccs saveDefaultKey:@"userName" value:@"123"];
     [ccs defaultValueForKey:@"userName"];
     
-    CC_AES.shared.cc_AESKey = @"apple";
+    CC_AES.shared.AESKey = @"apple";
     [ccs saveSafeDefaultKey:@"uuid" value:@"abc123"];
     [ccs safeDefaultValueForKey:@"uuid"];
     

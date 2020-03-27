@@ -7,7 +7,44 @@
 
 #import "UIImageView+CCUI.h"
 
+@interface UIImage (CC)
+
+- (UIImage *)cc_drawRectWithRoundedCorner:(CGFloat)radius
+                                     size:(CGSize)size;
+
+@end
+
+@implementation UIImage (CC)
+
+- (UIImage *)cc_drawRectWithRoundedCorner:(CGFloat)radius
+                                     size:(CGSize)size {
+    
+    CGRect rect = CGRectMake(0, 0, size.width, size.height);
+    
+    UIGraphicsBeginImageContextWithOptions(rect.size, false, [UIScreen mainScreen].scale);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:rect byRoundingCorners:UIRectCornerAllCorners cornerRadii:CGSizeMake(radius, radius)];
+    CGContextAddPath(context, path.CGPath);
+    
+    CGContextClip(context);
+    
+    [self drawInRect:rect];
+    CGContextDrawPath(context, kCGPathFillStroke);
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return  image;
+}
+
+@end
+
 @implementation UIImageView (CCUI)
+
+- (void)cc_addCorner:(CGFloat)radius {
+    if (self.image) {
+        self.image = [self.image cc_drawRectWithRoundedCorner:radius size:self.bounds.size];
+    }
+}
 
 - (UIImageView * (^)(UIImage *))cc_image {
     return ^(UIImage *_) { self.image = _; return self; };
@@ -42,3 +79,4 @@
 @implementation UIImageView (CCActions)
 
 @end
+

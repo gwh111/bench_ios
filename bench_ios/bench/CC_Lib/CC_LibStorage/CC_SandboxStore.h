@@ -8,9 +8,9 @@
 
 #import "CC_Foundation.h"
 
-@interface CC_SandboxStore : NSObject
+@interface CC_SandboxStore : CC_Object
 
-+ (CC_SandboxStore *)sandbox;
++ (instancetype)shared;
 
 - (NSString *)homePath;
 - (NSString *)documentsPath;
@@ -37,22 +37,6 @@
 - (BOOL)saveToDocumentsWithData:(id)data toPath:(NSString *)name type:(NSString *)type;
 // 创建文件夹到 Documents 下
 - (void)createDocumentsDocWithName:(NSString *)docName;
-
-#pragma mark deprecated use ccs.sandbox
-+ (NSString *)cc_sandboxPath;
-
-+ (NSData *)cc_sandboxFileWithPath:(NSString *)name type:(NSString *)type;
-// 'plist' is a special case of file
-+ (NSDictionary *)cc_sandboxPlistWithPath:(NSString *)name;
-
-// 获取沙盒指定路径下文件列表
-+ (NSArray *)cc_sandboxDirectoryFilesWithPath:(NSString *)name type:(NSString *)type;
-
-#pragma mark action
-+ (BOOL)cc_deleteSandboxFileWithName:(NSString *)name;
-+ (BOOL)cc_saveToSandboxWithData:(id)data toPath:(NSString *)name type:(NSString *)type;
-
-+ (void)cc_createSandboxDocWithName:(NSString *)docName;
 
 @end
 

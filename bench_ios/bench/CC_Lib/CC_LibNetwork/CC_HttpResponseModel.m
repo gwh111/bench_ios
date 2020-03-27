@@ -12,22 +12,22 @@
 
 @implementation HttpModel
 
-- (instancetype)init{
+- (instancetype)init {
     self = [super init];
     if (self) {
-        _debug = [CC_Base shared].cc_debug;
+        _debug = [CC_Base shared].debug;
         _responseDateFormatStr = @"dd MM yyyy HH:mm:ss";
     }
     return self;
 }
 
-- (void)parsingError:(NSError *)error{
+- (void)parsingError:(NSError *)error {
     _networkError = error;
     if (_debug) {
         _errorNameStr = error.description;
         CCLOG(@"%@",_errorNameStr);
-        if ([CC_SandboxStore cc_sandboxPlistWithPath:@"service"][_service]) {
-            _resultStr = [CC_SandboxStore cc_sandboxPlistWithPath:@"service"][_service];
+        if ([CC_SandboxStore.shared documentsPlistWithPath:@"service"][_service]) {
+            _resultStr = [CC_SandboxStore.shared documentsPlistWithPath:@"service"][_service];
             CCLOG(@"Debug Data '%@'",_service);
             [self parsingResult:_resultStr];
         }else{
@@ -40,7 +40,7 @@
     }
 }
 
-- (void)parsingResult:(NSString *)resultStr{
+- (void)parsingResult:(NSString *)resultStr {
     if (!resultStr) {
         _errorNameStr = @"服务器开小差了";
         _errorMsgStr = _errorNameStr;
@@ -58,8 +58,8 @@
             _errorMsgStr = _errorNameStr;
             if (_debug) {
                 NSLog(@"%@",_errorMsgStr);
-                if ([CC_SandboxStore cc_sandboxPlistWithPath:@"service"][_service]) {
-                    _resultStr = [CC_SandboxStore cc_sandboxPlistWithPath:@"service"][_service];
+                if ([CC_SandboxStore.shared documentsPlistWithPath:@"service"][_service]) {
+                    _resultStr = [CC_SandboxStore.shared documentsPlistWithPath:@"service"][_service];
                     _errorNameStr = nil;
                     _errorMsgStr = nil;
                     NSLog(@"Debug Data '%@'",_service);
@@ -67,7 +67,7 @@
                 }
             }
             return;
-        }else{
+        } else {
             // 纠正出现的小数8.369999999999999问题
             NSMutableDictionary *mutDic = [NSMutableDictionary dictionaryWithDictionary:_resultDic];
             mutDic = [mutDic cc_correctDecimalLoss:mutDic];
@@ -98,7 +98,7 @@
                 _errorMsgStr = _errorNameStr;
             }
         }
-    }else{
+    } else {
         // 解析错误
         _errorNameStr = @"data=nil";
         _errorMsgStr = _errorNameStr;
@@ -111,10 +111,10 @@
     // 添加debug回查
     if (!_errorNameStr) {
         if (_debug) {
-            if (![CC_SandboxStore cc_sandboxPlistWithPath:@"service"][_service]) {
-                NSMutableDictionary *mutDic = [NSMutableDictionary dictionaryWithDictionary:[CC_SandboxStore cc_sandboxPlistWithPath:@"service"]];
+            if (![CC_SandboxStore.shared documentsPlistWithPath:@"service"][_service]) {
+                NSMutableDictionary *mutDic = [NSMutableDictionary dictionaryWithDictionary:[CC_SandboxStore.shared documentsPlistWithPath:@"service"]];
                 [mutDic cc_setKey:_service value:_resultStr];
-                [CC_SandboxStore cc_saveToSandboxWithData:mutDic toPath:@"service" type:@"plist"];
+                [CC_SandboxStore.shared saveToDocumentsWithData:mutDic toPath:@"service" type:@"plist"];
             }
         }
     }

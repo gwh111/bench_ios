@@ -7,7 +7,6 @@
 
 #import "CC_CoreCrash.h"
 #import "CC_Foundation.h"
-#import "CC_Function.h"
 #import "CC_SandboxStore.h"
 
 // 我的捕获handler
@@ -59,13 +58,13 @@ void cc_exceptionHandler(NSException *exception) {
     NSLock *lock = NSLock.new;
     [lock lock];
     
-    CC_SandboxStore *sandbox = CC_SandboxStore.sandbox;
+    CC_SandboxStore *sandbox = CC_SandboxStore.shared;
     [sandbox createDocumentsDocWithName:document];
     NSArray *list = [sandbox documentsDirectoryFilesWithPath:document type:@"log"];
     if (list.count > 10) {
         // 找到最久的5条删除
         NSMutableArray *sortArr = [NSMutableArray arrayWithArray:list];
-        sortArr = [CC_Array cc_sortChineseArr:sortArr depthArr:nil];
+        sortArr = [CC_Tool.shared sortChineseArr:sortArr depthArr:nil];
         for (int i = 0; i < 5; i++) {
             NSString *name = [NSString stringWithFormat:@"%@/%@",document,sortArr[i]];
             [sandbox deleteDocumentsFileWithName:name];
@@ -81,6 +80,11 @@ void cc_exceptionHandler(NSException *exception) {
     [lock unlock];
 }
 
+- (void)methodNotExist:(NSString *)method className:(NSString *)className {
+    NSString *info = [NSString stringWithFormat:@"UnknowMethodCalled '%@' from '%@'",method, className];
+    [CC_CoreCrash.shared addWarningStackSymbols:[NSThread callStackSymbols] info:info];
+}
+
 - (void)addWarningStackSymbols:(NSArray *)stackSymbols {
     
     [self addWarningStackSymbols:stackSymbols info:nil];
@@ -90,6 +94,7 @@ void cc_exceptionHandler(NSException *exception) {
 
     #ifdef DEBUG
         NSLog(@"%@",stackSymbols);
+        NSLog(@"%@",info);
         if (!_ignoreCrashWarning) {
             CCLOGAssert()
         }

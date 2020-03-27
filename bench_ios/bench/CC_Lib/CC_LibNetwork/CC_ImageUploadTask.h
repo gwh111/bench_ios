@@ -10,7 +10,8 @@
 #import "CC_HttpConfig.h"
 
 @class CC_HttpTask;
-@interface CC_ImageUploadTask : NSObject
+
+@interface CC_ImageUploadTask : CC_Object
 
 /**
  上传多张图片-指定图片压缩比例
@@ -43,5 +44,6 @@
  @param uploadImageBlock 回调函数
  */
 - (void)uploadImages:(NSArray<NSData *> *)imageDatas url:(id)url params:(id)paramsDic reConnectTimes:(NSInteger)times configure:(CC_HttpConfig *)configure finishBlock:(void (^)(NSArray<HttpModel *> *, NSArray<HttpModel *> *))uploadImageBlock;
+
 @end
 

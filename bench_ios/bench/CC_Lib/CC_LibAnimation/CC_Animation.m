@@ -11,7 +11,7 @@
 @implementation CC_Animation
 
 #pragma mark === 永久闪烁的动画 ======
-+ (CABasicAnimation *)cc_flickerForever:(float)time{
++ (CABasicAnimation *)flickerForever:(float)time {
     CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"opacity"];//必须写opacity才行。
     animation.fromValue = [NSNumber numberWithFloat:1.0f];
     animation.toValue = [NSNumber numberWithFloat:0.0f];//这是透明度。
@@ -24,7 +24,7 @@
     return animation;
 }
 
-+ (void)cc_buttonTapEnlarge:(CC_Button *)button{
++ (void)buttonTapEnlarge:(CC_Button *)button {
     button.transform = CGAffineTransformIdentity;
     [UIView animateKeyframesWithDuration:0.5 delay:0 options:0 animations: ^{
         float speed=1/5.0;

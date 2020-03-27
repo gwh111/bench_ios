@@ -8,19 +8,19 @@
 
 #import "CC_Foundation.h"
 
-@interface CC_AES : NSObject
+@interface CC_AES : CC_Object
 
-@property (nonatomic,retain) NSString *cc_AESKey;
+@property (nonatomic,retain) NSString *AESKey;
 
 + (instancetype)shared;
 
 // CBC模式使用偏移量
 // https://www.jianshu.com/p/2e68a91d4681
-+ (NSData *)cc_encryptWithKey:(NSString *)key iv:(NSString *)iv data:(NSData *)data;
-+ (NSData *)cc_decryptWithKey:(NSString *)key iv:(NSString *)iv data:(NSData *)data;
++ (NSData *)encryptWithKey:(NSString *)key iv:(NSString *)iv data:(NSData *)data;
++ (NSData *)decryptWithKey:(NSString *)key iv:(NSString *)iv data:(NSData *)data;
 
 // 没有偏移量 
-+ (NSData *)cc_encryptData:(NSData *)data key:(NSData *)key;
-+ (NSData *)cc_decryptData:(NSData *)data key:(NSData *)key;
++ (NSData *)encryptData:(NSData *)data key:(NSData *)key;
++ (NSData *)decryptData:(NSData *)data key:(NSData *)key;
 
 @end

@@ -112,7 +112,7 @@ static NSString *static_netTestContain = @"http://d.net/";
             if (ipStr.length>0 && urlBase.host.length>0) {
                 NSMutableString *mutUrlStr = [NSMutableString stringWithString:urlBase.relativeString];
                 NSURL *newUrl = [NSURL URLWithString:[mutUrlStr stringByReplacingOccurrencesOfString:urlBase.host withString:ipStr]];
-                [CC_CoreThread.shared cc_gotoMainSync:^{
+                [CC_CoreThread.shared gotoMainSync:^{
                     [self.configure httpHeaderAdd:@"host" value:urlBase.host];
                     [CC_HttpTask.shared request:newUrl params:paramsDic model:model request:request finishCallbackBlock:^(NSString *error, HttpModel *result) {
                         block(error,result);
@@ -194,11 +194,11 @@ static NSString *static_netTestContain = @"http://d.net/";
                 //使用更新后的数据
                 CC_ResLModel *newModel = self.configure.logicBlockMap[logicModel.logicName];
                 if (newModel.logicPassed) {
-                    [CC_CoreThread.shared cc_gotoMainSync:^{
+                    [CC_CoreThread.shared gotoMainSync:^{
                         newModel.logicBlock(model,block);
                     }];
                     if (newModel.logicPassStop) {
-                        [CC_CoreThread.shared cc_gotoMainSync:^{
+                        [CC_CoreThread.shared gotoMainSync:^{
                             [[CC_Mask shared]stop];
                         }];
                         return;
@@ -207,7 +207,7 @@ static NSString *static_netTestContain = @"http://d.net/";
             }
         }
         
-        [CC_CoreThread.shared cc_gotoMainSync:^{
+        [CC_CoreThread.shared gotoMainSync:^{
             if (self.configure.ignoreMockError) {
 
                 executorDelegate.finishBlock(nil, model);
@@ -284,7 +284,7 @@ static NSString *static_netTestContain = @"http://d.net/";
         NSCAssert(index < model.logicPathList.count, @"该路径下不是一个字段");
         return;
     }
-    [self reponseLogicPassed:model result:result[model.logicPathList[index]] index:index+1];
+    [self reponseLogicPassed:model result:result[model.logicPathList[index]] index:index + 1];
 }
 
 //上传多张图片-指定图片压缩比例
@@ -311,7 +311,7 @@ static NSString *static_netTestContain = @"http://d.net/";
         [session invalidateAndCancel];
         if (error) {
             
-            [CC_CoreThread.shared cc_gotoMain:^{
+            [CC_CoreThread.shared gotoMain:^{
 
                 finishBlock(error,nil);
             }];
@@ -327,7 +327,7 @@ static NSString *static_netTestContain = @"http://d.net/";
         model.resultStr = file;
         model.resultDic = @{@"path":file};
         
-        [CC_CoreThread.shared cc_gotoMain:^{
+        [CC_CoreThread.shared gotoMain:^{
 
             finishBlock(nil,model);
         }];
@@ -347,7 +347,8 @@ totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
         NSLog(@"%f",progress);
     });
 }
-    //下载完成 保存到本地相册
+
+//下载完成 保存到本地相册
 - (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask
 didFinishDownloadingToURL:(NSURL *)location {
     //1.拿到cache文件夹的路径
@@ -362,8 +363,7 @@ didFinishDownloadingToURL:(NSURL *)location {
     
 }
 
--(void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error
-{//整个请求完成或者请求失败调用
+- (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error {//整个请求完成或者请求失败调用
     
     NSLog(@"didCompleteWithError");
 }

@@ -9,7 +9,7 @@
 #import "CC_View.h"
 #import "CC_Label.h"
 #import "CC_CoreUI.h"
-#import "UIColor+CC.h"
+#import "UIColor+CCUI.h"
 
 typedef void (^CCAssociatedTapBlock)(UIView *view);
 

@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "UIColor+CC.h"
+#import "UIColor+CCUI.h"
 #import "UIView+CCUI.h"
 #import "UIImageView+CCUI.h"
 

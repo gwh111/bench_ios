@@ -5,11 +5,11 @@
 //  Created by gwh on 2020/1/15.
 //
 
-#import <Foundation/Foundation.h>
+#import "CC_Foundation.h"
 #import "NSDictionary+CrashSafe.h"
 #import "NSArray+CrashSafe.h"
 
-@interface CC_CoreCrash : NSObject
+@interface CC_CoreCrash : CC_Object
 
 // 忽略断言
 @property (nonatomic, assign) BOOL ignoreCrashWarning;
@@ -17,6 +17,8 @@
 + (instancetype)shared;
 
 - (void)setupUncaughtExceptionHandler;
+
+- (void)methodNotExist:(NSString *)method className:(NSString *)className;
 
 - (void)addWarningStackSymbols:(NSArray *)stackSymbols;
 - (void)addWarningStackSymbols:(NSArray *)stackSymbols info:(NSString *)info;

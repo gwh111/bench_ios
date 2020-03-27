@@ -8,24 +8,24 @@
 
 #import "CC_Foundation.h"
 
-@interface CC_BundleStore : NSObject
+@interface CC_BundleStore : CC_Object
 
 // NSBundle
-+ (NSString *)cc_appName;
-+ (NSString *)cc_appBid;
-+ (NSString *)cc_appVersion;
-+ (NSString *)cc_appBundleVersion;
-+ (NSDictionary *)cc_appBundle;
++ (NSString *)appName;
++ (NSString *)appBid;
++ (NSString *)appVersion;
++ (NSString *)appBundleVersion;
++ (NSDictionary *)appBundle;
 
-+ (NSArray *)cc_bundleFileNamesWithPath:(NSString *)name type:(NSString *)type;
-+ (NSData *)cc_bundleFileWithPath:(NSString *)name type:(NSString *)type;
++ (NSArray *)bundleFileNamesWithPath:(NSString *)name type:(NSString *)type;
++ (NSData *)bundleFileWithPath:(NSString *)name type:(NSString *)type;
 // 'plist' is a special case of file
-+ (NSDictionary *)cc_bundlePlistWithPath:(NSString *)name;
++ (NSDictionary *)bundlePlistWithPath:(NSString *)name;
 
 // 复制工程下的文件到沙盒
-+ (BOOL)cc_copyBunldFileToSandboxToPath:(NSString *)name type:(NSString *)type;
++ (BOOL)copyBunldFileToSandboxToPath:(NSString *)name type:(NSString *)type;
 // 'plist' is a special case of file
-+ (BOOL)cc_copyBunldPlistToSandboxToPath:(NSString *)name;
++ (BOOL)copyBunldPlistToSandboxToPath:(NSString *)name;
 
 @end
 

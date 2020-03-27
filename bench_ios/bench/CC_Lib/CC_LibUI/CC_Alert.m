@@ -44,7 +44,9 @@
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:msg preferredStyle:UIAlertControllerStyleAlert];
     [alertController addTextFieldWithConfigurationHandler:^(UITextField *_Nonnull textField) {
         textField.placeholder = placeholder;
-        textFieldBlock(textField);
+        if (textFieldBlock) {
+            textFieldBlock(textField);
+        }
     }];
     for (int i = 0; i < bts.count; i++) {
         [alertController addAction:[UIAlertAction actionWithTitle:bts[i] style:UIAlertActionStyleDefault handler:^(UIAlertAction *_Nonnull action) {

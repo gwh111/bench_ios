@@ -11,7 +11,7 @@
 
 @class CC_View, CC_ScrollView;
 
-@interface CC_Controller : NSObject
+@interface CC_Controller : CC_Object
 
 @property (nonatomic, retain) NSString *cc_name;
 @property (nonatomic, retain) CC_Delegate *cc_delegate;

@@ -28,7 +28,7 @@
 - (void)test_foundationModel
 {
     //CC_Model
-    Test_model *modelObj = [ccs model:[Test_model class]];
+    Test_model *modelObj = [ccs init:[Test_model class]];
 //    [modelObj cc_setProperty:@{@"str1":@"xin",@"str2":@"yi",@"Test_subModel":@{@"subStr1":@"ha",@"subStr2":@"哈哈哈"}}];
     [modelObj cc_setProperty:@{@"str1":@"xin",@"str2":@"yi"}];
     [modelObj cc_update];
@@ -40,7 +40,7 @@
     
     //CC_Lib+NSObject
     CCLOG(@" getClassKVDic %@",[modelObj cc_getClassKVDic]);
-    CCLOG(@" getClassKVDic_ %@",[modelObj cc_getClassKVDic_]);
+    CCLOG(@" getClassKVDic_ %@",[modelObj cc_getClassKVDicWithout_]);
     CCLOG(@" getClassNameList %@",[modelObj cc_getClassNameList]);
     CCLOG(@" getClassTypeList %@",[modelObj cc_getClassTypeList]);
 }
@@ -148,7 +148,7 @@
 
 - (void)cc_update
 {
-    CCLOG(@"update Test_model key value %@",self.cc_modelDic);
+    CCLOG(@"update Test_model key value %@",self.cc_modelDictionary);
 }
 
 @end
@@ -157,7 +157,7 @@
 
 - (void)cc_update
 {
-    CCLOG(@"update Test_model key value %@",self.cc_modelDic);
+    CCLOG(@"update Test_model key value %@",self.cc_modelDictionary);
 }
 
 @end

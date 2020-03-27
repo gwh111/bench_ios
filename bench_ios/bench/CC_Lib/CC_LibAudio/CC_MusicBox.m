@@ -10,12 +10,12 @@
 
 @implementation CC_MusicBox
 
-+ (instancetype)shared{
++ (instancetype)shared {
     return [CC_Base.shared cc_registerSharedInstance:self];
 }
 
-- (void)cc_playSound:(NSString *)name type:(NSString *)type{
-    if (_cc_forbiddenSound) {
+- (void)playSound:(NSString *)name type:(NSString *)type {
+    if (_forbiddenSound) {
         return;
     }
     isMusic = 0;
@@ -27,19 +27,19 @@
     NSURL *musicURL = [NSURL fileURLWithPath:strSoundFile];
     _cc_audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:musicURL error:nil];
     [_cc_audioPlayer setDelegate:self];
-    if (_cc_defaultVolume>0) {
-        _cc_audioPlayer.volume = _cc_defaultVolume;
+    if (_defaultVolume>0) {
+        _cc_audioPlayer.volume = _defaultVolume;
     }
     [_cc_audioPlayer prepareToPlay];
     [_cc_audioPlayer play];
 }
 
-- (void)cc_stopMusic{
+- (void)stopMusic {
     [_cc_audioPlayer stop];
 }
 
-- (void)cc_playMusic:(NSString *)name type:(NSString *)type{
-    if (_cc_forbiddenMusic) {
+- (void)playMusic:(NSString *)name type:(NSString *)type {
+    if (_forbiddenMusic) {
         return;
     }
     if (_cc_audioPlayer) {
@@ -47,7 +47,7 @@
         [self soundFadeOut:name type:type];
         return;
     }
-    isMusic=1;
+    isMusic = 1;
     NSString *musicPath = [[NSBundle mainBundle] pathForResource:name ofType:type];
     if (!musicPath) {
         CCLOG(@"musicPath=nil");
@@ -56,11 +56,11 @@
     NSURL *musicURL = [NSURL fileURLWithPath:musicPath];
     _cc_audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:musicURL error:nil];
     [_cc_audioPlayer setDelegate:self];
-    if (_cc_defaultVolume>0) {
-        _cc_audioPlayer.volume = _cc_defaultVolume;
+    if (_defaultVolume>0) {
+        _cc_audioPlayer.volume = _defaultVolume;
     }
-    if (_cc_fadeIn) {
-        fadeTimeCount=0;
+    if (_fadeIn) {
+        fadeTimeCount = 0;
         _cc_audioPlayer.volume = 0.05;
         [self soundFadeIn];
     }
@@ -68,29 +68,29 @@
     [_cc_audioPlayer play];
 }
 
-- (void)soundFadeOut:(NSString *)name type:(NSString *)type{
-    if (fadeTimeCount<10) {
+- (void)soundFadeOut:(NSString *)name type:(NSString *)type {
+    if (fadeTimeCount < 10) {
         fadeTimeCount++;
         double delayInSeconds = 0.25;
-        __block CC_MusicBox *blockSelf=self;
-        [CC_CoreThread.shared cc_delay:delayInSeconds block:^{
+        __block CC_MusicBox *blockSelf = self;
+        [CC_CoreThread.shared delay:delayInSeconds block:^{
             blockSelf->_cc_audioPlayer.volume = 1 - blockSelf->fadeTimeCount*0.1;
             [self soundFadeOut:name type:type];
         }];
     }else{
         [_cc_audioPlayer stop];
         _cc_audioPlayer = nil;
-        [self cc_playMusic:name type:type];
+        [self playMusic:name type:type];
     }
 }
 
-- (void)soundFadeIn{
+- (void)soundFadeIn {
     if (fadeTimeCount < 20) {
         fadeTimeCount++;
         double delayInSeconds = 0.25;
         __block CC_MusicBox *blockSelf = self;
-        [CC_CoreThread.shared cc_delay:delayInSeconds block:^{
-            blockSelf->_cc_audioPlayer.volume = blockSelf->fadeTimeCount*0.05;
+        [CC_CoreThread.shared delay:delayInSeconds block:^{
+            blockSelf->_cc_audioPlayer.volume = blockSelf->fadeTimeCount * 0.05;
             [self soundFadeIn];
         }];
     }
@@ -98,15 +98,15 @@
 
 //播放完后
 - (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player
-                       successfully:(BOOL)flag{
+                       successfully:(BOOL)flag {
     if (isMusic) {
-        if (_cc_musicReplayTimes > 0) {
-            _cc_musicReplayTimes--;
+        if (_musicReplayTimes > 0) {
+            _musicReplayTimes--;
             [_cc_audioPlayer play];
         }
-    }else{
-        if (_cc_soundReplayTimes > 0) {
-            _cc_soundReplayTimes--;
+    } else {
+        if (_soundReplayTimes > 0) {
+            _soundReplayTimes--;
             [_cc_audioPlayer play];
         }
     }

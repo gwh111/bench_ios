@@ -9,7 +9,7 @@
 #import "CC_Foundation.h"
 #import "CC_LibStorage.h"
 
-@interface HttpModel : NSObject
+@interface HttpModel : CC_Object
 
 // 在线下debug配置1，错误会弹窗提示打印，会根据服务名缓存上一次成功的数据，会记录成功的请求列表
 @property(nonatomic,assign) BOOL debug;

@@ -7,12 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CC_Object.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 #define Float(v) [CC_Float value:v]
 
-@interface CC_Float : NSObject
+@interface CC_Float : CC_Object
 
 @property (nonatomic,assign) float value;
 

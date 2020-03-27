@@ -6,12 +6,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CC_Object.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 #define NSUInteger(v) [CC_NSUInteger value:v]
 
-@interface CC_NSUInteger : NSObject
+@interface CC_NSUInteger : CC_Object
 
 @property (nonatomic,assign) NSUInteger value;
 

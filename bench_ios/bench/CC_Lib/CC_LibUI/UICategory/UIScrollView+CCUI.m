@@ -111,7 +111,7 @@
      }
      */
     if ([self cc_viewController].isViewLoaded && [self cc_viewController].view.window) {
-        UIView *currentView = [UIResponder cc_currentFirstResponder];
+        UIView *currentView = [UIResponder currentFirstResponder];
         
         if (![currentView isDescendantOfView:self]) { return ;}
         

@@ -11,7 +11,7 @@
 
 @class WKProcessPool;
 
-@interface CC_WKCookieTool : NSObject
+@interface CC_WKCookieTool : CC_Object
 
 + (instancetype)shared;
 

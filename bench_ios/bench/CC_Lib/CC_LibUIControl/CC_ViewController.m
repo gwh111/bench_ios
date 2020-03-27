@@ -34,7 +34,7 @@
     cc_controllers = [CC_Base.shared cc_init:NSMutableArray.class];
     
     cc_navigationBar = [CC_Base.shared cc_init:CC_NavigationBar.class];
-    [cc_navigationBar cc_updateConfig:CC_NavigationController.shared.cc_navigationBarConfig];
+    [cc_navigationBar updateConfig:CC_NavigationController.shared.cc_navigationBarConfig];
     [self.view addSubview:cc_navigationBar];
     
     [cc_navigationBar.backButton cc_tappedInterval:0.1 withBlock:^(id  _Nonnull view) {

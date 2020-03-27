@@ -11,7 +11,7 @@
 
 @implementation CC_MD5Object
 
-+ (NSString *)cc_signString:(NSString *)origString{
++ (NSString *)signString:(NSString *)origString{
     //CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000)
     //  char *char_content = [origString cStringUsingEncoding:NSASCIIStringEncoding];
     const char *original_str = [origString UTF8String];

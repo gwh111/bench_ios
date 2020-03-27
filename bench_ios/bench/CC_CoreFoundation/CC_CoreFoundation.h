@@ -14,7 +14,10 @@
 #define BENCH_IOS_NET_TEST_SERVICE @"/client/service.json?service=TEST"// 测试域名是否可用的服务端地址
 
 #include <CoreFoundation/CoreFoundation.h>
-#import "CC_Monitor.h"
+#import "CC_Object.h"
+#import "CC_Tool.h"
+#import "CC_UI.h"
+
 #import "CC_CoreMacro.h"
 #import "CC_Base.h"
 #import "CC_Message.h"

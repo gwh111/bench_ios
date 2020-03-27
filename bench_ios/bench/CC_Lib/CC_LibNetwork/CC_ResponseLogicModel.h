@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "CC_HttpResponseModel.h"
 
-@interface CC_ResLModel : NSObject
+@interface CC_ResLModel : CC_Object
 
 // Give a name for response logic, use service name as recommand
 @property(nonatomic,retain) NSString *logicName;

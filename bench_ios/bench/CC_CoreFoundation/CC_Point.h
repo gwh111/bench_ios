@@ -6,12 +6,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CC_Object.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 #define Point(xValue,yValue) [CC_Point valueX:xValue y:yValue]
 
-@interface CC_Point : NSObject
+@interface CC_Point : CC_Object
 
 @property (nonatomic, assign) CGFloat x;
 @property (nonatomic, assign) CGFloat y;

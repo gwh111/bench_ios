@@ -11,11 +11,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CC_Device : NSObject
+@interface CC_Device : CC_Object
 
 // 获取设备型号名称 只查询一次然后缓存
 // @return 设备型号名称，如 iPhone 7、iPhone X、iPad Pro 10.5-inch 等
-+ (NSString *)cc_deviceName;
++ (NSString *)deviceName;
 
 @end
 

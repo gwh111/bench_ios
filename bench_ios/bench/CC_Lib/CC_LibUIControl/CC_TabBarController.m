@@ -6,7 +6,7 @@
 //
 
 #import "CC_TabBarController.h"
-#import "UIColor+CC.h"
+#import "UIColor+CCUI.h"
 #import "CC_CoreUI.h"
 
 #define CCTABBAR_SELECTED_Color RGBA(36, 151, 235, 1)
@@ -249,12 +249,12 @@
         [item setTitleTextAttributes:selectedDic forState:UIControlStateSelected];
         UIImage *tempImage = [UIImage imageNamed:image];
         if (_cc_autoResizeImage) {
-            tempImage = [tempImage cc_imageByScalingToSize:CGSizeMake(RH(20), RH(20))];
+            tempImage = [CC_Tool.shared scaleImage:tempImage toSize:CGSizeMake(RH(20), RH(20))];
         }
         item.image = [tempImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         UIImage *tempSelectedImage = [UIImage imageNamed:selectedImage];
         if (_cc_autoResizeImage) {
-            tempSelectedImage = [tempSelectedImage cc_imageByScalingToSize:CGSizeMake(RH(20), RH(20))];
+            tempSelectedImage = [CC_Tool.shared scaleImage:tempImage toSize:CGSizeMake(RH(20), RH(20))];
         }
         item.selectedImage = [tempSelectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     } else {

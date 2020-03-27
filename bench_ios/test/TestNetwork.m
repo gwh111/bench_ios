@@ -107,8 +107,8 @@
         
     }];
     
-    [ccs function_MD5SignWithDic:@{@"key":@"value"} andMD5Key:@"abc123"];
-    [CC_MD5Object cc_signString:@""];
+    [ccs.tool MD5SignWithDic:@{@"key":@"value"} andMD5Key:@"abc123"];
+    [CC_MD5Object signString:@""];
     
     
 }

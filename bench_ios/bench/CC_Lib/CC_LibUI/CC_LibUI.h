@@ -11,9 +11,7 @@
 
 #import "CC_UI.h"
 
-#import "UIColor+CC.h"
-#import "UIImage+CC.h"
-
+#import "UIColor+CCUI.h"
 #import "UIView+CCUI.h"
 #import "UIControl+CCUI.h"
 #import "UIButton+CCUI.h"
@@ -22,8 +20,6 @@
 #import "UIScrollView+CCUI.h"
 #import "UIImageView+CCUI.h"
 
-#import "CC_Color.h"
-#import "CC_Image.h"
 #import "CC_TextAttachment.h"
 
 #import "CC_View.h"
@@ -41,8 +37,5 @@
 #import "CC_Mask.h"
 #import "CC_Alert.h"
 #import "CC_LabelGroup.h"
-
-#import "UIImageView+CC.h"
-#import "UIView+CC.h"
 
 #endif /* CC_LibUI_h */

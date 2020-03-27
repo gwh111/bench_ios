@@ -34,7 +34,7 @@
     return platform;
 }
 
-+ (NSString *)cc_deviceName {
++ (NSString *)deviceName {
     if ([CC_Device shared].device) {
         return [CC_Device shared].device;
     }

@@ -6,12 +6,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CC_Object.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 #define Size(widthValue,heightValue) [CC_Size valueWidth:widthValue height:heightValue]
 
-@interface CC_Size : NSObject
+@interface CC_Size : CC_Object
 
 @property (nonatomic, assign) CGFloat width;
 @property (nonatomic, assign) CGFloat height;

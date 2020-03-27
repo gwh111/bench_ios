@@ -13,35 +13,13 @@
 
 @implementation ccs
 
-+ (id)unknow {
-    CCLOG(@"error: unknow method called");
-    // 返回nil防止外部持续调用崩溃
-    return nil;
-}
-
-+ (BOOL)resolveClassMethod:(SEL)sel {
-    
-    // 如果没有这个类方法，补救一次
-    id log = NSStringFromSelector(sel);
-    
-    // 在加入Exceptions后断言
-    // 收集问题，debug下断言，release时记录
-    [CC_CoreCrash.shared addWarningStackSymbols:[NSThread callStackSymbols] info:[ccs string:@"unknowMethodCalled %@",log]];
-    
-    // 转发到unknow方法
-    Class cls = objc_getMetaClass([NSStringFromClass(self) UTF8String]);
-    IMP imp = class_getMethodImplementation(cls, @selector(unknow));
-    class_addMethod(cls, sel, imp, "v@:");
-    return YES;
-}
-
 + (void)configureEnvironment:(int)tag {
     CCLOG(@"\napp name:%@\napp version:%@",[ccs appName],[ccs appVersion]);
-    CC_Base.shared.cc_environment = tag;
+    CC_Base.shared.environment = tag;
 }
 
 + (int)getEnvironment {
-    return CC_Base.shared.cc_environment;
+    return CC_Base.shared.environment;
 }
 
 + (void)configureAppStandard:(NSDictionary *)defaultDic {
@@ -122,7 +100,7 @@
 }
 
 + (NSMutableString *)mutString {
-    return [CC_Base.shared cc_init:[NSMutableString class]];
+    return [self init:[NSMutableString class]];
 }
 + (NSMutableString *)mutString:(NSString *)format, ... {
     if (!format) {
@@ -130,37 +108,37 @@
     }
     va_list ap;
     va_start (ap, format);
-    NSMutableString *body=[[NSMutableString alloc] initWithFormat:format arguments:ap];
+    NSMutableString *body = [[NSMutableString alloc] initWithFormat:format arguments:ap];
     va_end (ap);
     return body;
 }
 
 + (NSArray *)array:(NSArray *)arr {
     if (!arr) {
-        return [CC_Base.shared cc_init:[NSArray class]];
+        return [self init:[NSArray class]];
     }
     return [[NSArray alloc]initWithArray:arr];
 }
 
 + (NSMutableArray *)mutArray {
-    return [CC_Base.shared cc_init:[NSMutableArray class]];
+    return [self init:[NSMutableArray class]];
 }
 + (NSMutableArray *)mutArray:(NSMutableArray *)arr{
     if (!arr) {
-        return [CC_Base.shared cc_init:[NSMutableArray class]];
+        return [self init:[NSMutableArray class]];
     }
     return [[NSMutableArray alloc]initWithArray:arr];
 }
 
 + (NSDictionary *)dictionary:(NSDictionary *)dic {
     if (!dic) {
-        return [CC_Base.shared cc_init:[NSDictionary class]];
+        return [self init:[NSDictionary class]];
     }
     return [[NSDictionary alloc]initWithDictionary:dic];
 }
 
 + (NSMutableDictionary *)mutDictionary {
-    return [CC_Base.shared cc_init:[NSMutableDictionary class]];
+    return [self init:[NSMutableDictionary class]];
 }
 
 + (NSMutableDictionary *)mutDictionary:(NSMutableDictionary *)dic {
@@ -170,16 +148,12 @@
     return [[NSMutableDictionary alloc]initWithDictionary:dic];
 }
 
-+ (id)model:(Class)aClass {
-    return [CC_Base.shared cc_init:aClass];
-}
-
 + (HttpModel *)httpModel {
-    return [CC_Base.shared cc_init:HttpModel.class];
+    return [self init:HttpModel.class];
 }
 
 + (CC_Money *)money {
-    return [CC_Base.shared cc_init:CC_Money.class];
+    return [self init:CC_Money.class];
 }
 
 + (CC_UI *)ui {
@@ -195,7 +169,7 @@
 }
 
 + (CC_SandboxStore *)sandbox {
-    return CC_SandboxStore.sandbox;
+    return CC_SandboxStore.shared;
 }
 
 + (CC_Math *)math {
@@ -268,7 +242,7 @@
 }
 
 + (NSString *)deviceName {
-    return [cc_message cc_class:CC_Device.class method:@selector(cc_deviceName)];
+    return [cc_message cc_class:CC_Device.class method:@selector(deviceName)];
 }
 
 + (id)getAView {
@@ -341,136 +315,137 @@
     return CC_HttpHelper.shared;
 }
 
-+ (CC_HttpEncryption *)httpEncryption{
++ (CC_HttpEncryption *)httpEncryption {
     return CC_HttpEncryption.new;
 }
 
-+ (CC_HttpConfig *)httpConfig{
++ (CC_HttpConfig *)httpConfig {
     return CC_HttpConfig.new;
 }
 
-+ (void)clearAllMemoryWebImageCache:(void (^)(void))completionBlock{
++ (void)clearAllMemoryWebImageCache:(void (^)(void))completionBlock {
     [CC_WebImageManager.shared clearAllMemoryWebImageCache:completionBlock];
 }
 
-+ (void)clearAllDiskWebImageCache:(void (^)(void))completionBlock{
++ (void)clearAllDiskWebImageCache:(void (^)(void))completionBlock {
     [CC_WebImageManager.shared clearAllDiskWebImageCache:completionBlock];
 }
 
-+ (void)clearAllWebImageCache:(void (^)(void))completionBlock{
++ (void)clearAllWebImageCache:(void (^)(void))completionBlock {
     [CC_WebImageManager.shared clearAllWebImageCache:completionBlock];
 }
 
-+ (void)clearWebImageCacheForKey:(NSString *)url completionBlock:(void (^)(void))completionBlock{
++ (void)clearWebImageCacheForKey:(NSString *)url completionBlock:(void (^)(void))completionBlock {
     [CC_WebImageManager.shared clearWebImageCacheForKey:url completionBlock:completionBlock];
 }
+
 #pragma mark CC_LibStore
-+ (NSString *)keychainValueForKey:(NSString *)name{
-    return [cc_message cc_class:CC_KeyChainStore.class method:@selector(cc_keychainWithName:) params:name];
++ (NSString *)keychainValueForKey:(NSString *)name {
+    return [CC_KeyChainStore keychainWithName:name];
 }
 
-+ (void)saveKeychainKey:(NSString *)key value:(NSString *)value{
-    [cc_message cc_class:CC_KeyChainStore.class method:@selector(cc_saveKeychainWithName:str:) params:key,value];
++ (void)saveKeychainKey:(NSString *)key value:(NSString *)value {
+    [CC_KeyChainStore saveKeychainWithName:key str:value];
 }
 
 + (NSString *)keychainUUID {
-    return [cc_message cc_class:CC_KeyChainStore.class method:@selector(cc_keychainUUID)];
+    return [CC_KeyChainStore keychainUUID];
 }
 
 + (id)getDefault:(NSString *)key {
-    return [self defaultValueForKey:key];
+    return [CC_DefaultStore getDefault:key];
 }
 
 + (id)defaultValueForKey:(NSString *)key {
-    return [cc_message cc_class:CC_DefaultStore.class method:@selector(cc_default:) params:key];
+    return [CC_DefaultStore getDefault:key];
 }
 
 + (void)setDefault:(NSString *)key value:(id)value {
-    [self saveDefaultKey:key value:value];
+    [CC_DefaultStore saveDefault:key value:value];
 }
 
 + (void)saveDefaultKey:(NSString *)key value:(id)value {
-    [cc_message cc_class:CC_DefaultStore.class method:@selector(cc_saveDefault:value:) params:key,value];
+    [CC_DefaultStore saveDefault:key value:value];
 }
 
 + (id)getSafeDefault:(NSString *)key {
-    return [self safeDefaultValueForKey:key];
+    return [CC_DefaultStore getSafeDefault:key];
 }
 
 + (id)safeDefaultValueForKey:(NSString *)key {
-    return [cc_message cc_class:CC_DefaultStore.class method:@selector(cc_safeDefault:) params:key];
+    return [CC_DefaultStore getSafeDefault:key];
 }
 
 + (void)setSafeDefault:(NSString *)key value:(id)value {
-    [self saveSafeDefaultKey:key value:value];
+    [CC_DefaultStore saveSafeDefault:key value:value];
 }
 
 + (void)saveSafeDefaultKey:(NSString *)key value:(id)value {
-    [cc_message cc_class:CC_DefaultStore.class method:@selector(cc_saveSafeDefault:value:) params:key,value];
+    [CC_DefaultStore saveSafeDefault:key value:value];
 }
 
-+ (NSString *)appName{
-    return [cc_message cc_class:CC_BundleStore.class method:@selector(cc_appName)];
++ (NSString *)appName {
+    return [CC_BundleStore appName];
 }
 
-+ (NSString *)appBid{
-    return [cc_message cc_class:CC_BundleStore.class method:@selector(cc_appBid)];
++ (NSString *)appBid {
+    return [CC_BundleStore appBid];
 }
 
-+ (NSString *)appVersion{
-    return [cc_message cc_class:CC_BundleStore.class method:@selector(cc_appVersion)];
++ (NSString *)appVersion {
+    return [CC_BundleStore appVersion];
 }
 
-+ (NSString *)appBundleVersion{
-    return [cc_message cc_class:CC_BundleStore.class method:@selector(cc_appBundleVersion)];
++ (NSString *)appBundleVersion {
+    return [CC_BundleStore appBundleVersion];
 }
 
-+ (NSDictionary *)appBundle{
-    return [cc_message cc_class:CC_BundleStore.class method:@selector(cc_appBundle)];
++ (NSDictionary *)appBundle {
+    return [CC_BundleStore appBundle];
 }
 
-+ (NSArray *)bundleFileNamesWithPath:(NSString *)name type:(NSString *)type{
-    return [cc_message cc_class:CC_BundleStore.class method:@selector(cc_bundleFileNamesWithPath:type:) params:name,type];
++ (NSArray *)bundleFileNamesWithPath:(NSString *)name type:(NSString *)type {
+    return [CC_BundleStore bundleFileNamesWithPath:name type:type];
 }
 
-+ (NSData *)bundleFileWithPath:(NSString *)name type:(NSString *)type{
-    return [cc_message cc_class:CC_BundleStore.class method:@selector(cc_bundleFileWithPath:type:) params:name,type];
++ (NSData *)bundleFileWithPath:(NSString *)name type:(NSString *)type {
+    return [CC_BundleStore bundleFileWithPath:name type:type];
 }
 
-+ (NSDictionary *)bundlePlistWithPath:(NSString *)name{
-    return [cc_message cc_class:CC_BundleStore.class method:@selector(cc_bundlePlistWithPath:) params:name];
++ (NSDictionary *)bundlePlistWithPath:(NSString *)name {
+    return [CC_BundleStore bundlePlistWithPath:name];
 }
 
-+ (BOOL)copyBunldFileToSandboxToPath:(NSString *)name type:(NSString *)type{
-    return [[cc_message cc_class:CC_BundleStore.class method:@selector(cc_copyBunldFileToSandboxToPath:type:) params:name,type]boolValue];
++ (BOOL)copyBunldFileToSandboxToPath:(NSString *)name type:(NSString *)type {
+    return [CC_BundleStore copyBunldFileToSandboxToPath:name type:type];
 }
 
-+ (BOOL)copyBunldPlistToSandboxToPath:(NSString *)name{
-    return [[cc_message cc_class:CC_BundleStore.class method:@selector(cc_copyBunldPlistToSandboxToPath:) params:name]boolValue];
++ (BOOL)copyBunldPlistToSandboxToPath:(NSString *)name {
+    return [CC_BundleStore copyBunldPlistToSandboxToPath:name];
 }
 
-+ (NSString *)sandboxPath{
-    return [cc_message cc_class:CC_SandboxStore.class method:@selector(cc_sandboxPath)];
++ (NSString *)sandboxPath {
+    return [self.sandbox documentsPath];
 }
 
-+ (NSArray *)sandboxDirectoryFilesWithPath:(NSString *)name type:(NSString *)type{
-    return [cc_message cc_class:CC_SandboxStore.class method:@selector(cc_sandboxDirectoryFilesWithPath:type:) params:name,type];
++ (NSArray *)sandboxDirectoryFilesWithPath:(NSString *)name type:(NSString *)type {
+    return [self.sandbox documentsDirectoryFilesWithPath:name type:type];
 }
 
-+ (NSData *)sandboxFileWithPath:(NSString *)name type:(NSString *)type{
-    return [cc_message cc_class:CC_SandboxStore.class method:@selector(cc_sandboxFileWithPath:type:) params:name,type];
++ (NSData *)sandboxFileWithPath:(NSString *)name type:(NSString *)type {
+    return [self.sandbox documentsFileWithPath:name type:type];
 }
 
-+ (NSDictionary *)sandboxPlistWithPath:(NSString *)name{
-    return [cc_message cc_class:CC_SandboxStore.class method:@selector(cc_sandboxPlistWithPath:) params:name];
++ (NSDictionary *)sandboxPlistWithPath:(NSString *)name {
+    return [self.sandbox documentsPlistWithPath:name];
 }
 
-+ (BOOL)deleteSandboxFileWithName:(NSString *)name{
-    return [[cc_message cc_class:CC_SandboxStore.class method:@selector(cc_deleteSandboxFileWithName:) params:name]boolValue];
++ (BOOL)deleteSandboxFileWithName:(NSString *)name {
+    return [self.sandbox deleteDocumentsFileWithName:name];
 }
 
-+ (BOOL)saveToSandboxWithData:(id)data toPath:(NSString *)name type:(NSString *)type{
-    return [[cc_message cc_class:CC_SandboxStore.class method:@selector(cc_saveToSandboxWithData:toPath:type:) params:data,name,type]boolValue];
++ (BOOL)saveToSandboxWithData:(id)data toPath:(NSString *)name type:(NSString *)type {
+    return [self.sandbox saveToDocumentsWithData:data toPath:name type:type];
 }
 
 + (CC_DataBaseStore *)dataBaseStore {
@@ -491,6 +466,10 @@
 
 + (id)registerAppDelegate:(id)module {
     return [CC_Base.shared cc_registerAppDelegate:module];
+}
+
++ (id)getAppDelegate:(Class)aClass {
+    return [CC_Base.shared cc_getAppDelegate:aClass];
 }
 
 + (id)registerSharedInstance:(id)shared {
@@ -521,147 +500,66 @@
     return [CC_Base.shared cc_resetShared:key obj:value];
 }
 
-#pragma mark CC_Function
-+ (id)function_jsonWithString:(NSString *)jsonString{
-    return [cc_message cc_class:CC_Function.class method:@selector(cc_jsonWithString:) params:jsonString];
-}
-
-+ (NSString *)function_stringWithJson:(id)object{
-    return [cc_message cc_class:CC_Function.class method:@selector(cc_stringWithJson:) params:object];
-}
-
-+ (NSData *)function_dataWithInt:(int)i{
-    return [cc_message cc_class:CC_Function.class method:@selector(cc_dataWithInt:) params:Int(i)];
-}
-
-+ (BOOL)function_isEmpty:(id)obj{
-    return [[cc_message cc_class:CC_Function.class method:@selector(cc_isEmpty:) params:obj]boolValue];
-}
-
-+ (BOOL)function_isInstallFromAppStore{
-    return [[cc_message cc_class:CC_Function.class method:@selector(cc_isInstallFromAppStore)]boolValue];
-}
-
-+ (BOOL)function_isJailBreak{
-    return [[cc_message cc_class:CC_Function.class method:@selector(cc_isJailBreak)]boolValue];
-}
-
-+ (int)function_compareVersion:(NSString *)v1 cutVersion:(NSString *)v2{
-    return [[cc_message cc_class:CC_Function.class method:@selector(cc_compareVersion:cutVersion:) params:v1,v2]intValue];
-}
-
-+ (NSString *)function_formatDate:(NSString *)date nowDate:(NSString *)nowDate{
-    return [cc_message cc_class:CC_Function.class method:@selector(cc_formatDate:nowDate:) params:date,nowDate];
-}
-
-+ (NSString *)function_formatDate:(NSString *)date nowDate:(NSString *)nowDate formatArr:(NSArray *)formatArr{
-    return [cc_message cc_class:CC_Function.class method:@selector(cc_formatDate:nowDate:formatArr:) params:date,nowDate,formatArr];
-}
-
-+ (NSString *)function_replaceHtmlLabel:(NSString *)htmlStr labelName:(NSString *)labelName toLabelName:(NSString *)toLabelName trimSpace:(BOOL)trimSpace{
-    return [cc_message cc_class:CC_String.class method:@selector(cc_replaceHtmlLabel:labelName:toLabelName:trimSpace:) params:htmlStr,labelName,toLabelName,Int(trimSpace)];
-}
-
-+ (NSArray *)function_getHtmlLabel:(NSString *)htmlStr start:(NSString *)startStr end:(NSString *)endStr includeStartEnd:(BOOL)includeStartEnd{
-    return [cc_message cc_class:CC_String.class method:@selector(cc_getHtmlLabel:start:end:includeStartEnd:) params:htmlStr,startStr,endStr,Int(includeStartEnd)];
-}
-
-+ (NSMutableString *)function_MD5SignWithDic:(NSMutableDictionary *)dic andMD5Key:(NSString *)MD5KeyString{
-    return [cc_message cc_class:CC_String.class method:@selector(cc_MD5SignWithDic:andMD5Key:) params:dic,MD5KeyString];
-}
-
-+ (NSMutableString *)function_MD5SignValueWithDic:(NSMutableDictionary *)dic andMD5Key:(NSString *)MD5KeyString{
-    return [cc_message cc_class:CC_String.class method:@selector(cc_MD5SignValueWithDic:andMD5Key:) params:dic,MD5KeyString];
-}
-
-+ (NSMutableArray *)function_sortChineseArr:(NSMutableArray *)sortMutArr depthArr:(NSArray *)depthArr{
-    return [cc_message cc_class:CC_Array.class method:@selector(cc_sortChineseArr:depthArr:) params:sortMutArr,depthArr];
-}
-
-+ (NSMutableArray *)function_sortMutArr:(NSMutableArray *)mutArr byKey:(NSString *)key desc:(int)desc{
-    return [cc_message cc_class:CC_Array.class method:@selector(cc_sortMutArr:byKey:desc:) params:mutArr,key,Int(desc)];
-}
-
-+ (NSMutableArray *)function_mapParser:(NSArray *)pathArr idKey:(NSString *)idKey keepKey:(BOOL)keepKey pathMap:(NSDictionary *)pathMap{
-    return [cc_message cc_class:CC_Array.class method:@selector(cc_mapParser:idKey:keepKey:pathMap:) params:pathArr,idKey,Int(keepKey),pathMap];
-}
-
-+ (NSMutableArray *)function_addMapParser:(NSMutableArray *)pathArr idKey:(NSString *)idKey keepKey:(BOOL)keepKey map:(NSDictionary *)getMap{
-    return [cc_message cc_class:CC_Array.class method:@selector(cc_addMapParser:idKey:keepKey:map:) params:pathArr,idKey,Int(keepKey),getMap];
-}
-
-+ (NSTimeInterval)function_compareDate:(id)date1 cut:(id)date2{
-    return [[cc_message cc_class:CC_Date.class method:@selector(cc_compareDate:cut:) params:date1,date2]doubleValue];
-}
-
-+ (NSData *)function_archivedDataWithObject:(id)object{
-    return [cc_message cc_class:CC_Data.class method:@selector(cc_archivedDataWithObject:) params:object];
-}
-
-+ (UIImage *)function_imageWithColor:(UIColor *)color width:(CGFloat)width height:(CGFloat)height {
-    return [cc_message cc_class:CC_Color.class method:@selector(cc_imageWithColor:width:height:) params:color,[CC_Float value:width],[CC_Float value:height]];
-}
-
-+ (id)function_unarchivedObjectWithData:(id)data{
-    return [cc_message cc_class:CC_Data.class method:@selector(cc_unarchivedObjectWithData:) params:data];
-}
-
-+ (id)function_copyObject:(id)object{
-    return [cc_message cc_class:CC_Object.class method:@selector(cc_copyObject:) params:object];
-}
-
 #pragma mark CC_CoreThread
-+ (void)gotoThread:(void (^)(void))block{
-    [cc_message cc_instance:CC_CoreThread.shared method:@selector(cc_gotoThread:) params:block];
++ (CC_CoreThread *)thread {
+    return CC_CoreThread.shared;
 }
 
-+ (void)gotoMain:(void (^)(void))block{
-    [cc_message cc_instance:CC_CoreThread.shared method:@selector(cc_gotoMain:) params:block];
++ (void)gotoThread:(void (^)(void))block {
+    [self.thread gotoThread:block];
 }
 
-+ (void)delay:(double)delayInSeconds block:(void (^)(void))block{
-    [cc_message cc_instance:CC_CoreThread.shared method:@selector(cc_delay:block:) params:[CC_Double value:delayInSeconds],block];
++ (void)gotoMain:(void (^)(void))block {
+    [self.thread gotoMain:block];
 }
 
-+ (void)delay:(double)delayInSeconds key:(NSString *)key block:(void (^)(void))block{
-    [cc_message cc_instance:CC_CoreThread.shared method:@selector(cc_delay:key:block:) params:Int(delayInSeconds),key,block];
++ (void)delay:(double)delayInSeconds block:(void (^)(void))block {
+    [self.thread delay:delayInSeconds block:block];
 }
 
-+ (void)delayStop:(NSString *)key{
-    [cc_message cc_instance:CC_CoreThread.shared method:@selector(delayStop:) params:key];
++ (void)delay:(double)delayInSeconds key:(NSString *)key block:(void (^)(void))block {
+    [self.thread delay:delayInSeconds key:key block:block];
 }
 
-+ (void)threadGroup:(NSUInteger)taskCount block:(void(^)(NSUInteger taskIndex, BOOL finish))block{
-    [cc_message cc_instance:CC_CoreThread.shared method:@selector(cc_group:block:) params:Int(taskCount),block];
++ (void)delayStop:(NSString *)key {
+    [self.thread delayStop:key];
 }
 
-+ (void)threadBlockSequence:(NSUInteger)taskCount block:(void(^)(NSUInteger taskIndex, BOOL finish, id sema))block{
-    [cc_message cc_instance:CC_CoreThread.shared method:@selector(cc_blockSequence:block:) params:Int(taskCount),block];
++ (void)threadGroup:(NSUInteger)taskCount block:(void(^)(NSUInteger taskIndex, BOOL finish))block {
+    [self.thread group:taskCount block:block];
 }
 
-+ (void)threadBlockGroup:(NSUInteger)taskCount block:(void(^)(NSUInteger taskIndex, BOOL finish, id sema))block{
-    [cc_message cc_instance:CC_CoreThread.shared method:@selector(cc_blockGroup:block:) params:Int(taskCount),block];
++ (void)threadBlockSequence:(NSUInteger)taskCount block:(void(^)(NSUInteger taskIndex, BOOL finish, id sema))block {
+    [self.thread blockSequence:taskCount block:block];
 }
 
-+ (void)threadBlockFinish:(id)sema{
-    [cc_message cc_instance:CC_CoreThread.shared method:@selector(cc_blockFinish:) params:sema];
++ (void)threadBlockGroup:(NSUInteger)taskCount block:(void(^)(NSUInteger taskIndex, BOOL finish, id sema))block {
+    [self.thread blockGroup:taskCount block:block];
+}
+
++ (void)threadBlockFinish:(id)sema {
+    [self.thread blockFinish:sema];
 }
 
 #pragma mark CC_CoreTimer
-+ (void)timerRegister:(NSString *)name interval:(float)interval block:(void (^)(void))block{
-    [cc_message cc_instance:CC_CoreTimer.shared method:@selector(cc_registerT:interval:block:) params:name,Float(interval),block];
++ (CC_CoreTimer *)timer {
+    return CC_CoreTimer.shared;
 }
 
-+ (void)timerCancel:(NSString *)name{
-    [cc_message cc_instance:CC_CoreTimer.shared method:@selector(cc_unRegisterT:) params:name];
++ (void)timerRegister:(NSString *)name interval:(float)interval block:(void (^)(void))block {
+    [self.timer registerT:name interval:interval block:block];
 }
 
-+ (NSString *)uniqueNowTimestamp{
-    return [cc_message cc_instance:CC_CoreTimer.shared method:@selector(cc_uniqueNowTimestamp)];
++ (void)timerCancel:(NSString *)name {
+    [self.timer unRegisterT:name];
 }
 
-+ (NSString *)nowTimeTimestamp{
-    return [cc_message cc_instance:CC_CoreTimer.shared method:@selector(cc_nowTimeTimestamp)];
++ (NSString *)uniqueNowTimestamp {
+    return self.timer.uniqueNowTimestamp;
+}
+
++ (NSString *)nowTimeTimestamp {
+    return self.timer.nowTimeTimestamp;;
 }
 
 
@@ -724,31 +622,23 @@
 }
 
 + (CC_WebView *)WebView {
-    return [CC_Base.shared cc_init:CC_WebView.class];
+    return [self init:CC_WebView.class];
 }
 
 + (CC_LabelGroup *)LabelGroup {
-    return [CC_Base.shared cc_init:CC_LabelGroup.class];
-}
-
-+ (CC_Image *)image:(NSString *)imageName {
-    return (CC_Image *)[CC_Image imageNamed:imageName];
+    return [self init:CC_LabelGroup.class];
 }
 
 + (CC_TextAttachment *)textAttachment {
-    return [CC_Base.shared cc_init:CC_TextAttachment.class];
+    return [self init:CC_TextAttachment.class];
 }
 
 + (NSAttributedString *)attributedString {
-    return [CC_Base.shared cc_init:NSAttributedString.class];
+    return [self init:NSAttributedString.class];
 }
 
 + (NSMutableAttributedString *)mutableAttributedString {
-    return [CC_Base.shared cc_init:NSMutableAttributedString.class];
-}
-
-+ (CC_Color *)color {
-    return CC_Color.color;
+    return [self init:NSMutableAttributedString.class];
 }
 
 // MARK: - CCUI Custom -
@@ -777,15 +667,15 @@
 }
 
 + (void)showNotice:(NSString *)str {
-    [cc_message cc_instance:CC_Notice.shared method:@selector(showNotice:) params:str];
+    [self.notice showNotice:str];
 }
 
 + (void)showNotice:(NSString *)str atView:(UIView *)view {
-    [cc_message cc_instance:CC_Notice.shared method:@selector(showNotice:atView:) params:str,view];
+    [self.notice showNotice:str atView:view];
 }
 
 + (void)showNotice:(NSString *)str atView:(UIView *)view delay:(int)delay {
-    [cc_message cc_instance:CC_Notice.shared method:@selector(showNotice:atView:delay:) params:str,view,Int(delay)];
+    [self.notice showNotice:str atView:view delay:delay];
 }
 
 + (void)showAltOn:(UIViewController *)controller title:(NSString *)title msg:(NSString *)msg bts:(NSArray *)bts block:(void (^)(int index, NSString *name))block {

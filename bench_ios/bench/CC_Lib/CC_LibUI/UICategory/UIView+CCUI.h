@@ -147,6 +147,23 @@ CC_TableView,CC_CollectionView,CC_WebView;
 
 - (void)cc_setFade:(int)deep;
 
+// 添加圆角 先处理图片避免离屏渲染
+- (void)cc_addCornerRadius:(CGFloat)radius;
+
+- (void)cc_addCornerRadius:(CGFloat)radius
+               borderWidth:(CGFloat)borderWidth
+               borderColor:(UIColor *)borderColor
+           backgroundColor:(UIColor*)bgColor;
+
+- (void)cc_addCornerRadius:(CGFloat)radius
+               borderWidth:(CGFloat)borderWidth
+               borderColor:(UIColor *)borderColor
+           backgroundColor:(UIColor *)bgColor
+               drawTopLeft:(BOOL)topLeft
+              drawTopRight:(BOOL)topRight
+            drawBottomLeft:(BOOL)bottomLeft
+           drawBottomRight:(BOOL)bottomRight;
+
 @end
 
 // MARK: - UIView属性链式协议 -

@@ -20,4 +20,6 @@
 
 #import "UIScrollView+Refresh.h"
 
+#import "CC_Objects.h"
+
 #endif /* CC_Lib_h */

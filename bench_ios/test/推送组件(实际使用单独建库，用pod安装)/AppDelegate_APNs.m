@@ -172,7 +172,7 @@
 }
 
 - (void)updateTokenToServerWithDeviceToken:(NSData *)deviceToken domain:(NSURL *)domainUrl authedUserId:(NSString *)authedUserId {
-    if ([ccs function_isEmpty:authedUserId] || !self.deviceToken) {
+    if ([ccs.tool isEmpty:authedUserId] || !self.deviceToken) {
         return;
     }
     if (![deviceToken isKindOfClass:[NSData class]]) return;

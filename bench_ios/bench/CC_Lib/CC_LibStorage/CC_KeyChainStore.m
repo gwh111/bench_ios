@@ -11,23 +11,23 @@
 
 @implementation CC_KeyChainStore
 
-+ (void)cc_saveKeychainWithName:(NSString *)key str:(NSString *)str{
++ (void)saveKeychainWithName:(NSString *)key str:(NSString *)str{
     [CC_KeyChainStore save:key data:str];
 }
 
-+ (NSString *)cc_keychainWithName:(NSString *)name{
++ (NSString *)keychainWithName:(NSString *)name{
     NSString *strUUID = (NSString *)[CC_KeyChainStore load:name];
     return strUUID;
 }
 
-+ (NSString *)cc_keychainUUID{
-    NSString *strUUID = (NSString *)[CC_KeyChainStore load:[CC_BundleStore cc_appBid]];
++ (NSString *)keychainUUID{
+    NSString *strUUID = (NSString *)[CC_KeyChainStore load:[CC_BundleStore appBid]];
     //首次执行该方法时，uuid为空
     if ([strUUID isEqualToString:@""]|| !strUUID) {
         //生成一个uuid的方法
         strUUID = [NSUUID UUID].UUIDString;
         //将该uuid保存到keychain
-        [self cc_saveKeychainWithName:[CC_BundleStore cc_appBid] str:strUUID];
+        [self saveKeychainWithName:[CC_BundleStore appBid] str:strUUID];
     }
     return strUUID;
 }

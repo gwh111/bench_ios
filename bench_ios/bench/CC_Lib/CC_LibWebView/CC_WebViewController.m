@@ -8,7 +8,7 @@
 
 #import "CC_WebViewController.h"
 #import "CC_View.h"
-#import "UIColor+CC.h"
+#import "UIColor+CCUI.h"
 #import "CC_Label.h"
 
 @interface CC_WebViewController ()<WKUIDelegate,WKNavigationDelegate>{

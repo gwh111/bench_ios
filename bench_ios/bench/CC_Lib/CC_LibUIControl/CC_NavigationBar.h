@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong) UIImageView *navigationBarImageView;
 @property (nonatomic,strong) UIView *line;
 
-- (void)cc_updateConfig:(CC_NavigationBarConfig *)config;
+- (void)updateConfig:(CC_NavigationBarConfig *)config;
 
 @end
 

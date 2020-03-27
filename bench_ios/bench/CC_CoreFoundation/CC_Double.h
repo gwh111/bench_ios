@@ -7,12 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CC_Object.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 #define Double(v) [CC_Double value:v]
 
-@interface CC_Double : NSObject
+@interface CC_Double : CC_Object
 
 @property (nonatomic,assign) double value;
 

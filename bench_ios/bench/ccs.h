@@ -9,9 +9,9 @@
 #import "CC_UIKit.h"
 #import "CC_LibKit.h"
 #import "CC_Macro.h"
-#import "CC_UI+CC.h"
+#import "CC_UI+Atom.h"
 
-@interface ccs : NSObject
+@interface ccs : CC_Object
 
 // add pch path in 'Build Settings' - 'Prefix Header' as  '$(SRCROOT)/projectname/projectname-prefix.pch'
 
@@ -56,8 +56,10 @@
 + (void)openPatrolMonitorLog:(BOOL)open;
 
 #pragma mark object
+// 去除对象警告
 + (id)convert:(id)obj;
 + (UIApplication *)appApplication;
+// 当前app的appDelegate
 + (CC_AppDelegate *)appDelegate;
 
 // cluster
@@ -90,18 +92,17 @@
 + (CC_UI *)ui;
 + (CC_Tool *)tool;
 
-+ (id)model:(Class)aClass;
-+ (HttpModel *)httpModel;
+// 金额类
 + (CC_Money *)money;
-+ (CC_NavigationController *)navigation;
-+ (CC_SandboxStore *)sandbox;
+// 数学函数
 + (CC_Math *)math;
+// 崩溃管理
 + (CC_CoreCrash *)coreCrash;
 
 #pragma mark CC_UIKit
 
 #define APP_STANDARD(name) [ccs appStandard:name]
-#pragma mark function
+#pragma mark UI管理
 + (CC_CoreUI *)coreUI;
 + (CGRect)screenRect;
 + (id)appStandard:(NSString *)name;
@@ -122,7 +123,8 @@
 + (CC_ViewController *)currentVC;
 + (CC_TabBarController *)currentTabBarC;
 
-#pragma mark action
+#pragma mark VC控制器操作
++ (CC_NavigationController *)navigation;
 + (void)pushViewController:(CC_ViewController *)viewController;
 // push to viewController && remove current viewController
 + (void)pushViewController:(CC_ViewController *)viewController withDismissVisible:(BOOL)dismissVisible;
@@ -137,11 +139,12 @@
 + (void)popToRootViewControllerAnimated:(BOOL)animated;
 + (void)pushWebViewControllerWithUrl:(NSString *)urlStr;
 
-#pragma mark CC_LibNetwork
+#pragma mark 网络管理
 + (CC_HttpTask *)httpTask;
 + (CC_HttpHelper *)httpHelper;
 + (CC_HttpEncryption *)httpEncryption;
 + (CC_HttpConfig *)httpConfig;
++ (HttpModel *)httpModel;
 // 清除所有内存的图片缓存
 + (void)clearAllMemoryWebImageCache:(void(^)(void))completionBlock;
 // 清除所有磁盘的图片缓存
@@ -151,7 +154,7 @@
 // 清除指定key的图片缓存
 + (void)clearWebImageCacheForKey:(NSString*)url completionBlock:(void(^)(void))completionBlock;
 
-#pragma mark CC_LibStorage
+#pragma mark 存储管理
 // keychain
 + (NSString *)keychainValueForKey:(NSString *)name;
 + (void)saveKeychainKey:(NSString *)key value:(NSString *)value;
@@ -168,7 +171,7 @@
 + (id)safeDefaultValueForKey:(NSString *)key;
 + (void)saveSafeDefaultKey:(NSString *)key value:(id)value;
 
-// NSBundle
+// 应用内文件 NSBundle
 + (NSString *)appName;
 + (NSString *)appBid;
 + (NSString *)appVersion;
@@ -182,7 +185,8 @@
 + (BOOL)copyBunldFileToSandboxToPath:(NSString *)name type:(NSString *)type;
 + (BOOL)copyBunldPlistToSandboxToPath:(NSString *)name;
 
-// 沙盒 Documents 
+// 沙盒 Documents
++ (CC_SandboxStore *)sandbox;
 + (NSString *)sandboxPath;
 + (NSArray *)sandboxDirectoryFilesWithPath:(NSString *)name type:(NSString *)type;
 
@@ -192,25 +196,33 @@
 + (BOOL)deleteSandboxFileWithName:(NSString *)name;
 + (BOOL)saveToSandboxWithData:(id)data toPath:(NSString *)name type:(NSString *)type;
 
-// DataBase
+// MySQL数据库
 + (CC_DataBaseStore *)dataBaseStore;
 
-#pragma mark CC_LibAudio
+#pragma mark 声音管理
 + (CC_MusicBox *)musicBox;
 
-#pragma mark CC_CoreThread
+#pragma mark 线程管理
++ (CC_CoreThread *)thread;
 + (void)gotoThread:(void (^)(void))block;
 + (void)gotoMain:(void (^)(void))block;
 + (void)delay:(double)delayInSeconds block:(void (^)(void))block;
+// 异步创建多个任务
 + (void)threadGroup:(NSUInteger)taskCount block:(void(^)(NSUInteger taskIndex, BOOL finish))block;
-+ (void)threadBlockFinish:(id)sema;
+// 带有block的多个任务并行
 + (void)threadBlockGroup:(NSUInteger)taskCount block:(void(^)(NSUInteger taskIndex, BOOL finish, id sema))block;
+// 带有block的多个任务串行
 + (void)threadBlockSequence:(NSUInteger)taskCount block:(void(^)(NSUInteger taskIndex, BOOL finish, id sema))block;
+// 带有block的任务结束后调用
++ (void)threadBlockFinish:(id)sema;
 
+// 根据关键字可以取消的延时
 + (void)delay:(double)delayInSeconds key:(NSString *)key block:(void (^)(void))block;
 + (void)delayStop:(NSString *)key;
 
-#pragma mark CC_CoreTimer
+#pragma mark 定时器
++ (CC_CoreTimer *)timer;
+// 根据关键字注册定时器
 + (void)timerRegister:(NSString *)name interval:(float)interval block:(void (^)(void))block;
 + (void)timerCancel:(NSString *)name;
 
@@ -221,52 +233,27 @@
 // Init class
 + (id)init:(Class)aClass;
 
+// 组件生命周期注册
+// + (void)load {
+//    [ccs registerAppDelegate:self];
+// }
 + (id)registerAppDelegate:(id)module;
-// Shared Instance
++ (id)getAppDelegate:(Class)aClass;
+
+// 单例注册
+// + (instancetype)shared {
+//     return [ccs registerSharedInstance:self];
+// }
 + (id)registerSharedInstance:(id)shared;
 + (id)registerSharedInstance:(id)shared block:(void(^)(void))block;
 
-// data sharing, shared data in app, such as update a model in controller A when you are in controller B
-// app共享的数据存储 如在控制器B更新控制器A里的model
+// Data sharing, shared data in app, such as update a model in controller A when you are in controller B
+// App共享的数据存储 如在控制器B更新控制器A里的model
 + (id)getShared:(NSString *)key;
 + (id)sharedValueForKey:(NSString *)key;
 + (id)removeShared:(NSString *)key;
 + (id)setShared:(NSString *)key value:(id)obj;
 + (id)resetShared:(NSString *)key value:(id)obj;
-
-#pragma mark CC_Function
-+ (NSData *)function_dataWithInt:(int)i;
-
-+ (BOOL)function_isEmpty:(id)obj;
-+ (BOOL)function_isInstallFromAppStore;
-+ (BOOL)function_isJailBreak;
-
-+ (int)function_compareVersion:(NSString *)v1 cutVersion:(NSString *)v2;
-
-+ (NSString *)function_stringWithJson:(id)object;
-+ (NSString *)function_formatDate:(NSString *)date nowDate:(NSString *)nowDate;
-+ (NSString *)function_formatDate:(NSString *)date nowDate:(NSString *)nowDate formatArr:(NSArray *)formatArr;
-
-+ (NSString *)function_replaceHtmlLabel:(NSString *)htmlStr labelName:(NSString *)labelName toLabelName:(NSString *)toLabelName trimSpace:(BOOL)trimSpace;
-+ (NSArray *)function_getHtmlLabel:(NSString *)htmlStr start:(NSString *)startStr end:(NSString *)endStr includeStartEnd:(BOOL)includeStartEnd;
-
-+ (NSMutableString *)function_MD5SignWithDic:(NSMutableDictionary *)dic andMD5Key:(NSString *)MD5KeyString;
-+ (NSMutableString *)function_MD5SignValueWithDic:(NSMutableDictionary *)dic andMD5Key:(NSString *)MD5KeyString;
-
-+ (NSMutableArray *)function_sortChineseArr:(NSMutableArray *)sortMutArr depthArr:(NSArray *)depthArr;
-+ (NSMutableArray *)function_sortMutArr:(NSMutableArray *)mutArr byKey:(NSString *)key desc:(int)desc;
-+ (NSMutableArray *)function_mapParser:(NSArray *)pathArr idKey:(NSString *)idKey keepKey:(BOOL)keepKey pathMap:(NSDictionary *)pathMap;
-+ (NSMutableArray *)function_addMapParser:(NSMutableArray *)pathArr idKey:(NSString *)idKey keepKey:(BOOL)keepKey map:(NSDictionary *)getMap;
-
-+ (NSTimeInterval)function_compareDate:(id)date1 cut:(id)date2;
-
-+ (NSData *)function_archivedDataWithObject:(id)object;
-
-+ (UIImage *)function_imageWithColor:(UIColor*)color width:(CGFloat)width height:(CGFloat)height;
-
-+ (id)function_unarchivedObjectWithData:(id)data;
-+ (id)function_copyObject:(id)object;
-+ (id)function_jsonWithString:(NSString *)jsonString;
 
 @end
 
@@ -304,15 +291,13 @@
 /// @name 生成其它对象
 ///-------------------------------
 
-#define IMAGE(NAME) [ccs image:NAME]
+#define IMAGE(NAME) [UIImage imageNamed:NAME]
 
 /// Creates an image object from the specified named asset.
-+ (CC_Image                  *)image:(NSString *)imageName;
 + (CC_TextAttachment         *)textAttachment;
 + (NSAttributedString        *)attributedString;
 + (NSMutableAttributedString *)mutableAttributedString;
 
-+ (CC_Color *)color;
 + (CC_Mask *)mask;
 + (CC_Notice *)notice;
 + (CC_Alert *)alert;

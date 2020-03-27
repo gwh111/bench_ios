@@ -8,14 +8,15 @@
 
 #import <Foundation/Foundation.h>
 #import "CC_CoreMacro.h"
+#import "CC_Object.h"
 
-@interface CC_Base : NSObject
+@interface CC_Base : CC_Object
 
 // Buttons in UIKit minimum tap interval
-@property (nonatomic,assign) NSTimeInterval cc_acceptEventInterval;
+@property (nonatomic,assign) NSTimeInterval acceptEventInterval;
 
-@property (nonatomic,assign) BOOL cc_debug;
-@property (nonatomic,assign) int cc_environment;
+@property (nonatomic,assign) BOOL debug;
+@property (nonatomic,assign) int environment;
 
 + (instancetype)shared;
 

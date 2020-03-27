@@ -7,10 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CC_Object.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CC_Runtime : NSObject
+@interface CC_Runtime : CC_Object
 
 + (instancetype)shared;
 

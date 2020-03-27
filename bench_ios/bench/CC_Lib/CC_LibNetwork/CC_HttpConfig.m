@@ -21,11 +21,11 @@
     
     httpTimeoutInterval = 10;
     
-    NSString *appName = [CC_BundleStore cc_appName];
-    NSString *appBundleId = [CC_BundleStore cc_appBid];
-    NSString *appVersion = [CC_BundleStore cc_appVersion];
-    NSString *appUserAgent = [CC_Device cc_deviceName];
-    NSString *appDeviceId = [CC_KeyChainStore cc_keychainUUID];
+    NSString *appName = [CC_BundleStore appName];
+    NSString *appBundleId = [CC_BundleStore appBid];
+    NSString *appVersion = [CC_BundleStore appVersion];
+    NSString *appUserAgent = [CC_Device deviceName];
+    NSString *appDeviceId = [CC_KeyChainStore keychainUUID];
     httpHeaderFields =
     @{@"appName":appName?appName:@"",
       @"appBundleId":appBundleId?appBundleId:@"",

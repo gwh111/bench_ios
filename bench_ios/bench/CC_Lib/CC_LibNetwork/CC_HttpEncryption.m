@@ -67,12 +67,12 @@
     
     BOOL hasPrepared = NO;
     NSString *aesCode;
-    if ([CC_DefaultStore cc_safeDefault:@"randCode"]) {
-        aesCode = [CC_DefaultStore cc_safeDefault:@"randCode"];
+    if ([CC_DefaultStore getSafeDefault:@"randCode"]) {
+        aesCode = [CC_DefaultStore getSafeDefault:@"randCode"];
         hasPrepared = YES;
     }else{
         aesCode = [self getRandCode];
-        [CC_DefaultStore cc_saveSafeDefault:@"randCode" value:aesCode];
+        [CC_DefaultStore saveSafeDefault:@"randCode" value:aesCode];
     }
     [CC_HttpTask shared].configure.AESCode = aesCode;
     
@@ -89,13 +89,13 @@
                     CCLOG(@"updateAESKey success!!!");
                     block();
                 }else{
-                    [CC_CoreThread.shared cc_delay:1 block:^{
+                    [CC_CoreThread.shared delay:1 block:^{
                         [self prepare:block];
                     }];
                 }
             }];
         }else{
-            [CC_CoreThread.shared cc_delay:1 block:^{
+            [CC_CoreThread.shared delay:1 block:^{
                 [self prepare:block];
             }];
         }
@@ -105,7 +105,7 @@
 - (void)getPublicKey:(void (^)(BOOL success))block {
     [[CC_HttpTask shared] post:[CC_HttpTask shared].configure.encryptDomain params:@{@"service":@"CLIENT_KEY_DOWNLOAD"} model:nil finishBlock:^(NSString *error, HttpModel *result) {
         if (error) {
-            [CC_DefaultStore cc_saveSafeDefault:@"randCode" value:nil];
+            [CC_DefaultStore saveSafeDefault:@"randCode" value:nil];
             block(NO);
             return;
         }
@@ -115,7 +115,7 @@
 }
 
 - (void)updateAESKey:(void (^)(BOOL success))block {
-    NSString *uuid = [CC_KeyChainStore cc_keychainUUID];
+    NSString *uuid = [CC_KeyChainStore keychainUUID];
     CCLOG(@"updateAESKey %@ %lu",uuid,(unsigned long)uuid.length);
     NSDate *datenow = [NSDate date];
     NSString *timeSp = [NSString stringWithFormat:@"%.0f", [datenow timeIntervalSince1970]];
@@ -124,7 +124,7 @@
     NSString *aesCode = [CC_HttpTask shared].configure.AESCode;
     
     NSString *encStr = [NSString stringWithFormat:@"%@%@",uuid,aesCode];
-    NSString *rsaStr = [CC_RSA cc_encryptStr:encStr publicKey:publicKey];
+    NSString *rsaStr = [CC_RSA encryptStr:encStr publicKey:publicKey];
     
     NSDictionary *paraDic = @{@"service":@"AES_SERCRET_KEY_UPDATE",
                             @"ciphertext":rsaStr
@@ -132,7 +132,7 @@
     
     [[CC_HttpTask shared]post:[CC_HttpTask shared].configure.encryptDomain params:paraDic model:nil finishBlock:^(NSString *error, HttpModel *result) {
         if (error) {
-            [CC_DefaultStore cc_saveSafeDefault:@"randCode" value:nil];
+            [CC_DefaultStore saveSafeDefault:@"randCode" value:nil];
             block(NO);
             return;
         }
@@ -148,11 +148,11 @@
     NSString *ciphertext;
     
     NSString *uuid;
-    if ([CC_DefaultStore cc_default:@"uuid"]) {
-        uuid = [CC_DefaultStore cc_default:@"uuid"];
+    if ([CC_DefaultStore getDefault:@"uuid"]) {
+        uuid = [CC_DefaultStore getDefault:@"uuid"];
     }else{
-        uuid = [CC_KeyChainStore cc_keychainUUID];
-        [CC_DefaultStore cc_saveDefault:@"uuid" value:uuid];
+        uuid = [CC_KeyChainStore keychainUUID];
+        [CC_DefaultStore saveDefault:@"uuid" value:uuid];
     }
     NSData *uuidData = [uuid cc_convertToUTF8data];
     
@@ -161,20 +161,20 @@
     timeSp=[self polishingStr:timeSp];
     [paraDic setObject:timeSp forKey:@"timestamp"];
     
-    NSString *paraStr = [CC_String cc_MD5SignWithDic:paraDic andMD5Key:httpTask.configure.signKeyStr];
+    NSString *paraStr = [CC_Tool.shared MD5SignWithDic:paraDic andMD5Key:httpTask.configure.signKeyStr];
     NSString *aesCode = [CC_HttpTask shared].configure.AESCode;
     if (aesCode.length <= 0) {
         CCLOG(@"get aesCode fail!");
         return @"";
     }
-    NSData *aesdata = [CC_AES cc_encryptWithKey:aesCode iv:timeSp data:[paraStr cc_convertToUTF8data]];
+    NSData *aesdata = [CC_AES encryptWithKey:aesCode iv:timeSp data:[paraStr cc_convertToUTF8data]];
     
     NSMutableData *mutData = [[NSMutableData alloc]init];
-    [mutData appendData:[CC_Function cc_dataWithInt:36]];//uuid length
+    [mutData appendData:[CC_Tool.shared dataWithInt:36]];//uuid length
     [mutData appendData:uuidData];//uuid
-    [mutData appendData:[CC_Function cc_dataWithInt:(int)aesdata.length]];//code length
+    [mutData appendData:[CC_Tool.shared dataWithInt:(int)aesdata.length]];//code length
     [mutData appendData:aesdata];//code
-    [mutData appendData:[CC_Function cc_dataWithInt:(int)timeSp.length]];//time length
+    [mutData appendData:[CC_Tool.shared dataWithInt:(int)timeSp.length]];//time length
     [mutData appendData:[timeSp cc_convertToUTF8data]];//time
     
     NSData *data = [NSData dataWithData:mutData];
@@ -187,14 +187,14 @@
     
     NSString *ciphertext = resultDic[@"response"][@"ciphertext"];
     if (!ciphertext) {
-        return [CC_Function cc_stringWithJson:resultDic];
+        return [CC_Tool.shared stringWithJson:resultDic];
     }
     NSData *ciphertextdata = [ciphertext cc_convertToBase64data];
     
     NSString *nowTimestamp = [NSString stringWithFormat:@"%@",resultDic[@"response"][@"nowTimestamp"]];
     NSString *aesCode = [CC_HttpTask shared].configure.AESCode;
     nowTimestamp = [self polishingStr:nowTimestamp];
-    NSData *aesdata = [CC_AES cc_decryptWithKey:aesCode iv:nowTimestamp data:ciphertextdata];
+    NSData *aesdata = [CC_AES decryptWithKey:aesCode iv:nowTimestamp data:ciphertextdata];
     
     return [aesdata cc_convertToUTF8String];
 }
@@ -221,7 +221,7 @@
     NSArray *changeArr=[[NSArray alloc]initWithObjects:@"0",@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"a",@"b",@"c",@"d",@"e",@"f",@"g",@"h",@"i",@"j",@"k",@"l",@"m",@"n",@"o",@"p",@"q",@"r",@"s",@"t",@"u",@"v",@"w",@"x",@"y",@"z",nil];
     NSMutableString *getStr = [[NSMutableString alloc]initWithCapacity:5];
     NSMutableString *changeStr = [[NSMutableString alloc]initWithCapacity:16];
-    for(int i =0; i<16; i++) {
+    for(int i = 0; i < 16; i++) {
         NSInteger index = arc4random()%([changeArr count]);
         getStr = changeArr[index];
         changeStr = (NSMutableString *)[changeStr stringByAppendingString:getStr];

@@ -13,6 +13,8 @@
 #import "MXRotationManager.h"
 #import "CC_CoreCrash.h"
 
+#import "CC_Objects.h"
+
 @interface CC_AppDelegate ()
 
 @end

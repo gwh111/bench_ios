@@ -9,14 +9,14 @@
 #import "CC_Foundation.h"
 #import "CC_Button.h"
 
-@interface CC_Animation : NSObject
+@interface CC_Animation : CC_Object
 
 // 不停闪烁
 // [noteTextV.layer addAnimation:[CC_Animation cc_flickerForever:.5] forKey:nil];
-+ (CABasicAnimation *)cc_flickerForever:(float)time;
++ (CABasicAnimation *)flickerForever:(float)time;
 
 // 按钮点击放大动画
 // [CC_Animation cc_buttonTapEnlarge:checkBt];
-+ (void)cc_buttonTapEnlarge:(CC_Button *)button;
++ (void)buttonTapEnlarge:(CC_Button *)button;
 
 @end

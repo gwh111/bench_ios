@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CC_HttpConfig : NSObject
+@interface CC_HttpConfig : CC_Object
 
 // 和服务端交互的方式
 typedef NS_ENUM(NSUInteger, CCHttpRequestType) {

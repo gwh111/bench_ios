@@ -13,14 +13,14 @@
 //NSString * str  =[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 @implementation CC_AES
 
-+ (instancetype)shared{
++ (instancetype)shared {
     return [CC_Base.shared cc_registerSharedInstance:self block:^{
-        CC_AES.shared.cc_AESKey = @"apple";
+        CC_AES.shared.AESKey = @"apple";
     }];
 }
 
 //加密
-+ (NSData *)cc_encryptWithKey:(NSString *)key iv:(NSString *)iv data:(NSData *)data{
++ (NSData *)encryptWithKey:(NSString *)key iv:(NSString *)iv data:(NSData *)data{
     if (!data) {
         return nil;
     }
@@ -28,14 +28,14 @@
 }
 
 //解密
-+ (NSData *)cc_decryptWithKey:(NSString *)key iv:(NSString *)iv data:(NSData *)data{
++ (NSData *)decryptWithKey:(NSString *)key iv:(NSString *)iv data:(NSData *)data{
     if (!data) {
         return nil;
     }
     return [self AES128operation:kCCDecrypt key:key iv:iv data:data];
 }
 
-+ (NSData *)AES128operation:(CCOperation)operation key:(NSString *)key iv:(NSString *)iv data:(NSData *)data{
++ (NSData *)AES128operation:(CCOperation)operation key:(NSString *)key iv:(NSString *)iv data:(NSData *)data {
     char keyPtr[kCCKeySizeAES128 + 1];
     bzero(keyPtr, sizeof(keyPtr));
     [key getCString:keyPtr maxLength:sizeof(keyPtr) encoding:NSUTF8StringEncoding];
@@ -74,7 +74,7 @@
  *  @param key  加密 key
  *  @return  加密后数据
  */
-+ (NSData *)cc_encryptData:(NSData *)data key:(NSData *)key{
++ (NSData *)encryptData:(NSData *)data key:(NSData *)key {
     //判断解密的流数据是否存在
     if ((data == nil) || (data == NULL)) {
         return nil;
@@ -130,7 +130,7 @@
  *  @param key  解密 key
  *  @return  解密后数据
  */
-+ (NSData *)cc_decryptData:(NSData *)data key:(NSData *)key{
++ (NSData *)decryptData:(NSData *)data key:(NSData *)key {
     //判断解密的流数据是否存在
     if ((data == nil) || (data == NULL)) {
         return nil;

@@ -213,26 +213,26 @@
         for (NSInteger i = 0; i < paramList.count; i++) {
             id obj = paramList[i];
             if (![obj isKindOfClass:NSNull.class]) {
-                [invocation setArgument:&obj atIndex:i+2];
+                [invocation setArgument:&obj atIndex:i + 2];
                 if ([obj isKindOfClass:CC_Int.class]) {
                     CC_Int *ccint = (CC_Int *)obj;
                     int value = ccint.value;
-                    [invocation setArgument:&value atIndex:i+2];
+                    [invocation setArgument:&value atIndex:i + 2];
                 } else if ([obj isKindOfClass:CC_Float.class]) {
                     CC_Float *ccfloat = (CC_Float *)obj;
                     float value = ccfloat.value;
-                    [invocation setArgument:&value atIndex:i+2];
+                    [invocation setArgument:&value atIndex:i + 2];
                 } else if ([obj isKindOfClass:CC_Double.class]) {
                     CC_Double *ccdouble = (CC_Double *)obj;
                     double value = ccdouble.value;
-                    [invocation setArgument:&value atIndex:i+2];
+                    [invocation setArgument:&value atIndex:i + 2];
                 } else if ([obj isKindOfClass:CC_NSUInteger.class]) {
                     CC_NSUInteger *ccnsuinterge = (CC_NSUInteger *)obj;
                     NSUInteger value = ccnsuinterge.value;
-                    [invocation setArgument:&value atIndex:i+2];
+                    [invocation setArgument:&value atIndex:i + 2];
                 }
                 else{
-                    [invocation setArgument:&obj atIndex:i+2];
+                    [invocation setArgument:&obj atIndex:i + 2];
                 }
             }
         }

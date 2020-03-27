@@ -12,15 +12,25 @@
 #import <Foundation/Foundation.h>
 #import "CC_CoreFoundation.h"
 
+#import "CC_Tool+Date.h"
+#import "CC_Tool+Data.h"
+#import "CC_Tool+Validate.h"
+#import "CC_Tool+Convert.h"
+#import "CC_Tool+Image.h"
+#import "CC_Tool+Color.h"
+#import "CC_Tool+String.h"
+#import "CC_Tool+Array.h"
+
 #import "CC_Money.h"
 #import "CC_Model.h"
 #import "CC_CoreTimer.h"
 #import "CC_CoreThread.h"
-#import "CC_Lib+NSString.h"
-#import "CC_Lib+NSArray.h"
-#import "CC_Lib+NSDictionary.h"
-#import "CC_Lib+NSObject.h"
-#import "CC_Lib+NSDate.h"
-#import "CC_Lib+NSData.h"
+
+#import "NSDate+CC_Foundation.h"
+#import "NSData+CC_Foundation.h"
+#import "NSString+CC_Foundation.h"
+#import "NSArray+CC_Foundation.h"
+#import "NSDictionary+CC_Foundation.h"
+#import "NSObject+CC_Foundation.h"
 
 //#endif /* CC_Foundation_h */

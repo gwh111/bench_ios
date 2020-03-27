@@ -5,7 +5,7 @@
 //  Created by gwh on 2019/9/11.
 //
 
-#import <UIKit/UIKit.h>
+#import "CC_Foundation.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -14,7 +14,7 @@ typedef NS_ENUM(NSUInteger, CC_NavigationBarType) {
     CC_NavigationBarTypeDark, // 深色背景，会用白色后退按钮
 };
 
-@interface CC_NavigationBarConfig : NSObject
+@interface CC_NavigationBarConfig : CC_Object
 
 @property (nonatomic,assign) CC_NavigationBarType cc_navigationBarType;
 @property (nonatomic,strong) UIFont *cc_navigationBarTitleFont;

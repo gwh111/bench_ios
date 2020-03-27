@@ -7,7 +7,6 @@
 
 #import "NSDictionary+CrashSafe.h"
 #import "CC_Foundation.h"
-#import "CC_Function.h"
 #import "CC_CoreCrash.h"
 
 @implementation NSDictionary (CrashSafe)

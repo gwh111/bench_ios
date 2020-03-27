@@ -27,6 +27,8 @@
 
 @property (nonatomic,retain) TestSubModel *group;
 
+- (void)nothing2;
+
 @end
 
 @interface TestSubModel : CC_Model

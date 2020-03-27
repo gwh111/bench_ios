@@ -6,12 +6,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CC_Object.h"
 
-@protocol CC_Delegate
-
-@end
-
-@interface CC_Delegate : NSObject
+@interface CC_Delegate : CC_Object
 
 @property (nonatomic, retain) NSObject *delegate;
 

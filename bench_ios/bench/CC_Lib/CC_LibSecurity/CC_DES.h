@@ -8,13 +8,13 @@
 
 #import "CC_Foundation.h"
 
-@interface CC_DES : NSObject
+@interface CC_DES : CC_Object
 
 // @param plainText 加密明文
 // @param key 密钥 64位
-+ (NSString *)cc_encryptUseDES:(NSString *)plainText key:(NSString *)key;
++ (NSString *)encryptUseDES:(NSString *)plainText key:(NSString *)key;
 
 //解密
-+ (NSString *)cc_decryptUseDES:(NSString *)cipherText key:(NSString *)key;
++ (NSString *)decryptUseDES:(NSString *)cipherText key:(NSString *)key;
 
 @end

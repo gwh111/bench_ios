@@ -8,12 +8,12 @@
 
 #import "CC_Foundation.h"
 
-@interface CC_KeyChainStore : NSObject
+@interface CC_KeyChainStore : CC_Object
 
-+ (void)cc_saveKeychainWithName:(NSString *)key str:(NSString *)str;
-+ (NSString *)cc_keychainWithName:(NSString *)name;
++ (void)saveKeychainWithName:(NSString *)key str:(NSString *)str;
++ (NSString *)keychainWithName:(NSString *)name;
 
 // 生成一个用户UUID保存到keychain，即使app删除再安装只要bid不变就存在
-+ (NSString *)cc_keychainUUID;
++ (NSString *)keychainUUID;
 
 @end

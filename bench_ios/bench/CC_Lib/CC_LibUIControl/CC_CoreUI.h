@@ -45,7 +45,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 #define HEIGHT() [CC_CoreUI.shared height]
 #define SAFE_HEIGHT() [CC_CoreUI.shared safeHeight]
 
-@interface CC_CoreUI : NSObject
+@interface CC_CoreUI : CC_Object
 
 // Init base UI frame, default is 375/568 (iphone6)
 // 初始化 必须放入ui图尺寸 整个app以后的效果图全部以这个为尺寸

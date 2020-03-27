@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CC_RSA : NSObject
+@interface CC_RSA : CC_Object
 
 /** RSA第三方警告 已修改
  - WARN  | [iOS] xcodebuild:  RSA.m:275:49: warning: values of type 'OSStatus' should not be used as format arguments; add an explicit cast to 'int' instead [-Wformat]
@@ -18,35 +18,35 @@ NS_ASSUME_NONNULL_BEGIN
 
 // 公钥加密
 // NSString格式
-+ (NSString *)cc_encryptStr:(NSString *)str publicKey:(NSString *)pubKey;
++ (NSString *)encryptStr:(NSString *)str publicKey:(NSString *)pubKey;
 
 // 公钥加密
 // NSData格式
-+ (NSData *)cc_encryptData:(NSData *)data publicKey:(NSString *)pubKey;
++ (NSData *)encryptData:(NSData *)data publicKey:(NSString *)pubKey;
 
 // 私钥加密
 // NSString格式
-+ (NSString *)cc_encryptStr:(NSString *)str privateKey:(NSString *)privKey;
++ (NSString *)encryptStr:(NSString *)str privateKey:(NSString *)privKey;
 
 // 私钥加密
 // NSData格式
-+ (NSData *)cc_encryptData:(NSData *)data privateKey:(NSString *)privKey;
++ (NSData *)encryptData:(NSData *)data privateKey:(NSString *)privKey;
 
 // 公钥解密
 // NSString格式
-+ (NSString *)cc_decryptStr:(NSString *)str publicKey:(NSString *)pubKey;
++ (NSString *)decryptStr:(NSString *)str publicKey:(NSString *)pubKey;
 
 // 公钥解密
 // NSData格式
-+ (NSData *)cc_decryptData:(NSData *)data publicKey:(NSString *)pubKey;
++ (NSData *)decryptData:(NSData *)data publicKey:(NSString *)pubKey;
 
 // 私钥解密
 // NSString格式
-+ (NSString *)cc_decryptStr:(NSString *)str privateKey:(NSString *)privKey;
++ (NSString *)decryptStr:(NSString *)str privateKey:(NSString *)privKey;
 
 // 私钥解密
 // NSData格式
-+ (NSData *)cc_decryptData:(NSData *)data privateKey:(NSString *)privKey;
++ (NSData *)decryptData:(NSData *)data privateKey:(NSString *)privKey;
 
 @end
 

@@ -15,11 +15,10 @@
  */
 
 #import "CC_Foundation.h"
-#import "CC_Function.h"
 #import "CC_HttpResponseModel.h"
 #import "CC_HttpConfig.h"
 
-@interface CC_HttpTask : NSObject<NSURLSessionDelegate>
+@interface CC_HttpTask : CC_Object <NSURLSessionDelegate>
 
 + (instancetype)shared;
 

@@ -11,7 +11,7 @@
 
 @implementation CC_DefaultStore
 
-+ (id)cc_default:(NSString *)key{
++ (id)getDefault:(NSString *)key {
     if (!key) {
         CCLOG(@"error:key=nil");
         return nil;
@@ -19,7 +19,7 @@
     return [[NSUserDefaults standardUserDefaults]objectForKey:key];
 }
 
-+ (void)cc_saveDefault:(NSString *)key value:(id)value{
++ (void)saveDefault:(NSString *)key value:(id)value {
     if (!key) {
         CCLOG(@"error:key=nil");
         return;
@@ -33,36 +33,36 @@
     [[NSUserDefaults standardUserDefaults]synchronize];
 }
 
-+ (id)cc_safeDefault:(NSString *)key{
++ (id)getSafeDefault:(NSString *)key {
     NSString *aesk;
     if (!aesk) {
         CCLOG(@"没有设置加密key 默认使用apple");
         aesk=@"apple";
     }
-    NSData *oriData=[CC_DefaultStore cc_default:key];
+    NSData *oriData = [CC_DefaultStore getDefault:key];
     if (!oriData) {
         return nil;
     }
     NSData *aeskey = [aesk dataUsingEncoding:NSUTF8StringEncoding];
-    NSData *decodeData = [CC_AES cc_decryptData:oriData key:aeskey];
+    NSData *decodeData = [CC_AES decryptData:oriData key:aeskey];
     NSString *decodeString = [[NSString alloc] initWithData:decodeData encoding:NSUTF8StringEncoding];
     return decodeString;
 }
 
-+ (void)cc_saveSafeDefault:(NSString *)key value:(id)value{
++ (void)saveSafeDefault:(NSString *)key value:(id)value {
     NSString *aesk;
     if (!aesk) {
         CCLOG(@"没有设置加密key 默认使用apple");
-        aesk = [CC_AES shared].cc_AESKey;
+        aesk = [CC_AES shared].AESKey;
     }
     if (!value) {
-        [CC_DefaultStore cc_saveDefault:key value:nil];
+        [CC_DefaultStore saveDefault:key value:nil];
         return;
     }
-    NSData *data =[value dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *data = [value dataUsingEncoding:NSUTF8StringEncoding];
     NSData *aeskey = [aesk dataUsingEncoding:NSUTF8StringEncoding];
-    NSData *encodeData3 = [CC_AES cc_encryptData:data key:aeskey];
-    [CC_DefaultStore cc_saveDefault:key value:encodeData3];
+    NSData *encodeData3 = [CC_AES encryptData:data key:aeskey];
+    [CC_DefaultStore saveDefault:key value:encodeData3];
 }
 
 @end

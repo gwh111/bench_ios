@@ -8,15 +8,15 @@
 
 #import "CC_Foundation.h"
 
-@interface CC_DefaultStore : NSObject
+@interface CC_DefaultStore : CC_Object
 
-+ (id)cc_default:(NSString *)key;
++ (id)getDefault:(NSString *)key;
 
 // if 'value=nil' will do 'removeObjectForKey:'
-+ (void)cc_saveDefault:(NSString *)key value:(id)value;
++ (void)saveDefault:(NSString *)key value:(id)value;
 
-// set init AES_KEY in 'CC_LibSecurity', otherwise will use 'apple' as default key
-+ (id)cc_safeDefault:(NSString *)key;
-+ (void)cc_saveSafeDefault:(NSString *)key value:(id)value;
+// set init AES_KEY in 'CC_AES', 'CC_AES.shared.AESKey = 'xxx'', otherwise will use 'apple' as default key
++ (id)getSafeDefault:(NSString *)key;
++ (void)saveSafeDefault:(NSString *)key value:(id)value;
 
 @end

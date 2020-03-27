@@ -35,6 +35,17 @@
 - (void)testExample {
     // Use recording to get started writing UI tests.
     // Use XCTAssert and related functions to verify your tests produce the correct results.
+    
+}
+
+- (void)testEncode {
+    
+    NSMutableCharacterSet *allowed = [NSMutableCharacterSet alphanumericCharacterSet];
+    [allowed addCharactersInString:@"!*'();:@&=+$,/?%#[]<>&\\"];
+    
+    NSString *tempString = [@"!abc1" stringByAddingPercentEncodingWithAllowedCharacters:[allowed invertedSet]];
+    
+    
 }
 
 @end

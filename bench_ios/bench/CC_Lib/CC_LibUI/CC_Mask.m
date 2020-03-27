@@ -9,7 +9,7 @@
 #import "CC_Mask.h"
 #import "CC_NavigationController.h"
 #import "CC_CoreUI.h"
-#import "UIColor+CC.h"
+#import "UIColor+CCUI.h"
 
 @interface CC_Mask(){
     NSString *textStr;
@@ -46,7 +46,7 @@
 
 - (void)startAtView:(UIView *)view {
     
-    [CC_CoreThread.shared cc_gotoMain:^{
+    [CC_CoreThread.shared gotoMain:^{
         
         [self safeStartAtView:view];
     }];
@@ -108,7 +108,7 @@
 
 - (void)stop {
     
-    [CC_CoreThread.shared cc_gotoMain:^{
+    [CC_CoreThread.shared gotoMain:^{
         
         [self safeStop];
     }];

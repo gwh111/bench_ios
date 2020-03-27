@@ -7,7 +7,7 @@
 //
 
 #import "CC_CoreUI.h"
-#import "UIColor+CC.h"
+#import "UIColor+CCUI.h"
 #import "CC_NavigationController.h"
 
 @interface CC_CoreUI(){

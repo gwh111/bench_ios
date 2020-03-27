@@ -10,16 +10,6 @@
 #import <malloc/malloc.h>
 #import "CC_CoreBase.h"
 
-//@interface CC_Base()
-//
-//// dispatch_once
-//@property (nonatomic,retain) NSMutableDictionary *sharedDic;
-//
-//@property (nonatomic,retain) NSMutableDictionary *sharedObjDic;
-//@property (nonatomic,retain) NSMutableDictionary *sharedObjBindDic;
-//
-//@end
-
 @implementation CC_Base
 
 static CC_Base *userManager = nil;
@@ -39,9 +29,9 @@ static dispatch_once_t onceToken;
 + (void)cc_willInit {
     
 #if DEBUG
-    [CC_Base shared].cc_debug = YES;
+    [CC_Base shared].debug = YES;
 #else
-    [CC_Base shared].cc_debug = NO;
+    [CC_Base shared].debug = NO;
 #endif
 }
 

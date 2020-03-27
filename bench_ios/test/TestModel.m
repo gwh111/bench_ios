@@ -11,7 +11,7 @@
 @implementation TestModel
 
 - (void)cc_update{
-    CCLOG(@"%@ %@",self.cc_modelDic,self.cc_modelDic[@"str1"]);
+    CCLOG(@"%@ %@",self.cc_modelDictionary,self.cc_modelDictionary[@"str1"]);
     
 }
 

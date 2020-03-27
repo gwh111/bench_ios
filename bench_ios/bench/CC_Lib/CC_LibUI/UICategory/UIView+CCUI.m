@@ -10,8 +10,60 @@
 #import "CC_TapGestureRecognizer.h"
 #import "CC_ViewController.h"
 #import "CC_View.h"
+#import <objc/runtime.h>
+#import "CC_CoreCrash.h"
 
 @implementation UIView (CCUI)
+
+// 这里不使用动态方法添加，
+// 因为UIWindow等一些类会使用动态方法添加和动态对象指定，所以在最后方法签名进行异常处理
+// 不使用对象转移，这样会丢失对象，只能从堆栈中去找，麻烦
++ (id)unknowMethod:(NSString *)method className:(NSString *)className {
+    
+    // 在加入Exceptions后断言
+    // 收集问题，debug下断言，release时记录
+    [CC_CoreCrash.shared methodNotExist:method className:className];
+    
+    CCLOG(@"error: unknow method called");
+    // 返回nil防止外部持续调用崩溃
+    return nil;
+}
+
++ (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector {
+    NSMethodSignature *sig = [super methodSignatureForSelector:aSelector];
+    if (sig) {
+        return sig;
+    }
+    return [NSMethodSignature signatureWithObjCTypes:"v@:@@"];//签名，进入forwardInvocation
+}
+
+- (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector {
+    NSMethodSignature *sig = [super methodSignatureForSelector:aSelector];
+    if (sig) {
+        return sig;
+    }
+    return [NSMethodSignature signatureWithObjCTypes:"v@:@@"];//签名，进入forwardInvocation
+}
+
++ (void)forwardInvocation:(NSInvocation *)anInvocation {
+    id method = NSStringFromSelector(anInvocation.selector);
+    NSString *class = NSStringFromClass(object_getClass(self));
+    SEL unknow = NSSelectorFromString(@"unknowMethod:className:");
+    anInvocation.selector = unknow;
+    [anInvocation setArgument:&method atIndex:2];
+    [anInvocation setArgument:&class atIndex:3];
+    [anInvocation invokeWithTarget:self.class];
+}
+
+- (void)forwardInvocation:(NSInvocation *)anInvocation {
+    id method = NSStringFromSelector(anInvocation.selector);
+    NSString *class = NSStringFromClass(object_getClass(self));
+    SEL unknow = NSSelectorFromString(@"unknowMethod:className:");
+    anInvocation.selector = unknow;
+    [anInvocation setArgument:&method atIndex:2];
+    [anInvocation setArgument:&class atIndex:3];
+    [anInvocation invokeWithTarget:self.class];
+}
 
 // MARK: - Chain -
 - (UIView *(^)(id))cc_addToView {
@@ -188,18 +240,18 @@ typedef void (^CCAssociatedTapBlock)(UIView *view);
 
 @implementation UIView (CCActions)
 
-- (void)cc_addSubview:(id)view{
+- (void)cc_addSubview:(id)view {
     [self addSubview:view];
 }
 
-- (void)cc_removeViewWithName:(NSString *)name{
+- (void)cc_removeViewWithName:(NSString *)name {
     UIView *view = [self cc_viewWithName:name];
     if (view) {
         [view removeFromSuperview];
     }
 }
 
-- (nullable __kindof id)cc_viewWithName:(NSString *)name{
+- (nullable __kindof id)cc_viewWithName:(NSString *)name {
     for (UIView *view in self.subviews) {
         if (view.name) {
 //            CCLOG(@"%@",view.name);
@@ -225,13 +277,13 @@ typedef void (^CCAssociatedTapBlock)(UIView *view);
     return nil;
 }
 
-- (nullable __kindof id)cc_viewWithNameOnVC:(NSString *)name{
+- (nullable __kindof id)cc_viewWithNameOnVC:(NSString *)name {
     CC_ViewController *vc = (CC_ViewController *)[self cc_viewController];
     return [vc.cc_displayView cc_viewWithName:name];
 }
 
 - (UIViewController *)cc_viewController {
-    for (UIView *next = self; next; next=next.superview){
+    for (UIView *next = self; next; next=next.superview) {
         UIResponder *nextResponder = [next nextResponder];
         if ([nextResponder isKindOfClass:[UIViewController class]]) {
             return (UIViewController *)nextResponder;
@@ -272,6 +324,88 @@ typedef void (^CCAssociatedTapBlock)(UIView *view);
     return currentViewController;
 }
 
+- (void)cc_addCornerRadius:(CGFloat)radius {
+    [self cc_addCornerRadius:radius borderWidth:1 borderColor:[UIColor clearColor] backgroundColor:[UIColor clearColor]];
+}
+
+- (void)cc_addCornerRadius:(CGFloat)radius
+               borderWidth:(CGFloat)borderWidth
+               borderColor:(UIColor *)borderColor
+           backgroundColor:(UIColor *)bgColor {
+    
+    UIImageView *imageView = [[UIImageView alloc]initWithImage:[self cc_drawRectWithRoundedCorner:radius borderWidth:borderWidth borderColor:borderColor backgroundColor:bgColor drawTopLeft:YES drawTopRight:YES drawBottomLeft:YES drawBottomRight:YES]];
+    [self insertSubview:imageView atIndex:0];
+}
+
+- (void)cc_addCornerRadius:(CGFloat)radius
+               borderWidth:(CGFloat)borderWidth
+               borderColor:(UIColor *)borderColor
+           backgroundColor:(UIColor *)bgColor
+               drawTopLeft:(BOOL)topLeft
+              drawTopRight:(BOOL)topRight
+            drawBottomLeft:(BOOL)bottomLeft
+           drawBottomRight:(BOOL)bottomRight {
+    
+    UIImageView *imageView = [[UIImageView alloc]initWithImage:[self cc_drawRectWithRoundedCorner:radius borderWidth:borderWidth borderColor:borderColor backgroundColor:bgColor drawTopLeft:topLeft drawTopRight:topRight drawBottomLeft:bottomLeft drawBottomRight:bottomRight]];
+    [self insertSubview:imageView atIndex:0];
+}
+
+- (UIImage *)cc_drawRectWithRoundedCorner:(CGFloat)radius
+                              borderWidth:(CGFloat)borderWidth
+                              borderColor:(UIColor *)borderColor
+                          backgroundColor:(UIColor *)bgColor
+                              drawTopLeft:(BOOL)topLeft
+                             drawTopRight:(BOOL)topRight
+                           drawBottomLeft:(BOOL)bottomLeft
+                          drawBottomRight:(BOOL)bottomRight {
+    
+    CGSize size = self.bounds.size;
+    UIGraphicsBeginImageContextWithOptions(size, NO, [UIScreen mainScreen].scale);
+    CGContextRef contextRef =  UIGraphicsGetCurrentContext();
+    
+    CGContextSetLineWidth(contextRef, borderWidth);
+    CGContextSetStrokeColorWithColor(contextRef, borderColor.CGColor);
+    CGContextSetFillColorWithColor(contextRef, bgColor.CGColor);
+    
+    CGFloat halfBorderWidth = borderWidth / 2.0;
+    CGFloat width = size.width;
+    CGFloat height = size.height;
+    
+    if (topRight) {
+        CGContextMoveToPoint(contextRef, width - halfBorderWidth, radius + halfBorderWidth);
+    } else {
+        CGContextMoveToPoint(contextRef, width - halfBorderWidth, 0);
+    }
+    if (bottomRight) {
+        CGContextAddArcToPoint(contextRef, width - halfBorderWidth, height - halfBorderWidth, width - radius - halfBorderWidth, height - halfBorderWidth, radius);  // 右下角角度
+    } else {
+        CGContextAddLineToPoint(contextRef, width - halfBorderWidth, height - halfBorderWidth);
+    }
+    if (bottomLeft) {
+        CGContextAddArcToPoint(contextRef, halfBorderWidth, height - halfBorderWidth, halfBorderWidth, height - radius - halfBorderWidth, radius); // 左下角角度
+    } else {
+        CGContextAddLineToPoint(contextRef, halfBorderWidth, height - halfBorderWidth);
+    }
+    if (topLeft) {
+        CGContextAddArcToPoint(contextRef, halfBorderWidth, halfBorderWidth, width - halfBorderWidth, halfBorderWidth, radius); // 左上角
+    } else {
+        CGContextAddLineToPoint(contextRef, halfBorderWidth, halfBorderWidth);
+    }
+    if (topRight) {
+        CGContextAddArcToPoint(contextRef, width - halfBorderWidth, halfBorderWidth, width - halfBorderWidth, radius + halfBorderWidth, radius); // 右上角
+    } else {
+        CGContextAddLineToPoint(contextRef, width - halfBorderWidth, halfBorderWidth);
+    }
+    CGContextDrawPath(contextRef, kCGPathFillStroke);
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    // 添加shadowpath避免离屏渲染
+//    self.layer.shadowPath = [UIBezierPath bezierPathWithRoundedRect:self.bounds
+//    byRoundingCorners:UIRectCornerAllCorners cornerRadii:CGSizeMake(radius, radius)].CGPath;
+    return image;
+}
+
 - (void)cc_setShadow:(UIColor *)color offset:(CGSize)size opacity:(float)opacity {
     self.layer.shadowColor = color.CGColor;
     self.layer.shadowOffset = size;
@@ -291,11 +425,11 @@ typedef void (^CCAssociatedTapBlock)(UIView *view);
     [superV addSubview:self];
 }
 
-- (void)cc_setShadow:(UIColor *)color{
+- (void)cc_setShadow:(UIColor *)color {
     [self cc_setShadow:color offset:CGSizeMake(2, 5) opacity:0.5];
 }
 
-- (void)cc_setFade:(int)deep{
+- (void)cc_setFade:(int)deep {
     CAGradientLayer *gradLayer = [CAGradientLayer layer];
     NSMutableArray *mutColors = [[NSMutableArray alloc]init];
     [mutColors cc_addObject:[UIColor colorWithWhite:0 alpha:0]];
@@ -329,15 +463,7 @@ typedef void (^CCAssociatedTapBlock)(UIView *view);
 - (void)tapSelf:(CC_TapGestureRecognizer *)tap {
     self.userInteractionEnabled = NO;
     
-    // CC_Thread *tapThread = [self tapThread];
-    // if (!tapThread) {
-    //   tapThread = [CC_Base cc_init:[CC_Thread class]];
-    // }
-    // [tapThread cc_delay:tap.interval key:self.name block:^{
-    //   self.userInteractionEnabled = YES;
-    // }];
-    
-    [CC_CoreThread.shared cc_delay:tap.interval block:^{
+    [CC_CoreThread.shared delay:tap.interval block:^{
         self.userInteractionEnabled = YES;
     }];
     
@@ -349,112 +475,112 @@ typedef void (^CCAssociatedTapBlock)(UIView *view);
 }
 
 // MARK: - Associated -
-- (void)setAssociatedTapBlock:(CCAssociatedTapBlock)associatedTapBlock{
+- (void)setAssociatedTapBlock:(CCAssociatedTapBlock)associatedTapBlock {
     [CC_Runtime cc_setObject:self key:@selector(associatedTapBlock) value:associatedTapBlock];
 }
 
-- (id)associatedTapBlock{
+- (id)associatedTapBlock {
     return [CC_Runtime cc_getObject:self key:@selector(associatedTapBlock)];
 }
 
 // ?
-- (void)setAssociatedTapTimeInterval:(NSTimeInterval)timeInterval{
+- (void)setAssociatedTapTimeInterval:(NSTimeInterval)timeInterval {
     [CC_Runtime cc_setObject:self key:@selector(timeInterval) value:@(timeInterval)];
 }
 
-- (NSTimeInterval)associatedTapTimeInterval{
+- (NSTimeInterval)associatedTapTimeInterval {
     return [[CC_Runtime cc_getObject:self key:@selector(associatedTapTimeInterval)] doubleValue];
 }
 
 @end
 
 
-@implementation UIView (CCDeprecated)
+@implementation UIView (CCGetter)
 
 - (NSString *)name {
     return [CC_Runtime cc_getObject:self key:@selector(name)];
 }
 
-- (void)setName:(NSString *)name{
+- (void)setName:(NSString *)name {
     [CC_Runtime cc_setObject:self key:@selector(name) value:name];
 }
 
-- (CGSize)size{
+- (CGSize)size {
     return self.frame.size;
 }
 
-- (void)setSize:(CGSize)aSize{
+- (void)setSize:(CGSize)aSize {
     CGRect newframe = self.frame;
     newframe.size = aSize;
     self.frame = newframe;
 }
 
-- (CGFloat)height{
+- (CGFloat)height {
     return self.frame.size.height;
 }
 
-- (void)setHeight:(CGFloat)newheight{
+- (void)setHeight:(CGFloat)newheight {
     CGRect newframe = self.frame;
     newframe.size.height = newheight;
     self.frame = newframe;
 }
 
-- (CGFloat)width{
+- (CGFloat)width {
     return self.frame.size.width;
 }
 
-- (void)setWidth:(CGFloat)newwidth{
+- (void)setWidth:(CGFloat)newwidth {
     CGRect newframe = self.frame;
     newframe.size.width = newwidth;
     self.frame = newframe;
 }
 
-- (CGFloat)top{
+- (CGFloat)top {
     return self.frame.origin.y;
 }
 
-- (void)setTop:(CGFloat)newtop{
+- (void)setTop:(CGFloat)newtop {
     CGRect newframe = self.frame;
     newframe.origin.y = newtop;
     self.frame = newframe;
 }
 
-- (CGFloat)left{
+- (CGFloat)left {
     return self.frame.origin.x;
 }
 
-- (void)setLeft:(CGFloat)newleft{
+- (void)setLeft:(CGFloat)newleft {
     CGRect newframe = self.frame;
     newframe.origin.x = newleft;
     self.frame = newframe;
 }
 
-- (CGFloat)bottom{
+- (CGFloat)bottom {
     return self.frame.origin.y+self.frame.size.height;
 }
 
-- (void)setBottom:(CGFloat)newbottom{
+- (void)setBottom:(CGFloat)newbottom {
     CGRect newframe = self.frame;
     newframe.origin.y = newbottom - self.frame.size.height;
     self.frame = newframe;
 }
 
-- (CGFloat)right{
+- (CGFloat)right {
     return self.frame.origin.x+self.frame.size.width;
 }
 
-- (void)setRight:(CGFloat)newright{
+- (void)setRight:(CGFloat)newright {
     CGFloat delta = newright - (self.frame.origin.x+self.frame.size.width);
     CGRect newframe = self.frame;
     newframe.origin.x += delta;
     self.frame = newframe;
 }
 
-- (CGFloat)centerX{
+- (CGFloat)centerX {
     return self.center.x;
 }
 
-- (void)setCenterX:(CGFloat)centerX{
+- (void)setCenterX:(CGFloat)centerX {
     CGPoint newCenter = self.center;
     newCenter.x = centerX;
     self.center = newCenter;
@@ -464,7 +590,7 @@ typedef void (^CCAssociatedTapBlock)(UIView *view);
     return self.center.y;
 }
 
-- (void)setCenterY:(CGFloat)centerY{
+- (void)setCenterY:(CGFloat)centerY {
     CGPoint newCenter = self.center;
     newCenter.y = centerY;
     self.center = newCenter;

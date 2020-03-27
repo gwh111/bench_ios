@@ -16,7 +16,7 @@
  *plainText : 加密明文
  *key        : 密钥 64位
  */
-+ (NSString *)cc_encryptUseDES:(NSString *)plainText key:(NSString *)key{
++ (NSString *)encryptUseDES:(NSString *)plainText key:(NSString *)key {
     NSData *data = [plainText dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
     NSString *ciphertext = nil;
     const char *textBytes = [data bytes];
@@ -41,7 +41,7 @@
 }
 
 //解密
-+ (NSString *)cc_decryptUseDES:(NSString*)cipherText key:(NSString*)key{
++ (NSString *)decryptUseDES:(NSString*)cipherText key:(NSString*)key {
     NSData* cipherData = [self decodeString:cipherText];
     unsigned char buffer[1024];
     memset(buffer, 0, sizeof(char));
@@ -66,15 +66,13 @@
     return plainText;
 }
 
-+ (NSString *)encodeData:(NSData *)originData{
++ (NSString *)encodeData:(NSData *)originData {
     NSString *encodeResult = [originData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
-    //    NSString* encodeResult = [originData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
     return encodeResult;
 }
 
-+ (NSData *)decodeString:(NSString *)encodeResult{
++ (NSData *)decodeString:(NSString *)encodeResult {
     NSData *decodeData = [[NSData alloc] initWithBase64EncodedString:encodeResult options:0];
-    //    NSString* decodeStr = [[NSString alloc] initWithData:decodeData encoding:NSASCIIStringEncoding];
     return decodeData;
 }
 

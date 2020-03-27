@@ -10,7 +10,7 @@
 #import "CC_Controller.h"
 #import "CC_NavigationBarConfig.h"
 
-@interface CC_NavigationController : NSObject
+@interface CC_NavigationController : CC_Object
 
 @property (strong,nonatomic) UINavigationController *cc_UINav;
 @property (nonatomic,retain) NSMutableArray *cc_UINavList;

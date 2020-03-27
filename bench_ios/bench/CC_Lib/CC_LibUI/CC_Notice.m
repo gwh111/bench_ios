@@ -9,7 +9,7 @@
 #import "CC_Notice.h"
 #import "CC_NavigationController.h"
 #import "CC_CoreUI.h"
-#import "UIColor+CC.h"
+#import "UIColor+CCUI.h"
 
 @implementation CC_Notice
 
@@ -69,7 +69,7 @@
             }
         }
         
-        [CC_CoreThread.shared cc_delay:animateDelay block:^{
+        [CC_CoreThread.shared delay:animateDelay block:^{
             [UIView animateWithDuration:.5f animations:^{
                 label.alpha = 0;
             } completion:^(BOOL finished) {

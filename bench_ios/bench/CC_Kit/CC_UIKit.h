@@ -12,8 +12,7 @@
 #import <UIKit/UIKit.h>
 #import "CC_Foundation.h"
 
-#import "CC_UI.h"
-#import "CC_Tool.h"
+#import "CC_Objects.h"
 
 #import "CC_LibUI.h"
 #import "CC_LibUIControl.h"

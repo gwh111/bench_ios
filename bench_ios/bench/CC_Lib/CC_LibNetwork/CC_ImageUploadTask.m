@@ -7,7 +7,6 @@
 
 #import "CC_ImageUploadTask.h"
 #import "CC_HttpHelper.h"
-#import "CC_Image.h"
 
 typedef NS_ENUM(NSUInteger, CCCompressionType) {
     CCCompressionTypeScale,//指定比例压缩
@@ -15,7 +14,7 @@ typedef NS_ENUM(NSUInteger, CCCompressionType) {
     CCCompressionTypeNone,//不指定类型
 };
 
-@interface CC_ImageUploadTask (){
+@interface CC_ImageUploadTask () {
     CC_HttpConfig *tempConfigure;
     CCCompressionType tempCompressionType;
     CGFloat tempScalePercent;//指定压缩比例
@@ -26,27 +25,27 @@ typedef NS_ENUM(NSUInteger, CCCompressionType) {
 
 @implementation CC_ImageUploadTask
 
-- (void)uploadImages:(NSArray<UIImage *> *)images url:(id)url params:(id)paramsDic imageScale:(CGFloat)imageScale reConnectTimes:(NSInteger)times configure:(CC_HttpConfig *)configure finishBlock:(void (^)(NSArray<HttpModel *> *, NSArray<HttpModel *> *))uploadImageBlock{
+- (void)uploadImages:(NSArray<UIImage *> *)images url:(id)url params:(id)paramsDic imageScale:(CGFloat)imageScale reConnectTimes:(NSInteger)times configure:(CC_HttpConfig *)configure finishBlock:(void (^)(NSArray<HttpModel *> *, NSArray<HttpModel *> *))uploadImageBlock {
     tempConfigure = configure;
     tempScalePercent = imageScale;
     tempCompressionType = CCCompressionTypeScale;
     [self uploadImages:images url:url params:paramsDic reConnectTimes:times finishBlock:uploadImageBlock];
 }
 
-- (void)uploadImages:(NSArray<UIImage *> *)images url:(id)url params:(id)paramsDic imageSize:(NSUInteger)imageSize reConnectTimes:(NSInteger)times configure:(CC_HttpConfig *)configure finishBlock:(void (^)(NSArray<HttpModel *> *, NSArray<HttpModel *> *))uploadImageBlock{
+- (void)uploadImages:(NSArray<UIImage *> *)images url:(id)url params:(id)paramsDic imageSize:(NSUInteger)imageSize reConnectTimes:(NSInteger)times configure:(CC_HttpConfig *)configure finishBlock:(void (^)(NSArray<HttpModel *> *, NSArray<HttpModel *> *))uploadImageBlock {
     tempConfigure = configure;
     tempScaleSize = imageSize;
     tempCompressionType = CCCompressionTypeSize;
     [self uploadImages:images url:url params:paramsDic reConnectTimes:times finishBlock:uploadImageBlock];
 }
 
-- (void)uploadImages:(NSArray<NSData *> *)imageDatas url:(id)url params:(id)paramsDic reConnectTimes:(NSInteger)times configure:(CC_HttpConfig *)configure finishBlock:(void (^)(NSArray<HttpModel *> *, NSArray<HttpModel *> *))uploadImageBlock{
+- (void)uploadImages:(NSArray<NSData *> *)imageDatas url:(id)url params:(id)paramsDic reConnectTimes:(NSInteger)times configure:(CC_HttpConfig *)configure finishBlock:(void (^)(NSArray<HttpModel *> *, NSArray<HttpModel *> *))uploadImageBlock {
     tempConfigure = configure;
     tempCompressionType = CCCompressionTypeNone;
     [self uploadImages:imageDatas url:url params:paramsDic reConnectTimes:times finishBlock:uploadImageBlock];
 }
 
-- (void)uploadImages:(NSArray<id> *)images url:(id)url params:(id)paramsDic reConnectTimes:(NSInteger)times finishBlock:(void (^)(NSArray<HttpModel *> *, NSArray<HttpModel *> *))uploadImageBlock{
+- (void)uploadImages:(NSArray<id> *)images url:(id)url params:(id)paramsDic reConnectTimes:(NSInteger)times finishBlock:(void (^)(NSArray<HttpModel *> *, NSArray<HttpModel *> *))uploadImageBlock {
 
     CC_HttpTask *executorDelegate = [[CC_HttpTask alloc] init];
     executorDelegate.finishUploadImagesBlock = uploadImageBlock; // 绑定执行完成时的block
@@ -105,7 +104,7 @@ typedef NS_ENUM(NSUInteger, CCCompressionType) {
     });
 }
 
-- (void)requestSingleImageWithSession:(NSURLSession *)session executorDelegate:(CC_HttpTask *)executorDelegate request:(NSURLRequest *)request index:(NSUInteger)index reConnectTimes:(NSInteger)reConnectTimes model:(HttpModel*)model finishBlock:(void (^)(NSString *, HttpModel *))block{
+- (void)requestSingleImageWithSession:(NSURLSession *)session executorDelegate:(CC_HttpTask *)executorDelegate request:(NSURLRequest *)request index:(NSUInteger)index reConnectTimes:(NSInteger)reConnectTimes model:(HttpModel*)model finishBlock:(void (^)(NSString *, HttpModel *))block {
     
     executorDelegate.finishBlock = block; // 绑定执行完成时的block
     
@@ -138,7 +137,7 @@ typedef NS_ENUM(NSUInteger, CCCompressionType) {
     [task resume];
 }
 
-- (NSMutableURLRequest *)recaculateImageDatas:(id)image paramsStr:(NSString *)paramsStr request:(NSMutableURLRequest *)urlReq{
+- (NSMutableURLRequest *)recaculateImageDatas:(id)image paramsStr:(NSString *)paramsStr request:(NSMutableURLRequest *)urlReq {
     
     NSArray *paraArr=[paramsStr componentsSeparatedByString:@"&"];
     NSMutableArray *dataArr=@[].mutableCopy;
@@ -158,7 +157,7 @@ typedef NS_ENUM(NSUInteger, CCCompressionType) {
     //参数的集合的所有key的集合
 //    NSArray *keys= [paramsDic allKeys];
     //遍历keys
-    for(int i = 0; i < [dataArr count]; i++) {
+    for (int i = 0; i < [dataArr count]; i++) {
         //得到当前key
         NSString *key = [dataArr objectAtIndex:i][0];
         //添加分界线，换行
@@ -178,10 +177,10 @@ typedef NS_ENUM(NSUInteger, CCCompressionType) {
     if (tempCompressionType == CCCompressionTypeScale) {
         //指定比例
         data = UIImageJPEGRepresentation((UIImage *)image, tempScalePercent);
-    }else if (tempCompressionType == CCCompressionTypeSize){
+    } else if (tempCompressionType == CCCompressionTypeSize) {
         //指定大小
-        data = [(UIImage *)image cc_compressWithMaxLength:tempScaleSize*1000*1000];
-    }else{
+        data = [CC_Tool.shared scaleImage:image toMaxLength:tempScaleSize * 1000 * 1000];
+    } else {
         data = (NSData *)image;
     }
     NSMutableString *imgbody = [[NSMutableString alloc] init];

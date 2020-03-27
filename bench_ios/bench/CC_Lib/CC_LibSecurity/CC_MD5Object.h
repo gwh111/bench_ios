@@ -8,9 +8,9 @@
 
 #import "CC_Foundation.h"
 
-@interface CC_MD5Object : NSObject
+@interface CC_MD5Object : CC_Object
 
 /** 字符串转为md5*/
-+ (NSString *)cc_signString:(NSString *)origString;
++ (NSString *)signString:(NSString *)origString;
 
 @end

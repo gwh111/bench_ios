@@ -62,7 +62,7 @@ static NSString *KEY_BACK_ICON = @"gray_navBack_arrow_icon@3x";
     return self;
 }
 
-- (void)cc_updateConfig:(CC_NavigationBarConfig *)config {
+- (void)updateConfig:(CC_NavigationBarConfig *)config {
     if (!config) {
         return;
     }

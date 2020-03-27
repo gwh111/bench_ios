@@ -11,7 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CC_HttpEncryption : NSObject
+@interface CC_HttpEncryption : CC_Object
 //加密域名
 @property (nonatomic, copy) NSString *encryptDomain;
 

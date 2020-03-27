@@ -12,7 +12,7 @@
 #import "CC_Notice.h"
 #import "CC_Base.h"
 
-@interface CC_HttpHelper (){
+@interface CC_HttpHelper () {
     NSArray *tempDomainReqList;
     NSString *tempDomainReqKey;
     BOOL tempCache;
@@ -53,7 +53,7 @@ static NSString *DOMAIN_DEFAULT_KEY = @"cc_domainDic";
     CCLOG(@"取消%@session",session);
 }
 
-- (void)cancelAllSession{
+- (void)cancelAllSession {
     for (NSURLSession *session in _sessionArr) {
         [session invalidateAndCancel];
         [_sessionArr removeObject:session];
@@ -97,7 +97,7 @@ static NSString *DOMAIN_DEFAULT_KEY = @"cc_domainDic";
         // ...
         if ([result.resultStr containsString:BENCH_IOS_NET_TEST_CONTAIN]) {
             // net environment
-            tag = CC_Base.shared.cc_environment;
+            tag = CC_Base.shared.environment;
         }else{
             tag = 0;
         }
@@ -116,7 +116,7 @@ static NSString *DOMAIN_DEFAULT_KEY = @"cc_domainDic";
         if (tempReqCount % 3 == 0) {
             [CC_Notice.shared showNotice:@"网络权限被关闭，不能获取网络"];
         }
-        [CC_CoreThread.shared cc_delay:3 block:^{
+        [CC_CoreThread.shared delay:3 block:^{
             [self domainWithReqGroupList:(NSArray *)domainReqGroupList andKey:(NSString *)domainReqKey cache:(BOOL)cache pingTest:(BOOL)pingTest block:(void (^)(HttpModel *result))block];
         }];
         return;
@@ -131,8 +131,8 @@ static NSString *DOMAIN_DEFAULT_KEY = @"cc_domainDic";
                                                         object:domainReqGroupList];
     
     __block int tag = 0;
-    if ([CC_DefaultStore cc_default:DOMAIN_TAG_KEY] && tempCache) {
-        tag = [[CC_DefaultStore cc_default:DOMAIN_TAG_KEY]intValue];
+    if ([CC_DefaultStore getDefault:DOMAIN_TAG_KEY] && tempCache) {
+        tag = [[CC_DefaultStore getDefault:DOMAIN_TAG_KEY]intValue];
         tempDomainReqList = domainReqGroupList[tag];
         [self getDomain];
     } else {
@@ -146,12 +146,12 @@ static NSString *DOMAIN_DEFAULT_KEY = @"cc_domainDic";
             // ...
             if ([result.resultStr containsString:BENCH_IOS_NET_TEST_CONTAIN]) {
                 // net environment
-                tag = CC_Base.shared.cc_environment;
+                tag = CC_Base.shared.environment;
             }else{
                 tag = 0;
             }
             self->tempDomainReqList = domainReqGroupList[tag];
-            [CC_DefaultStore cc_saveDefault:DOMAIN_TAG_KEY value:@(tag)];
+            [CC_DefaultStore saveDefault:DOMAIN_TAG_KEY value:@(tag)];
             [self getDomain];
         }];
     }
@@ -167,7 +167,7 @@ static NSString *DOMAIN_DEFAULT_KEY = @"cc_domainDic";
     }else if ([url isKindOfClass:[NSString class]]) {
         tempUrl = [NSURL URLWithString:url];
         if (configure.httpRequestType == CCHttpRequestTypeMock) {
-            if (CC_Base.shared.cc_environment == 0) {
+            if (CC_Base.shared.environment == 0) {
                 tempUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", url,  model.mockRequestPath]];
             }
         }
@@ -216,9 +216,9 @@ static NSString *DOMAIN_DEFAULT_KEY = @"cc_domainDic";
         NSString *ciphertext = [clazz performSelector:@selector(getCiphertext:httpTask:) withObject:params withObject:self];
         params = @{@"ciphertext":ciphertext};
 #pragma clang diagnostic pop
-        paraStr = [CC_String cc_MD5SignWithDic:params andMD5Key:nil];
-    }else{
-        paraStr = [CC_String cc_MD5SignWithDic:params andMD5Key:configure.signKeyStr];
+        paraStr = [CC_Tool.shared MD5SignWithDic:params andMD5Key:nil];
+    } else {
+        paraStr = [CC_Tool.shared MD5SignWithDic:params andMD5Key:configure.signKeyStr];
     }
     model.requestParamsStr = paraStr;
     
@@ -284,7 +284,7 @@ static NSString *DOMAIN_DEFAULT_KEY = @"cc_domainDic";
     NSString *urlStr = tempDomainReqList[tempReqIndex];
     int updateInBackGround = NO;
     
-    id domanDefault = [CC_DefaultStore cc_default:DOMAIN_DEFAULT_KEY];
+    id domanDefault = [CC_DefaultStore getDefault:DOMAIN_DEFAULT_KEY];
     if (domanDefault && tempCache) {
         HttpModel *model = [CC_Base.shared cc_init:HttpModel.class];
         model.resultDic = domanDefault;
@@ -311,7 +311,7 @@ static NSString *DOMAIN_DEFAULT_KEY = @"cc_domainDic";
             if (self->tempReqIndex >= self->tempDomainReqList.count) {
                 self->tempReqIndex = 0;
             }
-            [CC_CoreThread.shared cc_delay:0.5 block:^{
+            [CC_CoreThread.shared delay:0.5 block:^{
                 [self getDomain];
             }];
             return;
@@ -341,7 +341,7 @@ static NSString *DOMAIN_DEFAULT_KEY = @"cc_domainDic";
                 if (self->tempReqIndex >= self->tempDomainReqList.count) {
                     self->tempReqIndex = 0;
                 }
-                [CC_CoreThread.shared cc_delay:0.5 block:^{
+                [CC_CoreThread.shared delay:0.5 block:^{
                     [self getDomain];
                 }];
             }else{
@@ -352,7 +352,7 @@ static NSString *DOMAIN_DEFAULT_KEY = @"cc_domainDic";
 }
 
 - (void)finishResult:(HttpModel *)result updateInBackGround:(BOOL)updateInBackGround {
-    id domanDefault = [CC_DefaultStore cc_default:DOMAIN_DEFAULT_KEY];
+    id domanDefault = [CC_DefaultStore getDefault:DOMAIN_DEFAULT_KEY];
     int change = 0;
     if (domanDefault) {
         NSArray *keys = [domanDefault allKeys];
@@ -367,7 +367,7 @@ static NSString *DOMAIN_DEFAULT_KEY = @"cc_domainDic";
             }
         }
     }
-    [CC_DefaultStore cc_saveDefault:DOMAIN_DEFAULT_KEY value:result.resultDic];
+    [CC_DefaultStore saveDefault:DOMAIN_DEFAULT_KEY value:result.resultDic];
     if (!updateInBackGround || change) {
         tempDomainBlock(result);
     }

@@ -8,9 +8,9 @@
 
 #import "CC_Foundation.h"
 
-@interface CC_Envirnment : NSObject
+@interface CC_Envirnment : CC_Object
 
 // return: true 为代理环境 可能被抓包 终止访问
-+ (BOOL)cc_isProxyStatus;
++ (BOOL)isProxyStatus;
 
 @end

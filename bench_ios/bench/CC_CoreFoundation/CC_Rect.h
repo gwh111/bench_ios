@@ -6,6 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CC_Object.h"
 #import "CC_Point.h"
 #import "CC_Size.h"
 
@@ -13,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #define Rect(xValue,yValue,widthValue,heightValue) [CC_Rect valueX:xValue y:yValue width:widthValue height:heightValue]
 
-@interface CC_Rect : NSObject
+@interface CC_Rect : CC_Object
 
 @property (nonatomic, assign) CGFloat x;
 @property (nonatomic, assign) CGFloat y;
