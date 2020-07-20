@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-#define Size(widthValue,heightValue) [CC_Size valueWidth:widthValue height:heightValue]
+#define CC_SIZE(widthValue,heightValue) [CC_Size valueWidth:widthValue height:heightValue]
 
 @interface CC_Size : CC_Object
 

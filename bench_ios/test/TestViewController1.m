@@ -21,11 +21,15 @@
 
 @property (nonatomic, copy) NSString *text;
 @property (nonatomic, strong) dispatch_queue_t concurrentQueue;
+@property (nonatomic, copy) void(^block)(NSString *str);
+@property (nonatomic, copy) TestModel *model1;
 
 @end
 
 @implementation TestViewController1
 @synthesize text = _text;
+
+static int a = 101;
 
 + (instancetype)shared{
     return [ccs registerSharedInstance:self block:^{
@@ -54,12 +58,58 @@
     NSLog(@"%@",keyPath);
 }
 
-- (void)dealloc
-{
-    NSLog(@"TestViewController1dealloc");
+- (void)test1 {
+    NSLog(@"tes1");
 }
 
-- (void)cc_viewWillLoad{
+- (void)loadView {
+    [super loadView];
+}
+- (void)viewWillAppear:(BOOL)animated {
+    CCLOG(@"viewWillAppear");
+}
+- (void)viewWillDisappear:(BOOL)animated {
+    NSInteger index = [self.navigationController.viewControllers
+    indexOfObject:self];
+    if(index == NSNotFound) {
+        NSLog(@"1");
+    } else {
+        NSLog(@"2");
+    }
+    CCLOG(@"viewWillDisappear");
+}
+- (void)didMoveToParentViewController:(UIViewController *)parent {
+    CCLOG(@"didMoveToParentViewController");
+}
+- (void)viewDidDisappear:(BOOL)animated {
+    
+    CCLOG(@"viewDidDisappear");
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    
+    CCLOG(@"didapper");
+}
+
+- (void)cc_viewWillLoad {
+    
+    _model1 = TestModel.new;
+    TestModel* __weak weakm = _model1;
+    [_model1 addBlock:^(NSString *str) {
+        [self test1];
+        weakm.intv = 3;
+        _model1.nowDate = @"aaa";
+    }];
+
+    
+//    self.view.layer.delegate = self;
+    return;
+    TestModel *model = TestModel.new;
+    model.groupUsers = @[TestSubArrayModel.new];
+    NSMutableArray *mutA = [NSMutableArray arrayWithArray:model.groupUsers];
+    self.view.opaque;
+    self.view.cc_cornerRadius(1);
+    return;
     
 //    [self testReadWriteLock];
     [self testKVO];
@@ -116,7 +166,28 @@
     
 }
 
-- (void)cc_viewDidLoad{
+- (void)dealloc {
+    NSLog(@"TestViewController1dealloc");
+}
+- (void)cc_viewDidLoad {
+    static int aaaa=0;
+    aaaa++;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+
+        static int aaaa=10;
+        aaaa++;
+        CCLOG(@"aaaa %p",&aaaa);
+    });
+    CCLOG(@"cc_viewDidLoad %p",&aaaa);
+    return;
+//    [ccs delay:2 block:^{
+//        NSArray *arr = @[@""];
+//        arr[1];
+//    }];
+    _model1 = TestModel.new;
+    [_model1 addBlock:^(NSString *str) {
+        [self test1];
+    }];
     return;
     TestViewController2 *vc1 = [ccs init:TestViewController2.class];
     vc1.tests1 = @"";

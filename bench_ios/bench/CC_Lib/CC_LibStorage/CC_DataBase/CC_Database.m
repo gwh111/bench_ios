@@ -164,14 +164,17 @@ static const void * const kDispatchQueueSpecificKey = &kDispatchQueueSpecificKey
 //            id currentModelObject = modelObject;
 //            id newObject = [modelObject copy];
             // 子类 name
+            id currentModelObjectCopy = currentModelObject;
             if ([fieldName rangeOfString:@"$"].location != NSNotFound)
             {
                 NSString *handleFieldName = [fieldName stringByReplacingOccurrencesOfString:@"$" withString:@"."];
                 NSRange backwardsRange = [handleFieldName rangeOfString:@"." options:NSBackwardsSearch];
                 NSString *subKeyPath = [handleFieldName substringWithRange:NSMakeRange(0, backwardsRange.location)];
-                currentModelObject = [modelObject valueForKeyPath:subKeyPath];
+                currentModelObjectCopy = [modelObject valueForKeyPath:subKeyPath];
+                // set model
+                [currentModelObject setValue:currentModelObjectCopy forKey:subKeyPath];
                 fieldName = [handleFieldName substringFromIndex:backwardsRange.length + backwardsRange.location];
-                if (!currentModelObject) continue;
+                if (!currentModelObjectCopy) continue;
             }
 
             if ([propertyType isEqualToString:@"NSData"] ||
@@ -188,7 +191,7 @@ static const void * const kDispatchQueueSpecificKey = &kDispatchQueueSpecificKey
                     NSData *value = [NSData dataWithBytes:blob length:length];
                     if ([propertyType isEqualToString:@"NSData"])
                     {
-                        [currentModelObject setValue:value forKey:fieldName];
+                        [currentModelObjectCopy setValue:value forKey:fieldName];
                         continue;
                     }
                     @try {
@@ -203,7 +206,7 @@ static const void * const kDispatchQueueSpecificKey = &kDispatchQueueSpecificKey
                                 set_value = [NSMutableDictionary dictionaryWithDictionary:set_value];
                             }
                             
-                            [currentModelObject setValue:set_value forKey:fieldName];
+                            [currentModelObjectCopy setValue:set_value forKey:fieldName];
                         }
                         
                     } @catch (NSException *exception) {
@@ -217,7 +220,7 @@ static const void * const kDispatchQueueSpecificKey = &kDispatchQueueSpecificKey
                 if (value > 0) {
                     NSDate *date_value = [NSDate dateWithTimeIntervalSince1970:value];
                     if (date_value) {
-                        [currentModelObject setValue:date_value forKey:fieldName];
+                        [currentModelObjectCopy setValue:date_value forKey:fieldName];
                     }
                 }
             }
@@ -226,7 +229,7 @@ static const void * const kDispatchQueueSpecificKey = &kDispatchQueueSpecificKey
                 const unsigned char * text = sqlite3_column_text(pStmt, column);
                 if (text != nil) {
                     NSString *value = [NSString stringWithCString:(const char *)text encoding:NSUTF8StringEncoding];
-                    [currentModelObject setValue:value forKey:fieldName];
+                    [currentModelObjectCopy setValue:value forKey:fieldName];
                 }
             }
             else if ([propertyType isEqualToString:@"NSNumber"] ||
@@ -234,17 +237,19 @@ static const void * const kDispatchQueueSpecificKey = &kDispatchQueueSpecificKey
                      [propertyType isEqualToString:@"double"])
             {
                 double value = sqlite3_column_double(pStmt, column);
-                [currentModelObject setValue:@(value) forKey:fieldName];
+                [currentModelObjectCopy setValue:@(value) forKey:fieldName];
             }
             else if ([propertyType isEqualToString:@"int"])
             {
                 sqlite3_int64 value = sqlite3_column_int64(pStmt, column);
-                [currentModelObject setValue:@(value) forKey:fieldName];
+                [currentModelObjectCopy setValue:@(value) forKey:fieldName];
             }
             else if ([propertyType isEqualToString:@"BOOL"] || [propertyType isEqualToString:@"Char"])
             {
                 int value = sqlite3_column_int(pStmt, column);
-                [currentModelObject setValue:@(value) forKey:fieldName];
+                [currentModelObjectCopy setValue:@(value) forKey:fieldName];
+            } else {
+                NSLog(@"%@",fieldName);
             }
         }
 //        [modelObjectArray addObject:modelObject];

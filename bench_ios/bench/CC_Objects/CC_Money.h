@@ -11,10 +11,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CC_Money : CC_Object
 
-@property (nonatomic, assign) NSString *value;
+@property (nonatomic, assign) NSString *value;//0.10 = 0.1
+@property (nonatomic, assign) NSString *moneyValue;//0.1 = 0.10
 @property (nonatomic, assign) double number;
 
-- (NSString *)moneyWithString:(NSString *)money;
++ (CC_Money *)moneyWithInt:(int)number;
++ (CC_Money *)moneyWithFloat:(float)value;
++ (CC_Money *)moneyWithString:(NSString *)str;
 
 - (void)addMoney:(CC_Money *)add;
 - (void)cutMoney:(CC_Money *)cut;

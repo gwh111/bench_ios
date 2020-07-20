@@ -36,9 +36,9 @@ typedef enum : NSUInteger {
 // if set, item width is fixed.
 @property (nonatomic,assign) float itemWidth;
 
-- (void)addBtnInitBlock:(void(^)(CC_Button *btn))block;
-- (void)addGroupInitBlock:(void(^)(CC_LabelGroup *group))block;
-- (void)addBtnTappedBlock:(void(^)(CC_Button *btn, NSUInteger index))block;
+- (void)addItemInitBlock:(void(^)(CC_Button *btn,CC_LabelGroup *group))block;
+- (void)addGroupUpdateBlock:(void(^)(CC_LabelGroup *group))block;
+- (void)addSelectBlock:(void(^)(CC_Button *btn, NSUInteger index, CC_LabelGroup *group))block;
 
 /**
  *  初始化类型
@@ -76,6 +76,6 @@ typedef enum : NSUInteger {
 /**
  *  更新选中
  */
-- (void)updateSelect:(BOOL)select atIndex:(int)index;
+- (void)updateSelect:(BOOL)select atIndex:(NSUInteger)index;
 
 @end

@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-#define NSUInteger(v) [CC_NSUInteger value:v]
+#define CC_NSUINTEGER(v) [CC_NSUInteger value:v]
 
 @interface CC_NSUInteger : CC_Object
 

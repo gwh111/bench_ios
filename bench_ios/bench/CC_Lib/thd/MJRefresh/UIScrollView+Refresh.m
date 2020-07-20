@@ -18,9 +18,9 @@
         CCLOGAssert(@"pod MJRefresh");
     }
     id lastUpdatedTimeLabel = [cc_message cc_targetInstance:mj_header method:@"lastUpdatedTimeLabel" params:nil];
-    [cc_message cc_targetInstance:lastUpdatedTimeLabel method:@"setHidden:" params:Int(YES)];
+    [cc_message cc_targetInstance:lastUpdatedTimeLabel method:@"setHidden:" params:CC_INT(YES)];
     id stateLabel = [cc_message cc_targetInstance:mj_header method:@"stateLabel" params:nil];
-    [cc_message cc_targetInstance:stateLabel method:@"setHidden:" params:Int(YES)];
+    [cc_message cc_targetInstance:stateLabel method:@"setHidden:" params:CC_INT(YES)];
     [cc_message cc_targetInstance:self method:@"setMj_header:" params:mj_header];
 }
 
@@ -54,7 +54,7 @@
     if (!mj_footer) {
         CCLOGAssert(@"pod MJRefresh");
     }
-    [cc_message cc_targetInstance:mj_footer method:@"setTriggerAutomaticallyRefreshPercent:" params:Float(percent)];
+    [cc_message cc_targetInstance:mj_footer method:@"setTriggerAutomaticallyRefreshPercent:" params:CC_FLOAT(percent)];
     [cc_message cc_targetInstance:self method:@"setMj_footer:" params:mj_footer];
 }
 
@@ -72,7 +72,7 @@
     if (!mj_footer) {
         CCLOGAssert(@"pod MJRefresh");
     }else{
-        [cc_message cc_targetInstance:mj_footer method:@"setTitle:forState:" params:title,NSUInteger(state)];
+        [cc_message cc_targetInstance:mj_footer method:@"setTitle:forState:" params:title,CC_NSUINTEGER(state)];
     }
 }
 
@@ -84,7 +84,7 @@
         CCLOGAssert(@"pod MJRefresh");
     }else{
         if ([mj_header isKindOfClass:NSClassFromString(@"MJRefreshStateHeader")]) {
-            [cc_message cc_targetInstance:mj_header method:@"setTitle:forState:" params:title,NSUInteger(state)];
+            [cc_message cc_targetInstance:mj_header method:@"setTitle:forState:" params:title,CC_NSUINTEGER(state)];
         }
     }
 }

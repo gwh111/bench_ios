@@ -6,9 +6,9 @@
 //
 
 #import <XCTest/XCTest.h>
+#import "ccs.h"
 
 #import "Father.h"
-#import "Person.h"
 
 @interface cc_messageTests : XCTestCase
 
@@ -18,19 +18,6 @@
 
 - (void)testExample {
     
-}
-
-- (void)testKV {
-    
-    NSDictionary *dict = @{@"name":@"Mike",@"nickNames":@"夫子",@"age":@"19"};
-    CFAbsoluteTime start = CFAbsoluteTimeGetCurrent();
-    for (int i = 0; i<100000; i++) {
-         @autoreleasepool {
-             Person *p = Person.new;
-             [p cc_setProperty:dict];
-         }
-    }
-    NSLog(@"t = %.2f",CFAbsoluteTimeGetCurrent() - start);
 }
 
 - (void)testGetProperty {
@@ -54,8 +41,8 @@
     NSLog(@"%@",f.name);
     id name = [cc_message cc_targetInstance:f method:@"setName:" params:@"new name2"];
     NSLog(@"%@",f.name);
-    id x = [cc_message cc_targetInstance:f method:@"setX:" params:Int(100)];
-    NSLog(@"%d",f.x);
+//    id x = [cc_message cc_targetInstance:f method:@"setX:" params:CC_Int(100)];
+//    NSLog(@"%d",f.x);
     
 }
 

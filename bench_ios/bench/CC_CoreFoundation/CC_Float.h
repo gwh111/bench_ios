@@ -11,7 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-#define Float(v) [CC_Float value:v]
+#define CC_FLOAT(v) [CC_Float value:v]
 
 @interface CC_Float : CC_Object
 

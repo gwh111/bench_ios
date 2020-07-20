@@ -33,7 +33,7 @@
 @property(nonatomic,retain) NSString *requestParamsStr;
 
 // 响应的字符串
-@property(nonatomic,retain) NSString *resultStr;
+@property(nonatomic,copy) NSString *resultStr;
 
 // 响应的json字符串装换成字典
 @property(nonatomic,retain) NSDictionary *resultDic;

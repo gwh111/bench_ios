@@ -14,4 +14,8 @@
     return ^(id<UIScrollViewDelegate> _) { self.delegate = _; return self; };
 }
 
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [self endEditing:YES];
+}
+
 @end

@@ -23,6 +23,7 @@ typedef NS_ENUM(NSUInteger, CCHttpTaskType) {
 @interface CC_HttpHelper : CC_Object
 // 配置是否进入后台，请求是否中断，默认开启
 @property (nonatomic, assign) BOOL stopSession;
+@property (nonatomic, retain) NSOperationQueue *httpQueue;
 
 + (instancetype)shared;
 

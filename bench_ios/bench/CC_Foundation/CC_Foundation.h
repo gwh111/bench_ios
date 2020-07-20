@@ -23,8 +23,8 @@
 
 #import "CC_Money.h"
 #import "CC_Model.h"
-#import "CC_CoreTimer.h"
-#import "CC_CoreThread.h"
+#import "CC_Timer.h"
+#import "CC_Thread.h"
 
 #import "NSDate+CC_Foundation.h"
 #import "NSData+CC_Foundation.h"

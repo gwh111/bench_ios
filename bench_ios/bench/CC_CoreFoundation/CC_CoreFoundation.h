@@ -24,6 +24,7 @@
 #import "CC_Runtime.h"
 
 #import "CC_Delegate.h"
+#import "CC_Bool.h"
 #import "CC_Int.h"
 #import "CC_Float.h"
 #import "CC_Double.h"

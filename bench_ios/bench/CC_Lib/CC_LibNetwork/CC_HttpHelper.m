@@ -11,6 +11,7 @@
 #import "CC_HttpTask.h"
 #import "CC_Notice.h"
 #import "CC_Base.h"
+#import "CC_HttpEncryption.h"
 
 @interface CC_HttpHelper () {
     NSArray *tempDomainReqList;
@@ -22,6 +23,7 @@
     int tempReqCount;
 }
 @property (nonatomic, strong) NSMutableArray *sessionArr;
+@property (nonatomic, strong) NSLock *cancelLock;
 
 @end
 @implementation CC_HttpHelper
@@ -39,6 +41,8 @@ static NSString *DOMAIN_DEFAULT_KEY = @"cc_domainDic";
     if (self = [super init]) {
         self.sessionArr = @[].mutableCopy;
         self.stopSession = YES;
+        _httpQueue = [[NSOperationQueue alloc]init];
+        _httpQueue.maxConcurrentOperationCount = 5;
     }
     return self;
 }
@@ -50,15 +54,20 @@ static NSString *DOMAIN_DEFAULT_KEY = @"cc_domainDic";
 - (void)cancelURLSession:(NSURLSession *)session {
     [session invalidateAndCancel];
     [self.sessionArr removeObject:session];
-    CCLOG(@"取消%@session",session);
+//    CCLOG(@"取消%@session",session);
 }
 
 - (void)cancelAllSession {
+    if (!_cancelLock) {
+        _cancelLock = NSLock.new;
+    }
+    [_cancelLock lock];
     for (NSURLSession *session in _sessionArr) {
         [session invalidateAndCancel];
-        [_sessionArr removeObject:session];
     }
-    CCLOG(@"取消所有session");
+    [_sessionArr removeAllObjects];
+//    CCLOG(@"取消所有session");
+    [_cancelLock unlock];
 }
 
 - (BOOL)isNetworkReachable {
@@ -116,7 +125,7 @@ static NSString *DOMAIN_DEFAULT_KEY = @"cc_domainDic";
         if (tempReqCount % 3 == 0) {
             [CC_Notice.shared showNotice:@"网络权限被关闭，不能获取网络"];
         }
-        [CC_CoreThread.shared delay:3 block:^{
+        [CC_Thread.shared delay:3 block:^{
             [self domainWithReqGroupList:(NSArray *)domainReqGroupList andKey:(NSString *)domainReqKey cache:(BOOL)cache pingTest:(BOOL)pingTest block:(void (^)(HttpModel *result))block];
         }];
         return;
@@ -164,14 +173,14 @@ static NSString *DOMAIN_DEFAULT_KEY = @"cc_domainDic";
     NSURL *tempUrl;
     if ([url isKindOfClass:[NSURL class]]) {
         tempUrl = url;
-    }else if ([url isKindOfClass:[NSString class]]) {
+    } else if ([url isKindOfClass:[NSString class]]) {
         tempUrl = [NSURL URLWithString:url];
         if (configure.httpRequestType == CCHttpRequestTypeMock) {
-            if (CC_Base.shared.environment == 0) {
-                tempUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", url,  model.mockRequestPath]];
-            }
+//            if (CC_Base.shared.environment == 0) {
+//                tempUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", url,  model.mockRequestPath]];
+//            }
         }
-    }else{
+    } else {
         CCLOG(@"url 不合法");
     }
     model.requestDomain = tempUrl;
@@ -198,7 +207,7 @@ static NSString *DOMAIN_DEFAULT_KEY = @"cc_domainDic";
     }
     NSArray *keys = [configure.extreParameter allKeys];
     for (int i = 0; i < keys.count; i++) {
-        [params setObject:configure.extreParameter[keys[i]] forKey:keys[i]];
+        [params cc_setKey:keys[i] value:configure.extreParameter[keys[i]]];
     }
     if (!configure.signKeyStr) {
         if (model.debug) {
@@ -207,20 +216,20 @@ static NSString *DOMAIN_DEFAULT_KEY = @"cc_domainDic";
     }
     model.requestParams = params;
     
-    NSString *paraStr;
-    if (configure.headerEncrypt && model.forbiddenEncrypt == NO && [configure.encryptDomain isEqualToString:tempUrl.absoluteString]) {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wundeclared-selector"
-        Class clazz = NSClassFromString(@"CC_HttpEncryption");
-        
-        NSString *ciphertext = [clazz performSelector:@selector(getCiphertext:httpTask:) withObject:params withObject:self];
-        params = @{@"ciphertext":ciphertext};
-#pragma clang diagnostic pop
-        paraStr = [CC_Tool.shared MD5SignWithDic:params andMD5Key:nil];
-    } else {
-        paraStr = [CC_Tool.shared MD5SignWithDic:params andMD5Key:configure.signKeyStr];
-    }
-    model.requestParamsStr = paraStr;
+//    NSString *paraStr;
+//    if (configure.headerEncrypt && model.forbiddenEncrypt == NO && [configure.encryptDomain isEqualToString:tempUrl.absoluteString]) {
+//#pragma clang diagnostic push
+//#pragma clang diagnostic ignored "-Wundeclared-selector"
+//        Class clazz = NSClassFromString(@"CC_HttpEncryption");
+//
+//        NSString *ciphertext = [clazz performSelector:@selector(getCiphertext:httpTask:) withObject:params withObject:self];
+//        params = @{@"ciphertext":ciphertext};
+//#pragma clang diagnostic pop
+//        paraStr = [CC_Tool.shared MD5SignWithDic:params andMD5Key:nil];
+//    } else {
+//        paraStr = [CC_Tool.shared MD5SignWithDic:params andMD5Key:configure.signKeyStr];
+//    }
+    model.requestParamsStr = [CC_Tool.shared MD5SignWithDic:params andMD5Key:nil];;
     
     return model;
 }
@@ -229,16 +238,34 @@ static NSString *DOMAIN_DEFAULT_KEY = @"cc_domainDic";
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]init];
     request.URL = url;
     if (type == CCHttpTaskTypeGet) {
-        if (paramsString) {
+        if (paramsString.length > 0) {
             request.URL = [NSURL URLWithString:[NSString stringWithFormat:@"%@?%@",url.absoluteString,paramsString]];
         }
-    }else if (type != CCHttpTaskTypeRequest) {
+    } else if (type != CCHttpTaskTypeRequest) {
         
         if (configure.httpRequestType == CCHttpRequestTypeMock) {
             
             if (model.requestParams) {
-                NSData *data= [NSJSONSerialization dataWithJSONObject:model.requestParams options:NSJSONWritingPrettyPrinted error:nil];
+                NSData *data = [NSJSONSerialization dataWithJSONObject:model.requestParams options:NSJSONWritingPrettyPrinted error:nil];
                 request.HTTPBody = data;
+            }
+            
+//            if (configure.headerEncrypt && model.forbiddenEncrypt == NO) {
+//            } else {
+//                [CC_HttpEncryption configMockParams:model URLRequest:request];
+//            }
+            [CC_HttpEncryption configMockCipherParams:model URLRequest:request];
+
+            if (![url.absoluteString containsString:@"test"]) {
+                if (type == CCHttpTaskTypeImage) {
+                    request.URL = [NSURL URLWithString:[NSString stringWithFormat:@"%@",url.absoluteString]];
+                } else {
+                    if (model.mockRequestPath) {
+                        request.URL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",url.absoluteString,model.mockRequestPath]];
+                    }
+                }
+            } else {
+                request.URL = [NSURL URLWithString:[NSString stringWithFormat:@"%@",url.absoluteString]];
             }
         } else {
 
@@ -311,7 +338,7 @@ static NSString *DOMAIN_DEFAULT_KEY = @"cc_domainDic";
             if (self->tempReqIndex >= self->tempDomainReqList.count) {
                 self->tempReqIndex = 0;
             }
-            [CC_CoreThread.shared delay:0.5 block:^{
+            [CC_Thread.shared delay:0.5 block:^{
                 [self getDomain];
             }];
             return;
@@ -341,7 +368,7 @@ static NSString *DOMAIN_DEFAULT_KEY = @"cc_domainDic";
                 if (self->tempReqIndex >= self->tempDomainReqList.count) {
                     self->tempReqIndex = 0;
                 }
-                [CC_CoreThread.shared delay:0.5 block:^{
+                [CC_Thread.shared delay:0.5 block:^{
                     [self getDomain];
                 }];
             }else{

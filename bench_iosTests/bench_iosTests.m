@@ -52,11 +52,11 @@
     NSArray *documentPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentDirectory = [documentPaths objectAtIndex:0];
     
-    [CC_SandboxStore.shared createDocumentsDocWithName:@"record"];
-    documentDirectory = [documentDirectory stringByAppendingPathComponent:@"record"];
-    documentDirectory = [documentDirectory stringByAppendingPathComponent:outputName];
-    [CC_SandboxStore.shared deleteDocumentsFileWithName:[ccs string:@"record/%@",outputName]];
-    NSLog(@"finish%@",documentDirectory);
+//    [CC_SandboxStore cc_createSandboxDocWithName:@"record"];
+//    documentDirectory = [documentDirectory stringByAppendingPathComponent:@"record"];
+//    documentDirectory = [documentDirectory stringByAppendingPathComponent:outputName];
+//    [CC_SandboxStore cc_deleteSandboxFileWithName:[ccs string:@"record/%@",outputName]];
+//    NSLog(@"finish%@",documentDirectory);
     
     
 }

@@ -28,15 +28,16 @@
                           backgroundColor:(UIColor *)backgroundColor
                           backgroundImage:(UIImage *)backgroundImage;
 
-- (void)cc_pushViewController:(CC_ViewController *)viewController;
-- (void)cc_pushViewController:(CC_ViewController *)viewController withDismissVisible:(BOOL)visible;
+- (void)cc_pushViewController:(id)viewController animated:(BOOL)animated;
+- (void)cc_pushViewController:(id)viewController;
+- (void)cc_pushViewController:(id)viewController withDismissVisible:(BOOL)visible;
 
-- (void)cc_presentViewController:(CC_ViewController *)viewController;
-- (void)cc_presentViewController:(CC_ViewController *)viewController withNavigationControllerStyle:(UIModalPresentationStyle)style;
+- (void)cc_presentViewController:(id)viewController;
+- (void)cc_presentViewController:(id)viewController withNavigationControllerStyle:(UIModalPresentationStyle)style;
 
 // Returns the popped controller.
 - (CC_ViewController *)cc_popViewController;
-- (CC_ViewController *)cc_popViewControllerFrom:(CC_ViewController *)viewController userInfo:(id)userInfo;
+- (CC_ViewController *)cc_popViewControllerFrom:(id)viewController userInfo:(id)userInfo;
 
 - (void)cc_dismissViewController;
 - (void)cc_popToViewController:(Class)aClass;

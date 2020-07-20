@@ -64,7 +64,7 @@
     
     CC_HttpConfig *configure = ccs.httpTask.configure;
     configure.signKeyStr = @"USS445e0f8e9f9040ec80f705ae167ae732";
-    configure.httpHeaderFields=@{@"appVersion":@"2.2.1",@"appName":@"pandasport-iphone"}.mutableCopy;
+    configure.httpHeaderFields = @{@"appVersion":@"2.2.1",@"appName":@"pandasport-iphone"}.mutableCopy;
     ccs.httpTask.configure = configure;
     
     NSMutableDictionary *params = ccs.mutDictionary;

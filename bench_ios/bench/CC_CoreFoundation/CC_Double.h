@@ -11,7 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-#define Double(v) [CC_Double value:v]
+#define CC_DOUBLE(v) [CC_Double value:v]
 
 @interface CC_Double : CC_Object
 

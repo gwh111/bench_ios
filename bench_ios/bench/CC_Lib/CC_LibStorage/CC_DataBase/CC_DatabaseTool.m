@@ -86,7 +86,7 @@
                 {
                     [self parserSubModelObjectFieldsWithModelClass:class_type mainPropertyName:propertyNameString complete:^(NSString * key, NSString *propertyClass) {
                         [fieldsDic setObject:propertyClass forKey:key];
-                        NSLog(@"propertyClass = %@ key = %@",propertyClass,key);
+//                        NSLog(@"propertyClass = %@ key = %@",propertyClass,key);
                     }];
                 }
                 else

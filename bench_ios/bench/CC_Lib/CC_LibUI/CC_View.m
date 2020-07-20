@@ -115,6 +115,9 @@ typedef void (^CCAssociatedTapBlock)(UIView *view);
     }else{
         CGSize size = [badge boundingRectWithSize:CGSizeMake(MAXFLOAT, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[[CC_CoreUI shared]relativeFont:11]} context:nil].size;
         size.height = [[CC_CoreUI shared] relativeHeight:14];
+        if (size.width <= [CC_CoreUI.shared relativeHeight:6]) {
+            size.width = [CC_CoreUI.shared relativeHeight:6];
+        }
         size.width += [[CC_CoreUI shared] relativeHeight:8];
         return size;
     }

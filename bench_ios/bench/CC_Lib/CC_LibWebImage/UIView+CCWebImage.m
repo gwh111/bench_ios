@@ -66,7 +66,8 @@ typedef NSMutableDictionary<NSString *, id<CC_WebImageOperationDelegate>> CC_Web
         SS(strongSelf)
         if (error) {
 #if DEBUG
-            [CC_Notice.shared showNotice:error.description];
+            CCLOG(@"%@",error.description);
+//            [CC_Notice.shared showNotice:error.description];
 #endif
         } else if (image) {
             //设置下载完的图片
@@ -80,7 +81,8 @@ typedef NSMutableDictionary<NSString *, id<CC_WebImageOperationDelegate>> CC_Web
         } else {
             if (finished) {
 #if DEBUG
-                [CC_Notice.shared showNotice:@"Error:image is nil"];
+                CCLOG(@"Error:image is nil");
+//                [CC_Notice.shared showNotice:@"Error:image is nil"];
 #endif
             }
         }

@@ -394,6 +394,13 @@ FOUNDATION_EXTERN_INLINE BOOL CC_WebCGImageRefContainsAlpha(CGImageRef imageRef)
     self.coderQueue = dispatch_queue_create("com.jimage.coder.queue", DISPATCH_QUEUE_SERIAL);
 }
 
+- (dispatch_queue_t)coderQueue {
+    if (!_coderQueue) {
+        _coderQueue = dispatch_queue_create("com.jimage.coder.queue", DISPATCH_QUEUE_SERIAL);
+    }
+    return _coderQueue;
+}
+
 #pragma mark - encode
 - (void)encodedDataWithImage:(UIImage *)image WithBlock:(void (^)(NSData * _Nullable))completionBlock{
     dispatch_async(self.coderQueue, ^{

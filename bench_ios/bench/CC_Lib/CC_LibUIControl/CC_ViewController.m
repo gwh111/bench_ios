@@ -37,9 +37,8 @@
     [cc_navigationBar updateConfig:CC_NavigationController.shared.cc_navigationBarConfig];
     [self.view addSubview:cc_navigationBar];
     
-    [cc_navigationBar.backButton cc_tappedInterval:0.1 withBlock:^(id  _Nonnull view) {
+    [cc_navigationBar.backButton addTappedOnceDelay:.1 withBlock:^(CC_Button *btn) {
         [CC_NavigationController.shared cc_popViewController];
-
     }];
     
     [self checkBackButtonHidden];

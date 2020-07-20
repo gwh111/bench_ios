@@ -19,7 +19,7 @@
 // 获得目标文件的上级目录
 - (NSString *)directoryAtPath:(NSString *)path;
 // 删掉文件
-- (BOOL)deleteAtPath:(NSString *)path error:(NSError *__autoreleasing *)error;
+- (void)deleteAtPath:(NSString *)path error:(NSError *__autoreleasing *)error;
 // 创建路径
 - (BOOL)createDirectoryAtPath:(NSString *)path error:(NSError *__autoreleasing *)error;
 // 复制文件
@@ -32,7 +32,7 @@
 // 获取 Documents 下的plist
 - (NSDictionary *)documentsPlistWithPath:(NSString *)name;
 // 删除 Documents 下的文件
-- (BOOL)deleteDocumentsFileWithName:(NSString *)name;
+- (void)deleteDocumentsFileWithName:(NSString *)name;
 // 保存文件到 Documents 下
 - (BOOL)saveToDocumentsWithData:(id)data toPath:(NSString *)name type:(NSString *)type;
 // 创建文件夹到 Documents 下

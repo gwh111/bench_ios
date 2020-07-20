@@ -38,14 +38,4 @@
     
 }
 
-- (void)testEncode {
-    
-    NSMutableCharacterSet *allowed = [NSMutableCharacterSet alphanumericCharacterSet];
-    [allowed addCharactersInString:@"!*'();:@&=+$,/?%#[]<>&\\"];
-    
-    NSString *tempString = [@"!abc1" stringByAddingPercentEncodingWithAllowedCharacters:[allowed invertedSet]];
-    
-    
-}
-
 @end

@@ -19,11 +19,13 @@
 #import "UITextView+CCUI.h"
 #import "UIScrollView+CCUI.h"
 #import "UIImageView+CCUI.h"
+#import "UIImage+CCUI.h"
 
 #import "CC_TextAttachment.h"
 
 #import "CC_View.h"
 #import "CC_Label.h"
+#import "CC_StrokeLabel.h"
 #import "CC_Button.h"
 #import "CC_TextView.h"
 #import "CC_TextField.h"

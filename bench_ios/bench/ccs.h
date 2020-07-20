@@ -4,16 +4,40 @@
 //
 //  Created by gwh on 2019/8/8.
 //  Copyright © 2019 gwh. All rights reserved.
-//
+//  11
 
 #import "CC_UIKit.h"
 #import "CC_LibKit.h"
 #import "CC_Macro.h"
 #import "CC_UI+Atom.h"
+#import <QuartzCore/QuartzCore.h>
+
+// add pch path in 'Build Settings' - 'Prefix Header' as  '$(SRCROOT)/projectname/projectname-prefix.pch'
+
+static inline BOOL ccs_isDebug() {
+#if DEBUG
+    return YES;
+#endif
+    return NO;
+}
+/**
+Profile time cost.
+@param block     code to benchmark
+@param complete  code time cost (millisecond)
+ */
+static inline void ccs_timeCost(void (^block)(void), void (^complete)(double ms)) {
+    extern double CACurrentMediaTime (void);
+    double begin, end, ms;
+    begin = CACurrentMediaTime();
+    block();
+    end = CACurrentMediaTime();
+    ms = (end - begin) * 1000.0;
+    complete(ms);
+}
 
 @interface ccs : CC_Object
 
-// add pch path in 'Build Settings' - 'Prefix Header' as  '$(SRCROOT)/projectname/projectname-prefix.pch'
++ (BOOL)isDebug;
 
 // 手动配置环境 0线上 1主干 默认根据 CCBUILDTAG 打包方式选择
 // release=0，trunk=1，branch1=2
@@ -70,6 +94,7 @@
 // 4.减少了if else 这样缺乏扩展性的代码
 // 5.增加新功能支持不影响其他代码
 + (NSString *)string:(NSString *)format, ...;
++ (NSString *)stringValue:(id)value;
 + (NSString *)stringInt:(int)value;
 + (NSString *)stringFloat:(float)value;
 + (NSString *)stringDouble:(double)value;
@@ -117,6 +142,7 @@
 + (UIFont *)relativeFont:(float)fontSize;
 + (UIFont *)relativeFont:(NSString *)fontName fontSize:(float)fontSize;
 + (id)getAView;
++ (id)getLastWindow;
 + (BOOL)isDarkMode;
 + (void)setDeviceOrientation:(UIDeviceOrientation)orientation;
 
@@ -125,15 +151,16 @@
 
 #pragma mark VC控制器操作
 + (CC_NavigationController *)navigation;
-+ (void)pushViewController:(CC_ViewController *)viewController;
++ (void)pushViewController:(id)viewController;
++ (void)pushViewController:(id)viewController animated:(BOOL)animated;
 // push to viewController && remove current viewController
-+ (void)pushViewController:(CC_ViewController *)viewController withDismissVisible:(BOOL)dismissVisible;
-+ (void)presentViewController:(CC_ViewController *)viewController;
++ (void)pushViewController:(id)viewController withDismissVisible:(BOOL)dismissVisible;
++ (void)presentViewController:(id)viewController;
 // push a navigationController which has 'viewController' as root viewController
-+ (void)presentViewController:(CC_ViewController *)viewController withNavigationControllerStyle:(UIModalPresentationStyle)style;
++ (void)presentViewController:(id)viewController withNavigationControllerStyle:(UIModalPresentationStyle)style;
 
 + (void)popViewController;
-+ (void)popViewControllerFrom:(CC_ViewController *)viewController userInfo:(id)userInfo;
++ (void)popViewControllerFrom:(id)viewController userInfo:(id)userInfo;
 + (void)dismissViewController;
 + (void)popToViewController:(Class)aClass;
 + (void)popToRootViewControllerAnimated:(BOOL)animated;
@@ -182,8 +209,11 @@
 + (NSData *)bundleFileWithPath:(NSString *)name type:(NSString *)type;
 + (NSDictionary *)bundlePlistWithPath:(NSString *)name;
 
-+ (BOOL)copyBunldFileToSandboxToPath:(NSString *)name type:(NSString *)type;
-+ (BOOL)copyBunldPlistToSandboxToPath:(NSString *)name;
++ (BOOL)copyBundleFileToSandboxToPath:(NSString *)name type:(NSString *)type;
++ (BOOL)copyBundlePlistToSandboxToPath:(NSString *)name;
+
++ (UIImage *)bundleImage:(NSString *)imgName bundleName:(NSString *)bundleName;
++ (UIImage *)benchBundleImage:(NSString *)imgName;
 
 // 沙盒 Documents
 + (CC_SandboxStore *)sandbox;
@@ -193,17 +223,17 @@
 + (NSData *)sandboxFileWithPath:(NSString *)name type:(NSString *)type;
 + (NSDictionary *)sandboxPlistWithPath:(NSString *)name;
 
-+ (BOOL)deleteSandboxFileWithName:(NSString *)name;
++ (void)deleteSandboxFileWithName:(NSString *)name;
 + (BOOL)saveToSandboxWithData:(id)data toPath:(NSString *)name type:(NSString *)type;
 
 // MySQL数据库
 + (CC_DataBaseStore *)dataBaseStore;
 
 #pragma mark 声音管理
-+ (CC_MusicBox *)musicBox;
++ (CC_Audio *)audio;
 
 #pragma mark 线程管理
-+ (CC_CoreThread *)thread;
++ (CC_Thread *)thread;
 + (void)gotoThread:(void (^)(void))block;
 + (void)gotoMain:(void (^)(void))block;
 + (void)delay:(double)delayInSeconds block:(void (^)(void))block;
@@ -221,7 +251,7 @@
 + (void)delayStop:(NSString *)key;
 
 #pragma mark 定时器
-+ (CC_CoreTimer *)timer;
++ (CC_Timer *)timer;
 // 根据关键字注册定时器
 + (void)timerRegister:(NSString *)name interval:(float)interval block:(void (^)(void))block;
 + (void)timerCancel:(NSString *)name;
@@ -276,6 +306,7 @@
 + (CC_View           *)View;
 + (CC_ImageView      *)ImageView;
 + (CC_Label          *)Label;
++ (CC_StrokeLabel    *)StrokeLabel;
 + (CC_Button         *)Button;
 + (CC_TextView       *)TextView;
 + (CC_TextField      *)TextField;
@@ -301,6 +332,8 @@
 + (CC_Mask *)mask;
 + (CC_Notice *)notice;
 + (CC_Alert *)alert;
+
++ (UIColor *)primaryColor;
 
 + (void)maskStart;
 + (void)maskStartAtView:(UIView *)view;

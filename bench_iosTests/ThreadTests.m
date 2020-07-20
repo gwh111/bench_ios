@@ -6,396 +6,121 @@
 //
 
 #import <XCTest/XCTest.h>
-#import "ccs.h"
+//#import "ccs.h"
 
 @interface ThreadTests : XCTestCase
-
-@property (nonatomic, copy) NSString *text;
-@property (nonatomic, strong) dispatch_queue_t concurrentQueue;
 
 @end
 
 @implementation ThreadTests
 
-- (void)testExample {
 
-    
-}
-
-// 多线程情况下遍历
-- (void)testDispatch_apply {
-    dispatch_queue_t concurrent_queue = dispatch_queue_create("并行队列", DISPATCH_QUEUE_CONCURRENT);
-    dispatch_apply(10, concurrent_queue, ^(size_t index) {
-        NSLog(@"dispatch_apply==%zud===%@",index,[NSThread currentThread]);
-    });
-}
-
-// barrier_sync会影响后续代码的执行 后跑end
-- (void)testConcurrent_queue_barier_sync {
-    NSLog(@"start");
-    dispatch_queue_t concurrent_queue = dispatch_queue_create("并行队列", DISPATCH_QUEUE_CONCURRENT);
-    for (int i = 0; i < 10; i++) {
-        dispatch_async(concurrent_queue, ^{
-            NSLog(@"%d===%@",i,[NSThread currentThread]);
-        });
-        if (i == 5) {
-            NSLog(@"barrier sync");
-            dispatch_barrier_sync(concurrent_queue, ^{
-                sleep(1);
-                NSLog(@"dispatch_barrier_sync===%d===%@",i,[NSThread currentThread]);
-            });
-        }
-    }
-    NSLog(@"end");
-}
-
-// barrier_async不会影响后续代码的执行 先跑end
-- (void)testConcurrent_queue_barier_async {
-    NSLog(@"start");
-    dispatch_queue_t concurrent_queue = dispatch_queue_create("并行队列", DISPATCH_QUEUE_CONCURRENT);
-    for (int i = 0; i < 10; i++) {
-        dispatch_async(concurrent_queue, ^{
-            NSLog(@"%d===%@",i,[NSThread currentThread]);
-        });
-        if (i == 5) {
-            NSLog(@"barrier async");
-            dispatch_barrier_async(concurrent_queue, ^{
-                sleep(0.1);
-                NSLog(@"dispatch_barrier_async===%d===%@",i,[NSThread currentThread]);
-            });
-        }
-    }
-    NSLog(@"end");
-}
-
-// 阻塞发请求的线程
-- (void)testSemaStop {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        dispatch_semaphore_t sema = dispatch_semaphore_create(0);
-        [ccs delay:1 block:^{
-            //请求回调
-            dispatch_semaphore_signal(sema);
-        }];
-        dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
-    });
-}
-
-// 限制线程的最大并发数
-- (void)testSema {
-    int M = 10;
-    int N = 20;
-    dispatch_semaphore_t sema = dispatch_semaphore_create(M);
-    for (NSInteger i = 0; i < N; i++) {
-         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-             // 如果该信号量的值大于0，则使其信号量的值-1，否则，阻塞线程直到该信号量的值大于0或者达到等待时间。
-             dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
-             // task
-             NSLog(@"doing %ld", (long)i);
-             // task end
-             dispatch_semaphore_signal(sema);
-        });
-    }
-}
-
-// 线程/队列死锁
-- (void)testOperationWaitUntilFinishedDead {
-    NSOperationQueue *operationQueue = [NSOperationQueue mainQueue];
-    NSBlockOperation *blockOperation3 = [NSBlockOperation blockOperationWithBlock:^{
-    //    sleep(3);
-        NSLog(@"操作3执行完毕");
-    }];
-    //pat1
-    [operationQueue addOperations:@[blockOperation3] waitUntilFinished:YES];
-
-    // blockOperation3的执行相当于被添加到最后
-    // pat2
-    // 这里不会执行
-}
-
-- (void)testOperationWaitUntilFinished2 {
-    NSOperationQueue *operationQueue = [[NSOperationQueue alloc]init];
-    NSBlockOperation *blockOperation3 = [NSBlockOperation blockOperationWithBlock:^{
-//        sleep(3);
-        NSLog(@"操作3执行完毕");
-    }];
-    NSLog(@"添加操作");
-    [operationQueue addOperations:@[blockOperation3] waitUntilFinished:YES];
-    NSLog(@"添加完成");
-}
-
-- (void)testOperationWaitUntilFinished {
-    NSOperationQueue *operationQueue= [[NSOperationQueue alloc]init];
-    NSBlockOperation *blockOperation3 = [NSBlockOperation blockOperationWithBlock:^{
-//        sleep(3);
-        NSLog(@"操作3执行完毕");
-    }];
-    
-    NSBlockOperation *blockOperation2 = [NSBlockOperation blockOperationWithBlock:^{
-        NSLog(@"操作2开始执行");
-        [blockOperation3 waitUntilFinished];
-        NSLog(@"操作2执行完毕");
-    }];
-    [operationQueue addOperation:blockOperation2];
-    [operationQueue addOperation:blockOperation3];
-}
-
-- (void)testOperationPriority {
-    NSOperationQueue *operationQueue = [[NSOperationQueue alloc]init];
-    operationQueue.maxConcurrentOperationCount = 1;
-    NSBlockOperation *blockOperation1 = [NSBlockOperation blockOperationWithBlock:^{
-        NSLog(@"低优先级任务");
-    }];
-    blockOperation1.queuePriority = NSOperationQueuePriorityLow;
-    NSBlockOperation *blockOperation2 = [NSBlockOperation blockOperationWithBlock:^{
-        NSLog(@"高优先级任务");
-//        sleep(1);
-    }];
-    blockOperation2.queuePriority = NSOperationQueuePriorityHigh;
-    NSBlockOperation *blockOperation3 = [NSBlockOperation blockOperationWithBlock:^{
+- (void)testApply {
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    NSLog(@"apply---begin");
+    dispatch_apply(6, queue, ^(size_t index) {
         
-    }];
-    
-    [blockOperation1 addDependency:blockOperation3];
-    [blockOperation2 addDependency:blockOperation3];
-    
-    [operationQueue addOperation:blockOperation1];
-    [operationQueue addOperation:blockOperation2];
-    [operationQueue addOperation:blockOperation3];
+        NSLog(@"%zd---%@",index, [NSThread currentThread]);
+        
+    });
+    NSLog(@"apply---end");
+
 }
 
-// NSOperation可以调用start方法来执行任务，但默认是同步执行的
-// 如果将NSOperation添加到NSOperationQueue（操作队列）中，系统会自动异步执行NSOperation中的操作
-- (void)testOperationExecution2 {
-    NSBlockOperation *op = [NSBlockOperation blockOperationWithBlock:^{
-        // 在主线程
-        NSLog(@"下载1------%@", [NSThread currentThread]);
-    }];
+- (void)testExample {
     
-    // 添加额外的任务(在子线程执行) 异步
-    [op addExecutionBlock:^{
-        NSLog(@"下载2------%@", [NSThread currentThread]);
-    }];
-    [op addExecutionBlock:^{
-        NSLog(@"下载3------%@", [NSThread currentThread]);
-    }];
-    [op addExecutionBlock:^{
-        NSLog(@"下载4------%@", [NSThread currentThread]);
-    }];
-    
-    [op start];
-}
-
-- (void)testOperationExecution {
-    NSOperationQueue *operationQueue = [[NSOperationQueue alloc]init];
-    
-    NSBlockOperation *blockOperation1 = [NSBlockOperation blockOperationWithBlock:^{
-        NSLog(@"进入操作1");
-        NSLog(@"%@", NSThread.currentThread);
-        NSLog(@"操作1完成");
-        NSLog(@"操作1完成");
-        NSLog(@"操作1完成");
-        NSLog(@"操作1完成");
-        NSLog(@"操作1完成");
-//        sleep(3);
-    }];
-    
-    NSBlockOperation *blockOperation2 = [NSBlockOperation blockOperationWithBlock:^{
-        NSLog(@"进入依赖操作");
-    }];
-    blockOperation1.completionBlock = ^{
-        NSLog(@"blockOperation1 complete");
-    };
-    
-    [blockOperation2 addDependency:blockOperation1];
-    
-    // 追加是并发的
-    [blockOperation1 addExecutionBlock:^{
-        NSLog(@"%@", NSThread.currentThread);
-        NSLog(@"进入追加操作");
-        NSLog(@"追加操作完成");
-//        sleep(5);
-    }];
-    
-    [operationQueue addOperation:blockOperation1];
-    [operationQueue addOperation:blockOperation2];
-}
-
-// 如果所插入的操作存在依赖关系、优先完成依赖操作。
-// 如果所插入的操作不存在依赖关系、队列并发数为1下采用先进先出的原则、反之直接开辟新的线程执行
-- (void)testOperationDependency {
-    //创建操作队列
-    NSOperationQueue *operationQueue = [[NSOperationQueue alloc]init];
-    operationQueue.maxConcurrentOperationCount = 1;
-    //创建最后一个操作
-    NSBlockOperation *lastBlockOperation = [NSBlockOperation blockOperationWithBlock:^{
-//        sleep(1);
-        NSLog(@"最后的任务");
-    }];
-    for (int i = 0; i < 3; ++i) {
-        //创建多线程操作
-        NSBlockOperation *blockOperation = [NSBlockOperation blockOperationWithBlock:^{
-//            sleep(i);
-            NSLog(@"第%d个任务",i);
-        }];
-        //设置依赖操作为最后一个操作
-        if (i == 0) {
-            [blockOperation addDependency:lastBlockOperation];
-        }
-        [operationQueue addOperation:blockOperation];
+    @synchronized (self) {
+        // syncList 全局的表 syncData
+        // struct SyncList 的定义。正如我在上面提过，你可以把 SyncData 当做是链表中的节点。每个 SyncList 结构体都有个指向 SyncData 节点链表头部的指针，也有一个用于防止多个线程对此列表做并发修改的锁。
+        // 每个 SyncData 包含一个 threadCount，这个 SyncData 对象中的锁会被一些线程使用或等待，threadCount 就是此时这些线程的数量。它很有用处，因为 SyncData 结构体会被缓存，threadCount==0 就暗示了这个 SyncData 实例可以被复用。
+        // TLS 线程局部存储空间 线程1 线程2..
+        // 先找线程 线程里找不到再全局遍历表 对象相等 拿对象锁的次数
     }
-    //将最后一个操作加入线程队列
-    [operationQueue addOperation:lastBlockOperation];
-}
 
-- (void)testConsumer {
-    //生产者消费者
-    dispatch_semaphore_t semaphore = dispatch_semaphore_create(1);
-    NSMutableArray *array = [[NSMutableArray alloc] init];
-    dispatch_queue_t queue = dispatch_queue_create("cn.chutong.www", DISPATCH_QUEUE_CONCURRENT);
-    int max_count = 10;
-    //生产
+    dispatch_queue_t queue = dispatch_queue_create("aa", DISPATCH_QUEUE_SERIAL);
+    NSLog(@"1");
     dispatch_async(queue, ^{
-        int count = 0;
-        while (YES) {
-            if (array.count >= max_count) {
-                dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-            }
-            count++;
-            sleep(0.05f);
-            [array addObject:[NSString stringWithFormat:@"%d",count]];
-//            dispatch_semaphore_signal(semaphore);
-            NSLog(@"生产了%d",count);
-        }
-    });
-    //消费
-    dispatch_async(queue, ^{
-        while (YES) {
-            if (array.count > 0) {
-                NSLog(@"消费了%ld", array.count);
-//                dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-//                [array removeLastObject];
-                [array removeAllObjects];
-                dispatch_semaphore_signal(semaphore);
-            }
-
-        }
-    });
-}
-
-- (void)testSerial2 {
-    dispatch_queue_t queue = dispatch_queue_create("com.gcd.serial", DISPATCH_QUEUE_SERIAL);
-    dispatch_async(queue, ^{
-        NSLog(@"异步任务在 %@ 执行", [NSThread currentThread]);
-        dispatch_sync(queue, ^{
-            NSLog(@"同步任务在 %@ 执行", [NSThread currentThread]);
-        });
-    });
-}
-
-- (void)testConcurrent {
-    dispatch_queue_t serial =dispatch_queue_create("thedeeppacific",DISPATCH_QUEUE_CONCURRENT);
-
-    dispatch_async(serial, ^{
-        sleep(1);
-        NSLog(@"4");
-    });
-
-    dispatch_sync(serial, ^{
-        sleep(2);
-        NSLog(@"9");
-    });
-
-    dispatch_async(serial, ^{
-        sleep(1);
-        NSLog(@"5");
-    });
-
-    dispatch_sync(serial, ^{
-        sleep(1);
-        NSLog(@"8");
-    });
-    
-}
-
-- (void)testSerrial {
-    dispatch_queue_t serial = dispatch_queue_create("thedeeppacific",DISPATCH_QUEUE_SERIAL);
-
-    dispatch_sync(serial, ^{
-        sleep(3);
-        NSLog(@"1");
-    });
-
-    dispatch_async(serial, ^{
-        sleep(4);
-        NSLog(@"13");
-    });
-
-    dispatch_async(serial, ^{
-        sleep(1);
-        NSLog(@"11");
-    });
-
-    dispatch_sync(serial, ^{
-        sleep(2);
         NSLog(@"2");
+        NSLog(@"4");
+//        dispatch_sync(queue, ^{
+//            NSLog(@"3");
+//        });
+    });
+    sleep(1);
+    NSLog(@"5");
+}
+
+- (void)testRunloop {
+
+    [NSRunLoop.currentRunLoop addPort:[NSPort port] forMode:NSDefaultRunLoopMode];
+    [NSRunLoop.currentRunLoop run];
+}
+
+// 限制最大并发数
+void dispatch_asyn_limit_3(dispatch_queue_t queue, dispatch_block_t block){
+    //控制并发数的信号量
+    static dispatch_semaphore_t limitSemaphore;
+    //专门控制并发等待的线程
+    static dispatch_queue_t receiveQueue;
+
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        limitSemaphore = dispatch_semaphore_create(3);
+        receiveQueue = dispatch_queue_create("receiver", DISPATCH_QUEUE_SERIAL);
+    });
+    
+    dispatch_async(receiveQueue, ^{
+        //若信号量小于0，则会阻塞receiveQueue的线程，控制添加到queue里的任务不会超过三个。
+        dispatch_semaphore_wait(limitSemaphore, DISPATCH_TIME_FOREVER);
+        dispatch_async(queue, ^{
+            if (block) {
+                block();
+            }
+            //block执行完后增加信号量
+            dispatch_semaphore_signal(limitSemaphore);
+        });
+    });
+}
+
+- (void)testQueues {
+    for (int i = 0; i < 20; i++) {
+
+        dispatch_queue_t sQ1 = dispatch_queue_create([NSString stringWithFormat:@"st%d",i].UTF8String, DISPATCH_QUEUE_CONCURRENT);
+        dispatch_async(sQ1, ^{
+            NSLog(@"sQ1=%p %d",sQ1,i);
+        });
+        NSLog(@"sQ2=%p %d",sQ1,i);
+    }
+    
+    
+}
+
+- (void)testDeadLock {
+    // 串行队列死锁crash的例子（在同个线程的串行队列任务执行过程中，再次发送dispatch_sync 任务到串行队列，会crash）
+    //==============================
+//    dispatch_queue_t sQ = dispatch_queue_create("st0", 0);
+//    dispatch_async(sQ, ^{
+//        NSLog(@"Enter");
+//        dispatch_sync(sQ, ^{   //  这里会crash
+//            NSLog(@"sync task");
+//        });
+//    });
+
+    // 串行死锁的例子（这里不会crash，在线程A执行串行任务task1的过程中，又在线程B中投递了一个task2到串行队列同时使用dispatch_sync等待，死锁，但GCD不会测出）
+    //==============================
+    dispatch_queue_t sQ1 = dispatch_queue_create("st01", 0);
+    dispatch_async(sQ1, ^{
+        NSLog(@"Enter");
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            dispatch_sync(sQ1, ^{
+                NSArray *a = [NSArray new];
+                NSLog(@"Enter again %@", a);
+            });
+        });
+        NSLog(@"Done");
     });
     
 }
-
-- (void)testReadWriteLock {
-    
-    self.concurrentQueue = dispatch_queue_create("aaa", DISPATCH_QUEUE_CONCURRENT);
-    // 测试代码,模拟多线程情况下的读写
-    for (int i = 0; i<10; i++) {
-
-        dispatch_async(dispatch_get_global_queue(0, 0), ^{
-            self.text = [NSString stringWithFormat:@"噼里啪啦--%d",i];
-        });
-
-    }
-    
-    for (int i = 0; i<50; i++) {
-
-        dispatch_async(dispatch_get_global_queue(0, 0), ^{
-            NSLog(@"end");
-            NSLog(@"读 %@ %@",[self text],[NSThread currentThread]);
-        });
-
-    }
-    
-    for (int i = 10; i<20; i++) {
-
-        dispatch_async(dispatch_get_global_queue(0, 0), ^{
-            self.text = [NSString stringWithFormat:@"噼里啪啦--%d",i];
-        });
-
-    }
-}
- 
-// 写操作,栅栏函数是不允许并发的,所以"写操作"是单线程进入的,根据log可以看出来
-- (void)setText:(NSString *)text {
-    
-    dispatch_barrier_async(self.concurrentQueue, ^{
-        self.text = text;
-        NSLog(@"写操作 %@ %@",text,[NSThread currentThread]);
-        // 模拟耗时操作,1个1个执行,没有并发
-        sleep(1);
-    });
-}
-// 读操作,这个是可以并发的,log在很快时间打印完
-- (NSString *)text {
- 
-    __block NSString * t = nil ;
-    dispatch_sync(self.concurrentQueue, ^{
-        t = self.text;
-        // 模拟耗时操作,瞬间执行完,说明是多个线程并发的进入的
-        sleep(1);
- 
-    });
-    return t;
- 
-}
-// end
 
 - (void)testAsyncMain {
     NSLog(@"1");
@@ -407,9 +132,15 @@
 }
 
 - (void)test_sync_global {
-    NSLog(@"1");
+    
+    dispatch_queue_t aQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_queue_t aHQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
+    dispatch_queue_t aLQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0);
+    
+    NSLog(@"1 %@",aQueue);
     dispatch_sync(dispatch_get_global_queue(0, 0), ^{
-        NSLog(@"2");
+        dispatch_queue_t aQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+        NSLog(@"2 %@",aQueue);
     });
     NSLog(@"3");
     // 1 2 3
@@ -500,45 +231,6 @@
     // synchronized中传入的object的内存地址，被用作key，通过hash map对应的一个系统维护的递归锁。
     // 如果object 被外部访问变化，则就失去了锁的作用。所以最好本类声明一个对象属性来当做key
 
-    
-}
-
-- (void)testAsySeq {
-    
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    dispatch_group_t group = dispatch_group_create();
-    NSLog(@"任务0完成 %@",NSThread.currentThread);
-    dispatch_group_async(group, queue, ^{
-        NSLog(@"任务一完成 %@",NSThread.currentThread);
-        
-    });
-
-    dispatch_group_async(group, queue, ^{
-        NSLog(@"任务二完成 %@",NSThread.currentThread);
-    });
-
-    dispatch_group_async(group, queue, ^{
-        NSLog(@"任务三完成 %@",NSThread.currentThread);
-    });
-    //在分组的所有任务完成后触发
-    dispatch_group_notify(group, queue, ^{
-        NSLog(@"所有任务完成 %@",NSThread.currentThread);
-    });
-    
-}
-
-- (void)testT2 {
-    
-    dispatch_queue_t queue = dispatch_queue_create("serial", DISPATCH_QUEUE_SERIAL);
-    dispatch_async(queue, ^{
-        NSLog(@"111:%@",[NSThread currentThread]);
-    });
-    dispatch_async(queue, ^{
-        NSLog(@"222:%@",[NSThread currentThread]);
-    });
-    dispatch_async(queue, ^{
-        NSLog(@"333:%@",[NSThread currentThread]);
-    });
     
 }
 

@@ -77,9 +77,6 @@
         NSDictionary *responseDic = _resultDic[@"response"];
         if (!responseDic) {
             responseDic = _resultDic;
-            if (_headerEncrypt) {
-                _resultDic = @{@"response":responseDic};
-            }
         }
         if ([responseDic[@"success"]intValue] == 0) {
             

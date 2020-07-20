@@ -12,6 +12,13 @@
 #import "CC_LibNetwork.h"
 #import "CC_LibWebImage.h"
 #import "CC_LibAudio.h"
+
+#import "CC_Video.h"
+#import "CC_VideoManager.h"
+#import "CC_ItemVideo.h"
+#import "CC_ItemVideoManager.h"
+#import "CC_DetailVideo.h"
+
 #import "CC_LibAnimation.h"
 #import "CC_LibStorage.h"
 #import "CC_LibSecurity.h"

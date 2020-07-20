@@ -13,6 +13,8 @@
 #import "CC_HttpHelper.h"
 
 #import "CC_Mask.h"
+#import "CC_HttpEncryption.h"
+#import "ccs.h"
 
 @interface CC_HttpTask()
 
@@ -91,7 +93,7 @@ static NSString *static_netTestContain = @"http://d.net/";
     executorDelegate.finishBlock = block; // 绑定执行完成时的block
 
     NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfig delegate:executorDelegate delegateQueue:nil];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfig delegate:executorDelegate delegateQueue:CC_HttpHelper.shared.httpQueue];
 
     NSURLRequest *urlReq;
     if (request) {
@@ -100,7 +102,8 @@ static NSString *static_netTestContain = @"http://d.net/";
         urlReq = [CC_HttpHelper.shared requestWithUrl:model.requestDomain andParamters:model.requestParamsStr model:model configure:configure type:type];
     }
     
-    model.requestUrl = [NSString stringWithFormat:@"%@?%@",urlReq.URL.absoluteString,model.requestParamsStr];
+//    model.requestUrl = [NSString stringWithFormat:@"%@%@",urlReq.URL.absoluteString,model.requestParams];
+    model.requestUrl = urlReq.URL.absoluteString;
     
     NSURLSessionDownloadTask *mytask = [session downloadTaskWithRequest:urlReq completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         
@@ -109,10 +112,10 @@ static NSString *static_netTestContain = @"http://d.net/";
         if (error.code == -1003) {
             NSURL *urlBase =  error.userInfo[NSURLErrorFailingURLErrorKey];
             NSString *ipStr = self.configure.scopeIp;
-            if (ipStr.length>0 && urlBase.host.length>0) {
+            if (ipStr.length > 0 && urlBase.host.length > 0) {
                 NSMutableString *mutUrlStr = [NSMutableString stringWithString:urlBase.relativeString];
                 NSURL *newUrl = [NSURL URLWithString:[mutUrlStr stringByReplacingOccurrencesOfString:urlBase.host withString:ipStr]];
-                [CC_CoreThread.shared gotoMainSync:^{
+                [CC_Thread.shared gotoMainSync:^{
                     [self.configure httpHeaderAdd:@"host" value:urlBase.host];
                     [CC_HttpTask.shared request:newUrl params:paramsDic model:model request:request finishCallbackBlock:^(NSString *error, HttpModel *result) {
                         block(error,result);
@@ -137,15 +140,24 @@ static NSString *static_netTestContain = @"http://d.net/";
                 [model parsingError:error];
             }
         } else {
-            NSString *resultStr = [NSString stringWithContentsOfURL:location encoding:NSUTF8StringEncoding error:&error];
-            if (!resultStr) {
-                CCLOG(@"UTF8编码解析失败");
-                NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
-                resultStr = [NSString stringWithContentsOfURL:location encoding:enc error:&error];
-                if (resultStr) {
-                    CCLOG(@"返回头是GBK编码");
+            NSString *resultStr;
+            BOOL dataCrypt = [httpResponse.allHeaderFields[@"dataCrypt"]boolValue];
+            if (dataCrypt) {
+                NSString *timestamp = httpResponse.allHeaderFields[@"timestamp"];
+                NSData *data = [NSData dataWithContentsOfURL:location];
+                resultStr = [CC_HttpEncryption getMockDecryptText:data timestamp:timestamp];
+            } else {
+                resultStr = [NSString stringWithContentsOfURL:location encoding:NSUTF8StringEncoding error:&error];
+                if (!resultStr) {
+                    CCLOG(@"UTF8编码解析失败");
+                    NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
+                    resultStr = [NSString stringWithContentsOfURL:location encoding:enc error:&error];
+                    if (resultStr) {
+                        CCLOG(@"返回头是GBK编码");
+                    }
                 }
             }
+            
             if (model.forbiddenJSONParseError == YES) {
                 //html data
                 model.resultStr = resultStr;
@@ -154,18 +166,18 @@ static NSString *static_netTestContain = @"http://d.net/";
             }
             model.networkError = nil;
             
-            if (self.configure.headerEncrypt == YES && model.forbiddenEncrypt == NO) {
-                if ([self.configure.encryptDomain isEqualToString:model.requestDomain.absoluteString]) {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wundeclared-selector"
-                    Class clazz = NSClassFromString(@"CC_HttpEncryption");
-                    resultStr = [clazz performSelector:@selector(getDecryptText:) withObject:model.resultDic];
-#pragma clang diagnostic pop
-                    if (resultStr) {
-                        [model parsingResult:resultStr];
-                    }
-                }
-            }
+//            if (self.configure.headerEncrypt == YES && model.forbiddenEncrypt == NO) {
+//                if ([self.configure.encryptDomain isEqualToString:model.requestDomain.absoluteString]) {
+//#pragma clang diagnostic push
+//#pragma clang diagnostic ignored "-Wundeclared-selector"
+//                    Class clazz = NSClassFromString(@"CC_HttpEncryption");
+//                    resultStr = [clazz performSelector:@selector(getDecryptText:) withObject:model.resultDic];
+//#pragma clang diagnostic pop
+//                    if (resultStr) {
+//                        [model parsingResult:resultStr];
+//                    }
+//                }
+//            }
         }
         
         if (model.resultDic) {
@@ -173,7 +185,7 @@ static NSString *static_netTestContain = @"http://d.net/";
                 CCLOG(@"%@",model.requestParams);
             }
             if (model.debug) {
-                CCLOG(@"%@\n%@",[model.requestUrl stringByRemovingPercentEncoding],[[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:model.resultDic options:NSJSONWritingPrettyPrinted error:nil] encoding:NSUTF8StringEncoding]);
+                CCLOG(@"%@\n%@\n%@\n%@",[model.requestUrl stringByRemovingPercentEncoding],urlReq.allHTTPHeaderFields,[ccs.tool stringWithJson:model.requestParams],[[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:model.resultDic options:NSJSONWritingPrettyPrinted error:nil] encoding:NSUTF8StringEncoding]);
             }
         } else {
             CCLOG(@"%@\n%@",[model.requestUrl stringByRemovingPercentEncoding],model.resultStr);
@@ -194,11 +206,11 @@ static NSString *static_netTestContain = @"http://d.net/";
                 //使用更新后的数据
                 CC_ResLModel *newModel = self.configure.logicBlockMap[logicModel.logicName];
                 if (newModel.logicPassed) {
-                    [CC_CoreThread.shared gotoMainSync:^{
+                    [CC_Thread.shared gotoMainSync:^{
                         newModel.logicBlock(model,block);
                     }];
                     if (newModel.logicPassStop) {
-                        [CC_CoreThread.shared gotoMainSync:^{
+                        [CC_Thread.shared gotoMainSync:^{
                             [[CC_Mask shared]stop];
                         }];
                         return;
@@ -207,7 +219,7 @@ static NSString *static_netTestContain = @"http://d.net/";
             }
         }
         
-        [CC_CoreThread.shared gotoMainSync:^{
+        [CC_Thread.shared gotoMainSync:^{
             if (self.configure.ignoreMockError) {
 
                 executorDelegate.finishBlock(nil, model);
@@ -311,7 +323,7 @@ static NSString *static_netTestContain = @"http://d.net/";
         [session invalidateAndCancel];
         if (error) {
             
-            [CC_CoreThread.shared gotoMain:^{
+            [CC_Thread.shared gotoMain:^{
 
                 finishBlock(error,nil);
             }];
@@ -327,7 +339,7 @@ static NSString *static_netTestContain = @"http://d.net/";
         model.resultStr = file;
         model.resultDic = @{@"path":file};
         
-        [CC_CoreThread.shared gotoMain:^{
+        [CC_Thread.shared gotoMain:^{
 
             finishBlock(nil,model);
         }];

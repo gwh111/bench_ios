@@ -463,7 +463,7 @@ typedef void (^CCAssociatedTapBlock)(UIView *view);
 - (void)tapSelf:(CC_TapGestureRecognizer *)tap {
     self.userInteractionEnabled = NO;
     
-    [CC_CoreThread.shared delay:tap.interval block:^{
+    [CC_Thread.shared delay:tap.interval block:^{
         self.userInteractionEnabled = YES;
     }];
     

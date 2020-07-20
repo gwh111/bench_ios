@@ -57,9 +57,9 @@
                                             buffer, bufferSize,
                                             &numBytesEncrypted);
     
-    if(cryptorStatus == kCCSuccess){
+    if (cryptorStatus == kCCSuccess) {
         return [NSData dataWithBytesNoCopy:buffer length:numBytesEncrypted];
-    }else{
+    } else {
         CCLOG(@"error:%d",cryptorStatus);
     }
     

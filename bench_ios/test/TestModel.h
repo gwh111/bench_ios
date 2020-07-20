@@ -10,6 +10,9 @@
 @class TestSubModel,TestSubArrayModel;
 @interface TestModel : CC_Model
 
+@property (nonatomic, copy) void(^block)(NSString *str);
+- (void)addBlock:(void(^)(NSString *str))block;
+
 @property (nonatomic,assign) int intv;
 @property (nonatomic,retain) NSString *robots;
 

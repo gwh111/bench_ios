@@ -33,7 +33,7 @@ static const void * const kDispatchQueueSpecificKey = &kDispatchQueueSpecificKey
     _queue = dispatch_queue_create([[NSString stringWithFormat:@"ccdb.%@", self] UTF8String], NULL);
     dispatch_queue_set_specific(_queue, kDispatchQueueSpecificKey, (__bridge void *)self, NULL);
 
-    self.databasePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingString:[NSString stringWithFormat:@"/%@_v%@.sqlite",[CC_BundleStore appName],@"1"]];
+    self.databasePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingString:[NSString stringWithFormat:@"/%@_v%@.sqlite",[CC_BundleStore appBid],@"1"]];
     self.db = [[CC_Database alloc] initWithPath:self.databasePath];
 }
 

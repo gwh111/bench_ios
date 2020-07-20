@@ -13,7 +13,79 @@
 
 + (void)start {
     
+    {
+        NSBlockOperation *op2 = [NSBlockOperation blockOperationWithBlock:^{
+            [ccs.httpTask post:@"https://apple@huored.gicp.net:8088/svn/bench_ios/trunk/bench_ios_net/bench_ios" params:nil model:nil finishBlock:^(NSString *error, HttpModel *result) {
+                
+                NSLog(@"b");
+            }];
+        }];
+        NSBlockOperation *op1 = [NSBlockOperation blockOperationWithBlock:^{
+            [ccs.httpTask post:@"https://apple@huored.gicp.net:8088/svn/bench_ios/trunk/bench_ios_net/bench_ios" params:nil model:nil finishBlock:^(NSString *error, HttpModel *result) {
+                
+                NSLog(@"a");
+
+            }];
+        }];
+        [ccs.httpHelper.httpQueue addOperation:op1];
+        [ccs.httpHelper.httpQueue addOperation:op2];
+
+        
+    }
+    return;
     
+    [ccs.httpTask.configure.extreParameter cc_setKey:@"authUserId" value:@"10204007036655152100290032039588"];
+    [ccs.httpTask.configure.extreParameter cc_setKey:@"loginKey" value:@"USL0a731d8b1c9f4008b9695ee4be00d981"];
+    
+    ccs.httpTask.configure.encryptDomain = @"http://192.168.2.32";
+    ccs.httpTask.configure.encryptDomain = @"http://mapi.haichi.net";
+    
+    CC_HttpEncryption *encryption = ccs.httpEncryption;
+    [encryption prepare:^{
+        //1.生成AESCode，并保存
+        //2.获取RSAPublicKey
+        //3.使用RSAPublicKey加密AESCode，并上传服务端
+        //4.每次请求使用AESCode对请求参数进行加密
+        [CC_HttpTask shared].configure.headerEncrypt = NO;
+        
+        // 配置全局请求为mock方式
+        CC_HttpConfig *httpConf = ccs.httpTask.configure;
+        httpConf.httpRequestType = CCHttpRequestTypeMock;
+        // 忽略错误 mock会返回error
+        httpConf.ignoreMockError = YES;
+        
+        //加密配置完成
+        NSString *service = [ccs string:@"%@/%@", @"activity", @"bannerQuery"];
+//        service = @"user/myInComeAndFansDetailQuery";
+        service = @"account/userAccountAmountQuery";
+        
+        HttpModel *model = ccs.httpModel;
+        model.mockExterfaceVersion = @"1";
+        model.mockSourceVersion = @"1.3";
+        model.mockAppCode = @"hc.user.api.mobile.base";
+        model.mockRequestPath = service;
+        
+        NSMutableDictionary *parameters = ccs.mutDictionary;
+        [parameters cc_setKey:@"service" value:service];
+        [parameters cc_setKey:@"projectId" value:@"123"];
+        
+        model.requestParams = parameters;
+        
+        for (int i = 0; i < 1; i++) {
+            [ccs.httpTask post:@"http://mapi.haichi.net/web/exterface/execute" params:parameters model:model finishBlock:^(NSString *error, HttpModel *result) {
+                
+                [ccs maskStop];
+                if (error) {
+                    return;
+                }
+                
+            }];
+        }
+        
+        
+    }];
+    
+    return;
     NSString *tmpStr = @"apple:Gwh199099";
     NSData *data = [tmpStr dataUsingEncoding:NSUTF8StringEncoding];
     id s2 = [data base64EncodedStringWithOptions:0];

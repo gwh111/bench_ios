@@ -10,6 +10,16 @@
 
 @implementation CC_Tool (String)
 
+- (NSAttributedString *)convertToHTMLString:(NSString *)htmlString {
+    NSData *data = [htmlString dataUsingEncoding:NSUnicodeStringEncoding];
+    NSDictionary *options = @{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType};
+    NSAttributedString *att = [[NSAttributedString alloc]initWithData:data
+                                                               options:options
+                                                    documentAttributes:nil
+                                                                 error:nil];
+    return att;
+}
+
 - (NSString *)replaceHtmlLabel:(NSString *)htmlStr labelName:(NSString *)labelName toLabelName:(NSString *)toLabelName trimSpace:(BOOL)trimSpace {
     NSScanner *theScanner = [NSScanner scannerWithString:htmlStr];
     NSString *text = nil;
@@ -51,10 +61,10 @@
         
         NSString *tempString = [valueStr stringByAddingPercentEncodingWithAllowedCharacters:allowed];
         
-        if (tempString.length > 0) {//参数为空不放入
-            [urlFormatString appendString:[NSString stringWithFormat:@"%@=%@&",categoryId,tempString]];
-            [formatString appendString:[NSString stringWithFormat:@"%@=%@&",categoryId,valueStr]];
-        }
+//        if (tempString.length > 0) {//参数为空不放入
+//        }
+        [urlFormatString appendString:[NSString stringWithFormat:@"%@=%@&",categoryId,tempString]];
+        [formatString appendString:[NSString stringWithFormat:@"%@=%@&",categoryId,valueStr]];
     }
     if (formatString.length > 0) {
         NSRange range = NSMakeRange (formatString.length-1, 1);

@@ -60,6 +60,13 @@
         [self removeObjectForKey:aKey];
         return;
     }
+    if ([value isKindOfClass:NSString.class]) {
+        NSString *s = value;
+        if (s.length <= 0) {
+            [self removeObjectForKey:aKey];
+            return;
+        }
+    }
     [self setObject:value forKey:aKey];
 }
 

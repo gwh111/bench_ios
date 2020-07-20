@@ -33,6 +33,13 @@
                 titleColor:(UIColor *)titleColor
         selectedTitleColor:(UIColor *)selectedTitleColor;
 
+- (void)cc_initWithVCs:(NSArray *)vcs
+                titles:(NSArray *)titles
+                images:(NSArray *)images
+        selectedImages:(NSArray *)selectedImages
+            titleColor:(UIColor *)titleColor
+        selectedTitleColor:(UIColor *)selectedTitleColor;
+
 // Function used in controller
 // 功能函数 在控制器使用
 - (CC_Controller *)cc_controllerWithName:(NSString *)name;

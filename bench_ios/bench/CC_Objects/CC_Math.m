@@ -82,8 +82,8 @@
 
 - (CGFloat)duWithPoint:(CC_Point *)point1 point:(CC_Point *)point2 {
     
-    point1 = Point(point1.x, -point1.y);
-    point2 = Point(point2.x, -point2.y);
+    point1 = CC_POINT(point1.x, -point1.y);
+    point2 = CC_POINT(point2.x, -point2.y);
     if (point1.x - point2.x == 0) {
         if (point1.y - point2.y > 0) {
             return 90;
@@ -119,7 +119,7 @@
     float sin = sinf([self huduWithDu:du + 1]);
     float x = r*cos;
     float y = r*sin;
-    return Point(x, -y);
+    return CC_POINT(x, -y);
 }
 
 @end

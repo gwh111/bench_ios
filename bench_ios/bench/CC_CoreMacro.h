@@ -31,6 +31,8 @@
 
 #define WS(weakSelf)  __weak __typeof(&*self)weakSelf = self;
 #define SS(strongSelf)  __strong __typeof(&*weakSelf)strongSelf = weakSelf;
+#define WO(weakObject) __weak typeof(weakObject) weakObject##Weak = weakObject;
+#define SO(strongObject) __strong typeof(strongObject) strongObject##Weak = strongObject;
 
 #define CC_DEPRECATED(instead) NS_DEPRECATED(2_0, 2_0, 2_0, 2_0, instead)
 

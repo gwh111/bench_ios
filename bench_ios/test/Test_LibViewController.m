@@ -68,7 +68,7 @@
     NSDictionary *bundleDict = [ccs bundlePlistWithPath:@"testList"];
     CCLOG(@" bundlePlistWithPath %@",bundleDict);
     
-    BOOL isCopy = [ccs copyBunldFileToSandboxToPath:@"testList" type:@"plist"];
+    BOOL isCopy = [ccs copyBundleFileToSandboxToPath:@"testList" type:@"plist"];
     CCLOG(@" copyBunldFileToSandboxToPath %@",@(isCopy));
     
     //Sandbox
@@ -76,8 +76,8 @@
     NSDictionary *sbDict = [NSJSONSerialization JSONObjectWithData:sbData options:NSJSONReadingMutableLeaves error:nil];
     CCLOG(@" sandboxFileWithPath %@",sbDict);
     
-    BOOL isDelete = [ccs deleteSandboxFileWithName:@"testList"];
-    CCLOG(@" deleteSandboxFileWithName %@",@(isDelete));
+//    BOOL isDelete = [ccs deleteSandboxFileWithName:@"testList"];
+//    CCLOG(@" deleteSandboxFileWithName %@",@(isDelete));
 }
 
 - (void)test_LibWebImage

@@ -12,6 +12,9 @@
 @implementation NSString (CC_Foundation)
 
 - (BOOL)is:(NSString *)str {
+    if (!str) {
+        return NO;
+    }
     if ([self isEqualToString:str]) {
         return YES;
     }
@@ -90,10 +93,15 @@
 }
 
 - (NSString *)cc_convertToUrlString {
-    NSMutableCharacterSet *allowed = [NSMutableCharacterSet alphanumericCharacterSet];
-    [allowed addCharactersInString:@"!*'();:@&=+$,/?%#[]<>&\\"];
-    [self stringByAddingPercentEncodingWithAllowedCharacters:allowed];
-    return self;
+//    NSMutableCharacterSet *allowed = [NSMutableCharacterSet alphanumericCharacterSet];
+//    [allowed addCharactersInString:@"!*'();:@&=+$,/?%#[]<>&\\"];
+//    [allowed invertedSet];
+    
+    NSString *charaters = @"?!@#$^&%*+,:;='\"`<>()[]{}/\\| ";
+    NSCharacterSet * set = [[NSCharacterSet characterSetWithCharactersInString:charaters] invertedSet];
+    NSString *hString2 = [self stringByAddingPercentEncodingWithAllowedCharacters:set];
+    
+    return hString2;
 }
 
 - (NSData *)cc_convertToUTF8data {

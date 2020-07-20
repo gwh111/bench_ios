@@ -5,11 +5,11 @@
 //  Created by gwh on 2020/1/5.
 //
 
-#import "ccs.h"
+#import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface Father : CC_Model
+@interface Father : NSObject
 
 typedef void (^block1)(void);
 

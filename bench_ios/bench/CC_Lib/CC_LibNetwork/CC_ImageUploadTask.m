@@ -77,8 +77,6 @@ typedef NS_ENUM(NSUInteger, CCCompressionType) {
     for (int i = 0; i < images.count; i++) {
         
         HttpModel *model = [CC_HttpHelper.shared commonModel:nil url:url params:paramsDic configure:tempConfigure type:CCHttpTaskTypeImage];
-        model.forbiddenEncrypt = YES;
-        
 
         NSMutableURLRequest *urlReq = [CC_HttpHelper.shared requestWithUrl:model.requestDomain andParamters:model.requestParamsStr model:model configure:tempConfigure type:CCHttpTaskTypeImage];
         urlReq = [self recaculateImageDatas:images[i] paramsStr:model.requestParamsStr request:urlReq];

@@ -11,7 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-#define Int(v) [CC_Int value:v]
+#define CC_INT(v) [CC_Int value:v]
 
 @interface CC_Int : CC_Object
 

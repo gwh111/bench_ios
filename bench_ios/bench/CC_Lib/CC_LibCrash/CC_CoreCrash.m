@@ -8,6 +8,7 @@
 #import "CC_CoreCrash.h"
 #import "CC_Foundation.h"
 #import "CC_SandboxStore.h"
+#import "ccs.h"
 
 // 我的捕获handler
 static NSUncaughtExceptionHandler cc_exceptionHandler;
@@ -48,15 +49,34 @@ void cc_exceptionHandler(NSException *exception) {
 
     // 保存崩溃日志
     [CC_CoreCrash.shared saveCrashLog:exceptionInfo document:@"Crash"];
+    // 提示
+    [CC_CoreCrash.shared showCrashNotice:[ccs string:@"%@\n%@",name,reason]];
+    
+    CFRunLoopRef runloop = CFRunLoopGetCurrent();
+    CFArrayRef modes = CFRunLoopCopyAllModes(runloop);
+    
+    static int timeout = 0;
+    while (1) {
+        timeout++;
+        for (NSString *mode in (__bridge NSArray *)modes) {
+            CFRunLoopRunInMode((CFStringRef)mode, 0.1, false);
+        }
+        if (timeout > 10) {
+            break;
+        }
+    }
     
     // 注册回之前的handler
     releaseUncaughtExceptionHandler();
 }
 
-- (void)saveCrashLog:(NSString *)log document:(NSString *)document {
+- (void)showCrashNotice:(NSString *)crashNotice {
+    
+    NSString *notice = [ccs string:@"崩溃了\n%@",crashNotice];
+    [ccs showNotice:notice atView:ccs.currentVC.view];
+}
 
-    NSLock *lock = NSLock.new;
-    [lock lock];
+- (void)saveCrashLog:(NSString *)log document:(NSString *)document {
     
     CC_SandboxStore *sandbox = CC_SandboxStore.shared;
     [sandbox createDocumentsDocWithName:document];
@@ -77,7 +97,6 @@ void cc_exceptionHandler(NSException *exception) {
     [sandbox saveToDocumentsWithData:log toPath:savePath type:nil];
     
     CCLOG(@"%@",sandbox.documentsPath);
-    [lock unlock];
 }
 
 - (void)methodNotExist:(NSString *)method className:(NSString *)className {
@@ -96,7 +115,13 @@ void cc_exceptionHandler(NSException *exception) {
         NSLog(@"%@",stackSymbols);
         NSLog(@"%@",info);
         if (!_ignoreCrashWarning) {
-            CCLOGAssert()
+            NSArray *smallArray;
+            if (stackSymbols.count > 5) {
+                smallArray = [stackSymbols subarrayWithRange:NSMakeRange(0, 5)];
+            }
+            
+            [CC_CoreCrash.shared showCrashNotice:[ccs string:@"已处理，只在debug下显示\n\n%@",info?info:smallArray]];
+            return;
         }
     #endif
     

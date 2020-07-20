@@ -12,7 +12,7 @@
 
 @property (nonatomic,retain) NSDictionary *cc_modelDictionary;
 
-+ (CC_Model *)cc_modelWithDictionary:(NSDictionary *)dic;
++ (instancetype)cc_modelWithDictionary:(NSDictionary *)dic;
 
 // property/model
 - (void)cc_setObjectClassInArrayWithDic:(NSDictionary *)dic;

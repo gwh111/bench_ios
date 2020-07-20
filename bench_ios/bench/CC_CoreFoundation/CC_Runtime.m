@@ -26,15 +26,15 @@
     }];
 }
 
-+ (id)cc_getObject:(id)object key:(SEL)key{
++ (id)cc_getObject:(id)object key:(SEL)key {
     return objc_getAssociatedObject(object, key);
 }
 
-+ (void)cc_setObject:(id)object key:(SEL)key value:(id)value{
++ (void)cc_setObject:(id)object key:(SEL)key value:(id)value {
     objc_setAssociatedObject(object, key, value, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-+ (void)cc_setObject:(id)object value:(id)value{
++ (void)cc_setObject:(id)object value:(id)value {
     objc_setAssociatedObject(object, @selector(value), value, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
@@ -43,7 +43,7 @@
     NSString *meStr1 = NSStringFromSelector(oriSelector);
     NSString *key = [classStr stringByAppendingString:meStr1];
     if ([CC_Runtime shared].instanceMap[key]) {
-        CCLOGAssert(@"'%@' has been exchanged",meStr1);
+        CCLOGAssert(@"'%@' has already been exchanged",meStr1);
     }
     [[CC_Runtime shared].instanceMap setObject:@"" forKey:key];
     
@@ -55,11 +55,11 @@
 + (void)cc_exchangeClass:(Class)aClass method:(SEL)oriSelector withMethod:(SEL)newSelector {
     NSString *meStr1 = NSStringFromSelector(oriSelector);
     if ([CC_Runtime shared].classMap[meStr1]) {
-        CCLOGAssert(@"'%@' has been exchanged",meStr1);
+        CCLOGAssert(@"'%@' has already been exchanged",meStr1);
     }
     NSString *meStr2 = NSStringFromSelector(newSelector);
     if ([CC_Runtime shared].classMap[meStr2]) {
-        CCLOGAssert(@"'%@' has been registerd",meStr2);
+        CCLOGAssert(@"'%@' has already been registerd",meStr2);
     }
     [[CC_Runtime shared].classMap setObject:@"" forKey:meStr1];
     [[CC_Runtime shared].classMap setObject:@"" forKey:meStr2];

@@ -9,6 +9,7 @@
 #import "CC_NavigationController.h"
 #import "CC_WebViewController.h"
 #import "CC_Base.h"
+#import "ccs.h"
 
 @interface CC_NavigationController (){
     
@@ -23,7 +24,7 @@
     return [CC_Base.shared cc_registerSharedInstance:self block:^{
         CC_NavigationController.shared.cc_UINavList = NSMutableArray.new;
         CC_NavigationBarConfig *config = CC_NavigationBarConfig.new;
-        config.cc_navigationBarTitleFont = [CC_CoreUI.shared relativeFont:@"Helvetica-Bold" fontSize:19];
+        config.cc_navigationBarTitleFont = RF(19);
         config.cc_navigationBarTitleColor = HEX(#000000);
         config.cc_navigationBarBackgroundColor = UIColor.whiteColor;
         CC_NavigationController.shared.cc_navigationBarConfig = config;
@@ -70,20 +71,24 @@
     return nil;
 }
 
-- (void)cc_pushViewController:(CC_ViewController *)viewController {
+- (void)cc_pushViewController:(id)viewController animated:(BOOL)animated {
     if (cc_UINavList.count > 0) {
         UINavigationController *navC = cc_UINavList.lastObject;
-        [navC pushViewController:viewController animated:YES];
+        [navC pushViewController:viewController animated:animated];
         return;
     }
-    [cc_UINav pushViewController:viewController animated:YES];
+    [cc_UINav pushViewController:viewController animated:animated];
 }
 
-- (void)cc_presentViewController:(CC_ViewController *)viewController {
+- (void)cc_pushViewController:(id)viewController {
+    [self cc_pushViewController:viewController animated:YES];
+}
+
+- (void)cc_presentViewController:(id)viewController {
     [self cc_presentViewController:viewController withNavigationControllerStyle:UIModalPresentationFullScreen];
 }
 
-- (void)cc_presentViewController:(CC_ViewController *)viewController withNavigationControllerStyle:(UIModalPresentationStyle)style {
+- (void)cc_presentViewController:(id)viewController withNavigationControllerStyle:(UIModalPresentationStyle)style {
     
     UINavigationController *navC = [[UINavigationController alloc] initWithRootViewController:viewController];
     navC.navigationBarHidden = YES;
@@ -94,7 +99,7 @@
     [cc_UINav presentViewController:navC animated:YES completion:nil];
 }
 
-- (void)cc_pushViewController:(CC_ViewController *)viewController withDismissVisible:(BOOL)visible {
+- (void)cc_pushViewController:(id)viewController withDismissVisible:(BOOL)visible {
     if (visible) {
         [self cc_popViewControllerAnimated:NO];
         [cc_UINav pushViewController:viewController animated:YES];
@@ -116,7 +121,9 @@
 
 - (CC_ViewController *)cc_popViewControllerFrom:(CC_ViewController *)viewController userInfo:(id)userInfo {
     CC_ViewController *pop = [self cc_popViewControllerAnimated:YES];
-    pop.cc_controllers = nil;
+    if ([pop isKindOfClass:CC_ViewController.class]) {
+        pop.cc_controllers = nil;
+    }
     CC_ViewController *last = cc_UINav.viewControllers.lastObject;
     [last cc_viewDidPopFrom:pop userInfo:userInfo];
     return pop;
@@ -143,7 +150,9 @@
             [cc_UINav popToViewController:vc animated:YES];
             return;
         }
-        vc.cc_controllers = nil;
+        if ([vc isKindOfClass:CC_ViewController.class]) {
+            vc.cc_controllers = nil;
+        }
     }
 }
 
@@ -153,7 +162,9 @@
         for (int i = 0; i < navC.viewControllers.count; i++) {
             if (i > 0) {
                 CC_ViewController *vc = navC.viewControllers[i];
-                vc.cc_controllers = nil;
+                if ([vc isKindOfClass:CC_ViewController.class]) {
+                    vc.cc_controllers = nil;
+                }
             }
         }
         [navC popToRootViewControllerAnimated:animated];
@@ -162,7 +173,9 @@
     for (int i = 0; i < cc_UINav.viewControllers.count; i++) {
         if (i > 0) {
             CC_ViewController *vc = cc_UINav.viewControllers[i];
-            vc.cc_controllers = nil;
+            if ([vc isKindOfClass:CC_ViewController.class]) {
+                vc.cc_controllers = nil;
+            }
         }
     }
     [cc_UINav popToRootViewControllerAnimated:YES];
@@ -172,12 +185,16 @@
     if (cc_UINavList.count > 0) {
         UINavigationController *navC = cc_UINavList.lastObject;
         CC_ViewController *last = navC.viewControllers.lastObject;
-        last.cc_controllers = nil;
+        if ([last isKindOfClass:CC_ViewController.class]) {
+            last.cc_controllers = nil;
+        }
         [navC popViewControllerAnimated:animated];
         return last;
     }
     CC_ViewController *last = cc_UINav.viewControllers.lastObject;
-    last.cc_controllers = nil;
+    if ([last isKindOfClass:CC_ViewController.class]) {
+        last.cc_controllers = nil;
+    }
     [cc_UINav popViewControllerAnimated:animated];
     return last;
 }
@@ -185,6 +202,11 @@
 - (void)cc_pushWebViewControllerWithUrl:(NSString *)urlStr {
     CC_WebViewController *web = [[CC_WebViewController alloc]init];
     web.urlStr = urlStr;
+    if (cc_UINavList.count > 0) {
+        UINavigationController *navC = cc_UINavList.lastObject;
+        [navC pushViewController:web animated:YES];
+        return;
+    }
     [cc_UINav pushViewController:web animated:YES];
 }
 

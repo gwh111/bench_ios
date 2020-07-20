@@ -14,6 +14,7 @@
 
 @interface CC_TabBarController ()
 
+@property (nonatomic, strong) NSMutableArray *cc_vcArray;
 @property (nonatomic, strong) NSMutableArray *cc_classArray;
 @property (nonatomic, strong) NSMutableArray *cc_titleArray;
 @property (nonatomic, strong) NSMutableArray *cc_imgNameArray;
@@ -59,7 +60,13 @@
     
 }
 
-- (void)cc_viewWillAppear {}
+- (void)cc_viewWillAppear {
+    for (UITabBarItem *item in self.cc_tabBarItemArray) {
+        [item setTitleTextAttributes:@{NSForegroundColorAttributeName:self.cc_titleColor} forState:UIControlStateNormal];
+        [item setTitleTextAttributes:@{NSForegroundColorAttributeName:UIColor.blackColor} forState:UIControlStateSelected];
+        [item setTitleTextAttributes:@{NSForegroundColorAttributeName:self.cc_selectedTitleColor} forState:UIControlStateHighlighted];
+    }
+}
 
 - (void)cc_viewWillDisappear {}
 
@@ -87,6 +94,21 @@
                 titleColor:(UIColor *)titleColor
         selectedTitleColor:(UIColor *)selectedTitleColor {
     self.cc_classArray = [classes mutableCopy];
+    self.cc_titleArray = [titles mutableCopy];
+    self.cc_imgNameArray = [images mutableCopy];
+    self.cc_selectedImgNameArray = [selectedImages mutableCopy];
+    self.cc_titleColor = titleColor ? : CCTABBAR_NORMAL_Color;
+    self.cc_selectedTitleColor = selectedTitleColor ? : CCTABBAR_SELECTED_Color;
+    [self setUpChildViewController];
+}
+
+- (void)cc_initWithVCs:(NSArray *)vcs
+                    titles:(NSArray *)titles
+                    images:(NSArray *)images
+            selectedImages:(NSArray *)selectedImages
+                titleColor:(UIColor *)titleColor
+        selectedTitleColor:(UIColor *)selectedTitleColor {
+    self.cc_vcArray = [vcs mutableCopy];
     self.cc_titleArray = [titles mutableCopy];
     self.cc_imgNameArray = [images mutableCopy];
     self.cc_selectedImgNameArray = [selectedImages mutableCopy];
@@ -214,6 +236,23 @@
 
 #pragma mark - private
 - (void)setUpChildViewController {
+    if (_cc_vcArray.count > 0) {
+        for (int i = 0; i < _cc_vcArray.count; i++) {
+            NSString *title = self.cc_titleArray.count ? self.cc_titleArray[i] : nil;
+            CC_ViewController *vc = _cc_vcArray[i];
+            vc.parent = self;
+            UITabBarItem *item = [self addChildViewController:vc
+                                                        title:title
+                                                        image:self.cc_imgNameArray[i]
+                                                selectedImage:self.cc_selectedImgNameArray[i]
+                                                        index:i];
+            [self.cc_tabBarItemArray addObject:item];
+    //        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:vc];
+            [self.cc_viewControllers addObject:vc];
+        }
+        self.viewControllers = self.cc_viewControllers;
+        return;
+    }
     for (int i = 0; i < self.cc_classArray.count; i++) {
         NSString *title = self.cc_titleArray.count ? self.cc_titleArray[i] : nil;
         CC_ViewController *vc = [CC_Base.shared cc_init:self.cc_classArray[i]];
@@ -239,14 +278,20 @@
     UITabBarItem *item = childViewController.tabBarItem;
     NSMutableDictionary *normalDic = [NSMutableDictionary dictionary];
     NSMutableDictionary *selectedDic = [NSMutableDictionary dictionary];
+    NSMutableDictionary *highlightedDic = [NSMutableDictionary dictionary];
     if (title) {
         item.title = title;
         normalDic[NSForegroundColorAttributeName] = self.cc_titleColor;
         normalDic[NSFontAttributeName] = RF(11);
         [item setTitleTextAttributes:normalDic forState:UIControlStateNormal];
+        
         selectedDic[NSForegroundColorAttributeName] = self.cc_selectedTitleColor;
         selectedDic[NSFontAttributeName] = RF(11);
         [item setTitleTextAttributes:selectedDic forState:UIControlStateSelected];
+        
+        highlightedDic[NSForegroundColorAttributeName] = self.cc_selectedTitleColor;
+        highlightedDic[NSFontAttributeName] = RF(11);
+        [item setTitleTextAttributes:highlightedDic forState:UIControlStateHighlighted];
         UIImage *tempImage = [UIImage imageNamed:image];
         if (_cc_autoResizeImage) {
             tempImage = [CC_Tool.shared scaleImage:tempImage toSize:CGSizeMake(RH(20), RH(20))];

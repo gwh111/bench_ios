@@ -41,5 +41,9 @@
 	</array>
 	<key>UIUserInterfaceStyle</key>
 	<string>Light</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>FZXIANGSU12.TTF</string>
+	</array>
 </dict>
 </plist>

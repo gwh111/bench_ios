@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-#define Point(xValue,yValue) [CC_Point valueX:xValue y:yValue]
+#define CC_POINT(xValue,yValue) [CC_Point valueX:xValue y:yValue]
 
 @interface CC_Point : CC_Object
 

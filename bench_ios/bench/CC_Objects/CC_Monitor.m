@@ -32,7 +32,7 @@ static NSString *KEY_MALLOC_SIZE = @"malloc_size";
         
         CC_Monitor.shared.startLaunchMonitor = YES;
         CC_Monitor.shared.startLaunchMonitorLog = YES;
-        CC_Monitor.shared.startPatrolMonitor = YES;
+        CC_Monitor.shared.startPatrolMonitor = NO;
         CC_Monitor.shared.thread = [[NSThread alloc]initWithTarget:CC_Monitor.shared selector:@selector(run) object:nil];
         [CC_Monitor.shared.thread start];
     }];

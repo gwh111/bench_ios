@@ -12,6 +12,8 @@
 #import "TestPresentVC.h"
 #import "TestPresentVC2.h"
 
+//#define RF(f) [CC_CoreUI.shared relativeFont:@"FZXS12--GB1-0" fontSize:f]
+
 @interface HomeVC ()
 
 @property (nonatomic, retain) NSArray *testList;
@@ -22,8 +24,10 @@
 @implementation HomeVC
 
 - (void)cc_viewWillLoad {
+    
     self.view.backgroundColor = UIColor.whiteColor;
-    self.cc_title = @"首页";
+    self.cc_title = @"首页abc123";
+    self.cc_navigationBar.titleLabel.font = RF(20);
     _testList = [ccs bundlePlistWithPath:@"testList"][@"list"];
     _testNameList = ccs.mutArray;
     for (int i = 0; i < _testList.count; i++) {
@@ -31,7 +35,37 @@
     }
 }
 
+- (void)didMoveToParentViewController:(UIViewController *)parent {
+    CCLOG(@"didMoveToParentViewController");
+}
+
+- (void)cc_viewWillAppear {
+    
+    CCLOG(@"willapper");
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    
+    CCLOG(@"didapper");
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    CCLOG(@"viewWillDisappear");
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    CCLOG(@"viewDidDisappear");
+}
+
 - (void)cc_viewDidLoad {
+    
+    @autoreleasepool {
+        @autoreleasepool {
+            @autoreleasepool {
+                
+            }
+        }
+    }
     
 //    self.cc_navigationBarHidden = YES;
     CC_TableView *tableView = ccs.TableView
@@ -68,6 +102,37 @@
     ccs.ui.grayLine
     .cc_top(RH(30))
     .cc_addToView(self);
+    self.view.opaque;
+    CFRunLoopObserverRef observer = CFRunLoopObserverCreateWithHandler(CFAllocatorGetDefault(), kCFRunLoopAllActivities, YES, 0, ^(CFRunLoopObserverRef observer, CFRunLoopActivity activity) {
+
+        switch (activity) {
+            case kCFRunLoopEntry:
+                NSLog(@"进入");
+                break;
+            case kCFRunLoopBeforeTimers:
+                NSLog(@"即将处理Timer事件");
+                break;
+            case kCFRunLoopBeforeSources:
+                NSLog(@"即将处理Source事件");
+                break;
+            case kCFRunLoopBeforeWaiting:
+                NSLog(@"即将休眠");
+                break;
+            case kCFRunLoopAfterWaiting:
+                NSLog(@"被唤醒");
+                break;
+            case kCFRunLoopExit:
+                NSLog(@"退出RunLoop");
+                break;
+            default:
+                break;
+        }
+
+    });
+//    CFRunLoopAddObserver(CFRunLoopGetCurrent(), observer, kCFRunLoopDefaultMode);
+    
+    [[NSString alloc]initWithCString:@"" encoding:NSUTF8StringEncoding];
+    
 }
 
 @end

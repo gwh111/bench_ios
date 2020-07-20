@@ -13,6 +13,13 @@
 
 @implementation ccs
 
++ (BOOL)isDebug {
+#if DEBUG
+    return YES;
+#endif
+    return NO;
+}
+
 + (void)configureEnvironment:(int)tag {
     CCLOG(@"\napp name:%@\napp version:%@",[ccs appName],[ccs appVersion]);
     CC_Base.shared.environment = tag;
@@ -85,6 +92,10 @@
     NSString *body = [[NSString alloc] initWithFormat:format arguments:ap];
     va_end (ap);
     return body;
+}
+
++ (NSString *)stringValue:(id)value {
+    return [NSString stringWithFormat:@"%@",value];
 }
 
 + (NSString *)stringInt:(int)value {
@@ -181,6 +192,10 @@
 }
 
 #pragma mark CC_UIKit
++ (UIColor *)primaryColor {
+    return CC_CoreUI.shared.primaryColor;
+}
+
 + (CC_CoreUI *)coreUI {
     return [cc_message cc_class:CC_CoreUI.class method:@selector(shared)];
 }
@@ -222,23 +237,23 @@
 }
 
 + (float)relativeHeight:(float)height {
-    return [[cc_message cc_instance:CC_CoreUI.shared method:@selector(relativeHeight:) params:Float(height)]floatValue];
+    return [[cc_message cc_instance:CC_CoreUI.shared method:@selector(relativeHeight:) params:CC_FLOAT(height)]floatValue];
 }
 
 + (UIFont *)relativeFont:(float)fontSize {
-    return [cc_message cc_instance:CC_CoreUI.shared method:@selector(relativeFont:) params:Float(fontSize)];
+    return [cc_message cc_instance:CC_CoreUI.shared method:@selector(relativeFont:) params:CC_FLOAT(fontSize)];
 }
 
 + (UIFont *)relativeFont:(NSString *)fontName fontSize:(float)fontSize {
-    return [cc_message cc_instance:CC_CoreUI.shared method:@selector(relativeFont:fontSize:) params:fontName,Float(fontSize)];
+    return [cc_message cc_instance:CC_CoreUI.shared method:@selector(relativeFont:fontSize:) params:fontName,CC_FLOAT(fontSize)];
 }
 
 + (UIColor *)colorHexA:(NSString *)hex alpha:(float)alpha {
-    return [cc_message cc_class:[UIColor class] method:@selector(cc_hexA:alpha:) params:hex,Float(alpha)];
+    return [cc_message cc_class:[UIColor class] method:@selector(cc_hexA:alpha:) params:hex,CC_FLOAT(alpha)];
 }
 
 + (UIColor *)colorRgbA:(float)red green:(float)green blue:(float)blue alpha:(float)alpha {
-    return [cc_message cc_class:[UIColor class] method:@selector(cc_rgbA:green:blue:alpha:) params:Float(red),Float(blue),Float(green),Float(alpha)];
+    return [cc_message cc_class:[UIColor class] method:@selector(cc_rgbA:green:blue:alpha:) params:CC_FLOAT(red),CC_FLOAT(blue),CC_FLOAT(green),CC_FLOAT(alpha)];
 }
 
 + (NSString *)deviceName {
@@ -247,6 +262,10 @@
 
 + (id)getAView {
     return [cc_message cc_instance:CC_CoreUI.shared method:@selector(getAView) params:nil];
+}
+
++ (id)getLastWindow {
+    return CC_CoreUI.shared.getLastWindow;
 }
 
 + (BOOL)isDarkMode {
@@ -268,6 +287,10 @@
 #pragma mark action
 + (void)pushViewController:(CC_ViewController *)viewController {
     [cc_message cc_instance:CC_NavigationController.shared method:@selector(cc_pushViewController:) params:viewController];
+}
+
++ (void)pushViewController:(CC_ViewController *)viewController animated:(BOOL)animated {
+    [CC_NavigationController.shared cc_pushViewController:viewController animated:animated];
 }
 
 + (void)pushViewController:(CC_ViewController *)viewController withDismissVisible:(BOOL)dismissVisible {
@@ -299,7 +322,7 @@
 }
 
 + (void)popToRootViewControllerAnimated:(BOOL)animated {
-    [cc_message cc_instance:CC_NavigationController.shared method:@selector(cc_popToRootViewControllerAnimated:)params:Int(animated)];
+    [cc_message cc_instance:CC_NavigationController.shared method:@selector(cc_popToRootViewControllerAnimated:)params:CC_INT(animated)];
 }
 
 + (void)pushWebViewControllerWithUrl:(NSString *)urlStr {
@@ -416,12 +439,20 @@
     return [CC_BundleStore bundlePlistWithPath:name];
 }
 
-+ (BOOL)copyBunldFileToSandboxToPath:(NSString *)name type:(NSString *)type {
-    return [CC_BundleStore copyBunldFileToSandboxToPath:name type:type];
++ (BOOL)copyBundleFileToSandboxToPath:(NSString *)name type:(NSString *)type {
+    return [CC_BundleStore copyBundleFileToSandboxToPath:name type:type];
 }
 
-+ (BOOL)copyBunldPlistToSandboxToPath:(NSString *)name {
-    return [CC_BundleStore copyBunldPlistToSandboxToPath:name];
++ (BOOL)copyBundlePlistToSandboxToPath:(NSString *)name {
+    return [CC_BundleStore copyBundlePlistToSandboxToPath:name];
+}
+
++ (UIImage *)bundleImage:(NSString *)imgName bundleName:(NSString *)bundleName {
+    return [CC_BundleStore bundleImage:imgName bundleName:bundleName];
+}
+
++ (UIImage *)benchBundleImage:(NSString *)imgName {
+    return [CC_BundleStore benchBundleImage:imgName];
 }
 
 + (NSString *)sandboxPath {
@@ -440,8 +471,8 @@
     return [self.sandbox documentsPlistWithPath:name];
 }
 
-+ (BOOL)deleteSandboxFileWithName:(NSString *)name {
-    return [self.sandbox deleteDocumentsFileWithName:name];
++ (void)deleteSandboxFileWithName:(NSString *)name {
+    [self.sandbox deleteDocumentsFileWithName:name];
 }
 
 + (BOOL)saveToSandboxWithData:(id)data toPath:(NSString *)name type:(NSString *)type {
@@ -453,8 +484,8 @@
 }
 
 #pragma mark CC_LibAudio
-+ (CC_MusicBox *)musicBox {
-    return CC_MusicBox.shared;
++ (CC_Audio *)audio {
+    return CC_Audio.shared;
 }
 
 #pragma mark CC_CoreFoundation
@@ -501,8 +532,8 @@
 }
 
 #pragma mark CC_CoreThread
-+ (CC_CoreThread *)thread {
-    return CC_CoreThread.shared;
++ (CC_Thread *)thread {
+    return CC_Thread.shared;
 }
 
 + (void)gotoThread:(void (^)(void))block {
@@ -542,8 +573,8 @@
 }
 
 #pragma mark CC_CoreTimer
-+ (CC_CoreTimer *)timer {
-    return CC_CoreTimer.shared;
++ (CC_Timer *)timer {
+    return CC_Timer.shared;
 }
 
 + (void)timerRegister:(NSString *)name interval:(float)interval block:(void (^)(void))block {
@@ -576,6 +607,10 @@
 
 + (CC_Label *)Label {
     return [CC_Base.shared cc_init:CC_Label.class];
+}
+
++ (CC_StrokeLabel *)StrokeLabel {
+    return [CC_Base.shared cc_init:CC_StrokeLabel.class];
 }
 
 + (CC_Button *)Button {

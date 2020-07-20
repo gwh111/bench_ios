@@ -62,10 +62,13 @@
 }
 
 #pragma mark button
-- (CC_Button *)disabledDoneButton {
+// enabled = NO 灰底
+// enabled = YES 红底
+- (CC_Button *)doneButton {
     return ccs.Button
     .cc_frame(RH(20), 0, WIDTH() - RH(40), RH(40))
-    .cc_setBackgroundColorForState(HEX(#D7D9DB), UIControlStateNormal)
+    .cc_setBackgroundColorForState(HEX(#D7D9DB), UIControlStateDisabled)
+    .cc_setBackgroundColorForState(HEX(#F01F2F), UIControlStateNormal)
     .cc_setTitleColorForState(UIColor.whiteColor, UIControlStateNormal)
     .cc_setTitleForState(@"确认", UIControlStateNormal)
     .cc_cornerRadius(4)

@@ -67,7 +67,7 @@
     return data;
 }
 
-+ (BOOL)copyBunldFileToSandboxToPath:(NSString *)name type:(NSString *)type {
++ (BOOL)copyBundleFileToSandboxToPath:(NSString *)name type:(NSString *)type {
     if (!name) {
         CCLOG(@"no name");
         return NO;
@@ -92,8 +92,42 @@
     return [[NSFileManager defaultManager] copyItemAtPath:filePath toPath:sbPath error:nil];
 }
 
-+ (BOOL)copyBunldPlistToSandboxToPath:(NSString *)name {
-    return [self copyBunldFileToSandboxToPath:name type:@"plist"];
++ (BOOL)copyBundlePlistToSandboxToPath:(NSString *)name {
+    return [self copyBundleFileToSandboxToPath:name type:@"plist"];
+}
+
++ (UIImage *)benchBundleImage:(NSString *)imgName {
+    return [self bundleImage:imgName bundleName:@"bench_ios"];
+}
+
++ (UIImage *)bundleImage:(NSString *)imgName bundleName:(NSString *)bundleName {
+
+    UIImage *backImage;
+    NSBundle *mainBundle = [NSBundle bundleForClass:self.class];
+    if ([mainBundle pathForResource:bundleName ofType:@"bundle"]) {
+        NSString *myBundlePath = [mainBundle pathForResource:bundleName ofType:@"bundle"];
+        NSBundle *myBundle = [NSBundle bundleWithPath:myBundlePath];
+        backImage = [UIImage imageWithContentsOfFile:[myBundle pathForResource:imgName ofType:@"png"]];
+        if (!backImage) {
+            backImage = [UIImage imageWithContentsOfFile:[myBundle pathForResource:[NSString stringWithFormat:@"%@@2x",imgName] ofType:@"png"]];
+        }
+        if (!backImage) {
+            backImage = [UIImage imageWithContentsOfFile:[myBundle pathForResource:[NSString stringWithFormat:@"%@@3x",imgName] ofType:@"png"]];
+        }
+    } else {
+        NSString *appBundlePath = [mainBundle pathForResource:bundleName ofType:@"bundle"];
+        NSBundle *appBundle = [NSBundle bundleWithPath:appBundlePath];
+        NSString *myBundlePath = [appBundle pathForResource:@"Bundle" ofType:@"bundle"];
+        NSBundle *myBundle = [NSBundle bundleWithPath:myBundlePath];
+        backImage = [UIImage imageWithContentsOfFile:[myBundle pathForResource:imgName ofType:@"png"]];
+        if (!backImage) {
+            backImage = [UIImage imageWithContentsOfFile:[myBundle pathForResource:[NSString stringWithFormat:@"%@@2x",imgName] ofType:@"png"]];
+        }
+        if (!backImage) {
+            backImage = [UIImage imageWithContentsOfFile:[myBundle pathForResource:[NSString stringWithFormat:@"%@@3x",imgName] ofType:@"png"]];
+        }
+    }
+    return backImage;
 }
 
 @end

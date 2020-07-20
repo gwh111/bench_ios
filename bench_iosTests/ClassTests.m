@@ -25,12 +25,7 @@
 - (void)testFatherSon {
     
     Father *f = Son.new;
-    NSLog(@"%d c=%p ic=%p",f.x,Father.class,object_getClass(f));
-    NSLog(@"%p",object_getClass(f.class));
-    NSLog(@"%p",object_getClass(Father.class));
-    NSLog(@"%p",object_getClass(Son.class));
-    NSLog(@"%p",Son.class);
-    
+    NSLog(@"%d",f.x);
     // father init
     // son add
     // son init

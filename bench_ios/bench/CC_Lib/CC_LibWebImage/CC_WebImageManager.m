@@ -95,7 +95,7 @@
                 }else{
                     //静图
                     CGRect rect = CGRectMake(0, 0, image.size.width, image.size.height);
-                    UIGraphicsBeginImageContextWithOptions(image.size, YES, 0);
+                    UIGraphicsBeginImageContextWithOptions(image.size, NO, 0);
                     [[UIBezierPath bezierPathWithRoundedRect:rect cornerRadius:0.0] addClip];
                     [image drawInRect:rect];
                     transformImage = UIGraphicsGetImageFromCurrentImageContext();

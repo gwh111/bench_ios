@@ -16,6 +16,8 @@
 
 + (instancetype)shared;
 
+- (void)showCrashNotice:(NSString *)crashNotice;
+
 - (void)setupUncaughtExceptionHandler;
 
 - (void)methodNotExist:(NSString *)method className:(NSString *)className;

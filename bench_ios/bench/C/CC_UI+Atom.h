@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (CC_Label *)itemDesLabel;
 
 - (CC_Button *)closeButton;
-- (CC_Button *)disabledDoneButton;
+- (CC_Button *)doneButton;
 - (CC_Button *)warningButton;
 - (CC_Button *)wordButton;
 

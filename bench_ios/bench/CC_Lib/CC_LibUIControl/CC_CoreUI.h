@@ -49,12 +49,14 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 
 // Init base UI frame, default is 375/568 (iphone6)
 // 初始化 必须放入ui图尺寸 整个app以后的效果图全部以这个为尺寸
-@property(nonatomic,assign) float uiDemoWidth;
-@property(nonatomic,assign) float uiDemoHeight;
+@property (nonatomic, assign) float uiDemoWidth;
+@property (nonatomic, assign) float uiDemoHeight;
 
 // Default is 'RH(44)'
-@property(nonatomic,assign) float uiNavBarHeight;
-@property(nonatomic,assign) float uiTabBarHeight;
+@property (nonatomic, assign) float uiNavBarHeight;
+@property (nonatomic, assign) float uiTabBarHeight;
+
+@property (nonatomic, retain) UIColor *primaryColor;
 
 + (instancetype)shared;
 
@@ -98,6 +100,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 - (UIFont *)relativeFont:(NSString *)fontName fontSize:(float)fontSize;
 
 - (id)getAView;
+- (UIWindow *)getLastWindow;
 
 - (BOOL)isDarkMode;
 

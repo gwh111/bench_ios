@@ -17,8 +17,8 @@
 @implementation CC_Model
 @synthesize cc_modelDictionary;
 
-+ (CC_Model *)cc_modelWithDictionary:(NSDictionary *)dic {
-    CC_Model *model = CC_Model.new;
++ (instancetype)cc_modelWithDictionary:(NSDictionary *)dic {
+    id model = self.class.new;
     [model cc_setProperty:dic];
     return model;
 }
@@ -51,10 +51,10 @@
     for (int i = 0; i < names.count; i++) {
         NSString *name = names[i];
         name = [name substringFromIndex:1];
-        if (modelKVDic[name]) {
-            name = modelKVDic[name];
-        }
         id value = [dic valueForKey:name];
+        if (modelKVDic[name]) {
+            value = [dic valueForKey:modelKVDic[name]];
+        }
         NSString *type = types[i];
         if (!value) {
             if ([type containsString:@"NSString"]) {
@@ -124,8 +124,7 @@
     }
     
     if ([type containsString:@"CC_Money"]) {
-        CC_Money *money = CC_Money.new;
-        [money moneyWithString:[NSString stringWithFormat:@"%@", value]];
+        CC_Money *money = [CC_Money moneyWithString:[NSString stringWithFormat:@"%@", value]];
         [model setValue:money forKey:name];
         return;
     }

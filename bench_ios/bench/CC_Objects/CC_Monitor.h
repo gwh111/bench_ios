@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,assign) BOOL startLaunchMonitor;
 // 启动监控日志 默认开启
 @property (nonatomic,assign) BOOL startLaunchMonitorLog;
-// 定期检查 默认开启
+// 定期检查 默认关闭
 @property (nonatomic,assign) BOOL startPatrolMonitor;
 // 定期检查日志 默认关闭
 @property (nonatomic,assign) BOOL startPatrolMonitorLog;

@@ -14,11 +14,15 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CC_Mask : UIView
 
 // 加载文字的label
-@property (nonatomic,retain) CC_Label *textL;
+@property (nonatomic, retain) CC_Label *textL;
 
 + (instancetype)shared;
 
 - (void)start;
+
+// 暂停时调用start也不显示
+- (void)pause;
+- (void)resume;
 
 // 点击是否穿透
 // cross=0 点击不可穿透

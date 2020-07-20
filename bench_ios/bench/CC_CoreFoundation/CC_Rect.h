@@ -12,7 +12,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-#define Rect(xValue,yValue,widthValue,heightValue) [CC_Rect valueX:xValue y:yValue width:widthValue height:heightValue]
+#define CC_RECT(xValue,yValue,widthValue,heightValue) [CC_Rect valueX:xValue y:yValue width:widthValue height:heightValue]
 
 @interface CC_Rect : CC_Object
 

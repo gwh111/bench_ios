@@ -23,5 +23,6 @@
 
 // thd
 #import "MXRotationManager.h"
+#import "CC_Lib+UINavigationController.h"
 
 #endif /* CC_LibUIControl_h */

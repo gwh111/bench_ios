@@ -6,6 +6,12 @@
 	<array>
 		<dict>
 			<key>title</key>
+			<string>字体大小</string>
+			<key>className</key>
+			<string>TestFontVC</string>
+		</dict>
+		<dict>
+			<key>title</key>
 			<string>图片加载</string>
 			<key>className</key>
 			<string>Test_LibWebImageController</string>

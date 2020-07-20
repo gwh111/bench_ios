@@ -20,6 +20,9 @@ NS_ASSUME_NONNULL_BEGIN
 // 获得签名
 - (NSMutableString *)MD5SignValueWithDic:(NSMutableDictionary *)dic andMD5Key:(nullable NSString *)MD5KeyString;
 
+// 转换html
+- (NSAttributedString *)convertToHTMLString:(NSString *)htmlString;
+
 @end
 
 NS_ASSUME_NONNULL_END

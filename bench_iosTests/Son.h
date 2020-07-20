@@ -13,7 +13,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef void (^block1)(void);
 
+//@property (nonatomic, retain) NSString *p;
+@property (nonatomic, retain) NSString *isP;
+@property (nonatomic, retain) NSString *str;
 @property (nonatomic, assign) int x;
+@property (nonatomic, assign) int _y;
 
 - (instancetype)init2;
 

@@ -21,9 +21,9 @@
     NSArray *tempSelectArr;
 }
 
-@property (nonatomic, strong) void (^btnInitBlock)(CC_Button *btn);
+@property (nonatomic, strong) void (^btnInitBlock)(CC_Button *btn,CC_LabelGroup *group);
 @property (nonatomic, strong) void (^groupInitBlock)(CC_LabelGroup *group);
-@property (nonatomic, strong) void (^btnTappedBlock)(CC_Button *btn, NSUInteger index);
+@property (nonatomic, strong) void (^btnTappedBlock)(CC_Button *btn, NSUInteger index, CC_LabelGroup *group);
 
 @end
 
@@ -31,15 +31,15 @@
 
 static int baseTag=100;
 
-- (void)addBtnInitBlock:(void(^)(CC_Button *btn))block {
+- (void)addItemInitBlock:(void(^)(CC_Button *btn,CC_LabelGroup *group))block {
     _btnInitBlock = block;
 }
 
-- (void)addGroupInitBlock:(void(^)(CC_LabelGroup *group))block {
+- (void)addGroupUpdateBlock:(void(^)(CC_LabelGroup *group))block {
     _groupInitBlock = block;
 }
 
-- (void)addBtnTappedBlock:(void(^)(CC_Button *btn, NSUInteger index))block {
+- (void)addSelectBlock:(void(^)(CC_Button *btn, NSUInteger index, CC_LabelGroup *group))block {
     _btnTappedBlock = block;
 }
 
@@ -62,7 +62,7 @@ static int baseTag=100;
     [self updateLabels:tempNameArr selected:mutArr];
 }
 
-- (void)updateSelect:(BOOL)select atIndex:(int)index{
+- (void)updateSelect:(BOOL)select atIndex:(NSUInteger)index{
     NSMutableArray *mutArr = [[NSMutableArray alloc]initWithArray:tempSelectArr];
     [mutArr replaceObjectAtIndex:index withObject:@(select)];
     [self updateLabels:tempNameArr selected:mutArr];
@@ -162,14 +162,14 @@ static int baseTag=100;
                 [self.delegate labelGroup:self button:button tappedAtIndex:i];
             }
             if (self.btnTappedBlock) {
-                self.btnTappedBlock(button,i);
+                self.btnTappedBlock(button,i,self);
             }
         }];
         if ([self.delegate respondsToSelector:@selector(labelGroup:initWithButton:)]) {
             [self.delegate labelGroup:self initWithButton:button];
         }
         if (_btnInitBlock) {
-            _btnInitBlock(button);
+            _btnInitBlock(button,self);
         }
     }
     

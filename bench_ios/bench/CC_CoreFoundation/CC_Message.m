@@ -37,7 +37,7 @@
     for (id tmpObject = param; 1; tmpObject = va_arg(params, id)) {
         if (tmpObject) {
             [paramList addObject:tmpObject];
-        }else{
+        } else {
             [paramList addObject:NSNull.new];
         }
         i++;
@@ -67,7 +67,7 @@
     for (id tmpObject = param; 1; tmpObject = va_arg(params, id)) {
         if (tmpObject) {
             [paramList addObject:tmpObject];
-        }else{
+        } else {
             [paramList addObject:NSNull.new];
         }
         i++;
@@ -100,7 +100,7 @@
         for (id tmpObject = param; 1; tmpObject = va_arg(params, id)) {
             if (tmpObject) {
                 [paramsList addObject:tmpObject];
-            }else{
+            } else {
                 [paramsList addObject:[CC_Base.shared cc_init:NSNull.class]];
             }
             i++;
@@ -130,7 +130,7 @@
     for (id tmpObject = param; 1; tmpObject = va_arg(params, id)) {
         if (tmpObject) {
             [paramList addObject:tmpObject];
-        }else{
+        } else {
             [paramList addObject:NSNull.new];
         }
         i++;
@@ -156,7 +156,7 @@
     for (id tmpObject = param; 1; tmpObject = va_arg(params, id)) {
         if (tmpObject) {
             [paramList addObject:tmpObject];
-        }else{
+        } else {
             [paramList addObject:NSNull.new];
         }
         i++;
@@ -184,7 +184,7 @@
     for (id tmpObject = param; 1; tmpObject = va_arg(params, id)) {
         if (tmpObject) {
             [paramList addObject:tmpObject];
-        }else{
+        } else {
             [paramList addObject:NSNull.new];
         }
         i++;

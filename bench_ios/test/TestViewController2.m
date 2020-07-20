@@ -21,6 +21,8 @@
 
 @implementation TestViewController2
 
+static int a = 100;
+
 - (void)methd2withA:(NSString *)a b:(NSArray *)b{
     // TestController里的协议
     CCLOG(@"callback methd2withA");
@@ -179,8 +181,8 @@
     [ccs deleteSandboxFileWithName:@"web.html"];
     [ccs saveToSandboxWithData:@"abc" toPath:@"web" type:@"html"];
     
-    [ccs copyBunldFileToSandboxToPath:@"test" type:@"json"];
-    [ccs copyBunldPlistToSandboxToPath:@"test.json"];
+    [ccs copyBundleFileToSandboxToPath:@"test" type:@"json"];
+    [ccs copyBundlePlistToSandboxToPath:@"test.json"];
 }
 
 - (void)dealloc

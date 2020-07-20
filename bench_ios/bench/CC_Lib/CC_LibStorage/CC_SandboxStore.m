@@ -39,16 +39,44 @@
 }
 
 // 删掉文件
-- (BOOL)deleteAtPath:(NSString *)path error:(NSError *__autoreleasing *)error {
-    if (!path) return NO;
-    return [[NSFileManager defaultManager] removeItemAtPath:path error:error];
+- (void)deleteAtPath:(NSString *)path error:(NSError *__autoreleasing *)error {
+    if (!path) {
+        return;
+    }
+    
+    NSFileManager *fileManger = [NSFileManager defaultManager];
+    BOOL isDir = NO;
+
+    BOOL isExist = [fileManger fileExistsAtPath:path isDirectory:&isDir];
+    if (isExist) {
+        if (isDir) {
+            NSArray *dirArray = [fileManger contentsOfDirectoryAtPath:path error:nil];
+            NSString *subPath = nil;
+            for (NSString * str in dirArray) {
+                subPath = [path stringByAppendingPathComponent:str];
+                BOOL issubDir = NO;
+                [fileManger fileExistsAtPath:subPath isDirectory:&issubDir];
+                if (issubDir) {
+                    [self deleteAtPath:subPath error:error];
+                } else {
+                    [fileManger removeItemAtPath:path error:error];
+                }
+            }
+        } else {
+            [fileManger removeItemAtPath:path error:error];
+        }
+    }
+    
+//    return [[NSFileManager defaultManager] removeItemAtPath:path error:error];
 }
 
 // 删掉Documents里的文件
-- (BOOL)deleteDocuments:(NSString *)name {
-    if (!name) return NO;
+- (void)deleteDocuments:(NSString *)name {
+    if (!name) {
+        return;
+    }
     NSString *uniquePath = [[self homePath] stringByAppendingPathComponent:name];
-    return [self deleteAtPath:uniquePath error:nil];
+    [self deleteAtPath:uniquePath error:nil];
 }
 
 // 创建路径
@@ -116,18 +144,15 @@
     return nil;
 }
 
-- (BOOL)deleteDocumentsFileWithName:(NSString *)name {
-    if (!name) return NO;
+- (void)deleteDocumentsFileWithName:(NSString *)name {
+    if (!name) {
+        return;
+    }
     
-    NSFileManager *fileManager = [NSFileManager defaultManager];
     //文件名
     NSString *uniquePath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:name];
     
-    if (![fileManager fileExistsAtPath:uniquePath]) {
-        CCLOG(@"no such file '%@'",name);
-        return NO;
-    }
-    return [fileManager removeItemAtPath:uniquePath error:nil];
+    [self deleteAtPath:uniquePath error:nil];
 }
 
 - (BOOL)saveToDocumentsWithData:(id)data toPath:(NSString *)name type:(NSString *)type {

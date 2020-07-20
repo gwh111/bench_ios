@@ -7,6 +7,7 @@
 //
 
 #import "CC_WebImageDownloader.h"
+#import "CC_HttpEncryption.h"
 
 #define LOCK(lock) dispatch_semaphore_wait(lock, DISPATCH_TIME_FOREVER);
 #define UNLOCK(lock) dispatch_semaphore_signal(lock);
@@ -38,6 +39,16 @@
     self.URLsLock = dispatch_semaphore_create(1);
 }
 
+- (void)configToken:(NSMutableURLRequest *)request {
+    
+    NSDictionary *head = [CC_HttpEncryption configMockCipherHTTPHeader];
+    NSArray *keys = head.allKeys;
+    for (int i = 0; i < keys.count; i++) {
+        NSString *key = keys[i];
+        [request setValue:head[key] forHTTPHeaderField:key];
+    }
+}
+
 - (CC_WebImageDownloadToken *)downloadImageWithURL:(NSURL *)url progress:(CC_WebImageDownloadProgressBlock)progressBlock completed:(CC_WebImageDownloadCompletionBlock)completedBlock{
     if (!url || url.absoluteString.length == 0) {
         return nil;
@@ -45,7 +56,8 @@
     LOCK(self.URLsLock);
     CC_WebImageOperation* operation = [self.URLOperations objectForKey:url];
     if (!operation || operation.isCancelled || operation.isFinished) {
-        NSURLRequest* request = [[NSURLRequest alloc]initWithURL:url];
+        NSMutableURLRequest* request = [[NSMutableURLRequest alloc]initWithURL:url];
+        [self configToken:request];
         operation = [[CC_WebImageOperation alloc]initWithRequest:request];
         __weak typeof(self)weakSelf = self;
         operation.completionBlock = ^{

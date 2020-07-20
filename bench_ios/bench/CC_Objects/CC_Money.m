@@ -11,16 +11,33 @@
 
 @implementation CC_Money
 
-- (NSString *)moneyWithString:(NSString *)money {
++ (CC_Money *)moneyWithInt:(int)number {
     
-    if ([money hasSuffix:@"."]) {
-        money = [money substringToIndex:money.length - 1];
+    NSString *moneyStr = [NSString stringWithFormat:@"%d",number];
+    CC_Money *money = [CC_Money moneyWithString:moneyStr];
+    return money;
+}
+
++ (CC_Money *)moneyWithFloat:(float)number {
+    
+    NSString *moneyStr = [NSString stringWithFormat:@"%f",number];
+    CC_Money *money = [CC_Money moneyWithString:moneyStr];
+    return money;
+}
+
++ (CC_Money *)moneyWithString:(NSString *)str {
+    
+    str = [NSString stringWithFormat:@"%@",str];
+    CC_Money *money = CC_Money.new;
+    
+    if ([str hasSuffix:@"."]) {
+        str = [str substringToIndex:str.length - 1];
     }
-    money = [money cc_convertToDecimalStr:NSRoundBankers scale:2];
-    _value = money;
-    
-    _number = _value.doubleValue;
-    return _value;
+    str = [str cc_convertToDecimalStr:NSRoundPlain scale:2];
+    money.value = str;
+    money.number = money.value.doubleValue;
+    money.moneyValue = [NSString stringWithFormat:@"%.2f",money.number];
+    return money;
 }
 
 - (void)addMoney:(CC_Money *)add {

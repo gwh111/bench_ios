@@ -23,9 +23,12 @@
 + (NSDictionary *)bundlePlistWithPath:(NSString *)name;
 
 // 复制工程下的文件到沙盒
-+ (BOOL)copyBunldFileToSandboxToPath:(NSString *)name type:(NSString *)type;
++ (BOOL)copyBundleFileToSandboxToPath:(NSString *)name type:(NSString *)type;
 // 'plist' is a special case of file
-+ (BOOL)copyBunldPlistToSandboxToPath:(NSString *)name;
++ (BOOL)copyBundlePlistToSandboxToPath:(NSString *)name;
+
++ (UIImage *)benchBundleImage:(NSString *)imgName;
++ (UIImage *)bundleImage:(NSString *)imgName bundleName:(NSString *)bundleName;
 
 @end
 
