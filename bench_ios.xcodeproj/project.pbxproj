@@ -1775,6 +1775,7 @@
 				GCC_PREFIX_HEADER = "$(SRCROOT)/bench_ios/PrefixHeader.pch";
 				INFOPLIST_FILE = bench_ios/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_GENERATE_MAP_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.app.bench-ios1";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1793,6 +1794,7 @@
 				GCC_PREFIX_HEADER = "$(SRCROOT)/bench_ios/PrefixHeader.pch";
 				INFOPLIST_FILE = bench_ios/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_GENERATE_MAP_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.app.bench-ios1";
 				PRODUCT_NAME = "$(TARGET_NAME)";

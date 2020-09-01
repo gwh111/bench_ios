@@ -11,6 +11,8 @@
 @implementation TestView
 
 - (void)test{
+    CC_Bool *b=CC_Bool.new;
+    b.value=1;
     
 //    [self.cc_viewController.baseView removeFromSuperview];
 }

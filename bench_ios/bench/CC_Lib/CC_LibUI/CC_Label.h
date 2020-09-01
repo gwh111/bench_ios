@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CC_Label (CCActions)
 
 - (void)bindText:(NSString *)text;
-- (void)bindAttText:(NSAttributedString *)attText;
+- (void)bindAttText:(NSAttributedString *)attText CC_UNAVAILABLE("not now");
 
 @end
 

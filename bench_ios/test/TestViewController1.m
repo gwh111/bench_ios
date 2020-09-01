@@ -5,6 +5,37 @@
 //  Created by gwh on 2019/7/26.
 //  Copyright © 2019 gwh. All rights reserved.
 //
+#if __has_include("YBIBDefaultWebImageMediator.h")
+#import "YBIBDefaultWebImageMediator.h"
+#endif
+/*
+ s.default_subspec = "Core"
+
+ s.subspec "Core" do |core|
+    core.resources      = "YBImageBrowser/YBImageBrowser.bundle"
+    core.dependency 'YYImage'
+    core.dependency 'SDWebImage', '>= 5.0.0'
+ end
+
+ s.subspec "Core" do |core|
+     core.dependency 'SDWebImage', '>= 5.0.0'
+ end
+ s.subspec "NOSD" do |core|
+     core.exclude_files  = "YBImageBrowser/WebImageMediator/YBIBDefaultWebImageMediator.{h,m}"
+ end
+ 
+ pod 'YBImageBrowser/NOSD'
+ */
+
+/*
+ 如何避免误使用高版本API导致的崩溃问题
+ 打开-Wunguarded-availability在调用高版本API时候报warning，为避免warning过多而忽视，用-Werror-unguarded-availability标记强制编译不过
+
+ 作者：yanhooIT
+ 链接：https://www.jianshu.com/p/b1a07a5e1a44
+ 来源：简书
+ 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+ */
 
 #import "TestViewController1.h"
 #import "TestViewController2.h"
@@ -85,7 +116,10 @@ static int a = 101;
     
     CCLOG(@"viewDidDisappear");
 }
-
+- (void)viewDidLayoutSubviews {
+    
+    NSLog(@"viewDidLayoutSubviews");
+}
 - (void)viewDidAppear:(BOOL)animated {
     
     CCLOG(@"didapper");
@@ -170,6 +204,7 @@ static int a = 101;
     NSLog(@"TestViewController1dealloc");
 }
 - (void)cc_viewDidLoad {
+    
     static int aaaa=0;
     aaaa++;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{

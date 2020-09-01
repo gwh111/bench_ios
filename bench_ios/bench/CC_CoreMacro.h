@@ -44,4 +44,16 @@ blockFunc(__VA_ARGS__);              \
 #define LOCK(lock) dispatch_semaphore_wait(lock, DISPATCH_TIME_FOREVER);
 #define UNLOCK(lock) dispatch_semaphore_signal(lock);
 
+#if !defined(NS_UNAVAILABLE)
+#define NS_UNAVAILABLE UNAVAILABLE_ATTRIBUTE
+#endif
+
+#ifndef CC_UNAVAILABLE
+#if __has_attribute(unavailable)
+#define CC_UNAVAILABLE(message) __attribute__((unavailable(message)))
+#else
+#define CC_UNAVAILABLE(message)
+#endif
+#endif
+
 #endif /* CC_CoreMacro_h */

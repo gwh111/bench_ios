@@ -36,7 +36,7 @@ static inline void ccs_timeCost(void (^block)(void), void (^complete)(double ms)
 }
 
 @interface ccs : CC_Object
-
+//
 + (BOOL)isDebug;
 
 // 手动配置环境 0线上 1主干 默认根据 CCBUILDTAG 打包方式选择
