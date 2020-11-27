@@ -56,7 +56,7 @@
     return ccs.Label
     .cc_frame(RH(10), RH(15), RH(200), RH(35))
     .cc_textColor(UIColor.grayColor)
-    .cc_textAlignment(NSTextAlignmentCenter)
+    .cc_textAlignment(NSTextAlignmentLeft)
     .cc_font(RF(14))
     .cc_text(@"描述");
 }

@@ -8,8 +8,27 @@
 #import "CC_Tool+Date.h"
 #import "NSString+CC_Foundation.h"
 #import "NSDate+CC_Foundation.h"
+#import "ccs.h"
 
 @implementation CC_Tool (Date)
+
+- (BOOL)checkNeedUpdateWithKey:(NSString *)key second:(NSUInteger)second {
+    BOOL needUpdate = NO;
+    NSDate *date = [ccs getShared:key];
+    if (date) {
+        NSDate *now = NSDate.cc_localDate;
+        NSTimeInterval inter = [ccs.tool compareDate:now cut:date];
+        if (inter > second) {
+            [ccs resetShared:key value:now];
+            needUpdate = YES;
+        }
+    } else {
+        NSDate *now = NSDate.cc_localDate;
+        [ccs resetShared:key value:now];
+        needUpdate = YES;
+    }
+    return needUpdate;
+}
 
 - (NSTimeInterval)compareDate:(id)date1 cut:(id)date2 {
     if (!date1 || !date2) {

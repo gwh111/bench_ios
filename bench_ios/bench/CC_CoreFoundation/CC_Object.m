@@ -39,6 +39,8 @@
 }
 
 + (void)forwardInvocation:(NSInvocation *)anInvocation {
+#ifdef DEBUG
+#else
     id method = NSStringFromSelector(anInvocation.selector);
     NSString *class = NSStringFromClass(object_getClass(self));
     // 转发到unknow并记录异常
@@ -47,9 +49,12 @@
     [anInvocation setArgument:&method atIndex:2];
     [anInvocation setArgument:&class atIndex:3];
     [anInvocation invokeWithTarget:self.class];
+#endif
 }
 
 - (void)forwardInvocation:(NSInvocation *)anInvocation {
+#ifdef DEBUG
+#else
     id method = NSStringFromSelector(anInvocation.selector);
     NSString *class = NSStringFromClass(object_getClass(self));
     // 转发到unknow并记录异常
@@ -58,6 +63,7 @@
     [anInvocation setArgument:&method atIndex:2];
     [anInvocation setArgument:&class atIndex:3];
     [anInvocation invokeWithTarget:self.class];
+#endif
 }
 
 @end
