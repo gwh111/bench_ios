@@ -56,7 +56,7 @@
     [controller presentViewController:alertController animated:NO completion:nil];
 }
 
-- (void)showTextFieldAltOn:(UIViewController *)controller title:(NSString *)title msg:(NSString *)msg placeholder:(NSString *)placeholder bts:(NSArray *)bts block:(void (^)(int index, NSString *name, NSString *text))block {
+- (void)showTextFieldAltOn:(UIViewController *)controller title:(NSString *)title msg:(NSString *)msg placeholder:(NSString *)placeholder bts:(NSArray *)bts block:(void (^)(int index, NSString *indexTitle, NSString *text))block {
     [self showTextFieldAltOn:controller title:title msg:msg placeholder:placeholder bts:bts block:block textFieldBlock:nil];
 }
 
