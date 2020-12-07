@@ -119,6 +119,9 @@
     if (!name) {
         CCLOGAssert(@"no name");
     }
+    if (registerNameMutArr.count == 0) {
+        return;
+    }
     [lock lock];
     //写保护
     [registerMutDic removeObjectForKey:name];
