@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong) UIView *line;
 
 - (void)updateConfig:(CC_NavigationBarConfig *)config;
+- (void)setBackWhite;
 
 @end
 

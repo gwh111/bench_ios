@@ -42,6 +42,7 @@
 - (void)cc_dismissViewController;
 - (void)cc_popToViewController:(Class)aClass;
 - (void)cc_popToRootViewControllerAnimated:(BOOL)animated;
+- (CC_ViewController *)cc_popViewControllerAnimated:(BOOL)animated;
 
 - (void)cc_pushWebViewControllerWithUrl:(NSString *)urlStr;
 

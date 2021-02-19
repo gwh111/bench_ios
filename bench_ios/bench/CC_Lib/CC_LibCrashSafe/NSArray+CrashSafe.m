@@ -12,9 +12,11 @@
 @implementation NSArray (CrashSafe)
 
 + (void)load {
+#if DEBUG
+        return;
+#endif
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        
         // 没内容类型是__NSArray0
         {
             Class class = NSClassFromString(@"__NSArray0");

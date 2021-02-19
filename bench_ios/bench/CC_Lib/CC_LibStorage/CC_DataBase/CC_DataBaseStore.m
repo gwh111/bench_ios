@@ -15,7 +15,7 @@ static const void * const kDispatchQueueSpecificKey = &kDispatchQueueSpecificKey
 
 @interface CC_DataBaseStore ()
 
-@property (nonatomic, strong) dispatch_queue_t  queue;
+@property (nonatomic, strong) dispatch_queue_t queue;
 @property (nonatomic, strong) CC_Database *db;
 @property (nonatomic, readwrite, nonnull) NSString *databasePath;
 
@@ -27,6 +27,14 @@ static const void * const kDispatchQueueSpecificKey = &kDispatchQueueSpecificKey
     return [CC_Base.shared cc_registerSharedInstance:self block:^{
         [CC_DataBaseStore.shared start];
     }];
+}
+
+- (void)setupDBWithName:(NSString *)name {
+    _queue = dispatch_queue_create([[NSString stringWithFormat:@"ccdb.%@", self] UTF8String], NULL);
+    dispatch_queue_set_specific(_queue, kDispatchQueueSpecificKey, (__bridge void *)self, NULL);
+
+    self.databasePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingString:name];
+    self.db = [[CC_Database alloc] initWithPath:self.databasePath];
 }
 
 - (void)start {

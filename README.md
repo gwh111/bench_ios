@@ -1,3 +1,6 @@
+## Swift版的扩展，[bench_swift](https://github.com/gwh111/bench_swift)，通过bench.xxx调用，同ccs.xxx
+
+
 XcodeCustom 下的模板安装
 ```
 sh copyfiles.sh 

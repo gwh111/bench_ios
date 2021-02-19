@@ -74,6 +74,8 @@
 // 有中文
 - (BOOL)cc_hasChinese;
 
+- (BOOL)cc_hasLetter;
+
 // 手机号码验证
 - (BOOL)cc_isMobileCell;
 

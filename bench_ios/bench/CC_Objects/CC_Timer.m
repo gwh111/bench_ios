@@ -86,8 +86,10 @@
             [registerTimeMutArr replaceObjectAtIndex:i withObject:@(plus)];
             
             [CC_Thread.shared gotoMain:^{
-                void (^myBlock)(void) = self->registerBlockMutArr[i];
-                myBlock();
+                if (self->registerBlockMutArr.count > i) {
+                    void (^myBlock)(void) = self->registerBlockMutArr[i];
+                    myBlock();
+                }
             }];
         }
     }

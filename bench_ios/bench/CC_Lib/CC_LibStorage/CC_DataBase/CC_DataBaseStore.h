@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly, nullable) NSString *databasePath;
 
 + (instancetype)shared;
+
+- (void)setupDBWithName:(NSString *)name;
 /**
  * 说明: 自定义SQL进行增 改 删 查
  * @param sql sql

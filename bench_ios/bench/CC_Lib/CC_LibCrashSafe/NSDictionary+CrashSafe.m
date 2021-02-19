@@ -21,6 +21,9 @@
 @implementation NSMutableDictionary (CrashSafe)
 
 + (void)load {
+#if DEBUG
+        return;
+#endif
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         Class class = NSClassFromString(@"__NSDictionaryM");

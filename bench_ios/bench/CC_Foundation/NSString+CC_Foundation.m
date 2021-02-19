@@ -214,6 +214,22 @@
     return YES;
 }
 
+- (BOOL)cc_hasLetter {
+    if (self.length == 0) {
+        return NO;
+    }
+    NSString *regex =@"[a-zA-Z]*";
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",regex];
+    NSArray *words = [self cc_convertToWord];
+    for (int i = 0; i < words.count; i++) {
+        NSString *word = words[i];
+        if ([pred evaluateWithObject:word]) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
 - (BOOL)cc_hasChinese {
     for(int i = 0; i < [self length]; i++){
         int a = [self characterAtIndex:i];

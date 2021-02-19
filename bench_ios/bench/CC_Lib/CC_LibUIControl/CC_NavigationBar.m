@@ -11,6 +11,7 @@
 @implementation CC_NavigationBar
 
 static NSString *KEY_BACK_ICON = @"gray_navBack_arrow_icon@3x";
+static NSString *KEY_BACK_ICON_LIGHT = @"white_navBack_arrow_icon@3x";
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
@@ -73,6 +74,23 @@ static NSString *KEY_BACK_ICON = @"gray_navBack_arrow_icon@3x";
     _titleLabel.font = config.cc_navigationBarTitleFont;
     _titleLabel.textColor = config.cc_navigationBarTitleColor;
     self.backgroundColor = config.cc_navigationBarBackgroundColor;
+}
+
+- (void)setBackWhite {
+    UIImage *backImage;
+    NSBundle *mainBundle = [NSBundle bundleForClass:[self class]];
+    if ([mainBundle pathForResource:@"bench_ios" ofType:@"bundle"]) {
+        NSString *myBundlePath = [mainBundle pathForResource:@"bench_ios" ofType:@"bundle"];
+        NSBundle* myBundle = [NSBundle bundleWithPath:myBundlePath];
+        backImage = [UIImage imageWithContentsOfFile:[myBundle pathForResource:KEY_BACK_ICON_LIGHT ofType:@"png"]];
+    }else{
+        NSString *appBundlePath = [mainBundle pathForResource:@"bench_ios" ofType:@"bundle"];
+        NSBundle* appBundle = [NSBundle bundleWithPath:appBundlePath];
+        NSString *myBundlePath = [appBundle pathForResource:@"Bundle" ofType:@"bundle"];
+        NSBundle* myBundle = [NSBundle bundleWithPath:myBundlePath];
+        backImage = [UIImage imageWithContentsOfFile:[myBundle pathForResource:KEY_BACK_ICON_LIGHT ofType:@"png"]];
+    }
+    [_backButton setImage:backImage forState:UIControlStateNormal];
 }
 
 @end
