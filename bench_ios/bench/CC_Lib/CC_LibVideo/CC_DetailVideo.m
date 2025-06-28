@@ -73,7 +73,7 @@
     .cc_h(3)
     .cc_addToView(playerVC.view);
     
-    [playerVC.view tappedInterval:1 withBlock:^(id  _Nonnull view) {
+    [playerVC.view cc_tappedInterval:1 withBlock:^(id  _Nonnull view) {
        
         CC_View *toolBar = self.toolBar;
         CC_View *slideLine = self.slideLine;

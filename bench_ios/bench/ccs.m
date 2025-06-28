@@ -277,6 +277,7 @@
 }
 
 + (CC_ViewController *)currentVC {
+    return CC_NavigationController.shared.currentVC;
     return [cc_message cc_instance:[self navigation] method:@selector(currentVC) params:nil];
 }
 

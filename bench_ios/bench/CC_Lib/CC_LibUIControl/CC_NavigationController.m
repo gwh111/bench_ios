@@ -46,6 +46,7 @@
 }
 
 - (CC_ViewController *)currentVC {
+    return [ccs getShared:@"currentVC"];
     if (cc_UINavList.count > 0) {
         UINavigationController *navC = cc_UINavList.lastObject;
         return navC.viewControllers.lastObject;
